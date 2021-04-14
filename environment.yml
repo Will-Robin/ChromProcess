@@ -1,0 +1,9 @@
+name: ChromProcess
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - numpy
+  - scipy
+  - matplotlib
+  - netCDF4
