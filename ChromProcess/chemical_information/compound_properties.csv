@@ -1,0 +1,92 @@
+compound_name,@ SMILES,@@ SMILES,Class,colour,Mr_gmol-1
+formaldehyde,C=O,C=O,C1_Class_I,#0917e5,30.03
+formate,O=CO,O=CO,Carboxylic_acid,#040404,46
+glycolaldehyde,O=CCO,O=CCO,C2_Class_I,#6d1df1,60.05
+dihydroxyacetone,O=C(CO)CO,O=C(CO)CO,C3_Class_II,#e7a529,90.08
+glyceraldehyde 1,O=C[C@H](O)CO,O=C[C@@H](O)CO,C3_Class_I,#d3b237,90.08
+glyceraldehyde 2,O=C[C@H](O)CO,O=C[C@@H](O)CO,C3_Class_I,#d3b237,90.08
+glycerol,OCC(O)CO,OCC(O)CO,C3_alcohol,#f79a15,92.09
+erythritol,OC[C@H](O)[C@H](O)CO,OC[C@@H](O)[C@@H](O)CO,C4_alcohol,#e0e3e1,112.12
+threitol,OC[C@@H](O)[C@H](O)CO,OC[C@H](O)[C@@H](O)CO,C4_alcohol,#e0e3e1,112.12
+aldotriose_alpha_branched,O=CC(O)(CO)CO,O=CC(O)(CO)CO,C4_Class_II,#44AAAA,120.1
+erythrose 1,O=C[C@H](O)[C@H](O)CO,O=C[C@@H](O)[C@@H](O)CO,C4_Class_I,#77AADD,120.1
+erythrose 2,O=C[C@H](O)[C@H](O)CO,O=C[C@@H](O)[C@@H](O)CO,C4_Class_I,#77AADD,120.1
+erythrulose 1,O=C(CO)[C@H](O)CO,O=C(CO)[C@@H](O)CO,C4_Class_II,#117777,120.1
+erythrulose 2,O=C(CO)[C@H](O)CO,O=C(CO)[C@@H](O)CO,C4_Class_II,#117777,120.1
+glycolaldehyde_dimer,CC1COC(C)CO1,CC1COC(C)CO1,Dimer,#6d1df1,120.1
+threose 1,O=C[C@@H](O)[C@H](O)CO,O=C[C@H](O)[C@@H](O)CO,C4_Class_I,#525fb7,120.1
+threose 2,O=C[C@@H](O)[C@H](O)CO,O=C[C@H](O)[C@@H](O)CO,C4_Class_I,#525fb7,120.1
+2-ketotetrose_alpha_branch,O=C(CO)C(O)(CO)CO,O=C(CO)C(O)(CO)CO,C5_Class_III,#a3604b,150.13
+3-ketopentose_anti,O=C([C@H](O)CO)[C@H](O)CO,O=C([C@@H](O)CO)[C@@H](O)CO,C5_Class_III,#a3604b,150.13
+3-ketopentose_syn,O=C([C@@H](O)CO)[C@H](O)CO,O=C([C@H](O)CO)[C@@H](O)CO,C5_Class_III,#a3604b,150.13
+aldotetrose_alpha_branch_anti,O=C[C@@](O)(CO)[C@H](O)CO,O=C[C@](O)(CO)[C@@H](O)CO,C5_Class_IV,#f53f06,150.13
+aldotetrose_alpha_branch_syn,O=C[C@](O)(CO)[C@H](O)CO,O=C[C@@](O)(CO)[C@@H](O)CO,C5_Class_IV,#f53f06,150.13
+aldotetrose_beta_branch,O=C[C@H](O)C(O)(CO)CO,O=C[C@@H](O)C(O)(CO)CO,C5_Class_V,#f53f06,150.13
+arabinose 1,O=C[C@@H](O)[C@H](O)[C@H](O)CO,O=C[C@H](O)[C@@H](O)[C@@H](O)CO,C5_Class_I,#DD7790,150.13
+arabinose 2,O=C[C@@H](O)[C@H](O)[C@H](O)CO,O=C[C@H](O)[C@@H](O)[C@@H](O)CO,C5_Class_I,#DD7790,150.13
+lyxose 1,O=C[C@@H](O)[C@@H](O)[C@H](O)CO,O=C[C@H](O)[C@H](O)[C@@H](O)CO,C5_Class_I,#771124,150.13
+lyxose 2,O=C[C@@H](O)[C@@H](O)[C@H](O)CO,O=C[C@H](O)[C@H](O)[C@@H](O)CO,C5_Class_I,#771124,150.13
+ribose 1,O=C[C@H](O)[C@H](O)[C@H](O)CO,O=C[C@@H](O)[C@@H](O)[C@@H](O)CO,C5_Class_I,#AA4457,150.13
+ribulose 1,O=C(CO)[C@H](O)[C@H](O)CO,O=C(CO)[C@@H](O)[C@@H](O)CO,C5_Class_II,#eeb29f,150.13
+ribulose 2,O=C(CO)[C@H](O)[C@H](O)CO,O=C(CO)[C@@H](O)[C@@H](O)CO,C5_Class_II,#eeb29f,150.13
+xylose 1,O=C[C@H](O)[C@@H](O)[C@H](O)CO,O=C[C@@H](O)[C@H](O)[C@@H](O)CO,C5_Class_I,#cd0d3c,150.13
+xylose 2,O=C[C@H](O)[C@@H](O)[C@H](O)CO,O=C[C@@H](O)[C@H](O)[C@@H](O)CO,C5_Class_I,#cd0d3c,150.13
+xylulose 1,O=C(CO)[C@@H](O)[C@H](O)CO,O=C(CO)[C@H](O)[C@@H](O)CO,C5_Class_II,#eeb29f,150.13
+xylulose 2,O=C(CO)[C@@H](O)[C@H](O)CO,O=C(CO)[C@H](O)[C@@H](O)CO,C5_Class_II,#eeb29f,150.13
+arabitol,OC[C@H](O)C(O)[C@@H](O)CO,OC[C@@H](O)C(O)[C@H](O)CO,C5_alcohol,#f05094,152.15
+ribitol,OC[C@H](O)[C@H](O)[C@H](O)CO,OC[C@@H](O)[C@@H](O)[C@@H](O)CO,C5_alcohol,#ff0240,152.15
+xylitol,OC[C@H](O)C(O)[C@H](O)CO,OC[C@@H](O)C(O)[C@@H](O)CO,C5_alcohol,#b80d56,152.15
+dodecane,CCCCCCCCCCCC,CCCCCCCCCCCC,Internal_standard,#040404,170.2
+2-ketopentose_alpha_branch_RR,O=C(CO)[C@](O)(CO)[C@H](O)CO,O=C(CO)[C@@](O)(CO)[C@@H](O)CO,C6_Class_III,#6ef1c9,180.16
+2-ketopentose_alpha_branch_RS,O=C(CO)[C@@](O)(CO)[C@H](O)CO,O=C(CO)[C@](O)(CO)[C@@H](O)CO,C6_Class_III,#6ef1c9,180.16
+2-ketopentose_beta_branch,O=C(CO)[C@H](O)C(O)(CO)CO,O=C(CO)[C@@H](O)C(O)(CO)CO,C6_Class_III,#6ef1c9,180.16
+3-ketohexose_RRS,O=C([C@@H](O)CO)[C@H](O)[C@H](O)CO,O=C([C@H](O)CO)[C@@H](O)[C@@H](O)CO,C6_Class_III,#6ef1c9,180.16
+3-ketohexose_RSS,O=C([C@@H](O)CO)[C@@H](O)[C@H](O)CO,O=C([C@H](O)CO)[C@H](O)[C@@H](O)CO,C6_Class_III,#6ef1c9,180.16
+3-ketohexose_SRS,O=C([C@H](O)CO)[C@H](O)[C@H](O)CO,O=C([C@@H](O)CO)[C@@H](O)[C@@H](O)CO,C6_Class_III,#6ef1c9,180.16
+3-ketohexose_SSR,O=C([C@@H](O)[C@@H](O)CO)[C@H](O)CO,O=C([C@H](O)[C@H](O)CO)[C@@H](O)CO,C6_Class_III,#6ef1c9,180.16
+3-ketohexose_SSS,O=C([C@@H](O)[C@H](O)CO)[C@H](O)CO,O=C([C@H](O)[C@@H](O)CO)[C@@H](O)CO,C6_Class_III,#6ef1c9,180.16
+3-ketopentose_alpha_branch,O=C([C@H](O)CO)C(O)(CO)CO,O=C([C@@H](O)CO)C(O)(CO)CO,C6_Class_VI,#689285,180.16
+aldopentose_alpha_branch_RRR,O=C[C@@](O)(CO)[C@@H](O)[C@H](O)CO,O=C[C@](O)(CO)[C@H](O)[C@@H](O)CO,C6_Class_II,#689285,180.16
+aldopentose_alpha_branch_RRS,O=C[C@](O)(CO)[C@@H](O)[C@H](O)CO,O=C[C@@](O)(CO)[C@H](O)[C@@H](O)CO,C6_Class_II,#428317,180.16
+aldopentose_alpha_branch_RSR,O=C[C@@](O)(CO)[C@H](O)[C@H](O)CO,O=C[C@](O)(CO)[C@@H](O)[C@@H](O)CO,C6_Class_II,#428317,180.16
+aldopentose_alpha_branch_RSS,O=C[C@](O)(CO)[C@H](O)[C@H](O)CO,O=C[C@@](O)(CO)[C@@H](O)[C@@H](O)CO,C6_Class_II,#428317,180.16
+aldopentose_beta_branch_RRR,O=C[C@H](O)[C@](O)(CO)[C@H](O)CO,O=C[C@@H](O)[C@@](O)(CO)[C@@H](O)CO,C6_Class_IV,#06986a,180.16
+aldopentose_beta_branch_RSR,O=C[C@H](O)[C@@](O)(CO)[C@H](O)CO,O=C[C@@H](O)[C@](O)(CO)[C@@H](O)CO,C6_Class_II,#428317,180.16
+aldopentose_beta_branch_SRR,O=C[C@@H](O)[C@](O)(CO)[C@H](O)CO,O=C[C@H](O)[C@@](O)(CO)[C@@H](O)CO,C6_Class_V,#02402c,180.16
+aldopentose_beta_branch_SSR,O=C[C@@H](O)[C@@](O)(CO)[C@H](O)CO,O=C[C@H](O)[C@](O)(CO)[C@@H](O)CO,C6_Class_V,#02402c,180.16
+aldopentose_gamma_branch_RR,O=C[C@H](O)[C@@H](O)C(O)(CO)CO,O=C[C@@H](O)[C@H](O)C(O)(CO)CO,C6_Class_IV,#06986a,180.16
+aldopentose_gamma_branch_RS,O=C[C@@H](O)[C@@H](O)C(O)(CO)CO,O=C[C@H](O)[C@H](O)C(O)(CO)CO,C6_Class_IV,#06986a,180.16
+aldotetrose_alpha_beta_branch,O=C[C@@](O)(CO)C(O)(CO)CO,O=C[C@](O)(CO)C(O)(CO)CO,C6_Class_II,#428317,180.16
+allose 1,O=C[C@H](O)[C@H](O)[C@H](O)[C@H](O)CO,O=C[C@@H](O)[C@@H](O)[C@@H](O)[C@@H](O)CO,C6_Class_I,#106832,180.16
+allose 2,O=C[C@H](O)[C@H](O)[C@H](O)[C@H](O)CO,O=C[C@@H](O)[C@@H](O)[C@@H](O)[C@@H](O)CO,C6_Class_I,#106832,180.16
+altrose 1,O=C[C@@H](O)[C@H](O)[C@H](O)[C@H](O)CO,O=C[C@H](O)[C@@H](O)[C@@H](O)[C@@H](O)CO,C6_Class_I,#2b8536,180.16
+altrose 2,O=C[C@@H](O)[C@H](O)[C@H](O)[C@H](O)CO,O=C[C@H](O)[C@@H](O)[C@@H](O)[C@@H](O)CO,C6_Class_I,#2b8536,180.16
+fructose,O=C(CO)[C@@H](O)[C@H](O)[C@H](O)CO,O=C(CO)[C@H](O)[C@@H](O)[C@@H](O)CO,C6_Class_II,#56a45e,180.16
+galactose 1,O=C[C@H](O)[C@@H](O)[C@@H](O)[C@H](O)CO,O=C[C@@H](O)[C@H](O)[C@H](O)[C@@H](O)CO,C6_Class_I,#3aa301,180.16
+galactose 2,O=C[C@H](O)[C@@H](O)[C@@H](O)[C@H](O)CO,O=C[C@@H](O)[C@H](O)[C@H](O)[C@@H](O)CO,C6_Class_I,#3aa302,180.16
+glucose 1,O=C[C@H](O)[C@@H](O)[C@H](O)[C@H](O)CO,O=C(CO)C(O)C(O)C(O)CO,C6_Class_I,#7ac890,180.16
+glucose 2,O=C[C@H](O)[C@@H](O)[C@H](O)[C@H](O)CO,O=C[C@@H](O)[C@H](O)[C@@H](O)[C@@H](O)CO,C6_Class_I,#7ac890,180.16
+gulose 1,O=C[C@H](O)[C@H](O)[C@@H](O)[C@H](O)CO,O=C[C@@H](O)[C@@H](O)[C@H](O)[C@@H](O)CO,C6_Class_I,#04b978,180.16
+gulose 2,O=C[C@H](O)[C@H](O)[C@@H](O)[C@H](O)CO,O=C[C@@H](O)[C@@H](O)[C@H](O)[C@@H](O)CO,C6_Class_I,#04b978,180.16
+idose 1,O=C[C@@H](O)[C@H](O)[C@@H](O)[C@H](O)CO,O=C[C@H](O)[C@@H](O)[C@H](O)[C@@H](O)CO,C6_Class_I,#56a45e,180.16
+idose 2,O=C[C@@H](O)[C@H](O)[C@@H](O)[C@H](O)CO,O=C[C@H](O)[C@@H](O)[C@H](O)[C@@H](O)CO,C6_Class_I,#36bf44,180.16
+mannose 1,O=C[C@@H](O)[C@@H](O)[C@H](O)[C@H](O)CO,O=C[C@H](O)[C@H](O)[C@@H](O)[C@@H](O)CO,C6_Class_I,#8ac08f,180.16
+mannose 2,O=C[C@@H](O)[C@@H](O)[C@H](O)[C@H](O)CO,O=C[C@H](O)[C@H](O)[C@@H](O)[C@@H](O)CO,C6_Class_I,#8ac08f,180.16
+psicose 1,O=C(CO)[C@H](O)[C@H](O)[C@H](O)CO,O=C(CO)[C@@H](O)[C@@H](O)[C@@H](O)CO,C6_Class_II,#51a778,180.16
+psicose 2,O=C(CO)[C@H](O)[C@H](O)[C@H](O)CO,O=C(CO)[C@@H](O)[C@@H](O)[C@@H](O)CO,C6_Class_II,#51a778,180.16
+sorbose,O=C(CO)[C@H](O)[C@@H](O)[C@H](O)CO,O=C(CO)[C@@H](O)[C@H](O)[C@@H](O)CO,C6_Class_II,#34be72,180.16
+tagatose 1,O=C(CO)[C@@H](O)[C@@H](O)[C@H](O)CO,O=C(CO)[C@H](O)[C@H](O)[C@@H](O)CO,C6_Class_II,#0ec460,180.16
+tagatose 2,O=C(CO)[C@@H](O)[C@@H](O)[C@H](O)CO,O=C(CO)[C@H](O)[C@H](O)[C@@H](O)CO,C6_Class_II,#0ec460,180.16
+talose 1,O=C[C@@H](O)[C@@H](O)[C@@H](O)[C@H](O)CO,O=C[C@H](O)[C@H](O)[C@H](O)[C@@H](O)CO,C6_Class_I,#069848,180.16
+talose 2,O=C[C@@H](O)[C@@H](O)[C@@H](O)[C@H](O)CO,O=C[C@H](O)[C@H](O)[C@H](O)[C@@H](O)CO,C6_Class_I,#069848,180.16
+polyol 1,OC(C(O)C(C(CO)O)O)CO,OC(C(O)C(C(CO)O)O)CO,polyol,#d0d1df,182.17
+polyol 2,OC(C(O)C(C(CO)O)O)CO,OC(C(O)C(C(CO)O)O)CO,polyol,#d0d1df,182.17
+polyol 3,OCC(O)C(O)C(O)C(O)CO,OCC(O)C(O)C(O)C(O)CO,polyol,#d0d1df,182.17
+polyol 4,OCC(O)C(O)C(O)C(O)CO,OCC(O)C(O)C(O)C(O)CO,polyol,#d0d1df,182.17
+sorbitol,OC[C@H](O)[C@@H](O)[C@H](O)[C@H](O)CO,OC[C@@H](O)[C@H](O)[C@@H](O)[C@@H](O)CO,C6_alcohol,#e0e3e2,182.17
+tetradecane,CCCCCCCCCCCCCC,CCCCCCCCCCCCCC,Internal_standard,#040404,198.23
+alphaDglycerogalactoheptose 1,O=CC(O)C(O)C(O)C(O)C(O)CO,O=CC(O)C(O)C(O)C(O)C(O)CO,C7_Class_I,#a01262,210.07
+alphaDglycerogalactoheptose 2,O=CC(O)C(O)C(O)C(O)C(O)CO,O=CC(O)C(O)C(O)C(O)C(O)CO,C7_Class_I,#a01262,210.07
+galactoheptose 1,O=C[C@H](O)[C@@H](O)[C@@H](O)[C@H](O)[C@H](O)CO,O=C[C@@H](O)[C@H](O)[C@H](O)[C@@H](O)[C@@H](O)CO,C7_Class_I,#702752,210.07
+galactoheptose 2,O=C[C@H](O)[C@@H](O)[C@@H](O)[C@H](O)[C@H](O)CO,O=C[C@@H](O)[C@H](O)[C@H](O)[C@@H](O)[C@@H](O)CO,C7_Class_I,#702752,210.07
+maltitol,OC[C@H](O)[C@@H](O)[C@H](O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O)[C@H](O)CO,OC[C@@H](O)[C@H](O)[C@@H](O[C@@H]1O[C@@H](CO)[C@H](O)[C@@H](O)[C@@H]1O)[C@@H](O)CO,C6_dimer_alcohol,#e0e3e4,344.313
