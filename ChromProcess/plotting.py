@@ -820,7 +820,8 @@ def region_heatmap_with_ion_chroms(series, information, cutoff = 0.1):
         plt.clf()
         plt.close()
 
-def confidence_ellipse(x, y, ax = None, weights = None, n_std=3.0, facecolor='none', edgecolor = 'k',**kwargs):
+def confidence_ellipse(x, y, ax = None, weights = None, n_std=3.0,
+                        facecolor='none', edgecolor = 'k',**kwargs):
     """
     Adapted from matplotlib documentation.
 
