@@ -190,6 +190,8 @@ def cluster(values, bound = 0.1):
 
     import numpy as np
 
+    values = np.sort(values)
+    
     cluster = []
     for m in range(0,len(values)):
         if len(cluster) == 0:
@@ -208,6 +210,8 @@ def cluster(values, bound = 0.1):
 def cluster_indices(values, bound = 0.1):
 
     import numpy as np
+
+    values = np.sort(values)
 
     cluster = []
     for m in range(0,len(values)):
