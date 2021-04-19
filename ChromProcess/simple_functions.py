@@ -205,6 +205,25 @@ def cluster(values, bound = 0.1):
 
     yield cluster
 
+def cluster_indices(values, bound = 0.1):
+
+    import numpy as np
+
+    cluster = []
+    for m in range(0,len(values)):
+        if len(cluster) == 0:
+            pass
+        else:
+            clust_av = np.average(values[cluster])
+
+            if  abs(values[m]-clust_av) > bound:
+                yield cluster
+                cluster = []
+
+        cluster.append(m)
+
+    yield cluster
+
 def isfloat(thing):
     '''
     Test if an thing (e.g. str) can be converted to a float.
@@ -263,7 +282,7 @@ def weighted_stdev(samples, weights):
     wt_av_2 = weights*x_x_bar
     sum = np.sum(wt_av_2)
 
-    denom = (len(weights)-1 / len(weights))*np.sum(weights)
+    denom = ((len(weights)-1)/ len(weights))*np.sum(weights)
 
     return sum/denom
 
