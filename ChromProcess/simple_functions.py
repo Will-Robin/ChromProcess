@@ -259,13 +259,39 @@ def weighted_stdev(samples, weights):
     import numpy as np
 
     averages = np.mean(samples)
-    av_2 = averages**2
-    wt_av_2 = weights*av_2
+    x_x_bar = (samples - averages)**2
+    wt_av_2 = weights*x_x_bar
     sum = np.sum(wt_av_2)
 
     denom = (len(weights)-1 / len(weights))*np.sum(weights)
 
     return sum/denom
+
+def weighted_cov(samples, weights, ddof = 1):
+
+    import numpy as np
+
+    v1 = np.sum(weights)
+    w_samples = np.zeros(samples.shape)
+    for x in range(0,len(samples)):
+        w_samples[x] = samples[x]*weights[x]
+
+    cov = np.dot(w_samples, w_samples.T) * v1 / (v1**2 - ddof * v1)
+
+    return cov
+
+def weighted_corrcoef(samples,weights):
+    from ChromProcess import simple_functions as s_f
+    import numpy as np
+
+    cov = s_f.weighted_cov(samples, weights, ddof = 1)
+    v = np.sqrt(np.diag(cov))
+    outer_v = np.outer(v, v)
+    correlation = cov / outer_v
+    correlation[cov == 0] = 0
+
+    return correlation
+
 
 def sparse_corrcoef(A):
 
