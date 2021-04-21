@@ -135,8 +135,7 @@ def runSVD(matrix):
 
     # perform SVD using numpy
     U, S, Vh = np.linalg.svd(matrix, full_matrices = False,
-                             compute_uv = True,
-                             hermitian = False)
+                             compute_uv = True)
 
     # Flip signs so that largest vals are positive based on U
     U, Vh = simp_func.SVDflipSigns(U,Vh)
