@@ -182,16 +182,23 @@ def runPCA(matrix, n_components = 10):
 
     return results
 
-def reconstitueSVD(U,S,Vh):
-
+def reconstitute_full_SVD(U,S,Vh):
+    import numpy as np
     return np.dot(U*S,Vh)
+
+def SVD_transform(U,S,Vh,components = 1):
+    import numpy as np
+    Vh = Vh[:components]
+    U = U[:, :components]
+    U *= S[:components]
+    return np.dot(U,Vh)
 
 def cluster(values, bound = 0.1):
 
     import numpy as np
 
     values = np.sort(values)
-    
+
     cluster = []
     for m in range(0,len(values)):
         if len(cluster) == 0:
