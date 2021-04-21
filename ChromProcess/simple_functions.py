@@ -182,13 +182,22 @@ def runPCA(matrix, n_components = 10):
 
     return results
 
-def reconstitueSVD(U,S,Vh):
-
+def reconstitute_full_SVD(U,S,Vh):
+    import numpy as np
     return np.dot(U*S,Vh)
+
+def SVD_transform(U,S,Vh,components = 1):
+    import numpy as np
+    Vh = Vh[:components]
+    U = U[:, :components]
+    U *= S[:components]
+    return np.dot(U,Vh)
 
 def cluster(values, bound = 0.1):
 
     import numpy as np
+
+    values = np.sort(values)
 
     cluster = []
     for m in range(0,len(values)):
@@ -202,6 +211,27 @@ def cluster(values, bound = 0.1):
                 cluster = []
 
         cluster.append(values[m])
+
+    yield cluster
+
+def cluster_indices(values, bound = 0.1):
+
+    import numpy as np
+
+    values = np.sort(values)
+
+    cluster = []
+    for m in range(0,len(values)):
+        if len(cluster) == 0:
+            pass
+        else:
+            clust_av = np.average(values[cluster])
+
+            if  abs(values[m]-clust_av) > bound:
+                yield cluster
+                cluster = []
+
+        cluster.append(m)
 
     yield cluster
 
@@ -259,13 +289,39 @@ def weighted_stdev(samples, weights):
     import numpy as np
 
     averages = np.mean(samples)
-    av_2 = averages**2
-    wt_av_2 = weights*av_2
+    x_x_bar = (samples - averages)**2
+    wt_av_2 = weights*x_x_bar
     sum = np.sum(wt_av_2)
 
-    denom = (len(weights)-1 / len(weights))*np.sum(weights)
+    denom = ((len(weights)-1)/ len(weights))*np.sum(weights)
 
     return sum/denom
+
+def weighted_cov(samples, weights, ddof = 1):
+
+    import numpy as np
+
+    v1 = np.sum(weights)
+    w_samples = np.zeros(samples.shape)
+    for x in range(0,len(samples)):
+        w_samples[x] = samples[x]*weights[x]
+
+    cov = np.dot(w_samples, w_samples.T) * v1 / (v1**2 - ddof * v1)
+
+    return cov
+
+def weighted_corrcoef(samples,weights):
+    from ChromProcess import simple_functions as s_f
+    import numpy as np
+
+    cov = s_f.weighted_cov(samples, weights, ddof = 1)
+    v = np.sqrt(np.diag(cov))
+    outer_v = np.outer(v, v)
+    correlation = cov / outer_v
+    correlation[cov == 0] = 0
+
+    return correlation
+
 
 def sparse_corrcoef(A):
 

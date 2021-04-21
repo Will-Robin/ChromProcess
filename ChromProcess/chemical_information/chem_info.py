@@ -44,3 +44,4 @@ class_assignments =  {k:v for k,v in zip(props_dict['@ SMILES'], props_dict['Cla
 fr_assign = readTwoColInfo(script_dir/'frag_assignments.csv', 1)
 frag_assignments = {float(f):fr_assign[f] for f in fr_assign}
 frag_colours = readTwoColInfo(script_dir/'frag_assignments.csv', 2)
+frag_colours = {float(f):frag_colours[f] for f in frag_colours}
