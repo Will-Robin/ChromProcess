@@ -571,7 +571,7 @@ class PeakCollectionElement:
         self.start = start
         self.end = end
         self.integral = integral
-        self.assignment = 'none'
+        self.assignment = 'Unknown'
         self.concentration = False
         self.conc_error = False
         self.mass_spectrum = mass_spectrum
