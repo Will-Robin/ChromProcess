@@ -4,11 +4,11 @@ from ChromProcess import file_import
 from ChromProcess import Classes
 from ChromProcess import info_params
 
-exp_paths = Classes.DataPaths(r'C:\Users\willi\Documents\Data\Data_information.csv')
-storage_stem = Path(r'C:\Users\willi\Documents\Data')
+exp_paths = Classes.DataPaths(r'...\Data_information.csv')
+storage_stem = Path(r'path to folder in which data are stored')
 
 # path to calibration folder
-calib_path = Path(r'C:\Users\willi\Documents\Data\Analysis_information')
+calib_path = Path(r'...')
 # Get calibration files to use
 alloc_file = calib_path/'Calibration_file_allocations.csv'
 cal_alloc = file_import.importCalibrationFileAllocations(alloc_file)
@@ -33,8 +33,8 @@ for e in path_list:
     exp_name = e.experiment_code
     method = e.data_type
 
-    # point to data folder
-    rt_fldr = r'C:\Users\willi\Documents\Data\{}\FRN\{}'.format(method,exp_name)
+    # create path to data folder
+    rt_fldr = r''
     root_data_folder = Path(rt_fldr)
 
     # point program to peak table
