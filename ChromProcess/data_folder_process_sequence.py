@@ -36,7 +36,7 @@ def chrom_folder_process_sequence(source_folder, store_folder,
         conditions = Classes.Experiment_Conditions(information_file = conditions_file)
     else:
         print('Conditions file not found or parsing issues.')
-        print('Passing data set {}.'.format(e.experiment_code))
+        print('Passing data set {}.'.format(experiment.experiment_code))
         return False
 
     # Get experiment analysis details
@@ -44,7 +44,7 @@ def chrom_folder_process_sequence(source_folder, store_folder,
         analysis = Classes.Analysis_Information(information_file = analysis_file)
     else:
         print('Analysis file not found or parsing issues.')
-        print('Passing data set {}.'.format(e.experiment_code))
+        print('Passing data set {}.'.format(experiment.experiment_code))
         return False
 
     # Read in the data files
