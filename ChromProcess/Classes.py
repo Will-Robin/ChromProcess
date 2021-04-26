@@ -50,16 +50,22 @@ class Chromatogram:
         channel_select: str
             For HPLC data, which detector channel to select.
         '''
-        self.filename = str(file[:-4])
-
-        self.filetype = file.split('.')[-1]
+        if type(file) != str:
+            self.initialised_path = file
+            self.filename = file.stem.strip(file.suffix)
+            self.filetype = file.suffix.strip('.')
+        else:
+            self.initialised_path = file
+            self.filename = str(file[:-4])
+            self.filetype = file.split('.')[-1]
 
         self.peaks = {} # will become a dict of dicts: {region:{peak:{Peak_indices: [], Peak_start_indices: [], Peak_end_indices: []}}}
 
         self.internal_reference = False
 
-        if file.endswith(".txt"):
-            data  = file_import.get_data_Shimadzu_HPLC(file, file_import.get_info_Shimadzu_HPLC(file))
+        if self.filetype == 'txt':
+            data  = file_import.get_data_Shimadzu_HPLC(self.initialised_path,
+                                     file_import.get_info_Shimadzu_HPLC(file))
 
             try:
                 chan_ind = data["Wavelength"].index(channel_select)
@@ -72,9 +78,11 @@ class Chromatogram:
             self.c_type = 'HPLC'
             self.mass_spectra = False
 
-        if file.endswith(".cdf"):
-            self.time   = file_import.get_data_cdf_GCMS(file, 'scan_acquisition_time')/60 # converted to minutes
-            self.signal = file_import.get_data_cdf_GCMS(file, 'total_intensity')
+        if self.filetype == 'cdf':
+            self.time   = file_import.get_data_cdf_GCMS(self.initialised_path,
+                                                        'scan_acquisition_time')/60 # converted to minutes
+            self.signal = file_import.get_data_cdf_GCMS(self.initialised_path,
+                                                        'total_intensity')
             self.c_type = 'GCMS'
 
             if mass_spec == True:
@@ -88,9 +96,11 @@ class Chromatogram:
                 self.mass_intensity = []
                 self.scan_indices = []
                 self.point_counts = []
+        else:
+            print('Unexpected file type ({}), check file in folder. Quitting.'.format(self.filetype))
 
     def MS_Load(self):
-        file = self.filename+'.'+self.filetype
+        file = self.initialised_path
 
         self.mass_spectra = True
         # Measured intensities
