@@ -1,6 +1,5 @@
 def chrom_folder_process_sequence(source_folder, store_folder,
                                   conditions_file, analysis_file,
-                                  experiment,
                                   copy_analysis = False,
                                   copy_conditions = False):
     '''
@@ -108,7 +107,7 @@ def chrom_folder_process_sequence(source_folder, store_folder,
         analysis.write_to_file(directory = store_folder)
 
     if copy_conditions:
-        conditions.experiment_code = experiment.experiment_code
+        conditions.experiment_code = analysis.experiment_code
         conditions.write_to_file(directory = store_folder)
 
 
