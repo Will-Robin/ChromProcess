@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name="ChromProcess",
     vesion="0.1.0",
-    author=["Will Robinson"],
+    author=["William E. Robinson"],
     packages=["ChromProcess"],
     install_requires=[
         "numpy >= 1.18",

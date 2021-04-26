@@ -1,4 +1,4 @@
-def peakIonChromatogram(peak, chromatogram):
+def peakMassSpectrum(peak, chromatogram):
 
     '''
     Get the mass spectrum at the apex of a peak. Inserts the mass spectrum into
@@ -38,3 +38,41 @@ def peakIonChromatogram(peak, chromatogram):
 
     else:
         return [np.array([]),np.array([])]
+
+
+def peakIonChromatograms(peak, parent_chromatogram, spectrum_filter = 0.1):
+
+    import numpy as np
+    from ChromProcess import mass_spectra as ms
+
+    inds = peak.indices
+
+    time = parent_chromatogram.time[inds]
+    signal = parent_chromatogram.signal[inds]
+    scan_inds = parent_chromatogram.scan_indices[inds]
+    p_counts = parent_chromatogram.point_counts[inds]
+
+    for s in range(0,len(time)):
+
+        inten = parent_chromatogram.mass_intensity[scan_inds[s]:scan_inds[s]+p_counts[s]]
+        masses = parent_chromatogram.mass_values[scan_inds[s]:scan_inds[s]+p_counts[s]]
+
+        if len(inten) > 0:
+
+            filt_inds = np.where(inten > spectrum_filter*np.amax(inten))[0]
+            inten = inten[filt_inds]
+            masses = masses[filt_inds]
+
+            round = np.round(masses, 2)
+
+            for m in range(0,len(round)):
+                if round[m] in peak.ion_chromatograms:
+                    peak.ion_chromatograms[round[m]][s] = inten[m]
+                else:
+                    peak.ion_chromatograms[round[m]] = np.zeros(len(time))
+                    peak.ion_chromatograms[round[m]][s] = inten[m]
+                    
+        else:
+            pass
+
+    ms.bin_ion_chromatograms(peak, stdev = 0.1)

@@ -1,6 +1,5 @@
 def chrom_folder_process_sequence(source_folder, store_folder,
                                   conditions_file, analysis_file,
-                                  experiment,
                                   copy_analysis = False,
                                   copy_conditions = False):
     '''
@@ -18,7 +17,7 @@ def chrom_folder_process_sequence(source_folder, store_folder,
     Returns
     -------
     bool
-        whether daat exctraction ran or not.
+        whether data exctraction ran or not.
     '''
     import os
     from ChromProcess import Classes
@@ -98,7 +97,7 @@ def chrom_folder_process_sequence(source_folder, store_folder,
         dest_dir = store_folder/'PeakMassSpectra'
         for c in chroms:
             for p in c.peaks:
-                peak_ops.peakIonChromatogram(c.peaks[p],c)
+                peak_ops.peakMassSpectrum(c.peaks[p],c)
 
             file_output.write_peak_mass_spectra(c, filename = dest_dir/c.filename)
 
@@ -108,8 +107,8 @@ def chrom_folder_process_sequence(source_folder, store_folder,
         analysis.write_to_file(directory = store_folder)
 
     if copy_conditions:
-        conditions.experiment_code = experiment.experiment_code
+        conditions.experiment_code = analysis.experiment_code
         conditions.write_to_file(directory = store_folder)
 
 
-    return True
+    return chroms
