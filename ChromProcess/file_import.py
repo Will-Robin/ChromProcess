@@ -8,7 +8,28 @@ import os
 Functions for importing chromatography data.
 '''
 def load_cdf_from_directory(directory, dir_return = False, ms = False, limit = 1e100):
+    '''
+    Parameters
+    ----------
+    directory: str or pathlib Path
+        Directory containing .cdf files.
 
+    dir_return: bool
+        Whether to return to the original working directory (True) or to stay in
+        directory (False).
+    ms: bool
+        Whether to load mass spectral information from .cdf files or not.
+    limit: int
+        A limit to number of files to be read.
+
+    Returns
+    -------
+    chroms: list of ChromProcess Chromatogram objects
+        Chromatograms obtained from the directory.
+    cond_file: str or None
+        File name of the conditions file. If there is no file with 'conditions'
+        in the name returns None.
+    '''
     cwd = os.getcwd()
 
     os.chdir(directory) # changes the directory to where files are stored
