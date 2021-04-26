@@ -185,12 +185,28 @@ def reconstitute_full_SVD(U,S,Vh):
     import numpy as np
     return np.dot(U*S,Vh)
 
+def SVD_partial_transform(U,S,Vh,keep_LH_components = []):
+    import numpy as np
+
+    new_U = np.zeros(U.shape)
+    new_U[:,keep_LH_components] = U[:,keep_LH_components]
+
+    new_U *= S
+
+    return np.dot(new_U,Vh)
+
 def SVD_transform(U,S,Vh,components = 1):
     import numpy as np
     Vh = Vh[:components]
     U = U[:, :components]
     U *= S[:components]
-    return np.dot(U,Vh)
+
+    sol = np.dot(U,Vh)
+
+    inds = np.where(np.sum(sol, axis = 1) > 1000)[0]
+
+    return sol[:,inds]
+
 
 def cluster(values, bound = 0.1):
 
@@ -321,7 +337,6 @@ def weighted_corrcoef(samples,weights):
 
     return correlation
 
-
 def sparse_corrcoef(A):
 
     A = A.astype(np.float64)
@@ -338,3 +353,91 @@ def sparse_corrcoef(A):
     coeffs = C / np.sqrt(np.outer(d, d))
 
     return coeffs
+
+def bin_mass_spectra(masses, data_mat, bound = 0.1):
+    '''
+
+    Parameters
+    ----------
+    masses: numpy array (1D)
+        Masses for binning.
+
+    data_mat: numpy array (2D)
+        shape: (n, len(masses))
+
+    bound: float
+        Boundary for mean shift.
+
+    Returns
+    -------
+    binned_masses: numpy array (1D)
+        Binned masses.
+
+    binned_data: numpy array (2D)
+        shape: (n, len(binned_masses))
+    '''
+    import numpy as np
+    from ChromProcess import simple_functions as s_f
+
+    # Binning mass spectra
+    clusters = []
+    for c in s_f.cluster_indices(masses, bound = bound):
+        clusters.append(c)
+
+    binned_masses = np.zeros(len(clusters))
+    binned_data = np.zeros((len(data_mat),len(clusters)))
+
+    for c,cl in enumerate(clusters):
+        binned_masses[c] = np.average(masses[cl])
+        sum_inten = np.sum(data_mat[:,cl], axis = 1)
+        binned_data[:,c] = sum_inten
+
+    return binned_masses, binned_data
+
+def stack_chromatograms(chromatogram_list):
+    '''
+    A bit crude. Could also stack chromatograms using interpolations.
+
+    Parameters
+    ----------
+    chromatogram_list: list of ChromProcess Chromatogram objects.
+        List of chromatograms to stack.
+
+    Returns
+    -------
+    chrom_stack: numpy array (2D)
+        Stack of chromatograms
+        shape = (len(chromatogram_list), minimum chromatogram time axis length)
+    '''
+    import numpy as np
+
+    min_length = 1e100
+    for c in chromatogram_list:
+        if len(c.time) < min_length:
+            min_length = len(c.time)
+
+    chrom_stack = np.empty((len(chromatogram_list),min_length))
+
+    for c in range(0,len(chromatogram_list)):
+        chrom_stack[c] = chromatogram_list[c].signal[:min_length]
+
+    return chrom_stack
+
+def linkage_matrix(model):
+
+    # create the counts of samples under each node
+    counts = np.zeros(model.children_.shape[0])
+    n_samples = len(model.labels_)
+    for i, merge in enumerate(model.children_):
+        current_count = 0
+        for child_idx in merge:
+            if child_idx < n_samples:
+                current_count += 1  # leaf node
+            else:
+                current_count += counts[child_idx - n_samples]
+        counts[i] = current_count
+
+    linkage_matrix = np.column_stack([model.children_, model.distances_,
+                                      counts]).astype(float)
+
+    return linkage_matrixs
