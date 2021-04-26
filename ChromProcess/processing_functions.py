@@ -7,7 +7,21 @@ Basic functions to be applied to chromatography data.
 '''
 
 def MS_intensity_threshold_chromatogram(chromatogram, threshold = 500):
+    '''
+    Gets the ion chromatograms of the analysis and reconstitutes the total ion
+    chromatogram ommitting mass signals which do not exceed a threshold.
 
+    Parameters
+    ----------
+    chromatogram: ChromProcess Chromatogram object.
+        Chromatogram to be processed.
+    threshold: float
+        Ion chromatograms which do not exceed this threshold will be removed
+        before the total ion chromatogram is reconsituted.
+
+    Returns: None
+        Modifies the chromatogram in-place.
+    '''
 
     if len(chromatogram.mass_intensity) == 0:
         return print("MS_intensity_threshold_chromatogram: no mass spectra information in chromatogram")
