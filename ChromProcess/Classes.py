@@ -36,9 +36,19 @@ class Peak:
         return self.integral
 
 class Chromatogram:
-    def __init__(self, file, mass_spec = True, channel_select = '360nm'):
+    def __init__(self, file, mass_spec = False, channel_select = '360nm'):
         '''
         Initialises a chromatogram object from a file
+
+        Parameters
+        ----------
+        file: str or pathlib Path
+            Path to file.
+        mass_spec: bool
+            If GC-MS data, whether to load mass spectra information (True) or
+            not (False).
+        channel_select: str
+            For HPLC data, which detector channel to select.
         '''
         self.filename = str(file[:-4])
 
