@@ -1,4 +1,4 @@
-def peakIonChromatogram(peak, chromatogram):
+def peakMassSpectrum(peak, chromatogram):
 
     '''
     Get the mass spectrum at the apex of a peak. Inserts the mass spectrum into
