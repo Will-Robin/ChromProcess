@@ -17,7 +17,7 @@ def chrom_folder_process_sequence(source_folder, store_folder,
     Returns
     -------
     bool
-        whether daat exctraction ran or not.
+        whether data exctraction ran or not.
     '''
     import os
     from ChromProcess import Classes
@@ -111,4 +111,4 @@ def chrom_folder_process_sequence(source_folder, store_folder,
         conditions.write_to_file(directory = store_folder)
 
 
-    return True
+    return chroms
