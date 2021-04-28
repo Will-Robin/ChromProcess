@@ -424,6 +424,7 @@ def stack_chromatograms(chromatogram_list):
     return chrom_stack
 
 def linkage_matrix(model):
+    import numpy as np
 
     # create the counts of samples under each node
     counts = np.zeros(model.children_.shape[0])
@@ -440,4 +441,4 @@ def linkage_matrix(model):
     linkage_matrix = np.column_stack([model.children_, model.distances_,
                                       counts]).astype(float)
 
-    return linkage_matrixs
+    return linkage_matrix
