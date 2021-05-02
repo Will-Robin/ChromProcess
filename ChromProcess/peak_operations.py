@@ -46,7 +46,7 @@ def peakIonChromatograms(peak, parent_chromatogram, spectrum_filter = 0.1):
     from ChromProcess import mass_spectra as ms
 
     inds = peak.indices
-
+    
     time = parent_chromatogram.time[inds]
     signal = parent_chromatogram.signal[inds]
     scan_inds = parent_chromatogram.scan_indices[inds]
@@ -71,7 +71,7 @@ def peakIonChromatograms(peak, parent_chromatogram, spectrum_filter = 0.1):
                 else:
                     peak.ion_chromatograms[round[m]] = np.zeros(len(time))
                     peak.ion_chromatograms[round[m]][s] = inten[m]
-                    
+
         else:
             pass
 
