@@ -83,6 +83,81 @@ def pickPeaksRegion(chromatogram, region, threshold = 0.1):
         peak.get_integral(chromatogram)
         chromatogram.peaks[rt] = peak
 
+def mz_background_subtraction(chromatogram, threshold = 500):
+    '''
+    Gets the ion chromatograms of the analysis and reconstitutes the total ion
+    chromatogram ommitting mass signals which do not exceed a threshold.
+
+    Parameters
+    ----------
+    chromatogram: ChromProcess Chromatogram object.
+        Chromatogram to be processed.
+    threshold: float
+        Ion chromatograms which do not exceed this threshold will be removed
+        before the total ion chromatogram is reconsituted.
+
+    Returns: None
+        Modifies the chromatogram in-place.
+    '''
+    import numpy as np
+
+    if len(chromatogram.mass_intensity) == 0:
+        return chromatogram.signal
+    else:
+        inds = chromatogram.mass_intensity < threshold
+        mass_intens = np.copy(chromatogram.mass_intensity)
+        mass_intens[inds] = 0.0
+
+        new_chromatogram = np.zeros(len(chromatogram.time))
+        for s in range(0,len(chromatogram.point_counts)):
+
+            start = chromatogram.scan_indices[s]
+            end = start + chromatogram.point_counts[s]
+
+            inten = mass_intens[start:end]
+
+            new_chromatogram[s] = np.sum(inten)
+
+        return new_chromatogram
+
+def get_mz_background(chromatogram, threshold = 500):
+    '''
+    Gets the ion chromatograms of the analysis and reconstitutes the total ion
+    chromatogram ommitting mass signals which do not exceed a threshold.
+
+    Parameters
+    ----------
+    chromatogram: ChromProcess Chromatogram object.
+        Chromatogram to be processed.
+    threshold: float
+        Ion chromatograms which do not exceed this threshold will be removed
+        before the total ion chromatogram is reconsituted.
+
+    Returns: None
+        Modifies the chromatogram in-place.
+    '''
+    import numpy as np
+
+    if len(chromatogram.mass_intensity) == 0:
+        return print("MS_intensity_threshold_chromatogram: no mass spectra information in chromatogram")
+        return chromatogram.signal
+    else:
+        inds = chromatogram.mass_intensity > threshold
+        mass_intens = np.copy(chromatogram.mass_intensity)
+        mass_intens[inds] = 0.0
+
+        new_chromatogram = np.zeros(len(chromatogram.time))
+        for s in range(0,len(chromatogram.point_counts)):
+
+            start = chromatogram.scan_indices[s]
+            end = start + chromatogram.point_counts[s]
+
+            inten = mass_intens[start:end]
+
+            new_chromatogram[s] = np.sum(inten)
+
+        return new_chromatogram
+
 def internalRefIntegral(chromatogram, internal_ref_region):
     '''
     Get integrals of internal references for a Chromatogram_Series
