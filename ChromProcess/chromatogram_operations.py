@@ -96,8 +96,9 @@ def mz_background_subtraction(chromatogram, threshold = 500):
         Ion chromatograms which do not exceed this threshold will be removed
         before the total ion chromatogram is reconsituted.
 
-    Returns: None
-        Modifies the chromatogram in-place.
+    Returns: 1D numpy array.
+        original signal if not mass spectra information present.
+        processed signal if ms info present.
     '''
     import numpy as np
 

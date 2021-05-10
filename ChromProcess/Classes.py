@@ -1321,42 +1321,23 @@ class DataReport:
         else:
             self.read_from_file(file)
 
-    def import_file_section(self, file, start_token, end_token):
-        '''
-        Parameters
-        ----------
-        file: path to file
-        start_token: str
-            String in line to start reading file from.
-        end_token:
-            String in line to end reading file from.
-        '''
-
-        spl_lin = lambda x : [e for e in x.strip('\n').split(',') if e != '']
-        readstate = False
-        c_set = []
-        with open(file, 'r') as f:
-            for c,line in enumerate(f):
-                if start_token in line:
-                    readstate = True
-                    line = next(f)
-                if end_token in line:
-                    readstate = False
-                if readstate:
-                    newline = spl_lin(line)
-                    c_set.append(newline)
-
-        return c_set
-
     def read_from_file(self, file):
         '''
         Parameters
         ----------
-        file: path to file
+        file: pathlib Path or str
+            path to file.
         '''
+
+        if type(file) == str:
+            from pathlib import Path
+            file_n = Path(file)
+        else:
+            file_n = file
+
         spl_lin = lambda x : [e for e in x.strip('\n').split(',') if e != '']
 
-        self.filename = file
+        self.filename = file.stem()
 
         with open(file, 'r') as f:
             for line in f:
@@ -1390,6 +1371,35 @@ class DataReport:
                                             "end_analysis_details")
         for a in analysis:
             self.analysis_details[a[0]] = [x for x in a[1:]]
+
+    def import_file_section(self, file, start_token, end_token):
+        '''
+        Parameters
+        ----------
+        file: str or pathlib Path
+            path to file
+
+        start_token: str
+            String in line to start reading file from.
+        end_token:
+            String in line to end reading file from.
+        '''
+
+        spl_lin = lambda x : [e for e in x.strip('\n').split(',') if e != '']
+        readstate = False
+        c_set = []
+        with open(file, 'r') as f:
+            for c,line in enumerate(f):
+                if start_token in line:
+                    readstate = True
+                    line = next(f)
+                if end_token in line:
+                    readstate = False
+                if readstate:
+                    newline = spl_lin(line)
+                    c_set.append(newline)
+
+        return c_set
 
     def write_conditions_header(self, outfile):
         '''

@@ -75,11 +75,11 @@ def mz_background_subtraction(data, threshold = 500):
         before the total ion chromatogram is reconsituted.
 
     Returns: None
-        Modifies the chromatogram in-place.
+        1D numpy array signal
     '''
     import numpy as np
 
-    if 'mass_spectra' not in data:
+    if len(data['mass_spectra']) == 0:
         return data['signal']
     else:
         intensities = np.array(data['mass_spectra']['intensities'])
@@ -95,5 +95,5 @@ def mz_background_subtraction(data, threshold = 500):
             inten = intensities[start:end]
 
             new_chromatogram[s] = np.sum(inten)
-        print(new_chromatogram, 'haha')
+
         return new_chromatogram
