@@ -16,8 +16,8 @@ def chrom_folder_process_sequence(source_folder, store_folder,
 
     Returns
     -------
-    bool
-        whether data exctraction ran or not.
+    False: if scrape fails
+    chroms: list of ChromProcess Chromatogram objects
     '''
     import os
     from ChromProcess import Classes
@@ -34,16 +34,14 @@ def chrom_folder_process_sequence(source_folder, store_folder,
     if os.path.exists(conditions_file):
         conditions = Classes.Experiment_Conditions(information_file = conditions_file)
     else:
-        print('Conditions file not found or parsing issues.')
-        print('Passing data set {}.'.format(experiment.experiment_code))
+        print('Conditions file not found.')
         return False
 
     # Get experiment analysis details
     if os.path.exists(analysis_file):
         analysis = Classes.Analysis_Information(information_file = analysis_file)
     else:
-        print('Analysis file not found or parsing issues.')
-        print('Passing data set {}.'.format(experiment.experiment_code))
+        print('Analysis file not found.')
         return False
 
     # Read in the data files
@@ -55,8 +53,7 @@ def chrom_folder_process_sequence(source_folder, store_folder,
         # load .txt files exported from Shimadzu LabSolutions for HPLC analysis
         chroms, _ = file_import.directoryLoadShimadzuASCII(source_folder)
     else:
-        print('analysis_type provided is {}.')
-        print('Please choose from GCMS or HPLC. Passing data set.')
+        print('Incorrect chromatogram type in analysis file.')
         return False
 
     # Pre-process the chromatograms
