@@ -391,9 +391,17 @@ def write_peak_table(chromatogram, filename = 'Peak_table', value = 0.0, series_
     with open("{}.csv".format(filename), "w") as f:
         f.write("{},{}\n".format(series_unit,value))
         f.write('IS_retention_time/ min,IS_integral,IS_peak start/ min,IS_peak end/ min\n')
-        st_ind = chromatogram.internal_reference.indices[0]
-        end_ind = chromatogram.internal_reference.indices[-1]
-        f.write("{},{},{},{}\n".format(chromatogram.internal_reference.retention_time, chromatogram.internal_reference.integral, chromatogram.time[st_ind], chromatogram.time[end_ind]))
+        if chromatogram.internal_reference:
+            st_ind = chromatogram.internal_reference.indices[0]
+            end_ind = chromatogram.internal_reference.indices[-1]
+            IS_lower_bound = chromatogram.time[st_ind]
+            IS_upper_bound = chromatogram.time[end_ind]
+            IS_RT = chromatogram.internal_reference.retention_time
+            IS_integral = chromatogram.internal_reference.integral
+        else:
+            IS_RT, IS_integral, IS_lower_bound, IS_upper_bound = 'None', 'None', 'None', 'None'
+
+        f.write("{},{},{},{}\n".format(IS_RT, IS_integral, IS_lower_bound, IS_upper_bound))
         f.write("Retention_time/ min,integral,peak start/ min,peak end/ min\n")
 
         for p in chromatogram.peaks:

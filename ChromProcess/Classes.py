@@ -609,7 +609,10 @@ class PeakCollectionElement:
         ----------
         IS_integral: float
         '''
-        self.integral = self.integral/IS_integral
+        if IS_integral > 0.0:
+            self.integral = self.integral/IS_integral
+        else:
+            pass
 
     def assign_peak(self, boundaries):
         '''
@@ -732,10 +735,15 @@ class PeakCollection:
         from ChromProcess import Classes
         read_line = lambda line: [float(x) for x in line.strip('\n').split(",") if x != '']
         peaks = []
+        IS_pos = 0.0
+        IS_integral = 0.0
+        IS_bound = [0.0,0.0]
+
         with open(file, "r") as f:
             for c,line in enumerate(f):
-
-                if c == 0:
+                if 'None' in line:
+                    pass
+                elif c == 0:
                     read = [x for x in line.strip('\n').split(',') if x != '']
                     variable = read[0]
                     value = float(read[1])
@@ -1337,7 +1345,7 @@ class DataReport:
 
         spl_lin = lambda x : [e for e in x.strip('\n').split(',') if e != '']
 
-        self.filename = file.stem()
+        self.filename = file.stem
 
         with open(file, 'r') as f:
             for line in f:
