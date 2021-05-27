@@ -35,7 +35,7 @@ xylulose 1,O=C(CO)[C@@H](O)[C@H](O)CO,O=C(CO)[C@H](O)[C@@H](O)CO,C5_Class_II,#ee
 xylulose 2,O=C(CO)[C@@H](O)[C@H](O)CO,O=C(CO)[C@H](O)[C@@H](O)CO,C5_Class_II,#eeb29f,150.13
 arabitol,OC[C@H](O)C(O)[C@@H](O)CO,OC[C@@H](O)C(O)[C@H](O)CO,C5_alcohol,#f05094,152.15
 ribitol,OC[C@H](O)[C@H](O)[C@H](O)CO,OC[C@@H](O)[C@@H](O)[C@@H](O)CO,C5_alcohol,#ff0240,152.15
-xylitol,OC[C@H](O)C(O)[C@H](O)CO,OC[C@@H](O)C(O)[C@@H](O)CO,C5_alcohol,#b80d56,152.15
+xylitol,OC[C@H](O)[C@@H](O)[C@H](O)CO,OC[C@@H](O)[C@H](O)[C@@H](O)CO,C5_alcohol,#b80d56,152.15
 dodecane,CCCCCCCCCCCC,CCCCCCCCCCCC,Internal_standard,#040404,170.2
 2-ketopentose_alpha_branch_RR,O=C(CO)[C@](O)(CO)[C@H](O)CO,O=C(CO)[C@@](O)(CO)[C@@H](O)CO,C6_Class_III,#6ef1c9,180.16
 2-ketopentose_alpha_branch_RS,O=C(CO)[C@@](O)(CO)[C@H](O)CO,O=C(CO)[C@](O)(CO)[C@@H](O)CO,C6_Class_III,#6ef1c9,180.16

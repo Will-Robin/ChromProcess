@@ -233,7 +233,7 @@ def cluster_indices(values, bound = 0.1):
 
     import numpy as np
 
-    values = np.sort(values)
+    sortedvalues = np.sort(values)
 
     cluster = []
     for m in range(0,len(values)):
