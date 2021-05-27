@@ -580,7 +580,8 @@ class PeakCollectionElement:
     '''
     Information on individual peakss
     '''
-    def __init__(self, position, integral, start, end, mass_spectrum = False):
+    def __init__(self, position, integral, start, end, parent = 'not specified',
+                    mass_spectrum = False):
         '''
         Parameters
         ----------
@@ -595,6 +596,7 @@ class PeakCollectionElement:
         self.concentration = False
         self.conc_error = False
         self.mass_spectrum = mass_spectrum
+        self.parent_peak_collection = parent
 
     def inspect_peak(self):
         print('retention_time',self.retention_time)
@@ -733,6 +735,12 @@ class PeakCollection:
 
     def read_from_file(self, file):
         from ChromProcess import Classes
+
+        if type(file) == str:
+            file = Path(file)
+
+        self.filename = file.name
+
         read_line = lambda line: [float(x) for x in line.strip('\n').split(",") if x != '']
         peaks = []
         IS_pos = 0.0
@@ -756,15 +764,18 @@ class PeakCollection:
                     pass
                 else:
                     rd = read_line(line)
-                    peaks.append(Classes.PeakCollectionElement(round(rd[0],3), rd[1],
-                                                               round(rd[2],3),
-                                                               round(rd[3],3)))
+                    peaks.append(
+                    Classes.PeakCollectionElement(round(rd[0],3), rd[1],
+                                                  round(rd[2],3),
+                                                  round(rd[3],3),
+                                                  parent = self.filename.split('.')[0]))
+
 
         IS = Classes.PeakCollectionElement(round(IS_pos,3), IS_integral,
                                            round(IS_bound[0],3),
-                                           round(IS_bound[1],3))
+                                           round(IS_bound[1],3),
+                                            parent = self.filename.split('.')[0])
 
-        self.filename = file
         self.series_value = value
         self.series_unit = variable
         self.internal_standard = IS
