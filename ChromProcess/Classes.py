@@ -746,7 +746,9 @@ class PeakCollection:
         IS_pos = 0.0
         IS_integral = 0.0
         IS_bound = [0.0,0.0]
-
+        IS_line_num = -1
+        IS = Classes.PeakCollectionElement(0.0, 1, 0.0, 0.0)
+        
         with open(file, "r") as f:
             for c,line in enumerate(f):
                 if 'None' in line:
@@ -755,11 +757,20 @@ class PeakCollection:
                     read = [x for x in line.strip('\n').split(',') if x != '']
                     variable = read[0]
                     value = float(read[1])
-                elif c == 2:
-                    read = read_line(line)
-                    IS_pos = read[0]
-                    IS_integral = read[1]
-                    IS_bound = read[2:]
+                elif 'IS_' in line:
+                    IS_line_num = c + 1
+
+                elif c == IS_line_num:
+                    if 'None' in line:
+                        pass
+                    else:
+                        read = read_line(line)
+
+                        IS = Classes.PeakCollectionElement(round(read[0],3),
+                                       read[1],
+                                       round(read[2],3),
+                                       round(read[3],3),
+                                       parent = self.filename.split('.')[0])
                 elif c < 4:
                     pass
                 else:
@@ -771,10 +782,7 @@ class PeakCollection:
                                                   parent = self.filename.split('.')[0]))
 
 
-        IS = Classes.PeakCollectionElement(round(IS_pos,3), IS_integral,
-                                           round(IS_bound[0],3),
-                                           round(IS_bound[1],3),
-                                            parent = self.filename.split('.')[0])
+
 
         self.series_value = value
         self.series_unit = variable
