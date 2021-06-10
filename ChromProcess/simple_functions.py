@@ -271,6 +271,7 @@ def get_rt_from_header(element):
     return position
 
 def upper_tri_no_diag(arr):
+    import numpy as np
     m = arr.shape[0]
     r,c = np.triu_indices(m,1)
     return arr[r,c]
