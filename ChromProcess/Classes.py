@@ -397,7 +397,7 @@ class Experiment_Conditions:
             f.write("end_conditions\n")
 
     def read_from_file(self,information_file):
-        with open(information_file, 'r') as f:
+        with open(information_file, 'r', encoding = 'latin-1') as f:
             for line in f:
                 if "Dataset" in line:
                     ins = line.strip("\n")
@@ -413,7 +413,7 @@ class Experiment_Conditions:
         '''Read conditions'''
         condset = []
         readstate = False
-        with open(information_file, "r") as f:
+        with open(information_file, "r", encoding = 'latin-1') as f:
             for c,line in enumerate(f):
                 if "start_conditions" in line:
                     readstate = True
@@ -748,7 +748,7 @@ class PeakCollection:
         IS_bound = [0.0,0.0]
         IS_line_num = -1
         IS = Classes.PeakCollectionElement(0.0, 1, 0.0, 0.0)
-        
+
         with open(file, "r") as f:
             for c,line in enumerate(f):
                 if 'None' in line:
@@ -800,16 +800,15 @@ class PeakCollection:
         '''
         Parameters
         ----------
-        threshold: float (from 0.0 to 1.0)
+        threshold: float
         '''
         del_idx = []
         for c,pk in enumerate(self.peaks):
             if pk.integral < threshold:
                 del_idx.append(c)
 
-        for d in sorted(del_idx, reverse=True):
-            del self.peaks[d]
-
+        self.peaks = [v for i,v in enumerate(self.peaks) if i not in del_idx]
+        
     def align_peaks_to_IS(self, IS_set = 0.0):
 
         is_rt = self.internal_standard.retention_time
