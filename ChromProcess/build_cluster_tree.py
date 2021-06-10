@@ -1,5 +1,7 @@
 import networkx as nx
+import numpy as np
 from scipy.cluster import hierarchy
+from ChromProcess import build_cluster_tree
 
 def graph_from_linkage(linkage_mat, id_modifier = ''):
     '''
@@ -56,15 +58,16 @@ def graphviz_layout_networkx(network, render_engine = 'fdp'):
     Returns
     -------
     pos: dict
-        Compounds SMILES and Reaction SMILES are keys to their positions.
-        {SMILES:[float(x),float(y)]}
+        {node:[float(x),float(y)]}
     '''
     import json
     from graphviz import Digraph
 
     # Create a graph with graphviz to plot a scheme of the network
-    dot = Digraph(comment = '', engine=render_engine, strict = 'True',
-                format = 'json')
+    dot = Digraph(comment = '',
+                  engine = render_engine,
+                  strict = 'True',
+                  format = 'json')
 
     for n in network.nodes: # add in nodes
         dot.node(n,n)
@@ -81,3 +84,92 @@ def graphviz_layout_networkx(network, render_engine = 'fdp'):
         pos[o['name']] = [float(x) for x in o['pos'].split(',')]
 
     return pos
+
+def set_network_coords(network, pos):
+    import numpy as np
+
+    xmin = np.mean([pos[p][0] for p in pos])
+    ymin = np.mean([pos[p][1] for p in pos])
+    for n in network.nodes:
+        if n in pos:
+            network.nodes[n]['pos'] = pos[n]
+        else:
+            network.nodes[n]['pos'] = (xmin, ymin)
+
+    return network
+
+def get_network_lineplot(G):
+    '''
+    Parameters
+    ----------
+    G: networkx DiGraph
+        Graph to extract nodes from.
+
+    Returns
+    -------
+    net_lines: numpy 2D array
+        Coordinates for plotting a line plot of the network.
+    '''
+
+    import numpy as np
+
+    net_lines = []
+    for e in G.edges:
+        for n in e:
+            net_lines.append(G.nodes[n]["pos"])
+        net_lines.append((np.nan,np.nan))
+
+    net_lines = np.array(net_lines)
+    net_lines = net_lines.T
+    return net_lines
+
+def get_network_scatter(G):
+    '''
+    Parameters
+    ----------
+    G: networkx DiGraph
+        Graph to extract nodes from.
+
+    Returns
+    -------
+    net_lines: numpy 2D array
+        Coordinates for plotting a line plot of the network.
+    '''
+
+    import numpy as np
+
+    net_scatter = []
+    for n in G.nodes:
+        net_scatter.append(G.nodes[n]["pos"])
+
+    net_scatter = np.array(net_scatter)
+    net_scatter = net_scatter.T
+    return net_scatter
+
+def normalise_network_coordinates(G):
+    '''
+    Parameters
+    ----------
+    G: networkx DiGraph
+        Graph to extract nodes from.
+
+    Returns
+    -------
+    None
+    '''
+    import numpy as np
+    coords = get_network_scatter(G)
+
+    net_width = (np.max(coords[0])-np.min(coords[0]))
+    net_height = (np.max(coords[1])-np.min(coords[1]))
+
+    if net_width == 0:
+        net_width = np.max(coords[0])
+    if net_height == 0:
+        net_height = np.max(coords[1])
+        
+    for n in G.nodes:
+        pos = G.nodes[n]['pos']
+        a = pos[0]/net_width
+        b = pos[1]/net_height
+        G.nodes[n]['pos'] = (a,b)
