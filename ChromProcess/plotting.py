@@ -938,6 +938,7 @@ def create_ellipse(mean, cov,
                   facecolor = 'k',edgecolor = 'k', **kwargs):
 
     from matplotlib.patches import Ellipse
+    import numpy as np
 
     pearson = cov[0, 1]/np.sqrt(cov[0, 0] * cov[1, 1])
     ell_radius_x = np.sqrt(1 + pearson)

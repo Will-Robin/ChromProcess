@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from ChromProcess import Classes
 from ChromProcess import info_params
 from ChromProcess import mass_spectra as ms
+from ChromProcess import simple_functions as s_f
 from ChromProcess import series_operations as s_o
 
 '''
@@ -315,19 +316,23 @@ def mass_spectrum_peak_picker(series, mass_split = 5):
 
         os.chdir("..")
 
-def old_cluster(masses, n = 5):
+def bin_masses(all_masses, data_mat):
+    clusters = []
+    for c in s_f.cluster_indices(all_masses, bound = 0.1):
+        clusters.append(c)
 
-    cluster = np.array([])
-    for m in range(0,len(masses)):
+    binned_masses = np.zeros(len(clusters))
+    binned_data = np.zeros((len(data_mat),len(clusters)+1))
+    binned_data[:,0] = data_mat[:,0]
 
-        if len(cluster) < 2:
-            cluster = np.hstack((cluster,m))
-            continue
+    for c,cl in enumerate(clusters):
+        binned_masses[c] = np.average(all_masses[cl])
+        shft = [x+1 for x in cl]
+        sum_inten = np.sum(data_mat[:,shft], axis = 1)
+        binned_data[:,c+1] = sum_inten
 
-        if abs(masses[int(cluster[-1])]-masses[m]) > n:
-            yield cluster
-            cluster = np.array([])
+    # make sure mass spectra a reported as relative abundance
+    for x in range(0,len(binned_data)):
+        binned_data[x,1:] = binned_data[x,1:]/np.max(binned_data[x,1:])
 
-        cluster = np.hstack((cluster,m))
-
-    yield cluster
+    return binned_masses, binned_data

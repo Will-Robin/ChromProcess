@@ -397,7 +397,7 @@ class Experiment_Conditions:
             f.write("end_conditions\n")
 
     def read_from_file(self,information_file):
-        with open(information_file, 'r') as f:
+        with open(information_file, 'r', encoding = 'latin-1') as f:
             for line in f:
                 if "Dataset" in line:
                     ins = line.strip("\n")
@@ -413,7 +413,7 @@ class Experiment_Conditions:
         '''Read conditions'''
         condset = []
         readstate = False
-        with open(information_file, "r") as f:
+        with open(information_file, "r", encoding = 'latin-1') as f:
             for c,line in enumerate(f):
                 if "start_conditions" in line:
                     readstate = True
@@ -580,7 +580,8 @@ class PeakCollectionElement:
     '''
     Information on individual peakss
     '''
-    def __init__(self, position, integral, start, end, mass_spectrum = False):
+    def __init__(self, position, integral, start, end, parent = 'not specified',
+                    mass_spectrum = False):
         '''
         Parameters
         ----------
@@ -595,6 +596,7 @@ class PeakCollectionElement:
         self.concentration = False
         self.conc_error = False
         self.mass_spectrum = mass_spectrum
+        self.parent_peak_collection = parent
 
     def inspect_peak(self):
         print('retention_time',self.retention_time)
@@ -609,7 +611,10 @@ class PeakCollectionElement:
         ----------
         IS_integral: float
         '''
-        self.integral = self.integral/IS_integral
+        if IS_integral > 0.0:
+            self.integral = self.integral/IS_integral
+        else:
+            pass
 
     def assign_peak(self, boundaries):
         '''
@@ -730,33 +735,55 @@ class PeakCollection:
 
     def read_from_file(self, file):
         from ChromProcess import Classes
+
+        if type(file) == str:
+            file = Path(file)
+
+        self.filename = file.name
+
         read_line = lambda line: [float(x) for x in line.strip('\n').split(",") if x != '']
         peaks = []
+        IS_pos = 0.0
+        IS_integral = 0.0
+        IS_bound = [0.0,0.0]
+        IS_line_num = -1
+        IS = Classes.PeakCollectionElement(0.0, 1, 0.0, 0.0)
+
         with open(file, "r") as f:
             for c,line in enumerate(f):
-
-                if c == 0:
+                if 'None' in line:
+                    pass
+                elif c == 0:
                     read = [x for x in line.strip('\n').split(',') if x != '']
                     variable = read[0]
                     value = float(read[1])
-                elif c == 2:
-                    read = read_line(line)
-                    IS_pos = read[0]
-                    IS_integral = read[1]
-                    IS_bound = read[2:]
+                elif 'IS_' in line:
+                    IS_line_num = c + 1
+
+                elif c == IS_line_num:
+                    if 'None' in line:
+                        pass
+                    else:
+                        read = read_line(line)
+
+                        IS = Classes.PeakCollectionElement(round(read[0],3),
+                                       read[1],
+                                       round(read[2],3),
+                                       round(read[3],3),
+                                       parent = self.filename.split('.')[0])
                 elif c < 4:
                     pass
                 else:
                     rd = read_line(line)
-                    peaks.append(Classes.PeakCollectionElement(round(rd[0],3), rd[1],
-                                                               round(rd[2],3),
-                                                               round(rd[3],3)))
+                    peaks.append(
+                    Classes.PeakCollectionElement(round(rd[0],3), rd[1],
+                                                  round(rd[2],3),
+                                                  round(rd[3],3),
+                                                  parent = self.filename.split('.')[0]))
 
-        IS = Classes.PeakCollectionElement(round(IS_pos,3), IS_integral,
-                                           round(IS_bound[0],3),
-                                           round(IS_bound[1],3))
 
-        self.filename = file
+
+
         self.series_value = value
         self.series_unit = variable
         self.internal_standard = IS
@@ -773,16 +800,15 @@ class PeakCollection:
         '''
         Parameters
         ----------
-        threshold: float (from 0.0 to 1.0)
+        threshold: float
         '''
         del_idx = []
         for c,pk in enumerate(self.peaks):
             if pk.integral < threshold:
                 del_idx.append(c)
 
-        for d in sorted(del_idx, reverse=True):
-            del self.peaks[d]
-
+        self.peaks = [v for i,v in enumerate(self.peaks) if i not in del_idx]
+        
     def align_peaks_to_IS(self, IS_set = 0.0):
 
         is_rt = self.internal_standard.retention_time
@@ -1321,42 +1347,23 @@ class DataReport:
         else:
             self.read_from_file(file)
 
-    def import_file_section(self, file, start_token, end_token):
-        '''
-        Parameters
-        ----------
-        file: path to file
-        start_token: str
-            String in line to start reading file from.
-        end_token:
-            String in line to end reading file from.
-        '''
-
-        spl_lin = lambda x : [e for e in x.strip('\n').split(',') if e != '']
-        readstate = False
-        c_set = []
-        with open(file, 'r') as f:
-            for c,line in enumerate(f):
-                if start_token in line:
-                    readstate = True
-                    line = next(f)
-                if end_token in line:
-                    readstate = False
-                if readstate:
-                    newline = spl_lin(line)
-                    c_set.append(newline)
-
-        return c_set
-
     def read_from_file(self, file):
         '''
         Parameters
         ----------
-        file: path to file
+        file: pathlib Path or str
+            path to file.
         '''
+
+        if type(file) == str:
+            from pathlib import Path
+            file_n = Path(file)
+        else:
+            file_n = file
+
         spl_lin = lambda x : [e for e in x.strip('\n').split(',') if e != '']
 
-        self.filename = file
+        self.filename = file.stem
 
         with open(file, 'r') as f:
             for line in f:
@@ -1390,6 +1397,35 @@ class DataReport:
                                             "end_analysis_details")
         for a in analysis:
             self.analysis_details[a[0]] = [x for x in a[1:]]
+
+    def import_file_section(self, file, start_token, end_token):
+        '''
+        Parameters
+        ----------
+        file: str or pathlib Path
+            path to file
+
+        start_token: str
+            String in line to start reading file from.
+        end_token:
+            String in line to end reading file from.
+        '''
+
+        spl_lin = lambda x : [e for e in x.strip('\n').split(',') if e != '']
+        readstate = False
+        c_set = []
+        with open(file, 'r') as f:
+            for c,line in enumerate(f):
+                if start_token in line:
+                    readstate = True
+                    line = next(f)
+                if end_token in line:
+                    readstate = False
+                if readstate:
+                    newline = spl_lin(line)
+                    c_set.append(newline)
+
+        return c_set
 
     def write_conditions_header(self, outfile):
         '''

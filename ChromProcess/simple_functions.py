@@ -233,7 +233,7 @@ def cluster_indices(values, bound = 0.1):
 
     import numpy as np
 
-    values = np.sort(values)
+    sortedvalues = np.sort(values)
 
     cluster = []
     for m in range(0,len(values)):
@@ -271,6 +271,7 @@ def get_rt_from_header(element):
     return position
 
 def upper_tri_no_diag(arr):
+    import numpy as np
     m = arr.shape[0]
     r,c = np.triu_indices(m,1)
     return arr[r,c]
@@ -424,6 +425,7 @@ def stack_chromatograms(chromatogram_list):
     return chrom_stack
 
 def linkage_matrix(model):
+    import numpy as np
 
     # create the counts of samples under each node
     counts = np.zeros(model.children_.shape[0])
@@ -440,4 +442,4 @@ def linkage_matrix(model):
     linkage_matrix = np.column_stack([model.children_, model.distances_,
                                       counts]).astype(float)
 
-    return linkage_matrixs
+    return linkage_matrix
