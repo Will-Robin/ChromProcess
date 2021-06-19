@@ -102,9 +102,9 @@ The reviewing of pull requests is important to ensure that nothing is broken by 
 
 ## Acknowledgement
 
-ChromProcess was initially developed by William E. Robinson during free time and working in the group of Prof. Wilhelm T. S. Huck (Radboud University Nijmegen). The intention behind the development of this software is to provide a useful tool for many people to use. If you use lots of this code in your work, an acknowledgement in publications would be appreciated (and possibly a link to this repository if made public). Also consider citing/acknowledging the makers of ChromProcess's dependencies. The software is all free and the product of a huge amount of work by many people (and all we have to do is `pip install`!). Lots (all?) of them worked for free in the spirit of open source software. 
+ChromProcess was initially developed by William E. Robinson during free time and working in the group of Prof. Wilhelm T. S. Huck (Radboud University Nijmegen). The intention behind the development of this software is to provide a useful tool for many people to use. If you use lots of this code in your work, an acknowledgement in publications would be appreciated (and possibly a link to this repository if made public). Also consider citing/acknowledging the makers of ChromProcess's dependencies. The software is all free and the product of a huge amount of work by many people (and all we have to do is `pip install`!). Lots (all?) of them worked for free in the spirit of open source software.
 
-If/when others begin to contribute to this package, with substantial contribution, those developers should also be included in the acknowledgement.
+If/when others begin to contribute to this package, with substantial contribution, those developers should also be included in the acknowledgement (this section will be updated as this happens).
 
 
 
