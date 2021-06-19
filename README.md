@@ -100,12 +100,12 @@ If you want to make an edit to this package:
 
 The reviewing of pull requests is important to ensure that nothing is broken by the changes that you make. It also creates a nice opportunity to learn from somebody else how they would have approached the same edits.
 
-## On acknowledgement of performed work
+## Acknowledgement
 
-By following the proper commit guidelines, any commit, or pull request (basically a collection of commits) will both describe the work you have done (from the commit messages) and actually show what you have done on a per line! basis. With this approach, multiple people can accurately take credit for the work they have done on a shared software package.
+ChromProcess was initially developed by William E. Robinson during free time and working in the group of Prof. Wilhelm T. S. Huck (Radboud University Nijmegen). The intention behind the development of this software is to provide a useful tool for many people to use. If you use lots of this code in your work, an acknowledgement in publications would be appreciated (and possibly a link to this repository if made public). Also consider citing/acknowledging the makers of ChromProcess's dependencies. The software is all free and the product of a huge amount of work by many people (and all we have to do is `pip install`!). Lots (all?) of them worked for free in the spirit of open source software. 
 
-## Citations & acknowledgements in publications
+If/when others begin to contribute to this package, with substantial contribution, those developers should also be included in the acknowledgement.
 
-Depending on how much this software package contributed to the work in your publication, you can either acknowledge the authors/contributers of this package, or cite the publication this software package has originally appeared in (see the CITATION file for details on how to cite).
+
 
 [cc-by-nc]: https://creativecommons.org/licenses/by-nc/4.0
