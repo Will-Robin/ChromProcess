@@ -85,6 +85,8 @@ If no errors occur (i.e. nothing happens), the installation worked.
 ### Using the code in Scripts
 You can import the ChromProcess code by putting `import ChromProcess` at the top of your scripts. You can import from specific files from ChromProcess using syntax like `from ChromProcess import info_params` or ` from ChromProcess.info_params import colour_assignments`. You can then use the code written in the files with similar names in the ChromProcess folder.
 
+Take a look in the Scripts folder for some examples.
+
 ## Contributing
 
 If you want to make an edit to this package:
