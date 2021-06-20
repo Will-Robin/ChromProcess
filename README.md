@@ -89,7 +89,7 @@ Take a look in the Scripts folder for some examples.
 
 ## Using ChromProcess in Jupyter Notebooks
 
-Jupyter Notebooks and Jupyter Lab<sup>[1](jupyter-link)</sup> are excellent tools for executing blocks of code alongside notes and data plots.
+Jupyter Notebooks and Jupyter Lab<sup>[1][jupyter-link]</sup>. are excellent tools for executing blocks of code alongside notes and data plots.
 For more information on which one to choose and how to install them, go to the annotated link.
 
 There is a little to add to the setup of a Jupyter Notebook, since we have installed ChromProcess in a virtual environment. In short, an IPython kernel must be installed in the ChromProcess environment, and a file must be created so that the Jupyter Notebook can access the kernel.
