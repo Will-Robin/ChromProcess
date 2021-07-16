@@ -68,7 +68,7 @@ def directoryLoadShimadzuASCII(directory, dir_return = False, limit = 1e100):
     filelist.sort() # sort the files
 
     chroms = []
-    for f in drlist:
+    for f in filelist:
         if f.endswith(".txt"): # this is how the programs finds the data files: .txt is assumed to be a HPLC file, .cdf is assumed to be GCMS
             print(f)
             chroms.append(Classes.Chromatogram(f,channel_select = '215nm'))
