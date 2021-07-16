@@ -61,6 +61,12 @@ class Chromatogram:
 
         self.peaks = {} # will become a dict of dicts: {region:{peak:{Peak_indices: [], Peak_start_indices: [], Peak_end_indices: []}}}
 
+        self.mass_spectra = False
+
+        self.mass_values = []
+        self.mass_intensity = []
+        self.scan_indices = []
+        self.point_counts = []
         self.internal_reference = False
 
         if self.filetype == 'txt':
@@ -72,13 +78,13 @@ class Chromatogram:
                 self.time = np.array(data["Time"][chan_ind])
                 self.signal = np.array(data["Signal"][chan_ind])
             except:
-                print("360nm not found, try: ", data["Wavelength"])
+                print(f"{channel_select} not found, try: ", data["Wavelength"])
                 quit()
 
             self.c_type = 'HPLC'
             self.mass_spectra = False
 
-        if self.filetype == 'cdf':
+        elif self.filetype == 'cdf':
             self.time   = file_import.get_data_cdf_GCMS(self.initialised_path,
                                                         'scan_acquisition_time')/60 # converted to minutes
             self.signal = file_import.get_data_cdf_GCMS(self.initialised_path,
@@ -88,16 +94,8 @@ class Chromatogram:
             if mass_spec == True:
                 self.MS_Load()
 
-            else:
-
-                self.mass_spectra = False
-
-                self.mass_values = []
-                self.mass_intensity = []
-                self.scan_indices = []
-                self.point_counts = []
         else:
-            print('Unexpected file type ({}), check file in folder. Quitting.'.format(self.filetype))
+            print('Unexpected file type ({}). File not loaded'.format(self.filetype))
 
     def MS_Load(self):
         file = self.initialised_path
@@ -808,7 +806,7 @@ class PeakCollection:
                 del_idx.append(c)
 
         self.peaks = [v for i,v in enumerate(self.peaks) if i not in del_idx]
-        
+
     def align_peaks_to_IS(self, IS_set = 0.0):
 
         is_rt = self.internal_standard.retention_time
