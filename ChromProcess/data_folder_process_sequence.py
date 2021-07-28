@@ -6,13 +6,24 @@ def chrom_folder_process_sequence(source_folder, store_folder,
     Parameters
     ----------
     source_folder: str or pathlib Path object
-        path to source of data
+        path to folder containing the source data
+
     store_folder: str or pathlib Path object
-        path to extract data into
+        path folder to extract data into.
+
     conditions_file: str or pathlib Path object
         Path to conditions file
+
     analysis_file: str or pathlib Path object
         Path to analysis file
+
+    copy_analysis: bool
+        Whether to copy the analysis file from the source folder to the
+        targer folder or not.
+
+    copy_conditions: bool
+        Whether to copy the conditions file from the source folder to the
+        targer folder or not.
 
     Returns
     -------
