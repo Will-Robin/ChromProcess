@@ -51,6 +51,5 @@ else:
 # Run data scraping
 dfps.chrom_folder_process_sequence(source_folder, store_folder,
                                    cond_file, analysis_details,
-                                   experiment,
                                    copy_analysis = analysis_cpy,
                                    copy_conditions = conditions_cpy)
