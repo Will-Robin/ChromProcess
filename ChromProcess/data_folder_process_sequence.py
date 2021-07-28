@@ -31,12 +31,22 @@ def chrom_folder_process_sequence(source_folder, store_folder,
     chroms: list of ChromProcess Chromatogram objects
     '''
     import os
+    from pathlib import Path
     from ChromProcess import Classes
     from ChromProcess import file_import
     from ChromProcess import file_output
     from ChromProcess import peak_operations as peak_ops
     from ChromProcess import processing_functions as p_f
     from ChromProcess import chromatogram_operations as chrom_ops
+
+    if isinstance(source_folder, str):
+        source_folder = Path(source_folder)
+    if isinstance(store_folder):
+        store_folder = Path(store_folder)
+    if isinstance(conditions_file):
+        conditions_file = Path(conditions_file)
+    if isinstance(analysis_file):
+        analysis_file = Path(analysis_file)
 
     # Create the store folder if it does not already exist
     os.makedirs(store_folder, exist_ok = True)
