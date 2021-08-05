@@ -253,35 +253,6 @@ def get_calibration_file_allocations(file, exp_name):
     else:
         return calib_file, IS_pos
 
-def read_peak_table(file):
-    from ChromProcess import Classes
-    read_line = lambda line: [float(x) for x in line.strip('\n').split(",") if x != '']
-    peaks = []
-    with open(file, "r") as f:
-        for c,line in enumerate(f):
-            if c == 0:
-                read = [x for x in line.strip('\n').split(',') if x != '']
-                variable = read[0]
-                value = float(read[1])
-            elif c == 2:
-                read = read_line(line)
-                IS_pos = read[0]
-                IS_integral = read[1]
-                IS_bound = read[2:]
-            elif c < 4:
-                pass
-            else:
-                rd = read_line(line)
-                peaks.append(Classes.PeakCollectionElement(round(rd[0],3), rd[1],
-                                                           round(rd[2],3),
-                                                           round(rd[3],3)))
-
-    IS = Classes.PeakCollectionElement(round(IS_pos,3), IS_integral,
-                                       round(IS_bound[0],3),
-                                       round(IS_bound[1],3))
-
-    return Classes.PeakCollection(file,variable, value, IS, peaks)
-
 def read_mass_spectra_report(file):
     from ChromProcess import simple_functions as s_f
 
