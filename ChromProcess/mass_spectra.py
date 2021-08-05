@@ -115,6 +115,28 @@ def bin_ion_chromatograms(peak, stdev = 0.001):
 
     peak.ion_chromatograms = out_log
 
+def bin_masses(all_masses, data_mat):
+    clusters = []
+    for c in s_f.cluster_indices(all_masses, bound = 0.1):
+        clusters.append(c)
+
+    binned_masses = np.zeros(len(clusters))
+    binned_data = np.zeros((len(data_mat),len(clusters)+1))
+    binned_data[:,0] = data_mat[:,0]
+
+    for c,cl in enumerate(clusters):
+        binned_masses[c] = np.average(all_masses[cl])
+        shft = [x+1 for x in cl]
+        sum_inten = np.sum(data_mat[:,shft], axis = 1)
+        binned_data[:,c+1] = sum_inten
+
+    # make sure mass spectra a reported as relative abundance
+    for x in range(0,len(binned_data)):
+        binned_data[x,1:] = binned_data[x,1:]/np.max(binned_data[x,1:])
+
+    return binned_masses, binned_data
+
+
 def integrate_ion_chromatograms(chromatogram, threshold = 0.1):
 
     for p in chromatogram.peaks:
@@ -256,24 +278,3 @@ def mass_spectrum_peak_picker(series, mass_split = 5):
             mass_out = []
 
         os.chdir("..")
-
-def bin_masses(all_masses, data_mat):
-    clusters = []
-    for c in s_f.cluster_indices(all_masses, bound = 0.1):
-        clusters.append(c)
-
-    binned_masses = np.zeros(len(clusters))
-    binned_data = np.zeros((len(data_mat),len(clusters)+1))
-    binned_data[:,0] = data_mat[:,0]
-
-    for c,cl in enumerate(clusters):
-        binned_masses[c] = np.average(all_masses[cl])
-        shft = [x+1 for x in cl]
-        sum_inten = np.sum(data_mat[:,shft], axis = 1)
-        binned_data[:,c+1] = sum_inten
-
-    # make sure mass spectra a reported as relative abundance
-    for x in range(0,len(binned_data)):
-        binned_data[x,1:] = binned_data[x,1:]/np.max(binned_data[x,1:])
-
-    return binned_masses, binned_data
