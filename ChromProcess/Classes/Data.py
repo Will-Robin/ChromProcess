@@ -265,6 +265,17 @@ class Chromatogram:
             for x in range(0,len(chrom_out)):
                 f.write(f'{chrom_out[x,0]},{chrom_out[x,1]}\n')
 
+    def get_mass_spectrum(self, time):
+
+        inds = np.where(self.time == time)[0]
+
+        scan_inds = self.scan_indices[inds][0]
+        p_counts = self.point_counts[inds][0]
+
+        intensity = self.mass_intensity[scan_inds:scan_inds+p_counts]
+        mass = np.round(self.mass_values[scan_inds:scan_inds+p_counts], 2)
+
+        return mass, intensity
 
 class Chromatogram_Series:
     def __init__(self,chromatogram_list, information_file):

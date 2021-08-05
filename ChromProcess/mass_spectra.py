@@ -12,18 +12,6 @@ from ChromProcess import series_operations as s_o
 Functions for dealing with mass spectra.
 '''
 
-def get_mass_spectrum(chromatogram, time):
-
-    inds = np.where(chromatogram.time == time)[0]
-
-    scan_inds = chromatogram.scan_indices[inds][0]
-    p_counts = chromatogram.point_counts[inds][0]
-
-    intensity = chromatogram.mass_intensity[scan_inds:scan_inds+p_counts]
-    mass = np.round(chromatogram.mass_values[scan_inds:scan_inds+p_counts], 2)
-
-    return mass, intensity
-
 def ion_chromatogram(chromatogram, clusters):
 
     '''
