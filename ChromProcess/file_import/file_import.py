@@ -348,27 +348,6 @@ def load_chromatogram_csv(file):
 
     return time, signal
 
-def read_data_from_report(file):
-    dataset = []
-    readstate = False
-    with open(file, 'r',encoding='latin1') as f:
-        for n,line in enumerate(f,0):
-            if "start_data" in line:
-                readstate = True
-                line = next(f)
-            if "end_data" in line:
-                readstate = False
-            if readstate:
-                newline = line.strip("\n")
-                dataset.append([x for x in newline.split(",") if x != ""])
-
-    e = [list(i) for i in zip(*dataset)]
-    d_out = {}
-    for s in e:
-        d_out[s[0]] = np.array([0 if x == 'nan' else float(x) for x in s[1:]])
-
-    return d_out
-
 def read_point_removals_file(fname):
     '''
     For reading a file containing datasets and point indices to remove in the
