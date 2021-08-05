@@ -33,16 +33,3 @@ def CreateCalibrationSeries(series):
 
     for c,v in enumerate(series.chromatograms):
         v.timepoint = series.x_series[c]
-
-
-def combine_mz_73(series):
-
-    combined = []
-    for p in series.ion_series:
-        for m in series.ion_series[p]:
-            if int(m) == 73:
-                combined.append(series.ion_series[p][m])
-
-    comb = np.array([list(i) for i in zip(*combined)])
-
-    return np.sum(comb, axis = 1)
