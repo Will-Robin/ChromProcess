@@ -6,9 +6,10 @@ from ChromProcess import info_params as i_p
 Functions for outputting files.
 '''
 
-
 def store_chromatogram(chrom):
     '''
+    For storing chromatograms in HDF5 format.
+    
     Parameters
     ----------
     chrom: ChromProcess Chromatogram object`
