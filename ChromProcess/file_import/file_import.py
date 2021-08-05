@@ -164,37 +164,6 @@ def get_data_Shimadzu_HPLC(file,dat_dict):
                         break
     return dat_dict
 
-def get_chromatogram_region_HPLC(file, chrom_index, region):
-    '''
-    Gets a region of a chromatogram from a file.
-    Parameters
-    ----------
-    file: str
-        name of chromatogram file (ASCII exported from Shimadzu LC software)
-    chrom_index: int
-        output channel (usually 0 or 1)
-    region: list
-        list of lower and upper region bounds; [low,high]
-
-    Returns
-    -------
-    time2: numpy array
-        numpy array for time values of chromatogram section.
-    sig2: numpy array
-        numpy array for signal values of chromatogram section
-
-    '''
-    data   = f_i.get_data_Shimadzu_HPLC(file, f_i.get_info_Shimadzu_HPLC(file))
-    time   = np.array(data["Time"][chrom_index])
-    signal = np.array(data["Signal"][chrom_index])
-
-    clip = np.where((time > region[0]) & (time < region[1]) )[0]
-
-    time2 = time[clip]
-    sig2 = signal[clip]
-
-    return time2, sig2
-
 def get_info_cdf_GCMS(f):
     '''
     Opens a .cdf file and prints its contents.
