@@ -1,2 +1,2 @@
-from ChromProcess.Classes import Data
-from ChromProcess.Classes import Metadata
+from ChromProcess.Classes.Data import *
+from ChromProcess.Classes.Metadata import *
