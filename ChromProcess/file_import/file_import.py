@@ -164,23 +164,6 @@ def get_data_Shimadzu_HPLC(file,dat_dict):
                         break
     return dat_dict
 
-def ImportExperimentConditionsFile(information_file):
-    '''
-    Import formatted experiment conditions file (.csv)
-
-    Parameters
-    ----------
-    information_file: str
-        Path to information file
-    Returns
-    -------
-    ChromProcess Information object
-
-    '''
-    from ChromProcess import Classes
-
-    return Classes.Information(information_file)
-
 def get_chromatogram_region_HPLC(file, chrom_index, region):
     '''
     Gets a region of a chromatogram from a file.
