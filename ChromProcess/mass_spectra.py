@@ -12,39 +12,6 @@ from ChromProcess import series_operations as s_o
 Functions for dealing with mass spectra.
 '''
 
-def ion_chromatogram(chromatogram, clusters):
-
-    '''
-    chromatogram: ChromProcess Chromatogram Object
-        Chromatogram with mass spectra inside.
-
-    ion_chromatograms: dict
-        Dict of ion chromatograms
-    '''
-    if len(chromatogram.scan_indices) == 0:
-        return {}
-    else:
-
-        ion_dict = {np.average(c):np.zeros(len(chromatogram.time)) for c in clusters}
-        cluster_dict = {np.average(c):c for c in clusters}
-
-        scan_brackets = []
-
-        for s in range(0,len(chromatogram.scan_indices)-1):
-            scan_brackets.append([chromatogram.scan_indices[s],chromatogram.scan_indices[s+1]])
-
-        for s in range(0,len(scan_brackets)):
-            inten = chromatogram.mass_intensity[scan_brackets[s][0]:scan_brackets[s][1]]
-            masses = chromatogram.mass_values[scan_brackets[s][0]:scan_brackets[s][1]]
-
-            for m in range(0,len(masses)):
-                for c in clusters:
-                    if masses[m] in c:
-                        ion_dict[np.average(c)][s] = inten[m]
-                        break
-
-        return ion_dict
-
 def ion_chromatogram_region(chromatogram, lower, upper, threshold = 0.1):
 
     if len(chromatogram.scan_indices) == 0:

@@ -277,6 +277,42 @@ class Chromatogram:
 
         return mass, intensity
 
+    def ion_chromatogram(self, clusters):
+        '''
+        Get all ion chromatograms from the Chromatogram using
+        pre-defined clusters of m/z values to bin signals.
+
+        clusters: dict
+            Clusters of m/z values. Mass values which are
+            together in the list values will be combined in
+            the output.
+        ion_chromatograms: dict
+            Dict of ion chromatograms
+        '''
+        if len(self.scan_indices) == 0:
+            return {}
+        else:
+
+            ion_dict = {np.average(c):np.zeros(len(self.time)) for c in clusters}
+            cluster_dict = {np.average(c):c for c in clusters}
+
+            scan_brackets = []
+
+            for s in range(0,len(self.scan_indices)-1):
+                scan_brackets.append([self.scan_indices[s],chromatogram.scan_indices[s+1]])
+
+            for s in range(0,len(scan_brackets)):
+                inten = self.mass_intensity[scan_brackets[s][0]:scan_brackets[s][1]]
+                masses = self.mass_values[scan_brackets[s][0]:scan_brackets[s][1]]
+
+                for m in range(0,len(masses)):
+                    for c in clusters:
+                        if masses[m] in c:
+                            ion_dict[np.average(c)][s] = inten[m]
+                            break
+
+            return ion_dict
+
 class Chromatogram_Series:
     def __init__(self,chromatogram_list, information_file):
         '''
