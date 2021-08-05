@@ -1,6 +1,4 @@
-from ChromProcess import file_import as f_i
 from ChromProcess import Classes
-from netCDF4 import Dataset
 import numpy as np
 import os
 
