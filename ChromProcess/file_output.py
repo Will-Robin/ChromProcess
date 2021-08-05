@@ -6,49 +6,11 @@ from ChromProcess import info_params as i_p
 Functions for outputting files.
 '''
 
-def chromatogram_to_csv_HPLC_old(f, outname):
-    '''
-    Writes chromatogram to .csv file. Currently selects the 360 nm channel.
-
-    Parameters
-    ----------
-    f: str
-         name of chromatogram file (ASCII exported from Shimadzu LC software)
-    outname: str
-        name for output flile
-
-    '''
-    data   = f_i.get_data_Shimadzu_HPLC(f, f_i.get_info_Shimadzu_HPLC(f))
-    channel_select = "360nm"
-    chan_ind = data["Wavelength"].index(channel_select)
-    time   = np.array(data["Time"][chan_ind])
-    signal = np.array(data["Signal"][chan_ind])
-    chrom_out = np.vstack((time,signal))
-    chrom_out = chrom_out.T
-    np.savetxt('{}_chromatogram.csv'.format(outname),chrom_out,delimiter = ',',header = 'time, signal')
-
 def chromatogram_to_csv_HPLC(chromatogram):
 
     chrom_out = np.vstack((chromatogram.time,chromatogram.signal))
     chrom_out = chrom_out.T
     np.savetxt('{}_chromatogram.csv'.format(chromatogram.filename),chrom_out,delimiter = ',',header = 'time, signal')
-
-def chromatogram_to_csv_GCMS_old(f, outname):
-    '''
-    Converts a GCMS .cdf file to .csv chromatogram.
-    Parameters
-    ----------
-    f: str
-        file name of the GCMS .cdf file
-    outname: str
-        name for the output file
-
-    '''
-    time   = file_import.get_data_cdf_GCMS(f, 'scan_acquisition_time')/60
-    signal = file_import.get_data_cdf_GCMS(f, 'total_intensity')
-    chrom_out = np.vstack((time,signal))
-    chrom_out = chrom_out.T
-    np.savetxt('{}_chromatogram.csv'.format(outname),chrom_out,delimiter = ',',header = 'time, signal')
 
 def chromatogram_to_csv_GCMS(chromatogram):
     '''
