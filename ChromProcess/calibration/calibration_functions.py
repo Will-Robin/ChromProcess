@@ -34,18 +34,6 @@ def CreateCalibrationSeries(series):
     for c,v in enumerate(series.chromatograms):
         v.timepoint = series.x_series[c]
 
-def quadratic(x, A,B,C):
-    '''
-    Parameters
-    -----------
-
-
-    Returns
-    -------
-
-    '''
-    return A*(x**2) + B*x + C
-
 def fit_calibration_curve_TIC(series):
 
     '''
