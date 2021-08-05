@@ -152,20 +152,6 @@ def ion_chromatograms_relative_to_peak(series):
                 f.write("{}".format(p[1].ion_integrals[i]/p[1].integral))
                 f.write("\n")
 
-def peak_character(series):
-    '''
-    Express peak identities as a function of residence times and ion chromatograms.
-    '''
-
-    for c in series.chromatograms:
-        for p in c.peaks:
-
-            characteristics = [str(c.peaks[p].retention_time), str(c.peaks[p].integral)]
-
-            [characteristics.append(str(x)) for x in [*c.peaks[p].ion_integrals]]
-
-            c.peaks[p].character = ";".join(characteristics)
-
 def ion_chromatogram_integral_series(series):
 
     for p in series.peak_series:
