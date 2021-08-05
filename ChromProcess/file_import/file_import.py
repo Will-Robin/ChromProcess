@@ -253,20 +253,6 @@ def get_calibration_file_allocations(file, exp_name):
     else:
         return calib_file, IS_pos
 
-def importCalibrationFileAllocations(filename):
-    from ChromProcess import Classes
-    return Classes.CalibrationAllocations(filename)
-
-def importDataInformationFile(filename):
-
-    '''
-    Importing directories of data from
-
-
-    '''
-    from ChromProcess import Classes
-    return Classes.DataPaths(filename)
-
 def read_peak_table(file):
     from ChromProcess import Classes
     read_line = lambda line: [float(x) for x in line.strip('\n').split(",") if x != '']
