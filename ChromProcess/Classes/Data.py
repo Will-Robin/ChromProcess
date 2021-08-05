@@ -102,7 +102,7 @@ class Chromatogram:
         else:
             print('Unexpected file type ({}). File not loaded'.format(self.filetype))
 
-    def get_data_Shimadzu_HPLC(file,dat_dict):
+    def get_data_Shimadzu_HPLC(self, file,dat_dict):
         '''
         Extracts data from the chromatogram into a dictionary.
 
@@ -136,7 +136,7 @@ class Chromatogram:
                             break
         return dat_dict
 
-    def get_info_Shimadzu_HPLC(file):
+    def get_info_Shimadzu_HPLC(self, file):
         '''
         Extracts key information from the exported chromatography file (see dat_dict).
 
@@ -182,7 +182,7 @@ class Chromatogram:
 
         return dat_dict
 
-    def get_data_cdf_GCMS(f, key):
+    def get_data_cdf_GCMS(self, f, key):
         '''
         Extracts data from a .cdf file using the Dataset function
         from the netCDF4 library.
@@ -223,7 +223,7 @@ class Chromatogram:
         # Point count is number of elements to read
         self.point_counts = self.get_data_cdf_GCMS(file, "point_count")
 
-    def load_from_csv(file):
+    def load_from_csv(self,file):
         '''
         For loading a chromatogram from a .csv file
         Parameters
@@ -252,6 +252,19 @@ class Chromatogram:
         signal = data[:,1]
 
         return time, signal
+
+    def write_to_csv(self):
+        filename = self.filename
+        time   = chromatogram.time
+        signal = chromatogram.signal
+        chrom_out = np.vstack((time,signal))
+        chrom_out = chrom_out.T
+
+        with open(f'{filename}.csv', 'w') as f:
+            f.write('time/ min, signal/ total ion counts\n')
+            for x in range(0,len(chrom_out)):
+                f.write(f'{chrom_out[x,0]},{chrom_out[x,1]}\n')
+
 
 class Chromatogram_Series:
     def __init__(self,chromatogram_list, information_file):

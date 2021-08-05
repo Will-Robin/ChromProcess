@@ -6,33 +6,6 @@ from ChromProcess import info_params as i_p
 Functions for outputting files.
 '''
 
-def chromatogram_to_csv_HPLC(chromatogram):
-
-    chrom_out = np.vstack((chromatogram.time,chromatogram.signal))
-    chrom_out = chrom_out.T
-    np.savetxt('{}_chromatogram.csv'.format(chromatogram.filename),chrom_out,delimiter = ',',header = 'time, signal')
-
-def chromatogram_to_csv_GCMS(chromatogram, filename = 'chromatogram'):
-    '''
-    Converts a GCMS .cdf file to .csv chromatogram.
-    Parameters
-    ----------
-    f: str
-        file name of the GCMS .cdf file
-    outname: str
-        name for the output file
-
-    '''
-    time   = chromatogram.time
-    signal = chromatogram.signal
-    chrom_out = np.vstack((time,signal))
-    chrom_out = chrom_out.T
-
-    with open('{}.csv'.format(filename), 'w') as f:
-        f.write('time/ min, signal/ total ion counts\n')
-        for x in range(0,len(chrom_out)):
-            f.write('{},{}\n'.format(chrom_out[x,0],chrom_out[x,1]))
-
 def data_report_template_convert(series, information):
     '''
     Output data in report template.
