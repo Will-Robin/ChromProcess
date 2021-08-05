@@ -12,23 +12,6 @@ def chromatogram_to_csv_HPLC(chromatogram):
     chrom_out = chrom_out.T
     np.savetxt('{}_chromatogram.csv'.format(chromatogram.filename),chrom_out,delimiter = ',',header = 'time, signal')
 
-def chromatogram_to_csv_GCMS(chromatogram):
-    '''
-    Converts a GCMS .cdf file to .csv chromatogram.
-    Parameters
-    ----------
-    f: str
-        file name of the GCMS .cdf file
-    outname: str
-        name for the output file
-
-    '''
-    time   = chromatogram.time
-    signal = chromatogram.signal
-    chrom_out = np.vstack((time,signal))
-    chrom_out = chrom_out.T
-    np.savetxt('{}_chromatogram.csv'.format(chromatogram.filename),chrom_out,delimiter = ',',header = 'time, signal')
-
 def chromatogram_to_csv_GCMS(chromatogram, filename = 'chromatogram'):
     '''
     Converts a GCMS .cdf file to .csv chromatogram.
