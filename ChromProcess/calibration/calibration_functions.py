@@ -35,55 +35,6 @@ def CreateCalibrationSeries(series):
         v.timepoint = series.x_series[c]
 
 
-def plot_calibration_curves_TIC(series,calib_params):
-    fig = plt.figure(figsize = (info_params.across + 4,info_params.up+5))
-    ax = plt.subplot(111)
-    x_vals = np.array(series.x_series)
-    for s in series.integral_series:
-        ax.scatter(x_vals, series.integral_series[s], label = round(s,3))
-        line = calib_f.quadratic(x_vals,*calib_params[s])
-
-        ax.plot(x_vals, line, c = "k")
-
-    ax.tick_params(axis='both', which='major', labelsize=info_params.labels)
-    ax.set_xlabel("{}".format(series.x_name), fontsize = info_params.font)
-    ax.set_ylabel("{}".format("I$_S$/I$_I$$_S$"), fontsize = info_params.font)
-    # Shrink current axis's height by 10% on the bottom
-    box = ax.get_position()
-    ax.set_position([box.x0, box.y0 + box.height * 0.3, box.width, box.height * 0.7])
-    # Put a legend below current axis
-    ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.15),
-              fancybox=True, shadow=True, ncol=3, fontsize = info_params.labels-4)
-
-    plt.savefig("{}_TIC_calibration_lines.png".format(series.set_name))
-    plt.clf()
-    plt.close()
-
-def plot_calibration_curves_IC(series,calib_params):
-    x_vals = np.array(series.x_series)
-    for s in series.ion_series:
-        fig = plt.figure(figsize = (info_params.across + 4,info_params.up+5))
-        ax = plt.subplot(111)
-
-        for m in series.ion_series[s]:
-            ax.scatter(x_vals, series.ion_series[s][m], label = m)
-            line = calib_f.quadratic(x_vals,*calib_params[s][m])
-            ax.plot(x_vals, line, c = "k")
-
-        ax.tick_params(axis='both', which='major', labelsize=info_params.labels)
-        ax.set_xlabel("{}".format(series.x_name), fontsize = info_params.font)
-        ax.set_ylabel("{}".format("I$_I$$_C$/I$_I$$_S$"), fontsize = info_params.font)
-        # Shrink current axis's height by 10% on the bottom
-        box = ax.get_position()
-        ax.set_position([box.x0, box.y0 + box.height * 0.3, box.width, box.height * 0.7])
-        # Put a legend below current axis
-        ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.15),
-                  fancybox=True, shadow=True, ncol=3, fontsize = info_params.labels-4)
-
-        plt.savefig("{}_{}_IC_calibration_line.png".format(series.set_name, round(s,3)))
-        plt.clf()
-        plt.close()
-
 def combine_mz_73(series):
 
     combined = []
