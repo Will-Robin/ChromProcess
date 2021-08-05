@@ -255,8 +255,8 @@ class Chromatogram:
 
     def write_to_csv(self):
         filename = self.filename
-        time   = chromatogram.time
-        signal = chromatogram.signal
+        time   = self.time
+        signal = self.signal
         chrom_out = np.vstack((time,signal))
         chrom_out = chrom_out.T
 
