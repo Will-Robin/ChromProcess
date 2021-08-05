@@ -1,5 +1,6 @@
 from ChromProcess import file_import
 import numpy as np
+import os
 
 class Peak:
     def __init__(self,retention_time, indices):
@@ -70,8 +71,8 @@ class Chromatogram:
         self.internal_reference = False
 
         if self.filetype == 'txt':
-            data  = file_import.get_data_Shimadzu_HPLC(self.initialised_path,
-                                     file_import.get_info_Shimadzu_HPLC(file))
+            data  = self.get_data_Shimadzu_HPLC(self.initialised_path,
+                                     self.get_info_Shimadzu_HPLC(file))
 
             try:
                 chan_ind = data["Wavelength"].index(channel_select)
@@ -85,30 +86,172 @@ class Chromatogram:
             self.mass_spectra = False
 
         elif self.filetype == 'cdf':
-            self.time   = file_import.get_data_cdf_GCMS(self.initialised_path,
+            self.time   = self.get_data_cdf_GCMS(self.initialised_path,
                                                         'scan_acquisition_time')/60 # converted to minutes
-            self.signal = file_import.get_data_cdf_GCMS(self.initialised_path,
+            self.signal = self.get_data_cdf_GCMS(self.initialised_path,
                                                         'total_intensity')
             self.c_type = 'GCMS'
 
             if mass_spec == True:
                 self.MS_Load()
 
+        elif self.filetype == 'csv':
+            self.time, self.signal = self.load_from_csv(self.initialised_path)
+            self.c_type = 'from_csv'
+
         else:
             print('Unexpected file type ({}). File not loaded'.format(self.filetype))
+
+    def get_data_Shimadzu_HPLC(file,dat_dict):
+        '''
+        Extracts data from the chromatogram into a dictionary.
+
+        Parameters
+        ----------
+        file: str
+            name of chromatogram file (ASCII exported from Shimadzu LC software)
+        dat_dict: dict
+            dictionary of information from chromatogram file.
+
+        Returns
+        -------
+        Updated dat_dict with chromatogram data added from the file
+
+        '''
+
+        for b in range(0,len(dat_dict['Data set start'])):
+            with open(file, 'r') as f:
+                time = []
+                signal = []
+                for c,line in enumerate(f):
+                    if c > dat_dict['Data set start'][b]:
+                        ex = line.strip("\n")
+                        inp = ex.split("\t")
+                        inp = [e.replace(',','.') for e in inp]
+                        time.append(float(inp[0]))
+                        signal.append(float(inp[1]))
+                        if round(float(inp[0]),3) == dat_dict['End Time'][b]:
+                            dat_dict['Time'].append(np.array(time))
+                            dat_dict['Signal'].append(np.array(signal))
+                            break
+        return dat_dict
+
+    def get_info_Shimadzu_HPLC(file):
+        '''
+        Extracts key information from the exported chromatography file (see dat_dict).
+
+        Parameters
+        ----------
+        file: str
+             name of chromatogram file (ASCII exported from Shimadzu LC software)
+        Returns
+        -------
+        dat_dict: dict
+            dictionary of information extracted from file
+
+        '''
+
+        dat_dict = {"Data set start"   : [],
+                    "Start Time"       : [],
+                    "End Time"         : [],
+                    "Intensity Units"  : [],
+                    "Time"             : [],
+                    "Signal"           : [],
+                    "Wavelength"       : []}
+
+        with open(file, 'r') as f:
+            for c,line in enumerate(f):
+                if 'Start Time'in line:
+                    ex =  line.split('\t')
+                    ex = [e.replace(',','.') for e in ex]
+                    dat_dict['Start Time'].append(float(ex[1].strip('\n')))
+                if 'R.Time (min)' in line:
+                    dat_dict["Data set start"].append(c+1)
+                if 'End Time'in line:
+                    ex =  line.split('\t')
+                    ex = [e.replace(',','.') for e in ex]
+                    dat_dict['End Time'].append(float(ex[1].strip('\n')))
+                if 'Intensity Units'in line:
+                    ex =  line.split('\t')
+                    ex = [e.replace(',','.') for e in ex]
+                    dat_dict['Intensity Units'].append(ex[1].strip('\n'))
+                if 'Wavelength(nm)' in line:
+                    ex =  line.split('\t')
+                    ex = [e.replace(',','.') for e in ex]
+                    dat_dict['Wavelength'].append(ex[1].strip('\n'))
+
+        return dat_dict
+
+    def get_data_cdf_GCMS(f, key):
+        '''
+        Extracts data from a .cdf file using the Dataset function
+        from the netCDF4 library.
+        Parameters
+        ----------
+        f: str
+            file name of the GCMS .cdf file
+        key: str
+            key to a set of data in the .cdf file
+
+        Returns
+        -------
+        output: numpy array
+            array filled with values of selected variable
+
+        Notes
+        -----
+        For a list of contents of the .cdf file, use cdf_info function.
+        '''
+        from netCDF4 import Dataset
+
+        f = Dataset(f, "r")
+        f.set_auto_mask(False)
+        output = f.variables[key][:]
+        f.close()
+        return output
 
     def MS_Load(self):
         file = self.initialised_path
 
         self.mass_spectra = True
         # Measured intensities
-        self.mass_intensity = file_import.get_data_cdf_GCMS(file, "intensity_values")
+        self.mass_intensity = self.get_data_cdf_GCMS(file, "intensity_values")
         # Measured masses
-        self.mass_values = np.round(file_import.get_data_cdf_GCMS(file, "mass_values"),3)
+        self.mass_values = np.round(self.get_data_cdf_GCMS(file, "mass_values"),3)
         # Scan index is starting index
-        self.scan_indices = file_import.get_data_cdf_GCMS(file, "scan_index")
+        self.scan_indices = self.get_data_cdf_GCMS(file, "scan_index")
         # Point count is number of elements to read
-        self.point_counts = file_import.get_data_cdf_GCMS(file, "point_count")
+        self.point_counts = self.get_data_cdf_GCMS(file, "point_count")
+
+    def load_from_csv(file):
+        '''
+        For loading a chromatogram from a .csv file
+        Parameters
+        ----------
+        file: str
+            Path to file
+        Returns
+        -------
+        time: numpy array
+            time axis
+        signal: numpy array
+            signal axis
+        '''
+        data = []
+        with open(file, 'r') as f:
+
+            for c,line in enumerate(f):
+                if c == 0:
+                    pass
+                else:
+                    data.append([float(x) for x in line.strip('\n').split(',')])
+
+        data = np.array(data)
+
+        time = data[:,0]
+        signal = data[:,1]
+
+        return time, signal
 
 class Chromatogram_Series:
     def __init__(self,chromatogram_list, information_file):
