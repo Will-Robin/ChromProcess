@@ -212,33 +212,6 @@ def get_data_cdf_GCMS(f, key):
     f.close()
     return output
 
-def get_chromatogram_region_GCMS(f,bounds):
-    '''
-    Gets a region of a chromatogram from a file.
-    Parameters
-    ----------
-    f: str
-        file name of the GCMS .cdf file
-    bounds: list
-        list of lower and upper region bounds; [low,high]
-
-    Returns
-    -------
-    newtime: numpy array
-        numpy array for time values of chromatogram section.
-    newsig: numpy array
-        numpy array for signal values of chromatogram section
-
-    '''
-
-    time   = f_i.get_data_cdf_GCMS(f, 'scan_acquisition_time')/60 # conversion to minutes
-    signal = f_i.get_data_cdf_GCMS(f, 'total_intensity')
-    clip = np.where((time > bounds[0]) & (time < bounds[1]))[0]
-    newtime = time[clip]
-    newsig = signal[clip]
-
-    return newtime, newsig
-
 def read_local_assignments(file):
     import os
 
