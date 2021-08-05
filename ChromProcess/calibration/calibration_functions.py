@@ -34,59 +34,6 @@ def CreateCalibrationSeries(series):
     for c,v in enumerate(series.chromatograms):
         v.timepoint = series.x_series[c]
 
-def fit_calibration_curve_TIC(series):
-
-    '''
-    Parameters
-    -----------
-
-
-    Returns
-    -------
-
-    '''
-    x_vals = np.array(series.x_series)
-    calibration_params = {}
-    for p in series.integral_series:
-
-        popt,pcov = curve_fit(quadratic, x_vals, series.integral_series[p], p0 = [0.5,0.5,0])
-        perr = np.sqrt(np.diag(pcov))
-        p_high = popt + perr
-        p_low = popt - perr
-        upper = calib_f.quadratic(x_vals,*p_high)# upper bound on fit
-        lower = calib_f.quadratic(x_vals,*p_low) # lower bound on fit
-
-        calibration_params[p] = popt
-
-    return calibration_params
-
-def fit_calibration_curve_IC(series):
-
-    '''
-    Parameters
-    -----------
-
-
-    Returns
-    -------
-
-    '''
-    x_vals = np.array(series.x_series)
-    calibration_params = {}
-    for p in series.ion_series:
-        calibration_params[p] = {}
-        for m in series.ion_series[p]:
-
-            popt,pcov = curve_fit(quadratic, x_vals, series.ion_series[p][m], p0 = [0.5,0.5,0])
-            perr = np.sqrt(np.diag(pcov))
-            p_high = popt + perr
-            p_low = popt - perr
-            upper = calib_f.quadratic(x_vals,*p_high)# upper bound on fit
-            lower = calib_f.quadratic(x_vals,*p_low) # lower bound on fit
-
-            calibration_params[p][m] = popt
-
-    return calibration_params
 
 def plot_calibration_curves_TIC(series,calib_params):
     fig = plt.figure(figsize = (info_params.across + 4,info_params.up+5))
