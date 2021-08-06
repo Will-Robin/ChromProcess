@@ -1,5 +1,6 @@
-from ChromProcess import file_import
 import numpy as np
+from ChromProcess import file_import
+from ChromProcess.simple_functions import isfloat
 
 class Information:
     def __init__(self, information_file):
@@ -231,7 +232,12 @@ class Experiment_Conditions:
                     condset.append([x for x in newline.split(",") if x != ""])
         c_out = {}
         for c in condset:
-            c_out[c[0]] = [float(x) for x in c[1:]]
+            c_out[c[0]] = []
+            for x in c[1:]:
+                if isfloat(x):
+                    c_out[c[0]].append(float(x))
+                else:
+                    c_out[c[0]].append(x)
 
         self.conditions = c_out
 
