@@ -40,36 +40,3 @@ def write_modified_calibration_params(modified_bounds, series):
         for b in modified_bounds:
             f.write("{},".format(b))
             f.write("{}\n".format(",".join([str(x) for x in modified_bounds[b]])))
-
-def write_peak_mass_spectra(chromatogram, filename = ''):
-    '''
-    For writing mass spectra of chromatogram peaks to a .csv file.
-
-    Parameters
-    ----------
-    chromatogram: ChromProcess Chromatogram object
-        Parent chromatogram for peaks
-    filename: str
-        Name for the file
-
-    Returns
-    -------
-    None
-    '''
-    with open('{}.csv'.format(filename), 'w') as f:
-
-        for p in chromatogram.peaks:
-            if chromatogram.peaks[p].mass_spectrum:
-                ms = chromatogram.peaks[p].mass_spectrum
-
-                f.write('Peak retention time, {}\n'.format(chromatogram.peaks[p].retention_time))
-                f.write('m/z,')
-                [f.write('{},'.format(x)) for x in ms[0]]
-                f.write('\n')
-                f.write('relative abundance,')
-                [f.write('{},'.format(x/max(ms[1]))) for x in ms[1]]
-                f.write('\n')
-            else:
-                f.write('Peak retention time, {}\n'.format(chromatogram.peaks[p].retention_time))
-                f.write('m/z,empty\n')
-                f.write('relative abundance,empty\n')

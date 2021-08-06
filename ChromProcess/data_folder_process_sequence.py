@@ -117,7 +117,7 @@ def chrom_folder_process_sequence(source_folder, store_folder,
             for p in c.peaks:
                 peak_ops.peakMassSpectrum(c.peaks[p],c)
 
-            file_output.write_peak_mass_spectra(c, filename = dest_dir/c.filename)
+            c.write_peak_mass_spectra(filename = dest_dir/c.filename)
 
     # Copy analysis and conditions information into target folder if
     # required

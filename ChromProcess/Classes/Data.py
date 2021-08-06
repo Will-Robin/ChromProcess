@@ -273,8 +273,6 @@ class Chromatogram:
 
         Parameters
         ----------
-        chromatogram: ChromProcess Chromatogram object
-            Parent chromatogram for peaks
         filename: str
             Name for the file
         value: float, str, bool
@@ -318,6 +316,43 @@ class Chromatogram:
                                             )
                         )
 
+    def write_peak_mass_spectra(self, filename = ''):
+        '''
+        For writing mass spectra of chromatogram peaks to a .csv file.
+
+        Parameters
+        ----------
+
+        filename: str
+            Name for the file
+
+        Returns
+        -------
+        None
+        '''
+        with open('{}.csv'.format(filename), 'w') as f:
+
+            for p in self.peaks:
+                if self.peaks[p].mass_spectrum:
+                    ms = self.peaks[p].mass_spectrum
+
+                    f.write('Peak retention time, {}\n'.format(
+                                                    self.peaks[p].retention_time
+                                                    )
+                            )
+                    f.write('m/z,')
+                    [f.write('{},'.format(x)) for x in ms[0]]
+                    f.write('\n')
+                    f.write('relative abundance,')
+                    [f.write('{},'.format(x/max(ms[1]))) for x in ms[1]]
+                    f.write('\n')
+                else:
+                    f.write('Peak retention time, {}\n'.format(
+                                                    self.peaks[p].retention_time
+                                                    )
+                            )
+                    f.write('m/z,empty\n')
+                    f.write('relative abundance,empty\n')
 
     def get_mass_spectrum(self, time):
 
