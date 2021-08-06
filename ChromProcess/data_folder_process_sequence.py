@@ -99,7 +99,7 @@ def chrom_folder_process_sequence(source_folder, store_folder,
     os.makedirs(store_folder/'Chromatograms', exist_ok = True)
     dest_dir = store_folder/'Chromatograms'
     for c in chroms:
-        c.write_to_csv()
+        c.write_to_csv(filename = dest_dir/c.filename)
 
     # Output peak table
     os.makedirs(store_folder/'PeakTables', exist_ok = True)

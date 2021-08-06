@@ -253,8 +253,10 @@ class Chromatogram:
 
         return time, signal
 
-    def write_to_csv(self):
-        filename = self.filename
+    def write_to_csv(self, filename = self.filename):
+        '''
+        Write chromatgram to a .csv file.
+        '''
         time   = self.time
         signal = self.signal
         chrom_out = np.vstack((time,signal))
