@@ -41,11 +41,11 @@ def chrom_folder_process_sequence(source_folder, store_folder,
 
     if isinstance(source_folder, str):
         source_folder = Path(source_folder)
-    if isinstance(store_folder):
+    if isinstance(store_folder,str):
         store_folder = Path(store_folder)
-    if isinstance(conditions_file):
+    if isinstance(conditions_file,str):
         conditions_file = Path(conditions_file)
-    if isinstance(analysis_file):
+    if isinstance(analysis_file,str):
         analysis_file = Path(analysis_file)
 
     # Create the store folder if it does not already exist
