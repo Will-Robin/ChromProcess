@@ -99,15 +99,15 @@ def chrom_folder_process_sequence(source_folder, store_folder,
     os.makedirs(store_folder/'Chromatograms', exist_ok = True)
     dest_dir = store_folder/'Chromatograms'
     for c in chroms:
-        c.write_to_csv(c, filename = dest_dir/c.filename)
+        c.write_to_csv(filename = dest_dir/c.filename)
 
     # Output peak table
     os.makedirs(store_folder/'PeakTables', exist_ok = True)
     dest_dir = store_folder/'PeakTables'
     for c,v in zip(chroms, conditions.series_values):
-        file_output.write_peak_table(c, filename = dest_dir/c.filename,
-                                     value = v,
-                                     series_unit = conditions.series_unit)
+        c.write_peak_table(filename = dest_dir/c.filename,
+                            value = v,
+                            series_unit = conditions.series_unit)
     # Output peak chromatograms
     if analysis.analysis_type == 'GCMS':
         # Output peak mass spectra

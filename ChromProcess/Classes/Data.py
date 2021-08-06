@@ -265,6 +265,60 @@ class Chromatogram:
             for x in range(0,len(chrom_out)):
                 f.write(f'{chrom_out[x,0]},{chrom_out[x,1]}\n')
 
+    def write_peak_table(self, filename = 'Peak_table',
+                        value = 0.0,
+                        series_unit = "None"):
+        '''
+        For writing peak integrals from a chromatogram to a .csv file.
+
+        Parameters
+        ----------
+        chromatogram: ChromProcess Chromatogram object
+            Parent chromatogram for peaks
+        filename: str
+            Name for the file
+        value: float, str, bool
+            Value assigned to the variable assigned to the chromatogram.
+        series_unit: float, str, bool
+            Units of the variable assigned to the chromatogram.
+        Returns
+        -------
+        None
+        '''
+        with open("{}.csv".format(filename), "w") as f:
+            f.write("{},{}\n".format(series_unit,value))
+            f.write('IS_retention_time/ min,IS_integral,IS_peak start/ min,IS_peak end/ min\n')
+            if self.internal_reference:
+                st_ind = self.internal_reference.indices[0]
+                end_ind = self.internal_reference.indices[-1]
+                IS_lower_bound = self.time[st_ind]
+                IS_upper_bound = self.time[end_ind]
+                IS_RT = self.internal_reference.retention_time
+                IS_integral = self.internal_reference.integral
+            else:
+                IS_RT, IS_integral, IS_lower_bound, IS_upper_bound = 'None', 'None', 'None', 'None'
+
+            f.write("{},{},{},{}\n".format(
+                                            IS_RT,
+                                            IS_integral,
+                                            IS_lower_bound,
+                                            IS_upper_bound
+                                        )
+                    )
+            f.write("Retention_time/ min,integral,peak start/ min,peak end/ min\n")
+
+            for p in self.peaks:
+                st_ind = self.peaks[p].indices[0]
+                end_ind = self.peaks[p].indices[-1]
+                f.write("{},{},{},{}\n".format(
+                                                self.peaks[p].retention_time,
+                                                self.peaks[p].integral,
+                                                self.time[st_ind],
+                                                self.time[end_ind]
+                                            )
+                        )
+
+
     def get_mass_spectrum(self, time):
 
         inds = np.where(self.time == time)[0]
