@@ -1,4 +1,5 @@
 import os
+from ChromProcess import Classes
 
 def load_cdf_from_directory(directory, dir_return = False, ms = False, limit = 1e100):
     '''
