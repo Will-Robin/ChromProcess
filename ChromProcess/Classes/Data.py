@@ -53,12 +53,12 @@ class Chromatogram:
         '''
         if type(file) != str:
             self.initialised_path = file
-            self.filename = file.stem.strip(file.suffix)
+            self.filename = file.stem.split('.')[0]
             self.filetype = file.suffix.strip('.')
         else:
-            self.initialised_path = file
-            self.filename = str(file[:-4])
-            self.filetype = file.split('.')[-1]
+            self.initialised_path = Path(file)
+            self.filename = file.stem.split('.')[0]
+            self.filetype = file.suffix.strip('.')
 
         self.peaks = {} # will become a dict of dicts: {region:{peak:{Peak_indices: [], Peak_start_indices: [], Peak_end_indices: []}}}
 
@@ -580,7 +580,7 @@ class PeakCollectionElement:
         Modifies PeakCollectionElement object attributes.
         '''
         import numpy as np
-        from ChromProcess import calibration_operations as cal_ops
+        from ChromProcess import calibration as cal_ops
         from ChromProcess import simple_functions as s_f
 
         if self.assignment in calibrations.calibration_factors:
