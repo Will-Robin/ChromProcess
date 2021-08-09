@@ -432,7 +432,12 @@ class DataReport:
 
         c_out = {}
         for c in condset:
-            self.conditions[c[0]] = [float(x) for x in c[1:]]
+            self.conditions[c[0]] = []
+            for x in c[1:]:
+                if isfloat(x):
+                    self.conditions[c[0]].append(float(x))
+                else:
+                    self.conditions[c[0]].append(x)
 
         dataset = self.import_file_section(file, "start_data", "end_data")
 
