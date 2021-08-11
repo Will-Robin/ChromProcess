@@ -1058,7 +1058,7 @@ class PeakCollectionSeries:
         from ChromProcess import info_params
         integral_dict = {}
         for x in range(0,len(self.integral_series)):
-            name = self.cluster_assignments[x]
+            name = self.cluster_assignments[x].split(' ')[0]
             if name in info_params.canonical_SMILES:
                 smiles = info_params.canonical_SMILES[name.split(' ')[0]]
                 pos = np.mean(self.clusters[x])
