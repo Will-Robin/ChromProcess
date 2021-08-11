@@ -1,6 +1,7 @@
-from ChromProcess import file_import
-import numpy as np
 import os
+import numpy as np
+from pathlib import Path
+from ChromProcess import file_import
 
 class Peak:
     def __init__(self,retention_time, indices):
