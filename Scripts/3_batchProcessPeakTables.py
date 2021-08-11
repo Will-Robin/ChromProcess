@@ -8,7 +8,7 @@ start_token = '1A' # experiment code from which to begin
 end_token = '5C' # Experiment code to end at
 
 # peaks with integral values below peak_removal_limit will be ignored
-peak_removal_limit = 0.0
+peak_removal_limit = 0.1
 # peak_agglomeration_boundary is the expected standard deviation for the
 # peak position. This value is used to group peaks with similar retention times
 # together (between chromatograms)
