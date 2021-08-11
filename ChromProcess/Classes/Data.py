@@ -57,9 +57,10 @@ class Chromatogram:
             self.filename = file.stem.split('.')[0]
             self.filetype = file.suffix.strip('.')
         else:
+            # convert the path as a string into a Path object.
             self.initialised_path = Path(file)
-            self.filename = file.stem.split('.')[0]
-            self.filetype = file.suffix.strip('.')
+            self.filename = self.initialised_path.stem.split('.')[0]
+            self.filetype = self.initialised_path.suffix.strip('.')
 
         self.peaks = {} # will become a dict of dicts: {region:{peak:{Peak_indices: [], Peak_start_indices: [], Peak_end_indices: []}}}
 
