@@ -52,9 +52,10 @@ def read_mass_spectra_report(file):
 
     mass_spectra = []
 
+    fltln = lambda x: [float(e) for e in x.strip('\n').split(',')[1:]
+                       if e != '']
+
     with open(file, 'r') as f:
-        fltln = lambda x: [float(e) for e in x.strip('\n').split(',')[1:]
-                           if e != '']
 
         make_ms = False
         for line in f:
