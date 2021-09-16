@@ -225,7 +225,7 @@ class Chromatogram:
         # Point count is number of elements to read
         self.point_counts = self.get_data_cdf_GCMS(file, "point_count")
 
-    def load_from_csv(self,file):
+    def load_from_csv(self,file, read_start_index = 1):
         '''
         For loading a chromatogram from a .csv file
         Parameters
@@ -243,7 +243,7 @@ class Chromatogram:
         with open(file, 'r') as f:
 
             for c,line in enumerate(f):
-                if c == 0:
+                if c < read_start_index:
                     pass
                 else:
                     data.append([float(x) for x in line.strip('\n').split(',')])
