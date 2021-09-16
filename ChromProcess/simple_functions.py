@@ -267,7 +267,7 @@ def get_rt_from_header(element):
         position = float(element)
     else:
         spl = element.split('(')[-1].strip(')')
-        position = float(spl[0:-1])
+        position = float(spl[0:])
     return position
 
 def upper_tri_no_diag(arr):
