@@ -97,7 +97,7 @@ class Chromatogram:
             if mass_spec == True:
                 self.MS_Load()
 
-        elif self.filetype == 'csv':
+        elif self.filetype == 'csv' or self.filetype == 'CSV':
             self.time, self.signal = self.load_from_csv(self.initialised_path)
             self.c_type = 'from_csv'
 
