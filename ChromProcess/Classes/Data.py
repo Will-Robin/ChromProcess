@@ -97,10 +97,13 @@ class Chromatogram:
             if mass_spec == True:
                 self.MS_Load()
 
-        elif self.filetype == 'csv' or self.filetype == 'CSV':
+        elif self.filetype == 'csv':
             self.time, self.signal = self.load_from_csv(self.initialised_path)
             self.c_type = 'from_csv'
 
+        elif self.filetype == 'CSV':
+            self.time, self.signal = self.load_from_csv(self.initialised_path)
+            self.c_type = 'from_csv'
         else:
             print('Unexpected file type ({}). File not loaded'.format(self.filetype))
 
