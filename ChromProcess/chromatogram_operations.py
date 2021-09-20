@@ -65,23 +65,33 @@ def pickPeaksRegion(chromatogram, region, threshold = 0.1):
     import numpy as np
     from ChromProcess import Classes
     from ChromProcess import chromatogram_operations as chrom_ops
-
-    inds = np.where( (chromatogram.time > region[0]) &
-                     (chromatogram.time < region[1]) )[0]
-
-    time = chromatogram.time[inds]
-    signal = chromatogram.signal[inds]
-
-    rts, peak_times = chrom_ops.pickPeaks(time, signal, threshold = threshold)
-
-    for rt, times in zip(rts,peak_times):
-
-        idx = np.where((chromatogram.time >= times[0]) &
-                        (chromatogram.time <= times[-1]))[0]
-
-        peak = Classes.Peak(rt, idx)
-        peak.get_integral(chromatogram)
-        chromatogram.peaks[rt] = peak
+    
+    low_limit = region[0]
+    high_limit = region[1]
+    
+    if low_limit > chromatogram.time.max():
+        # there is nothing to find outside the chromatogram
+        pass
+    elif high_limit < chromatogram.time.min():
+        # there is nothing to find outside the chromatogram
+        pass
+    else:
+        inds = np.where( (chromatogram.time > low_limit) &
+                        (chromatogram.time < high_limit) )[0]
+    
+        time = chromatogram.time[inds]
+        signal = chromatogram.signal[inds]
+    
+        rts, peak_times = chrom_ops.pickPeaks(time, signal, threshold = threshold)
+    
+        for rt, times in zip(rts,peak_times):
+    
+            idx = np.where((chromatogram.time >= times[0]) &
+                            (chromatogram.time <= times[-1]))[0]
+    
+            peak = Classes.Peak(rt, idx)
+            peak.get_integral(chromatogram)
+            chromatogram.peaks[rt] = peak
 
 def mz_background_subtraction(chromatogram, threshold = 500):
     '''
