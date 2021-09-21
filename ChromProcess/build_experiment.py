@@ -4,6 +4,7 @@ Creates a template directory for an experiment
 import os 
 import sys
 from pathlib import Path
+from ChromProcess import build_experiment as build_exp
 
 default_parent_directory = Path.home()
 
@@ -71,7 +72,8 @@ def write_dict_to_file(fname, this_dict):
         
             f.write(f'{k},{info}\n')
 
-def build_project(project_name, parent_directory):
+def build_project(project_name, parent_directory,
+                    conditions, analysis_details, local_assignments):
 
     '''
     project_name: str 
@@ -83,20 +85,24 @@ def build_project(project_name, parent_directory):
     
     project_root = f'{parent_directory}/{project_name}'
     
-    write_dict_to_file(f'{project_root}/{project_name}_conditions.csv', conditions)
+    build_exp.write_dict_to_file(f'{project_root}/{project_name}_conditions.csv', conditions)
     
-    write_dict_to_file(f'{project_root}/{project_name}_analysis_details.csv', analysis_details)
+    build_exp.write_dict_to_file(f'{project_root}/{project_name}_analysis_details.csv', analysis_details)
     
-    write_dict_to_file(f'{project_root}/{project_name}_local_assignments.csv', local_assignments)
+    build_exp.write_dict_to_file(f'{project_root}/{project_name}_local_assignments.csv', local_assignments)
     
 
 if __name__ == "__main__":
     
+    folder_name = build_exp.default_folder_name
+    parent_directory = build_exp.default_parent_directory
+    
     if len(sys.argv) >= 2:
-        default_folder_name = sys.argv[1]
+        folder_name = sys.argv[1]
 
     if len(sys.argv) >= 3:
-        default_parent_directory = sys.argv[2]
+        parent_directory = sys.argv[2]
     
-    build_project(default_folder_name, default_parent_directory)
+    build_exp.build_project(folder_name, parent_directory,
+                            build_exp.conditions, build_exp.analysis_details, build_exp.local_assignments)
 
