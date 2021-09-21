@@ -193,7 +193,7 @@ class Chromatogram:
         from the netCDF4 library.
         Parameters
         ----------
-        f: str
+        file: str
             file name of the GCMS .cdf file
         key: str
             key to a set of data in the .cdf file
