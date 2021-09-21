@@ -187,7 +187,7 @@ class Chromatogram:
 
         return dat_dict
 
-    def get_data_cdf_GCMS(self, f, key):
+    def get_data_cdf_GCMS(self, file, key):
         '''
         Extracts data from a .cdf file using the Dataset function
         from the netCDF4 library.
@@ -209,7 +209,7 @@ class Chromatogram:
         '''
         from netCDF4 import Dataset
 
-        f = Dataset(f, "r")
+        f = Dataset(file, "r")
         f.set_auto_mask(False)
         output = f.variables[key][:]
         f.close()
@@ -496,7 +496,7 @@ class Chromatogram_Series:
 
 class PeakCollectionElement:
     '''
-    Information on individual peakss
+    Information on individual peaks
     '''
     def __init__(self, position, integral, start, end, parent = 'not specified',
                     mass_spectrum = False):
