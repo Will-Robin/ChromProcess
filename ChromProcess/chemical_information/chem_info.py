@@ -30,6 +30,9 @@ for n,i in zip(header, info_container):
     props_dict[n] = i
 
 colour_assignments = {k:v for k,v in zip(props_dict['@ SMILES'], props_dict['colour'])}
+for k,v in zip(props_dict['compound_name'], props_dict['colour']):
+	colour_assignments[k] = v
+
 mms = {k:float(v) for k,v in zip(props_dict['@ SMILES'], props_dict['Mr_gmol-1'])}
 canonical_SMILES = {k:v for k,v in zip(props_dict['compound_name'], props_dict['@ SMILES'])}
 smiles_to_names = {}
