@@ -1,22 +1,5 @@
-def calibration_series_values(exp_conds, analysis):
-    import numpy as np
-
-    mass = exp_conds.conditions["Mass/ g"][0]
-    Mr = exp_conds.conditions["Mr/ g/mol"][0]
-    vol = exp_conds.conditions["Stock_vol/ L"][0]
-    stock_conc = (mass/Mr)/vol
-
-    titrations = exp_conds.conditions["Titration_series/ L"]
-    sample_vol = exp_conds.conditions["Sample_volume/ L"][0]
-    concentrations = [(stock_conc*x)/sample_vol for x in titrations]
-
-    IS_conc = analysis.internal_ref_concentration
-
-    c_IS = np.array([c/IS_conc for c in concentrations])
-
-    return c_IS
-
 from ChromProcess import simple_functions as s_f
+
 def AnalyseCalibrationCurve(x,y,error = [.0,.0],
                             function = s_f.QuadraticFunction,
                             func_p0 = [0.5,0.5,0],

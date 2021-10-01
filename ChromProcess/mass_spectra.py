@@ -12,51 +12,6 @@ from ChromProcess import series_operations as s_o
 Functions for dealing with mass spectra.
 '''
 
-def get_mass_spectrum(chromatogram, time):
-
-    inds = np.where(chromatogram.time == time)[0]
-
-    scan_inds = chromatogram.scan_indices[inds][0]
-    p_counts = chromatogram.point_counts[inds][0]
-
-    intensity = chromatogram.mass_intensity[scan_inds:scan_inds+p_counts]
-    mass = np.round(chromatogram.mass_values[scan_inds:scan_inds+p_counts], 2)
-
-    return mass, intensity
-
-def ion_chromatogram(chromatogram, clusters):
-
-    '''
-    chromatogram: ChromProcess Chromatogram Object
-        Chromatogram with mass spectra inside.
-
-    ion_chromatograms: dict
-        Dict of ion chromatograms
-    '''
-    if len(chromatogram.scan_indices) == 0:
-        return {}
-    else:
-
-        ion_dict = {np.average(c):np.zeros(len(chromatogram.time)) for c in clusters}
-        cluster_dict = {np.average(c):c for c in clusters}
-
-        scan_brackets = []
-
-        for s in range(0,len(chromatogram.scan_indices)-1):
-            scan_brackets.append([chromatogram.scan_indices[s],chromatogram.scan_indices[s+1]])
-
-        for s in range(0,len(scan_brackets)):
-            inten = chromatogram.mass_intensity[scan_brackets[s][0]:scan_brackets[s][1]]
-            masses = chromatogram.mass_values[scan_brackets[s][0]:scan_brackets[s][1]]
-
-            for m in range(0,len(masses)):
-                for c in clusters:
-                    if masses[m] in c:
-                        ion_dict[np.average(c)][s] = inten[m]
-                        break
-
-        return ion_dict
-
 def ion_chromatogram_region(chromatogram, lower, upper, threshold = 0.1):
 
     if len(chromatogram.scan_indices) == 0:
@@ -160,6 +115,28 @@ def bin_ion_chromatograms(peak, stdev = 0.001):
 
     peak.ion_chromatograms = out_log
 
+def bin_masses(all_masses, data_mat):
+    clusters = []
+    for c in s_f.cluster_indices(all_masses, bound = 0.1):
+        clusters.append(c)
+
+    binned_masses = np.zeros(len(clusters))
+    binned_data = np.zeros((len(data_mat),len(clusters)+1))
+    binned_data[:,0] = data_mat[:,0]
+
+    for c,cl in enumerate(clusters):
+        binned_masses[c] = np.average(all_masses[cl])
+        shft = [x+1 for x in cl]
+        sum_inten = np.sum(data_mat[:,shft], axis = 1)
+        binned_data[:,c+1] = sum_inten
+
+    # make sure mass spectra a reported as relative abundance
+    for x in range(0,len(binned_data)):
+        binned_data[x,1:] = binned_data[x,1:]/np.max(binned_data[x,1:])
+
+    return binned_masses, binned_data
+
+
 def integrate_ion_chromatograms(chromatogram, threshold = 0.1):
 
     for p in chromatogram.peaks:
@@ -196,20 +173,6 @@ def ion_chromatograms_relative_to_peak(series):
                 f.write("{},".format(i))
                 f.write("{}".format(p[1].ion_integrals[i]/p[1].integral))
                 f.write("\n")
-
-def peak_character(series):
-    '''
-    Express peak identities as a function of residence times and ion chromatograms.
-    '''
-
-    for c in series.chromatograms:
-        for p in c.peaks:
-
-            characteristics = [str(c.peaks[p].retention_time), str(c.peaks[p].integral)]
-
-            [characteristics.append(str(x)) for x in [*c.peaks[p].ion_integrals]]
-
-            c.peaks[p].character = ";".join(characteristics)
 
 def ion_chromatogram_integral_series(series):
 
@@ -315,24 +278,3 @@ def mass_spectrum_peak_picker(series, mass_split = 5):
             mass_out = []
 
         os.chdir("..")
-
-def bin_masses(all_masses, data_mat):
-    clusters = []
-    for c in s_f.cluster_indices(all_masses, bound = 0.1):
-        clusters.append(c)
-
-    binned_masses = np.zeros(len(clusters))
-    binned_data = np.zeros((len(data_mat),len(clusters)+1))
-    binned_data[:,0] = data_mat[:,0]
-
-    for c,cl in enumerate(clusters):
-        binned_masses[c] = np.average(all_masses[cl])
-        shft = [x+1 for x in cl]
-        sum_inten = np.sum(data_mat[:,shft], axis = 1)
-        binned_data[:,c+1] = sum_inten
-
-    # make sure mass spectra a reported as relative abundance
-    for x in range(0,len(binned_data)):
-        binned_data[x,1:] = binned_data[x,1:]/np.max(binned_data[x,1:])
-
-    return binned_masses, binned_data

@@ -1,3 +1,14 @@
+'''
+Would prefer to add these functions into Peak object methods.
+
+However, they rely upon calling mass spectral information from the
+parent Chromatogram object.
+
+The fact that any chromatogram can be provided as a source of the mass
+spectra is a weakness: if any chromatogram can be provided, then
+the wrong mass spectrum for the peak can be obtained.
+'''
+
 def peakMassSpectrum(peak, chromatogram):
 
     '''
