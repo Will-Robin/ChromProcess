@@ -25,9 +25,9 @@ analysis_cpy = False
 conditions_cpy = False
 
 # importing information
-Path_file = r'C:\Users\willi\Documents\Data\Data_information.csv'
+Path_file = r'...\Data_information.csv'
 exp_paths = Classes.DataPaths(Path_file)
-storage_stem = Path(r'C:\Users\willi\Documents\Data')
+storage_stem = Path(r'...\Data')
 
 experiment = exp_paths.exp_code_path[exp_name]
 data_type = experiment.data_type

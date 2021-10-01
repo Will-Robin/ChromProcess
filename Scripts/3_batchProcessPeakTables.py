@@ -15,7 +15,7 @@ peak_removal_limit = 0.1
 peak_agglomeration_boundary = 0.025
 
 # importing information
-system_root = Path('/Users/williamrobinson/Documents/Nijmegen')
+system_root = Path('...')
 storage_stem = system_root/'PrebioticDatabase'
 data_folder = storage_stem/'Data/GCMS/FRN'
 Path_file = storage_stem/'Data_information/Data_information.csv'
