@@ -34,8 +34,8 @@ exp_name = 'Demo1'
 
 # Now, define the folder containing the data to be scraped (source_folder) and the folder which data will be scraped into (target_folder):
 
-source_folder = Path(r'C:\Users\willi\Documents\PrebioticDatabase\Demo_files')
-target_folder = Path(r'C:\Users\willi\Documents\PrebioticDatabase\Demo_files\Results')
+source_folder = Path('path to data')
+target_folder = Path('path to storage folder')
 
 # Analysis of the chromatograms requires analysis_details and local_assignments .csv files (see demo folder). Furthermore, the chromatographic information must be accompanied by a relevant conditions .csv file (again, see demo folder). Initially, these files may be stored in the source_folder, the target_folder, or both. The following block of code checks whether these files are present in the folders.
 
