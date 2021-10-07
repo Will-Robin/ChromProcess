@@ -6,13 +6,24 @@ def chrom_folder_process_sequence(source_folder, store_folder,
     Parameters
     ----------
     source_folder: str or pathlib Path object
-        path to source of data
+        path to folder containing the source data
+
     store_folder: str or pathlib Path object
-        path to extract data into
+        path folder to extract data into.
+
     conditions_file: str or pathlib Path object
         Path to conditions file
+
     analysis_file: str or pathlib Path object
         Path to analysis file
+
+    copy_analysis: bool
+        Whether to copy the analysis file from the source folder to the
+        targer folder or not.
+
+    copy_conditions: bool
+        Whether to copy the conditions file from the source folder to the
+        targer folder or not.
 
     Returns
     -------
@@ -20,12 +31,22 @@ def chrom_folder_process_sequence(source_folder, store_folder,
     chroms: list of ChromProcess Chromatogram objects
     '''
     import os
+    from pathlib import Path
     from ChromProcess import Classes
     from ChromProcess import file_import
     from ChromProcess import file_output
     from ChromProcess import peak_operations as peak_ops
     from ChromProcess import processing_functions as p_f
     from ChromProcess import chromatogram_operations as chrom_ops
+
+    if isinstance(source_folder, str):
+        source_folder = Path(source_folder)
+    if isinstance(store_folder,str):
+        store_folder = Path(store_folder)
+    if isinstance(conditions_file,str):
+        conditions_file = Path(conditions_file)
+    if isinstance(analysis_file,str):
+        analysis_file = Path(analysis_file)
 
     # Create the store folder if it does not already exist
     os.makedirs(store_folder, exist_ok = True)
@@ -78,15 +99,15 @@ def chrom_folder_process_sequence(source_folder, store_folder,
     os.makedirs(store_folder/'Chromatograms', exist_ok = True)
     dest_dir = store_folder/'Chromatograms'
     for c in chroms:
-        file_output.chromatogram_to_csv_GCMS(c, filename = dest_dir/c.filename)
+        c.write_to_csv(filename = dest_dir/c.filename)
 
     # Output peak table
     os.makedirs(store_folder/'PeakTables', exist_ok = True)
     dest_dir = store_folder/'PeakTables'
     for c,v in zip(chroms, conditions.series_values):
-        file_output.write_peak_table(c, filename = dest_dir/c.filename,
-                                     value = v,
-                                     series_unit = conditions.series_unit)
+        c.write_peak_table(filename = dest_dir/c.filename,
+                            value = v,
+                            series_unit = conditions.series_unit)
     # Output peak chromatograms
     if analysis.analysis_type == 'GCMS':
         # Output peak mass spectra
@@ -96,7 +117,7 @@ def chrom_folder_process_sequence(source_folder, store_folder,
             for p in c.peaks:
                 peak_ops.peakMassSpectrum(c.peaks[p],c)
 
-            file_output.write_peak_mass_spectra(c, filename = dest_dir/c.filename)
+            c.write_peak_mass_spectra(filename = dest_dir/c.filename)
 
     # Copy analysis and conditions information into target folder if
     # required

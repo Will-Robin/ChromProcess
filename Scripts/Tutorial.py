@@ -33,7 +33,6 @@ from ChromProcess import processing_functions as p_f # Contains functions for pr
 exp_name = 'Demo1'
 
 # Now, define the folder containing the data to be scraped (source_folder) and the folder which data will be scraped into (target_folder):
-
 source_folder = Path('path to data')
 target_folder = Path('path to storage folder')
 

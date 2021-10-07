@@ -1,5 +1,3 @@
-import sys
-sys.path.append('/Users/williamrobinson/documents/nijmegen/packages')
 import numpy as np
 import matplotlib.pyplot as plt
 from ChromProcess.simple_functions import QuadraticFunction

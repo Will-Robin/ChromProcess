@@ -5,10 +5,9 @@ from ChromProcess import file_import
 from ChromProcess import processing_functions as p_f
 import matplotlib.pyplot as plt
 
-exp_name = 'xylulose_1_2021'
+exp_name = '1A'
 MS_baseline_subtract = True
 ms_thres = 500
-Path_file = r'C:\Users\willi\Documents\Data\Data_information.csv'
 
 '''
 A pre-inspection process for data scraping.
@@ -20,40 +19,42 @@ via an on-screen printout
 Plots of the chromatograms are made to aid with selecting the correct regions
 for peak integration.
 '''
+storage_stem = Path('path-to-data-storage-folder')
+database_root = Path('root-directory-for-data')
 
-
+Path_file = Path('path-to: Data_information.csv')
 exp_paths = Classes.DataPaths(Path_file)
-storage_stem = Path(r'C:\Users\willi\Documents\Data')
 
 data_type = exp_paths.exp_code_path[exp_name].data_type
-exp_path = exp_paths.exp_code_path[exp_name].path
+
 # Point the program to where the data are
-source_folder = Path(exp_path)
+source_folder = database_root/exp_name
+
 # State directory in which to store results
 store_folder = Path(storage_stem/data_type/'FRN'/exp_name)
 
 checks = {}
 # try to find conditions file
 source_cond_file = source_folder/'{}_conditions.csv'.format(exp_name)
+local_cond_file = store_folder/'{}_conditions.csv'.format(exp_name)
+source_analysis_det = source_folder/'{}_analysis_details.csv'.format(exp_name)
+local_analysis_det = store_folder/'{}_analysis_details.csv'.format(exp_name)
+
 if not os.path.exists(source_cond_file):
     checks['Source conditions file'] = False
 else:
     checks['Source conditions file'] = True
 
-local_cond_file = store_folder/'{}_conditions.csv'.format(exp_name)
 if not os.path.exists(local_cond_file):
     checks['Local conditions file'] = False
 else:
     checks['Local conditions file'] = True
 
-
-source_analysis_det = source_folder/'{}_analysis_details.csv'.format(exp_name)
 if not os.path.exists(source_analysis_det):
     checks['Source analysis file'] = False
 else:
     checks['Source analysis file'] = True
 
-local_analysis_det = store_folder/'{}_analysis_details.csv'.format(exp_name)
 if not os.path.exists(local_analysis_det):
     checks['Local analysis file'] = False
 else:
