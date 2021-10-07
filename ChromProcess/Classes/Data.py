@@ -998,7 +998,7 @@ class PeakCollectionSeries:
         for pc in self.peak_collections:
             pc.dilution_correct_peaks(analysis)
 
-    def make_integral_series(self, cluster_bound = 0.025):
+    def make_integral_series(self, cluster_bound = 0.0):
         from ChromProcess import simple_functions as s_f
         from ChromProcess import processing_functions as p_f
 
@@ -1017,7 +1017,7 @@ class PeakCollectionSeries:
 
         self.integral_series = series_courses.T
 
-    def make_concentration_series(self, cluster_bound = 0.025):
+    def make_concentration_series(self, cluster_bound = 0.0):
         from ChromProcess import simple_functions as s_f
         from ChromProcess import processing_functions as p_f
 
@@ -1049,7 +1049,7 @@ class PeakCollectionSeries:
 
         conc_dict = {}
         for x in range(0,len(self.concentration_series)):
-            name = self.cluster_assignments[x]
+            name = self.cluster_assignments[x].split(' ')[0]
             pos = round(np.mean(self.clusters[x]),3)
             if name in info_params.canonical_SMILES:
                 smiles = info_params.canonical_SMILES[name.split(' ')[0]]
@@ -1121,14 +1121,15 @@ class PeakCollectionSeries:
         information: ChromProcess Instrument_Calibration object
         '''
         import numpy as np
+
         out_type = 'concentration_report'
         fname = '{}_{}_{}.csv'.format(filename, information.type, out_type)
 
         with open(fname, 'w') as outfile:
             # writing experiment conditions to file
             self.write_conditions_header(outfile,information)
-            # writing data
 
+            # writing data
             conc_traces = self.concentration_traces_as_dict()
             sorted_keys = sorted([*conc_traces], key = lambda x:x.count('C'))
 
@@ -1161,6 +1162,7 @@ class PeakCollectionSeries:
 
         information: ChromProcess Instrument_Calibration object
         '''
+
         import numpy as np
         out_type = 'integral_report'
         fname = '{}_{}_{}.csv'.format(filename, information.type, out_type)
