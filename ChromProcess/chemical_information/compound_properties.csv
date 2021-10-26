@@ -64,6 +64,7 @@ polyol,OC(C(O)C(C(CO)O)O)CO,OC(C(O)C(C(CO)O)O)CO,polyol,#d0d1df,182.17,62,;
 polyol,OCC(O)C(O)C(O)C(O)CO,OCC(O)C(O)C(O)C(O)CO,polyol,#d0d1df,182.17,63,;
 sorbitol,OC[C@H](O)[C@@H](O)[C@H](O)[C@H](O)CO,OC[C@@H](O)[C@H](O)[C@@H](O)[C@@H](O)CO,C6_alcohol,#e0e3e2,182.17,64,;
 tetradecane,CCCCCCCCCCCCCC,CCCCCCCCCCCCCC,Internal_standard,#040404,198.23,65,;
+glycerogalactoheptose,O=CC(O)C(O)C(O)C(O)C(O)CO,O=CC(O)C(O)C(O)C(O)C(O)CO,C7_Class_I,#a01262,210.07,66,;
 alphaDglycerogalactoheptose,O=CC(O)C(O)C(O)C(O)C(O)CO,O=CC(O)C(O)C(O)C(O)C(O)CO,C7_Class_I,#a01262,210.07,66,;
 galactoheptose,O=C[C@H](O)[C@@H](O)[C@@H](O)[C@H](O)[C@H](O)CO,O=C[C@@H](O)[C@H](O)[C@H](O)[C@@H](O)[C@@H](O)CO,C7_Class_I,#702752,210.07,67,;
 maltitol,OC[C@H](O)[C@@H](O)[C@H](O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O)[C@H](O)CO,OC[C@@H](O)[C@H](O)[C@@H](O[C@@H]1O[C@@H](CO)[C@H](O)[C@@H](O)[C@@H]1O)[C@@H](O)CO,C6_dimer_alcohol,#e0e3e4,344.313,68,;
