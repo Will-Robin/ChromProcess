@@ -74,8 +74,13 @@ def chrom_folder_process_sequence(source_folder, store_folder,
         # load .txt files exported from Shimadzu LabSolutions for HPLC analysis
         chroms, _ = file_import.directoryLoadShimadzuASCII(source_folder)
     else:
-        print('Incorrect chromatogram type in analysis file.')
-        return False
+        try: 
+            chroms = []
+            for f in os.listdir(source_folder):
+                chroms.append(Classes.Chromatogram(source_folder/f))
+        except:
+            print('Incorrect chromatogram type in analysis file.')
+            return False
 
     # Pre-process the chromatograms
     for c in chroms:

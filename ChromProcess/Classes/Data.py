@@ -736,6 +736,9 @@ class PeakCollection:
             p.start = p.start - is_rt + IS_set
             p.end = p.end - is_rt + IS_set
 
+        for m in self.ms:        
+            m.retention_time = m.retention_time - is_rt + IS_set
+
         self.internal_standard.start = (self.internal_standard.start - is_rt +
                                                                         IS_set)
         self.internal_standard.end = (self.internal_standard.end - is_rt +
