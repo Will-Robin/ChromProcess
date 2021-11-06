@@ -332,6 +332,7 @@ class CalibrationAllocations:
         self.experiments = []
         self.GCMS_allocations = {}
         self.HPLC_allocations = {}
+        self.GC_allocations = {}
 
         if filename == '':
             pass
@@ -347,12 +348,13 @@ class CalibrationAllocations:
                     header = rdln(line)
                     GCMS_idx = header.index('GCMS_Calibration_file')
                     HPLC_idx = header.index('HPLC_Calibration_file')
+                    GC_idx = header.index('GC_Calibration_file')
                 else:
                     ins = rdln(line)
                     self.experiments.append(ins[0])
                     self.GCMS_allocations[ins[0]] = ins[GCMS_idx]
                     self.HPLC_allocations[ins[0]] = ins[HPLC_idx]
-
+                    self.GC_allocations[ins[0]] = ins[GC_idx]
 
 class DataPath:
     '''
