@@ -35,8 +35,6 @@ class Peak:
         else:
             self.integral = ( np.trapz(signal, x = time) )
         
-        print(self.integral)
-
         return self.integral
 
 class Chromatogram:
