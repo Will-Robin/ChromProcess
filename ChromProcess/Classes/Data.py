@@ -31,9 +31,11 @@ class Peak:
         if baseline_subtract:
 
             linterp = np.interp(time,[time[0],time[-1]],[signal[0],signal[-1]])
-            self.integral = ( np.trapz(signal, x = time) ) - linterp
+            self.integral = ( np.trapz(signal - linterp, x = time) ) 
         else:
             self.integral = ( np.trapz(signal, x = time) )
+        
+        print(self.integral)
 
         return self.integral
 
