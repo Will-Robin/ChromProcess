@@ -97,8 +97,8 @@ def chrom_folder_process_sequence(source_folder, store_folder,
 
         # Get peaks in regions of the chromatogram
         for r in analysis.regions:
-            chrom_ops.pickPeaksRegion(c, r,
-                                       threshold = analysis.peak_pick_threshold)
+            chrom_ops.regionPeakPick(c, r, threshold = analysis.peak_pick_threshold)
+            chrom_ops.integratePeaks(c)
 
     # Output chromatograms to store folder
     os.makedirs(store_folder/'Chromatograms', exist_ok = True)
