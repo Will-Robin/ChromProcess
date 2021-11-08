@@ -96,7 +96,7 @@ def regionPeakPick(chromatogram, region, threshold = 0.1):
             peak = Classes.Peak(rt, idx)
             chromatogram.peaks[rt] = peak
 
-def integratePeaks(chromatogram):
+def integratePeaks(chromatogram, baseline_subtract = False):
     '''
     Parameters
     ----------
@@ -109,7 +109,7 @@ def integratePeaks(chromatogram):
     '''
     # put integral information into the peaks.
     for p in chromatogram.peaks:
-        chromatogram.peaks[p].get_integral(chromatogram, baseline_subtract = True)
+        chromatogram.peaks[p].get_integral(chromatogram, baseline_subtract = baseline_subtract)
         chromatogram.peaks[p].get_integral(chromatogram)
 
 
