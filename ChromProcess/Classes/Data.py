@@ -875,7 +875,6 @@ class PeakCollection:
                 end = p.end
                 f.write("{},{},{},{}\n".format(rt, integ, start, end))
 
-
 class PeakCollectionSeries:
     def __init__(self, peak_collections, name = 'not specified',
                  conditions = {}):
