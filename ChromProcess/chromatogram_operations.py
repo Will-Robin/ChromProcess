@@ -62,6 +62,9 @@ def regionPeakPick(chromatogram, region, threshold = 0.1):
     -------
     None
     '''
+    import numpy as np
+    from ChromProcess import Classes
+    from ChromProcess import chromatogram_operations as chrom_ops
 
     low_limit = region[0]
     high_limit = region[1]
@@ -197,8 +200,9 @@ def internalRefIntegral(chromatogram, internal_ref_region):
     '''
     from ChromProcess import Classes
     from ChromProcess import chromatogram_operations as chrom_ops
+
     if len(chromatogram.peaks) == 0:
-        chrom_ops.pickPeaksRegion(chromatogram, internal_ref_region, threshold = 0.1)
+        chrom_ops.regionPeakPick(chromatogram, internal_ref_region, threshold = 0.1)
     else:
         pass
 
