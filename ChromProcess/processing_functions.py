@@ -78,7 +78,7 @@ def Peak_finder(intensity, thres=0.1, min_dist=1, max_inten = 1e100, min_inten =
 
     # find the peaks by using the first order difference
     diff = p_f.savitzky_golay(np.diff(intensity), 7, 3, deriv=0, rate=1)
-
+    
     peaks_indices = np.where((np.hstack([diff, 0.]) < 0.)
                      & (np.hstack([0., diff]) > 0.)
                      & (intensity > thres) & (intensity < max_inten) & (intensity > min_inten))[0]

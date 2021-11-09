@@ -83,18 +83,72 @@ def regionPeakPick(chromatogram, region, threshold = 0.1):
         rts, peak_times = chrom_ops.pickPeaks(chromatogram.time[inds],
             chromatogram.signal[inds],
                                     threshold = 0.1)
-        # iterate through indices found and use them to
-        # create peak objects which are added to the 
-        # chromatogram
+        peak_features = []
         for rt, times in zip(rts,peak_times):
-            # find indices of the peaks upper and lower
-            # bounds in relationship to the entire 
-            # chromatogram.
-            idx = np.where((chromatogram.time >= times[0]) &
-                            (chromatogram.time <= times[-1]))[0]
+            feature = [times[0], rt, times[-1]]
+            peak_features.append(feature)
+
+        chrom_ops.addPeaksToChromatogram(peak_features, chromatogram)
+       
+def getPeakFromBounds(chrom, start, end):
+    '''
+    Create a peak using the boundaries 
+    defined within chrom
+
+    chrom: Chromatogram object
+    start: float
+        Start of the peak
+    end: float
+        End of the peak
     
-            peak = Classes.Peak(rt, idx)
-            chromatogram.peaks[rt] = peak
+    peak: Peak object
+        peak created from the bounds
+    '''
+    import numpy as np
+    from ChromProcess import Classes
+
+    if start > end:
+        print(f'peak start ({start}) > peak end, ({end}) returning None')
+        return None
+
+    inds = np.where(
+            (chrom.time > start) & 
+            (chrom.time < end)
+            )[0]
+
+    timeseg = chrom.time[inds]
+    sigseg  = chrom.signal[inds]
+
+    peak_idx = np.argmax(sigseg)
+    retention_time = timeseg[peak_idx] 
+ 
+    peak = Classes.Peak(retention_time, inds)
+
+    return peak
+
+def addPeaksToChromatogram(peak_times, chromatogram):
+    '''
+    peak_times: list
+        [start, peak, end] in units of the chromatogram's
+        retention time axis.
+
+    chromatogram: Chromatogram object
+    '''
+    import numpy as np
+    from ChromProcess import Classes
+
+    # iterate through indices found and use them to
+    # create peak objects which are added to the 
+    # chromatogram
+    for p in peak_times:
+        # find indices of the peaks upper and lower
+        # bounds in relationship to the entire 
+        # chromatogram.
+        idx = np.where((chromatogram.time >= p[0]) &
+                        (chromatogram.time <= p[-1]))[0]
+
+        peak = Classes.Peak(p[1], idx)
+        chromatogram.peaks[p[1]] = peak
 
 def integratePeaks(chromatogram, baseline_subtract = False):
     '''
@@ -110,8 +164,6 @@ def integratePeaks(chromatogram, baseline_subtract = False):
     # put integral information into the peaks.
     for p in chromatogram.peaks:
         chromatogram.peaks[p].get_integral(chromatogram, baseline_subtract = baseline_subtract)
-        chromatogram.peaks[p].get_integral(chromatogram)
-
 
 def mz_background_subtraction(chromatogram, threshold = 500):
     '''
