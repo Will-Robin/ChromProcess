@@ -109,19 +109,6 @@ Deactivate the environment (`conda deactivate` or `deactivate`).
 
 The next time you open Jupyter Notebook, a ChromProcess kernel should be available to choose in the launcher, or in a dropdown list in the top right of the notebook window. Choose the ChromProcess kernel, and get scripting!
 
-## Contributing
-
-If you want to make an edit to this package:
-
-1. Clone this repository from GitHub (or pull latest version if already cloned).
-2. Create a new branch with a descriptive name for the change you want to make.
-3. Edit the package until you are satisfied with the result.
-4. Commit your changes to the branch you created (commit quick and often, and use descriptive commit messages)
-5. Push everything to the Github repository
-6. Create a pull request on Github, requesting to merge your branch with the main branch. Another person can then review the changes you have made, propose improvements, and accept them when everything is satisfactory.
-
-The reviewing of pull requests is important to ensure that nothing is broken by the changes that you make. It also creates a nice opportunity to learn from somebody else how they would have approached the same edits.
-
 ## Acknowledgement
 
 ChromProcess was created by William E. Robinson during free time and working in the group of Prof. Wilhelm T. S. Huck (Radboud University Nijmegen) supported by NWO and the Simons Foundation. The intention behind the development of this software is to provide a useful tool for many people to use. If you use lots of this code in your work, an acknowledgement in publications would be appreciated (and possibly a link to this repository if made public). Also consider citing/acknowledging the makers of ChromProcess's dependencies. The software is all free and the product of a huge amount of work by many people (and all we have to do is `pip install`!). Lots (all?) of them worked for free in the spirit of open source software.
