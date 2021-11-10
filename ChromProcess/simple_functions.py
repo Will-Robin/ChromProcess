@@ -216,12 +216,10 @@ def cluster(values, bound = 0.1):
 
     cluster = []
     for m in range(0,len(values)):
-        if len(cluster) == 0:
-            pass
-        else:
+        if len(cluster) > 0:
             clust_av = np.average(cluster)
 
-            if  abs(values[m]-clust_av) > bound:
+            if abs(values[m]-clust_av) > bound:
                 yield cluster
                 cluster = []
 
