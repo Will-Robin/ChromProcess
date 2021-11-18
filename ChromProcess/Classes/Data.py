@@ -795,11 +795,13 @@ class PeakCollection:
             internal standard concentration
 
         '''
+        if IS_conc == 0.0:
+            IS_conc = 1.0
         for pk in self.peaks:
             if pk.assignment in calibrations.calibration_factors:
                 CF = calibrations.calibration_factors[pk.assignment]
                 if calibrations.calibration_model == 'linear':
-                    pk.apply_linear_calibration(CF['C'], CF['B'],
+                    pk.apply_linear_calibration(CF['B'], CF['C'],
                                                 internal_standard = IS_conc)
                 elif calibrations.calibration_model == 'quadratic':
                     pk.apply_quadratic_calibration(CF['A'], CF['B'], CF['C'],
