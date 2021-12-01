@@ -29,8 +29,9 @@ class Peak:
         signal = chromatogram.signal[self.indices]
 
         if baseline_subtract:
-
-            linterp = np.interp(time,[time[0],time[-1]],[signal[0],signal[-1]])
+            time_bound = [time[0], time[-1]]
+            signal_bound = [signal[0], signal[-1]]
+            linterp = np.interp(time, time_bound, signal_bound)
             self.integral = ( np.trapz(signal - linterp, x = time) ) 
         else:
             self.integral = ( np.trapz(signal, x = time) )
@@ -38,7 +39,9 @@ class Peak:
         return self.integral
 
 class Chromatogram:
-    def __init__(self, file, mass_spec = False, channel_select = '360nm'):
+    def __init__(self, file, 
+                mass_spec = False, 
+                channel_select = '360nm'):
         '''
         Initialises a chromatogram object from a file
 
@@ -62,7 +65,7 @@ class Chromatogram:
             self.filename = self.initialised_path.stem.split('.')[0]
             self.filetype = self.initialised_path.suffix.strip('.')
 
-        self.peaks = {} # will become a dict of dicts: {region:{peak:{Peak_indices: [], Peak_start_indices: [], Peak_end_indices: []}}}
+        self.peaks = {}
 
         self.mass_spectra = False
 
@@ -73,39 +76,51 @@ class Chromatogram:
         self.internal_reference = False
 
         if self.filetype == 'txt':
-            data  = self.get_data_Shimadzu_HPLC(self.initialised_path,
-                                     self.get_info_Shimadzu_HPLC(file))
+            data  = self.get_data_Shimadzu_HPLC(
+                                    self.initialised_path,
+                                    self.get_info_Shimadzu_HPLC(file)
+                                    )
 
             try:
                 chan_ind = data["Wavelength"].index(channel_select)
                 self.time = np.array(data["Time"][chan_ind])
                 self.signal = np.array(data["Signal"][chan_ind])
             except:
-                print(f"{channel_select} not found, try: ", data["Wavelength"])
+                wvl = data["Wavelength"] 
+                print(f"{channel_select} not found, try: {wvl}")
                 quit()
 
             self.c_type = 'HPLC'
             self.mass_spectra = False
 
         elif self.filetype == 'cdf':
-            self.time   = self.get_data_cdf_GCMS(self.initialised_path,
-                                                        'scan_acquisition_time')/60 # converted to minutes
-            self.signal = self.get_data_cdf_GCMS(self.initialised_path,
-                                                        'total_intensity')
+            self.time   = self.get_data_cdf_GCMS(
+                                    self.initialised_path,
+                                    'scan_acquisition_time'
+                                    )/60 # converted to minutes
+            self.signal = self.get_data_cdf_GCMS(
+                                                self.initialised_path,
+                                                'total_intensity'
+                                                )
             self.c_type = 'GCMS'
 
             if mass_spec == True:
                 self.MS_Load()
 
         elif self.filetype == 'csv':
-            self.time, self.signal = self.load_from_csv(self.initialised_path)
+            self.time, self.signal = self.load_from_csv(
+                                                self.initialised_path
+                                                    )
             self.c_type = 'from_csv'
 
         elif self.filetype == 'CSV':
-            self.time, self.signal = self.load_from_csv(self.initialised_path)
+            self.time, self.signal = self.load_from_csv(
+                                                self.initialised_path
+                                                    )
             self.c_type = 'from_csv'
         else:
-            print('Unexpected file type ({}). File not loaded'.format(self.filetype))
+            f_type = self.filetype
+            print(f'Unexpected file type ({f_type}). File not loaded')
 
     def get_data_Shimadzu_HPLC(self, file,dat_dict):
         '''
@@ -114,7 +129,8 @@ class Chromatogram:
         Parameters
         ----------
         file: str
-            name of chromatogram file (ASCII exported from Shimadzu LC software)
+            name of chromatogram file
+            (ASCII exported from Shimadzu LC software)
         dat_dict: dict
             dictionary of information from chromatogram file.
 
@@ -135,7 +151,8 @@ class Chromatogram:
                         inp = [e.replace(',','.') for e in inp]
                         time.append(float(inp[0]))
                         signal.append(float(inp[1]))
-                        if round(float(inp[0]),3) == dat_dict['End Time'][b]:
+                        end_time = dat_dict['End Time'][b]
+                        if round(float(inp[0]),3) == end_time:
                             dat_dict['Time'].append(np.array(time))
                             dat_dict['Signal'].append(np.array(signal))
                             break
@@ -143,12 +160,14 @@ class Chromatogram:
 
     def get_info_Shimadzu_HPLC(self, file):
         '''
-        Extracts key information from the exported chromatography file (see dat_dict).
+        Extracts key information from the exported chromatography file
+        (see dat_dict).
 
         Parameters
         ----------
         file: str
-             name of chromatogram file (ASCII exported from Shimadzu LC software)
+             name of chromatogram file (ASCII exported from
+             Shimadzu LC software)
         Returns
         -------
         dat_dict: dict
@@ -169,21 +188,25 @@ class Chromatogram:
                 if 'Start Time'in line:
                     ex =  line.split('\t')
                     ex = [e.replace(',','.') for e in ex]
-                    dat_dict['Start Time'].append(float(ex[1].strip('\n')))
+                    start_time = float(ex[1].strip('\n'))
+                    dat_dict['Start Time'].append(start_time)
                 if 'R.Time (min)' in line:
                     dat_dict["Data set start"].append(c+1)
                 if 'End Time'in line:
                     ex =  line.split('\t')
                     ex = [e.replace(',','.') for e in ex]
-                    dat_dict['End Time'].append(float(ex[1].strip('\n')))
+                    end_time = float(ex[1].strip('\n'))
+                    dat_dict['End Time'].append(end_time)
                 if 'Intensity Units'in line:
                     ex =  line.split('\t')
                     ex = [e.replace(',','.') for e in ex]
-                    dat_dict['Intensity Units'].append(ex[1].strip('\n'))
+                    intensity = ex[1].strip('\n')
+                    dat_dict['Intensity Units'].append(intensity)
                 if 'Wavelength(nm)' in line:
                     ex =  line.split('\t')
                     ex = [e.replace(',','.') for e in ex]
-                    dat_dict['Wavelength'].append(ex[1].strip('\n'))
+                    wavelength = ex[1].strip('\n')
+                    dat_dict['Wavelength'].append(wavelength)
 
         return dat_dict
 
@@ -222,7 +245,12 @@ class Chromatogram:
         # Measured intensities
         self.mass_intensity = self.get_data_cdf_GCMS(file, "intensity_values")
         # Measured masses
-        self.mass_values = np.round(self.get_data_cdf_GCMS(file, "mass_values"),3)
+        self.mass_values = np.round(
+                                    self.get_data_cdf_GCMS(
+                                                    file, 
+                                                    "mass_values"
+                                                    ),
+                                    3)
         # Scan index is starting index
         self.scan_indices = self.get_data_cdf_GCMS(file, "scan_index")
         # Point count is number of elements to read
@@ -249,7 +277,9 @@ class Chromatogram:
                 if c < read_start_index:
                     pass
                 else:
-                    data.append([float(x) for x in line.strip('\n').split(',')])
+                    line_as_list = line.strip('\n').split(',') 
+                    insertion = [float(x) for x in line_as_list]
+                    data.append(insertion)
 
         data = np.array(data)
 
@@ -347,7 +377,7 @@ class Chromatogram:
                     ms = self.peaks[p].mass_spectrum
 
                     f.write('Peak retention time, {}\n'.format(
-                                                    self.peaks[p].retention_time
+                                            self.peaks[p].retention_time
                                                     )
                             )
                     f.write('m/z,')
@@ -358,7 +388,7 @@ class Chromatogram:
                     f.write('\n')
                 else:
                     f.write('Peak retention time, {}\n'.format(
-                                                    self.peaks[p].retention_time
+                                            self.peaks[p].retention_time
                                                     )
                             )
                     f.write('m/z,empty\n')
@@ -392,17 +422,27 @@ class Chromatogram:
             return {}
         else:
 
-            ion_dict = {np.average(c):np.zeros(len(self.time)) for c in clusters}
+            ion_dict = {
+                        np.average(c): np.zeros(len(self.time))
+                                                 for c in clusters
+                        }
             cluster_dict = {np.average(c):c for c in clusters}
 
             scan_brackets = []
 
             for s in range(0,len(self.scan_indices)-1):
-                scan_brackets.append([self.scan_indices[s],chromatogram.scan_indices[s+1]])
+                scan_brackets.append(
+                                    [
+                                    self.scan_indices[s],
+                                    chromatogram.scan_indices[s+1]
+                                    ]
+                                )
 
             for s in range(0,len(scan_brackets)):
-                inten = self.mass_intensity[scan_brackets[s][0]:scan_brackets[s][1]]
-                masses = self.mass_values[scan_brackets[s][0]:scan_brackets[s][1]]
+                st_bracket = scan_brackets[s][0]
+                end_bracket = scan_brackets[s][1]
+                inten = self.mass_intensity[st_bracket:end_bracket]
+                masses = self.mass_values[st_bracket:end_bracket]
 
                 for m in range(0,len(masses)):
                     for c in clusters:
@@ -415,7 +455,8 @@ class Chromatogram:
 class Chromatogram_Series:
     def __init__(self,chromatogram_list, information_file):
         '''
-        Initialises a series of chromatograms from a list of chromatogram
+        Initialises a series of chromatograms from a
+        list of chromatograms
         objects and an information file.
         '''
 
@@ -437,13 +478,15 @@ class Chromatogram_Series:
                 if "series_values" in line:
                     ins = line.strip("\n")
                     spl = ins.split(",")
-                    self.x_series =  [float(x) for x in spl[1:] if x != ""]
+                    self.x_series =  [float(x) for x in spl[1:]
+                                                         if x != ""]
                 if "series_unit" in line:
                     ins = line.strip("\n")
                     self.x_name = ins.split(",")[1]
                 if "series_regions" in line:
                     ins = line.strip("\n")
-                    reg = [float(x) for x in ins.split(",")[1:] if x != ""]
+                    reg = [float(x) for x in ins.split(",")[1:]
+                                                         if x != ""]
                     self.regions = [reg[x:x+2] for x in range(0, len(reg), 2)]
                 if "internal_ref_region" in line:
                     ins = line.strip("\n")
