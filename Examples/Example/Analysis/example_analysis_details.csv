@@ -2,7 +2,7 @@ Dataset,example_dataset_name,,,
 Method,GCMS,,,
 regions,lower (float),upper (float),lower (float),upper (float)
 internal_reference_region,lower (float),upper (float),,
-extract_mass_spectra,TRUE,,,
+extract_mass_spectra,FALSE,,,
 mass_spectra_filter,500,,,
 peak_pick_threshold,0.1,,,
 dilution_factor,5.714285714,,,

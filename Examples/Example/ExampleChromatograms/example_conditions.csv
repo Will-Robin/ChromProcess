@@ -1,0 +1,12 @@
+Dataset,example_dataset_name,,
+start_experiment_information,,,
+series_values,10,20,30
+series_unit,time/ s,,
+end_experiment_information,,,
+start_conditions,,,
+dihydroxyacetone/ M,2,,
+formaldehyde/ M,2,,
+NaOH/ M,0.12,,
+CaCl2/ M,0.06,,
+water/ M,0,,
+end_conditions,,,

@@ -1,6 +1,6 @@
 Technique,GCMS,,,,,,,,,,
-Date,2019_02_18,,,,,,,,,,
-Method_file,Method 5,,,,,,,,,,
+Date,2021,,,,,,,,,,
+Method_file,method_filename,,,,,,,,,,
 Column,HP-5,,,,,,,,,,
 Derivatisation_details,75 uL EtONH2.HCl; 30 mins @ 70 oC; 25 uL N,O-Bis(trimethylsilyl)trifluoroacetamide; 30 mins @ 70 oC; dilution to 200 uL with internal standard solution,,,,,,,,,
 internal_standard_concentration,0.0008,,,,,,,,,,
