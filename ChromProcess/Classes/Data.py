@@ -5,6 +5,16 @@ from ChromProcess import file_import
 
 class Peak:
     def __init__(self,retention_time, indices):
+        '''
+        Creates a Peak object using a retention time
+        and the indices of the places in the data's 
+        parent chromatogram from which the time and 
+        signal of the peak can be obtained.
+
+        retention_time: float
+        indices: list
+
+        '''
 
         self.retention_time = retention_time
 
@@ -23,6 +33,15 @@ class Peak:
         self.deconvolution = None
 
     def get_integral(self, chromatogram, baseline_subtract = False):
+        '''
+        Get the integral of the peak using a chromatogram. Note that an
+        arbitray chromatogram can be passed to this method, meaning it is not
+        secure. The baseline substraction substracts a baseliner interpolated
+        linearly between the start and the end of the peak.
+
+        chromatogram: ChromProcess Chromatogram object
+        baseline_subtract: bool
+        '''
         import numpy as np
 
         time = chromatogram.time[self.indices]
@@ -55,6 +74,7 @@ class Chromatogram:
         channel_select: str
             For HPLC data, which detector channel to select.
         '''
+
         if type(file) != str:
             self.initialised_path = file
             self.filename = file.stem.split('.')[0]
@@ -75,6 +95,7 @@ class Chromatogram:
         self.point_counts = []
         self.internal_reference = False
 
+        # act according to the suffix of the file type passed in.
         if self.filetype == 'txt':
             data  = self.get_data_Shimadzu_HPLC(
                                     self.initialised_path,
@@ -122,9 +143,12 @@ class Chromatogram:
             f_type = self.filetype
             print(f'Unexpected file type ({f_type}). File not loaded')
 
-    def get_data_Shimadzu_HPLC(self, file,dat_dict):
+    def get_data_Shimadzu_HPLC(self, file, dat_dict):
         '''
-        Extracts data from the chromatogram into a dictionary.
+        A specific parser for .txt files exported from Shimadzu LabSolutions
+        software.
+
+        Extracts data from the chromatogram file into a dictionary.
 
         Parameters
         ----------
@@ -160,8 +184,8 @@ class Chromatogram:
 
     def get_info_Shimadzu_HPLC(self, file):
         '''
-        Extracts key information from the exported chromatography file
-        (see dat_dict).
+        Extracts key information from .txt files exported from Shimadzu LabSolutions
+        software.
 
         Parameters
         ----------
@@ -214,6 +238,7 @@ class Chromatogram:
         '''
         Extracts data from a .cdf file using the Dataset function
         from the netCDF4 library.
+
         Parameters
         ----------
         file: str
@@ -305,6 +330,47 @@ class Chromatogram:
             for x in range(0,len(chrom_out)):
                 f.write(f'{chrom_out[x,0]},{chrom_out[x,1]}\n')
 
+    def write_peak_table_text(self, value = 0, series_unit = "None"):
+        '''
+        Create the text for a peak table based on the Peak objects in the
+        chromatogram.
+        series_unit: string (will be coverted to string).
+        value: float or string (will be coverted to string).
+        peak_table_string: string
+        '''
+        peak_table_string = ''
+
+        peak_table_string += f"{series_unit},{value}\n"
+        peak_table_string += '(IS_retention_time/ min,IS_integral,IS_peak start/ min,IS_peak end/ min\n'
+
+        if self.internal_reference:
+            st_ind = self.internal_reference.indices[0]
+            end_ind = self.internal_reference.indices[-1]
+            IS_lower_bound = self.time[st_ind]
+            IS_upper_bound = self.time[end_ind]
+            IS_RT = self.internal_reference.retention_time
+            IS_integral = self.internal_reference.integral
+        else:
+            IS_RT, IS_integral, IS_lower_bound, IS_upper_bound = 'None', 'None', 'None', 'None'
+
+        peak_table_string += f"{IS_RT},{IS_integral},{IS_lower_bound},{}\n"
+
+        peak_table_string += "Retention_time/ min,integral,peak start/ min,peak end/ min\n"
+
+        for p in self.peaks:
+            st_ind = self.peaks[p].indices[0]
+            end_ind = self.peaks[p].indices[-1]
+
+            peak_start = self.time[st_ind],
+            peak_end = self.time[end_ind]
+
+            rtn_time = self.peaks[p].retention_time,
+            integral = self.peaks[p].integral,
+
+            peak_table_string += f"{rtn_time},{integral},{peak_start},{peak_end}\n"
+
+        return peak_table_string
+
     def write_peak_table(self, filename = 'Peak_table',
                         value = 0.0,
                         series_unit = "None"):
@@ -355,6 +421,33 @@ class Chromatogram:
                                                 self.time[end_ind]
                                             )
                         )
+    def write_peak_mass_spectra_text(self):
+        '''
+        Writes the text for a table of mass spectra derived from peaks.
+        ms_text: string
+        '''
+        
+        ms_text = ''
+
+        for p in self.peaks:
+            rtn_time = self.peaks[p].retention_time
+            ms_text += f'Peak retention time, {rtn_time}\n'
+            if self.peaks[p].mass_spectrum:
+                ms = self.peaks[p].mass_spectrum
+                        
+                ms_text += 'm/z,'
+                ms_text += ','.join(ms[0])
+                ms_text += '\n'
+
+                ms_text += 'relative abundance,'
+                rel_inten = [x/max(ms[1]) for x in ms[1]]
+                ms_text += ','.join(ms[1])
+                ms_text += '\n'
+            else:
+                ms_text += 'm/z,empty\n'
+                ms_text += 'relative abundance,empty\n'
+
+        return ms_text
 
     def write_peak_mass_spectra(self, filename = ''):
         '''
@@ -370,6 +463,7 @@ class Chromatogram:
         -------
         None
         '''
+
         with open('{}.csv'.format(filename), 'w') as f:
 
             for p in self.peaks:
@@ -395,6 +489,13 @@ class Chromatogram:
                     f.write('relative abundance,empty\n')
 
     def get_mass_spectrum(self, time):
+        '''
+        Get the mass spectrim at a given time point in the chromatogram.
+
+        time: float
+        mass: numpy array
+        intensity: numpy array
+        '''
 
         inds = np.where(self.time == time)[0]
 
@@ -838,11 +939,14 @@ class PeakCollection:
             internal standard concentration
 
         '''
+        if IS_conc == 0.0:
+            # results in division by 1 during conversion
+            IS_conc = 1.0
         for pk in self.peaks:
             if pk.assignment in calibrations.calibration_factors:
                 CF = calibrations.calibration_factors[pk.assignment]
                 if calibrations.calibration_model == 'linear':
-                    pk.apply_linear_calibration(CF['C'], CF['B'],
+                    pk.apply_linear_calibration(CF['B'], CF['C'],
                                                 internal_standard = IS_conc)
                 elif calibrations.calibration_model == 'quadratic':
                     pk.apply_quadratic_calibration(CF['A'], CF['B'], CF['C'],
