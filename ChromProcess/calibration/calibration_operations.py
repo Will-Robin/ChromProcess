@@ -1,10 +1,14 @@
-from ChromProcess import simple_functions as s_f
+'''
+Tools for analysing calibration data.
+'''
 
 def AnalyseCalibrationCurve(x,y,error = [.0,.0],
                             function = s_f.QuadraticFunction,
                             func_p0 = [0.5,0.5,0],
                             func_bounds = ((0,0,0),(2,2,1e-12))):
     '''
+    Fits a function to x,y data.
+
     Parameters
     ----------
     x: array_like
@@ -36,6 +40,7 @@ def AnalyseCalibrationCurve(x,y,error = [.0,.0],
 def CalculateRSE(data, calc):
     '''
     Calculation the residual squared error between two arrays.
+
     Parameters
     ----------
     data: numpy array
@@ -107,6 +112,8 @@ def QuadraticPredictionSE(yhat, sy2,
 
 def UpperLowerBoundsQuadratic(X, A, B, C):
     '''
+    Get the upper and lower bounds for a fit for quadratic calibration.
+
     Parameters
     ----------
     X: array
