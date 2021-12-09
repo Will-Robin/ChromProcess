@@ -1,5 +1,4 @@
 import numpy as np
-from ChromProcess import file_import
 from ChromProcess.simple_functions import isfloat
 
 class Information:

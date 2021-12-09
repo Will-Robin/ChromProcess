@@ -1,7 +1,6 @@
 import os
 import numpy as np
 from pathlib import Path
-from ChromProcess import file_import
 
 class Peak:
     def __init__(self,retention_time, indices):
@@ -353,7 +352,7 @@ class Chromatogram:
         else:
             IS_RT, IS_integral, IS_lower_bound, IS_upper_bound = 'None', 'None', 'None', 'None'
 
-        peak_table_string += f"{IS_RT},{IS_integral},{IS_lower_bound},{}\n"
+        peak_table_string += f"{IS_RT},{IS_integral},{IS_lower_bound},{IS_upper_bound}\n"
 
         peak_table_string += "Retention_time/ min,integral,peak start/ min,peak end/ min\n"
 
