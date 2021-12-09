@@ -69,6 +69,28 @@ class Peak:
 
         self.height = chromatogram.signal[self.indices]
 
+    def get_mass_spectrum(self, chromatogram):
+        '''
+        Get the mass spectrum at the apex of the peak.
+        Parameters
+        ----------
+        chromatogram: ChromProcess Chromatogram object
+        '''
+
+        if len(chromatogram.scan_indices) == 0:
+            # no mass spectral information in the chromatogram
+            pass
+        else:
+            time = chromatogram.time
+
+            ind = np.where(time == self.retention_time)[0]
+
+            start = chromatogram.scan_indices[ind][0]
+            end = start + chromatogram.point_counts[ind][0]
+
+            self.mass_spectrum = [np.round(c.mass_values[start:end],2), c.mass_intensity[start:end]]
+
+
 class Chromatogram:
     def __init__(self, file, 
                 mass_spec = False, 

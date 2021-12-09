@@ -66,17 +66,3 @@ def ion_chromatogram_region(chromatogram, lower, upper, threshold = 0.1):
                 pass
 
     return time, ion_dict
-
-def get_peak_mass_spectra(series):
-    for c in series.chromatograms:
-        if len(c.scan_indices) == 0:
-            pass
-        else:
-            for p in c.peaks:
-                ind = np.where(c.time == c.peaks[p].retention_time)[0]
-
-                start = c.scan_indices[ind][0]
-                end = start + c.point_counts[ind][0]
-
-                c.peaks[p].mass_spectrum = [np.round(c.mass_values[start:end],2), c.mass_intensity[start:end]]
-
