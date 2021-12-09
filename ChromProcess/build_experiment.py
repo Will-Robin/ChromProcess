@@ -1,15 +1,19 @@
 '''
 Creates a template directory for an experiment
+
+Consider using cookiecutter (https://github.com/cookiecutter/cookiecutter).
 '''
 import os 
 import sys
 from pathlib import Path
 from ChromProcess import build_experiment as build_exp
 
+# The home directory is default.
 default_parent_directory = Path.home()
 
 exp_code = 'experiment_code'
 default_folder_name = exp_code
+
 
 # defaults for the conditions file
 default_series_values = ['1','2','3','4','5','6','7','8','9']
@@ -102,6 +106,8 @@ if __name__ == "__main__":
 
     if len(sys.argv) >= 3:
         parent_directory = sys.argv[2]
+
+    print(f'Creating {folder_name} in {parent_directory}.')
     
     build_exp.build_project(folder_name, parent_directory,
                             build_exp.conditions, build_exp.analysis_details, build_exp.local_assignments)
