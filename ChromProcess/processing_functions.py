@@ -42,7 +42,6 @@ def MS_intensity_threshold_chromatogram(chromatogram, threshold = 500):
 
         chromatogram.signal = new_chromatogram
 
-
 def Peak_finder(intensity, thres=0.1, min_dist=1, max_inten = 1e100, min_inten = -1e100):
 
     '''Peak detection routine.
@@ -120,59 +119,27 @@ def Peak_finder(intensity, thres=0.1, min_dist=1, max_inten = 1e100, min_inten =
 
     return {'Peak_indices':peaks_indices, 'Peak_start_indices':peak_starts, 'Peak_end_indices':peak_ends}
 
-def pick_peak(chromatogram, region_inds = [], threshold= 0.1, min_dist=0.1, max_intensity = 1e100, min_intensity = -1e100):
-
-    if len(region_inds) == 0:
-        region_inds = np.where(chromatogram.time == chromatogram.time)[0]
-
-    peak_inds = p_f.Peak_finder(chromatogram.signal[region_inds], thres= threshold, min_dist=0.1, max_inten = max_intensity, min_inten = min_intensity)
-
-    for p in range(0,len(peak_inds["Peak_indices"])):
-
-        ret_ind = peak_inds["Peak_indices"][p]
-        st_ind  = peak_inds["Peak_start_indices"][p]
-        end_ind = peak_inds["Peak_end_indices"][p]
-
-        indices = np.where( (chromatogram.time >= chromatogram.time[region_inds][st_ind])&(chromatogram.time <= chromatogram.time[region_inds][end_ind]) )[0]
-
-        if len(indices) > 0:
-            chromatogram.peaks[chromatogram.time[region_inds][ret_ind]]  = Classes.Peak(chromatogram.time[region_inds][ret_ind], indices)
-
-def peak_areas(chromatogram, peak_starts, peak_ends):
+def peak_heights(chromatogram,peak_indices):
     '''
-    Gets the areas of peaks form a chromatogram segment (time, intensity) using
-    supplied peak start and end indices.
+    # TODO: implement as Chromatogram method
+
+    Get the height of a peak.
     Parameters
     ----------
 
-    chromatogram: Chromatogram object
-        Object containing chromatogram information which is modified by the
-        function
+    chromatogram: ChromProcess Chromatogram object
 
-    peak_starts: list or array of ints
-        list of the array indices of where detected peaks start
-    peak_ends: list or array of ints
-        list of the array indices of where detected peaks end
+    peak_indices: list of arrays
+        list of indices of the peak corresponding to its indices in the time
+        and signal of chromatogram.
+
+    Returns
+    -------
+    peak_height: numpy array
+        Array of peak heights ordered similarly to peak_indices
     '''
-    peak_area = np.zeros([len(peak_starts)])
-    base_l = []
-    base_t = []
+    import numpy as np
 
-    for n in range(0,len(peak_starts)):
-        x1, y1 = chromatogram.time[peak_starts[n]], chromatogram.signal[peak_starts[n]]
-        x2, y2 = chromatogram.time[peak_ends[n]]  , chromatogram.signal[peak_ends[n]]
-        timefrag = chromatogram.time[peak_starts[n]:peak_ends[n]]
-        intenfrag = chromatogram.signal[peak_starts[n]:peak_ends[n]]
-        linterp = np.interp(timefrag,[x1,x2],[y1,y2])
-        base_l.append(linterp)
-        base_t.append(timefrag)
-        peak_area[n] = np.trapz(intenfrag, x = timefrag) - np.trapz(linterp, x = timefrag)
-
-    peak_area = np.nan_to_num(peak_area)
-
-    return peak_area, base_l, base_t
-
-def peak_heights(chromatogram,peak_indices):
     peak_height = np.zeros([len(peak_indices)])
 
     for n in range(0,len(peak_indices)):
@@ -183,7 +150,9 @@ def peak_heights(chromatogram,peak_indices):
 def name_peak(peak_rt,bound_dict):
     """
     Takes a peak (retention times of peak) and assigns peak name based
-    on a dictionary of boundaries.
+    on a dictionary of boundaries. The assignment priority is based on the
+    interation order of the dict (Python 3 dict)
+
     Parameters
     ----------
     peak_rt: float
@@ -206,29 +175,17 @@ def name_peak(peak_rt,bound_dict):
 
     return peak_name
 
-def baseline_subtraction(chromatogram):
-    '''
-    For subtracting a baseline.
-    Parameters
-    ----------
-
-    Returns
-    -------
-
-    '''
-    bsn = np.where((chromatogram.time >  4.99)&(chromatogram.time < 5.01))[0]
-
-    return chromatogram.signal - chromatogram.signal[bsn[0]]
-
 def int_test(x):
     '''
-    Test if variable is an integer.
+    Test if variable can be converted to an integer.
+
     Parameters
     ----------
+    x: any type
 
     Returns
     -------
-
+    bool
     '''
     try:
         int(x)
@@ -237,7 +194,10 @@ def int_test(x):
             return False
 
 def savitzky_golay(y, window_size, order, deriv=0, rate=1):
-    """Smooth (and optionally differentiate) data with a Savitzky-Golay filter.
+    """
+    From https://scipy-cookbook.readthedocs.io/items/SavitzkyGolay.html
+
+    Smooth (and optionally differentiate) data with a Savitzky-Golay filter.
     From the Scipy Cookbook
     The Savitzky-Golay filter removes high frequency noise from data.
     It has the advantage of preserving the original shape and
