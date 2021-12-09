@@ -1,7 +1,7 @@
 Dataset,example_dataset_name,,,
 Method,GCMS,,,
-regions,lower (float),upper (float),lower (float),upper (float)
-internal_reference_region,lower (float),upper (float),,
+regions,7.4,8.4,10.2,11.2,12.8,14.0
+internal_reference_region,6.6,6.79
 extract_mass_spectra,FALSE,,,
 mass_spectra_filter,500,,,
 peak_pick_threshold,0.1,,,
