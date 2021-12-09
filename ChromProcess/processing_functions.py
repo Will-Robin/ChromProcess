@@ -119,34 +119,6 @@ def Peak_finder(intensity, thres=0.1, min_dist=1, max_inten = 1e100, min_inten =
 
     return {'Peak_indices':peaks_indices, 'Peak_start_indices':peak_starts, 'Peak_end_indices':peak_ends}
 
-def peak_heights(chromatogram,peak_indices):
-    '''
-    # TODO: implement as Chromatogram method
-
-    Get the height of a peak.
-    Parameters
-    ----------
-
-    chromatogram: ChromProcess Chromatogram object
-
-    peak_indices: list of arrays
-        list of indices of the peak corresponding to its indices in the time
-        and signal of chromatogram.
-
-    Returns
-    -------
-    peak_height: numpy array
-        Array of peak heights ordered similarly to peak_indices
-    '''
-    import numpy as np
-
-    peak_height = np.zeros([len(peak_indices)])
-
-    for n in range(0,len(peak_indices)):
-        peak_height[n] = chromatogram.signal[peak_indices[n]]
-
-    return peak_height
-
 def name_peak(peak_rt,bound_dict):
     """
     Takes a peak (retention times of peak) and assigns peak name based

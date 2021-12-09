@@ -21,6 +21,8 @@ class Peak:
 
         self.integral = False
 
+        self.height = False
+
         self.ion_chromatograms = {}
 
         self.ion_integrals = {}
@@ -55,6 +57,17 @@ class Peak:
             self.integral = ( np.trapz(signal, x = time) )
         
         return self.integral
+    
+    def get_height(self, chromatogram):
+        '''
+        Get the height of the peak.
+
+        Parameters
+        ----------
+        chromatogram: ChromProcess Chromatogram object
+        '''
+
+        self.height = chromatogram.signal[self.indices]
 
 class Chromatogram:
     def __init__(self, file, 
