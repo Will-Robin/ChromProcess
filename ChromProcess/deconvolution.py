@@ -6,7 +6,7 @@ A bunch of gaussian sums for fitting and the fitting function.
 import numpy as np
 from ChromProcess import deconvolution as d_c
 
-def autogauss(bounds,N):
+def autogauss(bounds):
     '''
     Any number of exponentials...?
     '''
@@ -62,12 +62,12 @@ def _2gaussian(x, amp1, cen1, sigma1, amp2, cen2, sigma2):
 def _3gaussian(x, amp1, cen1, sigma1,amp2, cen2, sigma2, amp3, cen3, sigma3):
     return d_c._1gaussian(x, amp1, cen1, sigma1) + d_c._2gaussian(x, amp2, cen2, sigma2, amp3, cen3, sigma3)
 
-def fit_gaussian_peaks(
+def fit_gaussian_peaks( 
                     time, sig,
                     peaks,
-                    initial_guess = [10000              , 1, 0.005]
-                    lowerbounds   = [0                  , 0,  0.0]
-                    upperbounds   = [np.amax(sig)*1.1, 1,  0.025]
+                    initial_guess = [10000              , 1, 0.005],
+                    lowerbounds   = [0                  , 0,  0.0],
+                    upperbounds   = [1e100, 1,  0.025]
                     ):
     '''
     TODO: This kind of function could be useful, but a better adapted function
@@ -128,7 +128,7 @@ def fit_gaussian_peaks(
     elif len(peaks) == 3:
         popt, pcov = curve_fit(d_c._3gaussian, time, sig, p0=guess, bounds = boundarr)
     else:
-        print('error', len(peak_indices))
+        print('Error fitting peaks')
         popt, pcov = [0,0,0],0
 
     return popt, pcov
@@ -166,7 +166,7 @@ def deconvolute_region(chromatogram, region, num_peaks = 1):
         peaks = peaks[:num_peaks]
 
 
-    return d_c.fit_gaussian_peaks(time, signal, peaks, d_type = 'GCMS')
+    return d_c.fit_gaussian_peaks(time, signal, peaks)
 
 def deconvolute_peak(peak, chromatogram, num_peaks = 2):
 
@@ -180,11 +180,11 @@ def deconvolute_peak(peak, chromatogram, num_peaks = 2):
         region of chromatogram under operation [lower bound, upper bound]
     '''
 
-    peaks = [peak.retention_time for p in range(num_peaks)]
+    peaks = [peak.retention_time for _ in range(num_peaks)]
     time = chromatogram.time[peak.indices]
     signal = chromatogram.signal[peak.indices]
     baseline = np.interp(time, [time[0],time[-1]], [signal[0],signal[-1]])
 
     signal = signal-baseline
 
-    return d_c.fit_gaussian_peaks(time, signal, peaks, d_type = 'GCMS')
+    return d_c.fit_gaussian_peaks(time, signal, peaks)

@@ -223,7 +223,7 @@ def get_mz_background(chromatogram, threshold = 500):
     import numpy as np
 
     if len(chromatogram.mass_intensity) == 0:
-        return print("MS_intensity_threshold_chromatogram: no mass spectra information in chromatogram")
+        print("MS_intensity_threshold_chromatogram: no mass spectra information in chromatogram")
         return chromatogram.signal
     else:
         inds = chromatogram.mass_intensity > threshold

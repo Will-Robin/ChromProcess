@@ -69,6 +69,10 @@ def read_mass_spectra_report(file):
     fltln = lambda x: [float(e) for e in x.strip('\n').split(',')[1:]
                        if e != '']
 
+    mz = np.array([0.0,0.0])
+    r_a = np.array([0.0,0.0])
+    rt = 0.0
+
     with open(file, 'r') as f:
 
         make_ms = False
@@ -93,7 +97,9 @@ def read_mass_spectra_report(file):
                 make_ms = True
 
             if make_ms:
-                mass_spectra.append(Classes.MassSpectrum(file, mz, r_a, pos = round(rt,3)))
+                mass_spectra.append(
+                    Classes.MassSpectrum(file, mz, r_a, pos = round(rt,3))
+                )
                 make_ms = False
 
     return mass_spectra
