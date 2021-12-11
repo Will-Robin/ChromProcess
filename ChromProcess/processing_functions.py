@@ -1,5 +1,4 @@
 import numpy as np
-from ChromProcess import Classes
 from ChromProcess import processing_functions as p_f
 
 '''

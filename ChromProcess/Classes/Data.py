@@ -1,4 +1,3 @@
-import os
 import numpy as np
 from pathlib import Path
 
@@ -88,7 +87,10 @@ class Peak:
             start = chromatogram.scan_indices[ind][0]
             end = start + chromatogram.point_counts[ind][0]
 
-            self.mass_spectrum = [np.round(c.mass_values[start:end],2), c.mass_intensity[start:end]]
+            self.mass_spectrum = [
+                                np.round(chromatogram.mass_values[start:end],2),
+                                chromatogram.mass_intensity[start:end]
+                                ]
 
 
 class Chromatogram:
@@ -475,7 +477,7 @@ class Chromatogram:
 
                 ms_text += 'relative abundance,'
                 rel_inten = [x/max(ms[1]) for x in ms[1]]
-                ms_text += ','.join(ms[1])
+                ms_text += ','.join(rel_inten)
                 ms_text += '\n'
             else:
                 ms_text += 'm/z,empty\n'
@@ -561,7 +563,6 @@ class Chromatogram:
                         np.average(c): np.zeros(len(self.time))
                                                  for c in clusters
                         }
-            cluster_dict = {np.average(c):c for c in clusters}
 
             scan_brackets = []
 
@@ -569,7 +570,7 @@ class Chromatogram:
                 scan_brackets.append(
                                     [
                                     self.scan_indices[s],
-                                    chromatogram.scan_indices[s+1]
+                                    self.scan_indices[s+1]
                                     ]
                                 )
 
@@ -839,12 +840,12 @@ class PeakCollection:
 
         read_line = lambda line: [float(x) for x in line.strip('\n').split(",") if x != '']
         peaks = []
-        IS_pos = 0.0
-        IS_integral = 0.0
-        IS_bound = [0.0,0.0]
+
         IS_line_num = -1
         IS = Classes.PeakCollectionElement(0.0, 1, 0.0, 0.0)
 
+        value = 0.0
+        variable = ''
         with open(file, "r") as f:
             for c,line in enumerate(f):
                 if 'None' in line:
@@ -1182,8 +1183,6 @@ class PeakCollectionSeries:
             pc.dilution_correct_peaks(analysis)
 
     def make_integral_series(self, cluster_bound = 0.0):
-        from ChromProcess import simple_functions as s_f
-        from ChromProcess import processing_functions as p_f
 
         if len(self.clusters) == 0:
             self.get_peak_clusters(self, bound = cluster_bound)
@@ -1201,8 +1200,6 @@ class PeakCollectionSeries:
         self.integral_series = series_courses.T
 
     def make_concentration_series(self, cluster_bound = 0.0):
-        from ChromProcess import simple_functions as s_f
-        from ChromProcess import processing_functions as p_f
 
         if len(self.clusters) == 0:
             self.get_peak_clusters(bound = cluster_bound)
@@ -1227,26 +1224,25 @@ class PeakCollectionSeries:
         self.concentration_series = series_courses.T
         self.conc_err_series = error_courses.T
 
-    def concentration_traces_as_dict(self):
-        from ChromProcess import info_params
+    def concentration_traces_as_dict(self, name_conversions = {}):
 
         conc_dict = {}
         for x in range(0,len(self.concentration_series)):
             name = self.cluster_assignments[x].split(' ')[0]
             pos = round(np.mean(self.clusters[x]),3)
-            if name in info_params.canonical_SMILES:
-                smiles = info_params.canonical_SMILES[name.split(' ')[0]]
+            if name in name_conversions:
+                smiles = name_conversions[name.split(' ')[0]]
                 conc_dict['{}/ M ({})'.format(smiles, pos)] = self.concentration_series[x]
 
         return conc_dict
 
-    def integral_traces_as_dict(self):
-        from ChromProcess import info_params
+    def integral_traces_as_dict(self, name_conversions = {}):
+
         integral_dict = {}
         for x in range(0,len(self.integral_series)):
             name = self.cluster_assignments[x].split(' ')[0]
-            if name in info_params.canonical_SMILES:
-                smiles = info_params.canonical_SMILES[name.split(' ')[0]]
+            if name in name_conversions:
+                smiles = name_conversions[name.split(' ')[0]]
                 pos = np.mean(self.clusters[x])
                 token = smiles + ' ({})'.format(np.round(pos,3))
             else:
@@ -1256,15 +1252,14 @@ class PeakCollectionSeries:
 
         return integral_dict
 
-    def concentration_error_traces_dict(self):
-        from ChromProcess import info_params
+    def concentration_error_traces_dict(self, name_conversions = {}):
 
         err_dict = {}
         for x in range(0,len(self.conc_err_series)):
             name = self.cluster_assignments[x].split(' ')[0]
             pos = round(np.mean(self.clusters[x]),3)
-            if name in info_params.canonical_SMILES:
-                smiles = info_params.canonical_SMILES[name.split(' ')[0]]
+            if name in name_conversions:
+                smiles = name_conversions[name.split(' ')[0]]
                 err_dict['{}/ M ({})'.format(smiles, pos)] = self.conc_err_series[x]
 
         return err_dict
@@ -1295,7 +1290,10 @@ class PeakCollectionSeries:
         outfile.write('Calibration_model,{}\n'.format(information.calibration_model))
         outfile.write("end_analysis_details\n")
 
-    def write_concentrations_to_file(self, filename, information):
+    def write_concentrations_to_file(self,
+                                    filename, information,
+                                    name_conversions = {}
+                                    ):
         '''
         Parameters
         ----------
@@ -1313,7 +1311,9 @@ class PeakCollectionSeries:
             self.write_conditions_header(outfile,information)
 
             # writing data
-            conc_traces = self.concentration_traces_as_dict()
+            conc_traces = self.concentration_traces_as_dict(
+                                        name_conversions = name_conversions
+                                                            )
             sorted_keys = sorted([*conc_traces], key = lambda x:x.count('C'))
 
             outfile.write("start_data\n")
@@ -1337,7 +1337,11 @@ class PeakCollectionSeries:
 
             outfile.write("end_data\n")
 
-    def write_integrals_to_file(self, filename, information):
+    def write_integrals_to_file(self,
+                                filename,
+                                information,
+                                name_conversions = {}
+                                ):
         '''
         Parameters
         ----------
@@ -1355,7 +1359,9 @@ class PeakCollectionSeries:
             self.write_conditions_header(outfile,information)
 
             # writing data
-            integral_traces = self.integral_traces_as_dict()
+            integral_traces = self.integral_traces_as_dict(
+                                        name_conversions = name_conversions
+                                                                          )
 
             outfile.write("start_data\n")
 
@@ -1402,7 +1408,7 @@ class PeakCollectionSeries:
 
         return data_report
 
-    def create_conc_DataReport(self,information):
+    def create_conc_DataReport(self, information, name_conversions = {}):
         '''
         Parameters
         ----------
@@ -1413,7 +1419,9 @@ class PeakCollectionSeries:
         fname = '{}_{}_{}.csv'.format(self.name, information.type, out_type)
 
         data_report = self.create_DataReport_base(information)
-        data_report.data = self.concentration_traces_as_dict()
+        data_report.data = self.concentration_traces_as_dict(
+                                            name_conversions = name_conversions
+                                            )
         data_report.errors = self.concentration_error_traces_dict()
         data_report.filename = fname
 

@@ -89,7 +89,7 @@ def QuadraticCalibrationFunction(integ, A, B, C, dil, IS):
     '''
     import numpy as np
 
-    return dil*IS*(-B + np.sqrt((B**2) - (4*A*(C-x))))/(2*A)
+    return dil*IS*(-B + np.sqrt((B**2) - (4*A*(C-integ))))/(2*A)
 
 def _1gaussian(x, amp1, cen1, sigma1):
     import numpy as np
@@ -234,13 +234,13 @@ def cluster_indices(values, bound = 0.1):
     sortedvalues = np.sort(values)
 
     cluster = []
-    for m in range(0,len(values)):
+    for m in range(0,len(sortedvalues)):
         if len(cluster) == 0:
             pass
         else:
-            clust_av = np.average(values[cluster])
+            clust_av = np.average(sortedvalues[cluster])
 
-            if  abs(values[m]-clust_av) > bound:
+            if  abs(sortedvalues[m]-clust_av) > bound:
                 yield cluster
                 cluster = []
 
@@ -338,6 +338,8 @@ def weighted_corrcoef(samples,weights):
 
 def sparse_corrcoef(A):
 
+    import numpy as np
+        
     A = A.astype(np.float64)
     n = A.shape[1]
 

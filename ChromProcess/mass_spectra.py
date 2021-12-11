@@ -1,7 +1,4 @@
-import os
 import numpy as np
-
-from ChromProcess import simple_functions as s_f
 
 '''
 Functions for dealing with mass spectra.
@@ -32,14 +29,14 @@ def ion_chromatogram_region(chromatogram, lower, upper, threshold = 0.1):
         A dictionary containing numpy arrays indexes my m/z values.
     '''
 
+    time = np.array([])
+    ion_dict = {}
     if len(chromatogram.scan_indices) == 0:
         pass
     else:
-        ion_dict = {}
         inds = np.where((chromatogram.time > lower)&(chromatogram.time < upper))[0]
 
         time = chromatogram.time[inds]
-        signal = chromatogram.signal[inds]
         scan_inds = chromatogram.scan_indices[inds]
         p_counts = chromatogram.point_counts[inds]
 

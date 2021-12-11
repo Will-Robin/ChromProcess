@@ -63,7 +63,6 @@ def regionPeakPick(chromatogram, region, threshold = 0.1):
     None
     '''
     import numpy as np
-    from ChromProcess import Classes
     from ChromProcess import chromatogram_operations as chrom_ops
 
     low_limit = region[0]
@@ -80,9 +79,11 @@ def regionPeakPick(chromatogram, region, threshold = 0.1):
         inds = np.where( (chromatogram.time > low_limit) &
                         (chromatogram.time < high_limit) )[0]
         # get peaks in the chromatogram region 
-        rts, peak_times = chrom_ops.pickPeaks(chromatogram.time[inds],
-            chromatogram.signal[inds],
-                                    threshold = 0.1)
+        rts, peak_times = chrom_ops.pickPeaks(
+                                        chromatogram.time[inds],
+                                        chromatogram.signal[inds],
+                                        threshold = threshold
+                                        )
         peak_features = []
         for rt, times in zip(rts,peak_times):
             feature = [times[0], rt, times[-1]]
@@ -300,7 +301,6 @@ def getIonChromatogramsFromRegion(chromatogram, lower, upper, threshold = 0.1):
         inds = np.where((chromatogram.time > lower)&(chromatogram.time < upper))[0]
 
         time = chromatogram.time[inds]
-        signal = chromatogram.signal[inds]
         scan_inds = chromatogram.scan_indices[inds]
         p_counts = chromatogram.point_counts[inds]
 
@@ -368,15 +368,11 @@ def RegionSVD(chromatogram, region, ic_threshold = 0.1,
         return None
     else:
         # convert dict into nump arrays
-        mass_ax = np.array([*ic_dict])
         ic_stack = np.array(list(ic_dict.values()))
         trans_IC = ic_stack.T
 
-        samples, features = trans_IC.shape
 
         U, S, Vh = simp_func.runSVD(trans_IC)
-
-        exp_variance = (S**2)/(samples - 1)
 
         # inverse transform
         #IT = np.dot(U*S, Vh)

@@ -254,6 +254,12 @@ class Calibration_File:
         self.calibrations = {}
         self.boundaries = {}
         self.type = type
+        header = []
+        upper_ind = 0
+        lower_ind = 0
+        A_ind = 0
+        B_ind = 0
+        C_ind = 0
         info = []
         with open(file, "r") as f:
             readstate = False
@@ -340,7 +346,9 @@ class CalibrationAllocations:
 
     def import_file(self,filename):
         rdln = lambda x : [e for e in x.strip('\n').split(',') if e != '']
-        assigns = []
+        GCMS_idx = 0
+        HPLC_idx = 0
+        GC_idx = 0
         with open(filename, 'r') as f:
             for c, line in enumerate(f):
                 if c == 0:
@@ -379,7 +387,7 @@ class DataPaths:
         with open(filename, 'r') as f:
             for c,line in enumerate(f):
                 if c == 0:
-                    header = line.strip('\n').split(',')
+                    pass
                 else:
                     ins = line.strip('\n').split(',')
                     self.experiment_codes.append(ins[0])
@@ -396,6 +404,7 @@ class DataReport:
         self.conditions = {}
         self.analysis_details = {}
         self.series_values = np.array([])
+        self.errors = np.array([])
         self.series_unit = 'not specified'
         self.data = {}
 
@@ -412,12 +421,6 @@ class DataReport:
             path to file.
         '''
 
-        if type(file) == str:
-            from pathlib import Path
-            file_n = Path(file)
-        else:
-            file_n = file
-
         spl_lin = lambda x : [e for e in x.strip('\n').split(',') if e != '']
 
         self.filename = file.stem
@@ -431,7 +434,6 @@ class DataReport:
         condset = self.import_file_section(file, "start_conditions",
                                            "end_conditions")
 
-        c_out = {}
         for c in condset:
             self.conditions[c[0]] = []
             for x in c[1:]:
@@ -454,7 +456,6 @@ class DataReport:
 
         self.data = d_out
 
-        readstate = False
         analysis = self.import_file_section(file, "start_analysis_details",
                                             "end_analysis_details")
         for a in analysis:
@@ -477,7 +478,7 @@ class DataReport:
         readstate = False
         c_set = []
         with open(file, 'r') as f:
-            for c,line in enumerate(f):
+            for _,line in enumerate(f):
                 if start_token in line:
                     readstate = True
                     line = next(f)
@@ -525,7 +526,6 @@ class DataReport:
         '''
 
         import numpy as np
-        an_type = self.analysis_details['Chromatography_method'][0]
 
         if filename == '':
             filename = self.filename
@@ -662,6 +662,9 @@ class Instrument_Calibration:
     def read_calibration_file(self, fname):
         rdlin = lambda x : [e for e in x.strip('\n').split(',') if e != '']
         info = []
+        header = []
+        upper_ind = 0
+        lower_ind = 0
         with open(fname, "r") as f:
             readstate = False
             for line in f:
@@ -709,7 +712,12 @@ class Instrument_Calibration:
         trans_info = [list(x) for x in zip(*info)]
 
         bound_tuples = [(l,u) for l,u in zip(trans_info[lower_ind],trans_info[upper_ind])]
-        self.boundaries = {k:[float(v[0]),float(v[1])] for k,v in zip(trans_info[comp_ind],bound_tuples) if v != ("None","None")}
+        self.boundaries = {
+                             k: [
+                                float(v[0]),
+                                float(v[1])
+                                ] for k,v in zip(trans_info[comp_ind],bound_tuples)
+                                                                 if v != ("None","None")}
 
     def get_info(self):
         return {'date':self.date, 'method': self.method,
