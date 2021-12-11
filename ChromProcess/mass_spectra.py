@@ -3,6 +3,35 @@ import numpy as np
 '''
 Functions for dealing with mass spectra.
 '''
+def bin_ion_chromatograms(peak, stdev = 0.001):
+
+    from ChromProcess import simple_functions as s_f
+
+    sorted_masses = sorted([*peak.ion_chromatograms])
+
+    clusters = []
+    for c in s_f.cluster(sorted_masses, bound = stdev):
+        clusters.append(c)
+
+    out_log = {}
+    for c in clusters:
+
+        position = round(np.average(c),2)
+
+        out_log[position] = []
+
+        for o in range(0,len(sorted_masses)):
+            if sorted_masses[o] in c:
+                if len(out_log[position]) == 0:
+                    out_log[position] = peak.ion_chromatograms[ sorted_masses[o] ]
+                else:
+                    for count,p in enumerate(out_log[position]):
+                        if p == 0:
+                            out_log[position][count] = peak.ion_chromatograms[ sorted_masses[o] ][count]
+                        else:
+                            pass
+
+    peak.ion_chromatograms = out_log
 
 def ion_chromatogram_region(chromatogram, lower, upper, threshold = 0.1):
     '''
