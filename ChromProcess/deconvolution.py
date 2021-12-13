@@ -6,18 +6,6 @@ A bunch of gaussian sums for fitting and the fitting function.
 import numpy as np
 from ChromProcess import deconvolution as d_c
 
-def autogauss(bounds):
-    '''
-    Any number of exponentials...?
-    '''
-    '''
-    arrays = [[a1 , a2]]*N + [[min(y), max(y)]]*N
-    Sort this out into a vectorised function.
-    np.dot(amp1,(1/(sigma1*(np.sqrt(2*np.pi))))*(np.exp(-((-cen1+x)**2)/((2*sigma1)**2))))
-    '''
-    # TODO
-    pass
-
 def _1gaussian(x, amp1, cen1, sigma1):
     '''
     A single gaussian function
