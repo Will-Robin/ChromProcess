@@ -694,6 +694,7 @@ class ChromatogramSeries:
         self.ion_series = {}
         self.internal_ref_integrals = []
         self.conc_series = {}
+        self.conc_err_series = {}
         self.internal_ref_heights = []
         self.deconvoluted_series = {}
 
@@ -1137,6 +1138,9 @@ class PeakCollectionSeries:
         self.conditions = conditions
         self.clusters = []
         self.cluster_assignments = []
+        self.integral_series = []
+        self.concentration_series = []
+        self.conc_err_series = []
 
     def remove_peaks_below_threshold(self,threshold):
         '''
@@ -1317,7 +1321,7 @@ class PeakCollectionSeries:
         self.concentration_series = series_courses.T
         self.conc_err_series = error_courses.T
 
-    def concentration_traces_as_dict(self, name_conversions = {}):
+    def concentration_traces_as_dict(self):
         '''
         Parameters
         ----------
@@ -1325,23 +1329,27 @@ class PeakCollectionSeries:
         '''
 
         import numpy as np
+        from ChromProcess import simple_functions as s_f
+
+        if len(self.cluster_assignments) == 0:
+            get_name = lambda _: ''
+        else:
+            get_name = lambda x: self.cluster_assignments[x].split(' ')[0]
 
         conc_dict = {}
         for x in range(0,len(self.concentration_series)):
-            name = self.cluster_assignments[x].split(' ')[0]
-            pos = round(np.mean(self.clusters[x]),3)
-            if name in name_conversions:
-                smiles = name_conversions[name.split(' ')[0]]
-                conc_dict['{}/ M ({})'.format(smiles, pos)] = self.concentration_series[x]
+            name = get_name(x)
+            pos = np.round(np.mean(self.clusters[x]),3)
+            if name == '':
+                pass
+            elif not s_f.isfloat(name):
+                conc_dict[f'{name}/ M ({pos})'] = self.concentration_series[x]
+            else:
+                pass
 
         return conc_dict
 
-    def integral_traces_as_dict(self, name_conversions = {}):
-        '''
-        Parameters
-        ----------
-        name_conversions: dict
-        '''
+    def integral_traces_as_dict(self):
 
         import numpy as np
 
@@ -1353,10 +1361,9 @@ class PeakCollectionSeries:
         integral_dict = {}
         for x in range(0,len(self.integral_series)):
             name = get_name(x)
-            if name in name_conversions:
-                smiles = name_conversions[name.split(' ')[0]]
+            if name != '':
                 pos = np.mean(self.clusters[x])
-                token = f'{smiles} ({np.round(pos,3)})'
+                token = f'{name} ({np.round(pos,3)})'
             else:
                 cluster_average = np.mean(self.clusters[x])
                 val = np.round(cluster_average, 3)
@@ -1366,22 +1373,27 @@ class PeakCollectionSeries:
 
         return integral_dict
 
-    def concentration_error_traces_dict(self, name_conversions = {}):
-        '''
-        Parameters
-        ----------
-        name_conversions: dict
-        '''
+    def concentration_error_traces_dict(self):
 
         import numpy as np
+        from ChromProcess import simple_functions as s_f
 
         err_dict = {}
+
+        if len(self.cluster_assignments) == 0:
+            get_name = lambda _: ''
+        else:
+            get_name = lambda x: self.cluster_assignments[x].split(' ')[0]
+
         for x in range(0,len(self.conc_err_series)):
-            name = self.cluster_assignments[x].split(' ')[0]
-            pos = round(np.mean(self.clusters[x]),3)
-            if name in name_conversions:
-                smiles = name_conversions[name.split(' ')[0]]
-                err_dict['{}/ M ({})'.format(smiles, pos)] = self.conc_err_series[x]
+            name = get_name(x)
+            pos = np.round(np.mean(self.clusters[x]),3)
+            if name == '':
+                pass
+            elif not s_f.isfloat(name):
+                err_dict[f'{name}/ M ({pos})'] = self.conc_err_series[x]
+            else:
+                pass
 
         return err_dict
 
@@ -1439,9 +1451,7 @@ class PeakCollectionSeries:
             self.write_conditions_header(outfile,information)
 
             # writing data
-            conc_traces = self.concentration_traces_as_dict(
-                                        name_conversions = name_conversions
-                                                            )
+            conc_traces = self.concentration_traces_as_dict()
             sorted_keys = sorted([*conc_traces], key = lambda x:x.count('C'))
 
             outfile.write("start_data\n")
@@ -1494,9 +1504,7 @@ class PeakCollectionSeries:
             self.write_conditions_header(outfile,information)
 
             # writing data
-            integral_traces = self.integral_traces_as_dict(
-                                        name_conversions = name_conversions
-                                                                          )
+            integral_traces = self.integral_traces_as_dict()
 
             outfile.write("start_data\n")
 
@@ -1555,9 +1563,7 @@ class PeakCollectionSeries:
         fname = '{}_{}_{}.csv'.format(self.name, information.type, out_type)
 
         data_report = self.create_DataReport_base(information)
-        data_report.data = self.concentration_traces_as_dict(
-                                            name_conversions = name_conversions
-                                            )
+        data_report.data = self.concentration_traces_as_dict()
         data_report.errors = self.concentration_error_traces_dict()
         data_report.filename = fname
 

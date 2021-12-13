@@ -536,11 +536,13 @@ class DataReport:
             outfile.write("end_data\n")
 
             outfile.write('start_errors\n')
+
             if len(self.errors)> 0:
                 err_out = np.array([self.series_values])
 
                 for s in sorted_keys:
-                    err_out = np.vstack((err_out,self.errors[s]))
+                    trace = self.errors[s]
+                    err_out = np.vstack((err_out,trace))
 
                 err_out = err_out.T
                 [outfile.write("{},".format(x)) for x in p_header]
