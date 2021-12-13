@@ -638,9 +638,21 @@ class DataReport:
         self.remove_specific_entries(del_list)
 
 class Instrument_Calibration:
-    def __init__(self, file = ''):
+    def __init__(self, file = 'output.csv'):
+        '''
+        Parameters
+        ----------
+        filename: str or pathlib Path
+            name for file
+        '''
+
+        from pathlib import Path
+
+        if isinstance(file, str):
+            file = Path(file)
 
         self.filename = file
+
         self.calibration_factors = {}
         self.boundaries = {}
         self.type = 'not specified'
