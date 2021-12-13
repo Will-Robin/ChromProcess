@@ -1,5 +1,5 @@
 
-class Analysis_Information:
+class AnalysisInformation:
     '''
     Stores information about analysis procedure for chromatography data.
     '''
@@ -147,7 +147,7 @@ class Analysis_Information:
             f.write('internal_ref_concentration,{}\n'.format(self.internal_ref_concentration))
             f.write('internal_ref_concentration_error,{}\n'.format(self.internal_ref_concentration_error))
 
-class Experiment_Conditions:
+class ExperimentConditions:
     def __init__(self, information_file = ''):
         '''
         Parameters
@@ -384,8 +384,8 @@ class DataReport:
             path to file.
         '''
 
-        from pathlib import Path
         import numpy as np
+        from pathlib import Path
         from ChromProcess import simple_functions as s_f
 
         if isinstance(file, str):
@@ -610,7 +610,7 @@ class DataReport:
 
         self.remove_specific_entries(del_list)
 
-class Instrument_Calibration:
+class InstrumentCalibration:
     def __init__(self, file = 'output.csv'):
         '''
         Parameters

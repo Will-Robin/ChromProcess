@@ -610,7 +610,7 @@ class Chromatogram:
 
             return ion_dict
 
-class Chromatogram_Series:
+class ChromatogramSeries:
     def __init__(self,chromatogram_list, information_file):
         '''
         NOT MAINTAINED: pefer PeakCollection route for creating series data.
@@ -1356,9 +1356,11 @@ class PeakCollectionSeries:
             if name in name_conversions:
                 smiles = name_conversions[name.split(' ')[0]]
                 pos = np.mean(self.clusters[x])
-                token = smiles + ' ({})'.format(np.round(pos,3))
+                token = f'{smiles} ({np.round(pos,3)})'
             else:
-                token = name
+                cluster_average = np.mean(self.clusters[x])
+                val = np.round(cluster_average, 3)
+                token = f'{val} ({val})'
 
             integral_dict[token] = self.integral_series[x]
 
