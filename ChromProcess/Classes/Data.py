@@ -366,18 +366,18 @@ class Chromatogram:
             for x in range(0,len(chrom_out)):
                 f.write(f'{chrom_out[x,0]},{chrom_out[x,1]}\n')
 
-    def write_peak_table_text(self, value = 0, series_unit = "None"):
+    def write_peak_collection_text(self, value = 0, series_unit = "None"):
         '''
-        Create the text for a peak table based on the Peak objects in the
+        Create the text for a peak collection based on the Peak objects in the
         chromatogram.
         series_unit: string (will be coverted to string).
         value: float or string (will be coverted to string).
-        peak_table_string: string
+        peak_collection_string: string
         '''
-        peak_table_string = ''
+        peak_collection_string = ''
 
-        peak_table_string += f"{series_unit},{value}\n"
-        peak_table_string += '(IS_retention_time/ min,IS_integral,IS_peak start/ min,IS_peak end/ min\n'
+        peak_collection_string += f"{series_unit},{value}\n"
+        peak_collection_string += '(IS_retention_time/ min,IS_integral,IS_peak start/ min,IS_peak end/ min\n'
 
         if self.internal_reference:
             st_ind = self.internal_reference.indices[0]
@@ -389,9 +389,9 @@ class Chromatogram:
         else:
             IS_RT, IS_integral, IS_lower_bound, IS_upper_bound = 'None', 'None', 'None', 'None'
 
-        peak_table_string += f"{IS_RT},{IS_integral},{IS_lower_bound},{IS_upper_bound}\n"
+        peak_collection_string += f"{IS_RT},{IS_integral},{IS_lower_bound},{IS_upper_bound}\n"
 
-        peak_table_string += "Retention_time/ min,integral,peak start/ min,peak end/ min\n"
+        peak_collection_string += "Retention_time/ min,integral,peak start/ min,peak end/ min\n"
 
         for p in self.peaks:
             st_ind = self.peaks[p].indices[0]
@@ -403,11 +403,11 @@ class Chromatogram:
             rtn_time = self.peaks[p].retention_time,
             integral = self.peaks[p].integral,
 
-            peak_table_string += f"{rtn_time},{integral},{peak_start},{peak_end}\n"
+            peak_collection_string += f"{rtn_time},{integral},{peak_start},{peak_end}\n"
 
-        return peak_table_string
+        return peak_collection_string
 
-    def write_peak_table(self, filename = 'Peak_table',
+    def write_peak_collection(self, filename = 'Peak_collection',
                         value = 0.0,
                         series_unit = "None"):
         '''
