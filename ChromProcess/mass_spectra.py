@@ -16,7 +16,7 @@ def bin_ion_chromatograms(peak, stdev = 0.001):
     out_log = {}
     for c in clusters:
 
-        position = round(np.average(c),2)
+        position = np.round(np.average(c),2)
 
         out_log[position] = []
 
