@@ -16,7 +16,7 @@ class AnalysisInformation:
         regions: list of lists
         IS_region: list
         use_MS: bool
-        analysis_type: str 
+        analysis_type: str
         i_thres_MS: float
         peak_pick_thres: float
         exp_name: float
@@ -227,7 +227,7 @@ class ExperimentConditions:
                     ins = line.strip("\n")
                     self.series_unit = ins.split(",")[1]
 
-        '''Read conditions'''
+        # Read conditions
         condset = []
         readstate = False
         with open(information_file, "r", encoding = 'latin-1') as f:
@@ -307,7 +307,7 @@ class DataPath:
         '''
         Parameters
         ----------
-        exp_code: str 
+        exp_code: str
         data_type: str
         path: str or pathlib Path
         '''
@@ -429,7 +429,7 @@ class DataReport:
         analysis = self.import_file_section(file, "start_analysis_details",
                                             "end_analysis_details")
         for a in analysis:
-            self.analysis_details[a[0]] = [x for x in a[1:]]
+            self.analysis_details[a[0]] = a[1:]
 
     def import_file_section(self, file, start_token, end_token):
         '''
@@ -477,7 +477,7 @@ class DataReport:
         outfile.write("start_analysis_details\n")
         for ad in self.analysis_details:
             outfile.write('{},'.format(ad))
-            if type(self.analysis_details[ad]) == str:
+            if isinstance(self.analysis_details[ad], str):
                 outfile.write('{},'.format(self.analysis_details[ad]))
             else:
                 [outfile.write('{},'.format(x)) for x in self.analysis_details[ad]]
@@ -503,7 +503,7 @@ class DataReport:
         if filename == '':
             filename = self.filename
 
-        if path == None:
+        if path is None:
             fname = filename
         else:
             fname = path/filename

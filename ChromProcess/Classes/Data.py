@@ -4,8 +4,8 @@ class Peak:
     def __init__(self,retention_time, indices):
         '''
         Creates a Peak object using a retention time
-        and the indices of the places in the data's 
-        parent chromatogram from which the time and 
+        and the indices of the places in the data's
+        parent chromatogram from which the time and
         signal of the peak can be obtained.
 
         Parameters
@@ -44,7 +44,7 @@ class Peak:
         chromatogram: ChromProcess Chromatogram object
         baseline_subtract: bool
         '''
-        
+
         import numpy as np
 
         time = chromatogram.time[self.indices]
@@ -54,12 +54,12 @@ class Peak:
             time_bound = [time[0], time[-1]]
             signal_bound = [signal[0], signal[-1]]
             linterp = np.interp(time, time_bound, signal_bound)
-            self.integral = ( np.trapz(signal - linterp, x = time) ) 
+            self.integral = ( np.trapz(signal - linterp, x = time) )
         else:
             self.integral = ( np.trapz(signal, x = time) )
-        
+
         return self.integral
-    
+
     def get_height(self, chromatogram):
         '''
         Get the height of the peak.
@@ -98,8 +98,8 @@ class Peak:
                                 ]
 
 class Chromatogram:
-    def __init__(self, file, 
-                mass_spec = False, 
+    def __init__(self, file,
+                mass_spec = False,
                 channel_select = '360nm'):
         '''
         Initialises a chromatogram object from a file
@@ -127,7 +127,7 @@ class Chromatogram:
             self.filename = self.initialised_path.stem.split('.')[0]
             self.filetype = self.initialised_path.suffix.strip('.')
         else: sys.exit(
-                    '''ChromProcess.Classes.Data.Chromatogram: 
+                    '''ChromProcess.Classes.Data.Chromatogram:
                         expected file arg to be string or pathlib Path.'''
                         )
 
@@ -153,9 +153,9 @@ class Chromatogram:
                 self.time = np.array(data["Time"][chan_ind])
                 self.signal = np.array(data["Signal"][chan_ind])
             except:
-                wvl = data["Wavelength"] 
+                wvl = data["Wavelength"]
                 print(f"{channel_select} not found, try: {wvl}")
-                quit()
+                sys.exit()
 
             self.c_type = 'HPLC'
             self.mass_spectra = False
@@ -322,7 +322,7 @@ class Chromatogram:
         # Measured masses
         self.mass_values = np.round(
                                     self.get_data_cdf_GCMS(
-                                                    file, 
+                                                    file,
                                                     "mass_values"
                                                     ),
                                     3)
@@ -354,7 +354,7 @@ class Chromatogram:
                 if c < read_start_index:
                     pass
                 else:
-                    line_as_list = line.strip('\n').split(',') 
+                    line_as_list = line.strip('\n').split(',')
                     insertion = [float(x) for x in line_as_list]
                     data.append(insertion)
 
@@ -415,11 +415,11 @@ class Chromatogram:
             st_ind = self.peaks[p].indices[0]
             end_ind = self.peaks[p].indices[-1]
 
-            peak_start = self.time[st_ind],
+            peak_start = self.time[st_ind]
             peak_end = self.time[end_ind]
 
-            rtn_time = self.peaks[p].retention_time,
-            integral = self.peaks[p].integral,
+            rtn_time = self.peaks[p].retention_time
+            integral = self.peaks[p].integral
 
             peak_collection_string += f"{rtn_time},{integral},{peak_start},{peak_end}\n"
 
@@ -481,7 +481,7 @@ class Chromatogram:
         Writes the text for a table of mass spectra derived from peaks.
         ms_text: string
         '''
-        
+
         ms_text = ''
 
         for p in self.peaks:
@@ -489,7 +489,7 @@ class Chromatogram:
             ms_text += f'Peak retention time, {rtn_time}\n'
             if self.peaks[p].mass_spectrum:
                 ms = self.peaks[p].mass_spectrum
-                        
+
                 ms_text += 'm/z,'
                 ms_text += ','.join(ms[0])
                 ms_text += '\n'
@@ -577,10 +577,8 @@ class Chromatogram:
         '''
         import numpy as np
 
-        if len(self.scan_indices) == 0:
-            return {}
-        else:
-
+        ion_dict = {}
+        if len(self.scan_indices) != 0:
             ion_dict = {
                         np.average(c): np.zeros(len(self.time))
                                                  for c in clusters
@@ -596,107 +594,19 @@ class Chromatogram:
                                     ]
                                 )
 
-            for s in range(0,len(scan_brackets)):
-                st_bracket = scan_brackets[s][0]
-                end_bracket = scan_brackets[s][1]
+            for s,bracket in enumerate(scan_brackets):
+                st_bracket  = bracket[0]
+                end_bracket = bracket[1]
                 inten = self.mass_intensity[st_bracket:end_bracket]
                 masses = self.mass_values[st_bracket:end_bracket]
 
                 for m in range(0,len(masses)):
-                    for c in clusters:
+                    for _,c in enumerate(clusters):
                         if masses[m] in c:
                             ion_dict[np.average(c)][s] = inten[m]
                             break
 
-            return ion_dict
-
-class ChromatogramSeries:
-    def __init__(self,chromatogram_list, information_file):
-        '''
-        NOT MAINTAINED: pefer PeakCollection route for creating series data.
-
-        Initialises a series of chromatograms from a
-        list of chromatograms
-        objects and an information file.
-        '''
-
-        self.chromatograms = chromatogram_list
-        self.regions = False
-
-        '''Information provided in file'''
-        self.internal_ref_concentration = 1
-        self.internal_ref_region = False
-
-        with open(information_file, 'r') as f:
-            for line in f:
-                if "Dataset" in line:
-                    ins = line.strip("\n")
-                    self.set_name = ins.split(",")[1]
-                if "dilution_factor" in line:
-                    ins = line.strip("\n")
-                    self.dilution = float(ins.split(",")[1])
-                if "series_values" in line:
-                    ins = line.strip("\n")
-                    spl = ins.split(",")
-                    self.x_series =  [float(x) for x in spl[1:]
-                                                         if x != ""]
-                if "series_unit" in line:
-                    ins = line.strip("\n")
-                    self.x_name = ins.split(",")[1]
-                if "series_regions" in line:
-                    ins = line.strip("\n")
-                    reg = [float(x) for x in ins.split(",")[1:]
-                                                         if x != ""]
-                    self.regions = [reg[x:x+2] for x in range(0, len(reg), 2)]
-                if "internal_ref_region" in line:
-                    ins = line.strip("\n")
-                    reg = [float(x) for x in ins.split(",")[1:] if x != ""]
-                    self.internal_ref_region = [reg[x:x+2] for x in range(0, len(reg), 2) if x != ""][0]
-                if "internal_ref_concentration" in line:
-                    ins = line.strip("\n")
-                    self.internal_ref_concentration = float(ins.split(",")[1])
-
-        if len(self.chromatograms) != len(self.x_series):
-            print("The number of chromatograms is {} while the length of the series supplied is {}".format(len(self.chromatograms),len(self.x_series)))
-            quit()
-
-        for c,t in zip(self.chromatograms,self.x_series):
-             setattr(c,"timepoint", t)
-
-        self.chromatograms.sort(key=lambda x: x.timepoint)
-        self.x_series.sort()
-
-        if self.regions == False:
-            self.regions = [[chromatogram_list[0].time[0],chromatogram_list[0].time[-1]]]
-
-        '''Read conditions'''
-        condset = []
-        readstate = False
-        with open(information_file, "r") as f:
-            for c,line in enumerate(f):
-                if "start_conditions" in line:
-                    readstate = True
-                    line = next(f)
-                if "end_conditions" in line:
-                    readstate = False
-                if readstate:
-                    newline = line.strip("\n")
-                    condset.append([x for x in newline.split(",") if x != ""])
-        c_out = {}
-        for c in condset:
-            c_out[c[0]] = [float(x) for x in c[1:]]
-
-        self.conditions = c_out
-
-        '''Information to be derived from data'''
-        self.integral_series = {}
-        self.peak_series = {}
-        self.ion_series = {}
-        self.internal_ref_integrals = []
-        self.conc_series = {}
-        self.conc_err_series = {}
-        self.internal_ref_heights = []
-        self.deconvoluted_series = {}
+        return ion_dict
 
 class PeakCollectionElement:
     '''
@@ -960,7 +870,7 @@ class PeakCollection:
             p.start = p.start - is_rt + IS_set
             p.end = p.end - is_rt + IS_set
 
-        for m in self.mass_spectra:        
+        for m in self.mass_spectra:
             m.retention_time = m.retention_time - is_rt + IS_set
 
         self.internal_standard.start = (self.internal_standard.start - is_rt +
@@ -1141,6 +1051,7 @@ class PeakCollectionSeries:
         self.integral_series = []
         self.concentration_series = []
         self.conc_err_series = []
+        self.series_assigned_compounds = []
 
     def remove_peaks_below_threshold(self,threshold):
         '''
@@ -1425,7 +1336,6 @@ class PeakCollectionSeries:
 
     def write_concentrations_to_file(self,
                                     filename, information,
-                                    name_conversions = {}
                                     ):
         '''
         Parameters
@@ -1434,7 +1344,7 @@ class PeakCollectionSeries:
 
         information: ChromProcess Instrument_Calibration object
         '''
-        
+
         import numpy as np
         from pathlib import Path
 
@@ -1442,7 +1352,7 @@ class PeakCollectionSeries:
             filename = filename
         elif isinstance(filename, Path):
             filename = str(filename)
-            
+
         out_type = 'concentration_report'
         fname = '{}_{}_{}.csv'.format(filename, information.type, out_type)
 
@@ -1478,7 +1388,6 @@ class PeakCollectionSeries:
     def write_integrals_to_file(self,
                                 filename,
                                 information,
-                                name_conversions = {}
                                 ):
         '''
         Parameters
@@ -1491,13 +1400,14 @@ class PeakCollectionSeries:
         import numpy as np
         from pathlib import Path
 
+        name = ''
         if isinstance(filename, str):
-            filename = filename
+            name = filename
         elif isinstance(filename, Path):
-            filename = str(filename)
+            name = str(filename)
 
         out_type = 'integral_report'
-        fname = '{}_{}_{}.csv'.format(filename, information.type, out_type)
+        fname = '{}_{}_{}.csv'.format(name, information.type, out_type)
 
         with open(fname, 'w') as outfile:
             # writing experiment conditions to file
@@ -1552,7 +1462,7 @@ class PeakCollectionSeries:
 
         return data_report
 
-    def create_conc_DataReport(self, information, name_conversions = {}):
+    def create_conc_DataReport(self, information):
         '''
         Parameters
         ----------
@@ -1607,7 +1517,7 @@ class MassSpectrum:
         else:
             sys.exit('''''')
 
-        self.filename = filename;
+        self.filename = filename
         self.mz = mz
         self.relative_abundances = inten
         self.retention_time = pos
