@@ -2,6 +2,8 @@
 
 Python tools to deal with sets of chromatography data.
 
+This software is intended to be relatively simple to use and inspect. That statement is rather subjective, and as with everything, there is room for improvement! The idea behind all of this is to rationalise everthing about the scientific workflow so that we can spend less time clicking and dragging and more time thinking. Software can greatly help with automatic routine operations, but it is no substitute for 'best practice'. Personally, I have found that writing programs, rather that using graphical user interfaces, has greatly improved how I think about data analysis and organisation.
+
 ## Installation
 
 ### 1. Clone
