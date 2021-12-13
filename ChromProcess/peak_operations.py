@@ -1,5 +1,5 @@
 '''
-Would prefer to add these functions into Peak object methods.
+I would prefer to add these functions into Peak object methods.
 
 However, they rely upon calling mass spectral information from the
 parent Chromatogram object.

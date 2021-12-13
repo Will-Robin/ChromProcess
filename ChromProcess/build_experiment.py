@@ -1,15 +1,19 @@
 '''
 Creates a template directory for an experiment
+
+Consider using cookiecutter (https://github.com/cookiecutter/cookiecutter).
 '''
 import os 
 import sys
 from pathlib import Path
 from ChromProcess import build_experiment as build_exp
 
+# The home directory is default.
 default_parent_directory = Path.home()
 
 exp_code = 'experiment_code'
 default_folder_name = exp_code
+
 
 # defaults for the conditions file
 default_series_values = ['1','2','3','4','5','6','7','8','9']
@@ -30,27 +34,27 @@ default_internal_ref_concentration_error = '9.89E-06'
 
 # basis for conditions file
 conditions = {
-                        'Dataset': [exp_code],
-                        'start_experiment_information': [],
-                        'series_values': default_series_values,
-                        'series_unit': [default_series_unit],
-                        'end_experiment_information': [],
-                        'start_conditions': [],
-                        'example_condition_name': [example_condition_value],
-                        'end_conditions': [],
+            'Dataset': [exp_code],
+            'start_experiment_information': [],
+            'series_values': default_series_values,
+            'series_unit': [default_series_unit],
+            'end_experiment_information': [],
+            'start_conditions': [],
+            'example_condition_name': [example_condition_value],
+            'end_conditions': [],
 }
 
 analysis_details = {
-                        'Dataset': [exp_code],
-                        'Method': [default_analysis_method],
-                        'regions': default_regions,
-                        'internal_reference_region': default_internal_ref_region,
-                        'extract_mass_spectra': [mass_spec_default],
-                        'peak_pick_threshold': [default_peak_pick_threshold],
-                        'dilution_factor': [default_dilution_factor],
-                        'dilution_factor_error': [default_dilution_factor_error],
-                        'internal_ref_concentration': [default_internal_ref_concentration],
-                        'internal_ref_concentration_error': [default_internal_ref_concentration_error]
+                'Dataset': [exp_code],
+                'Method': [default_analysis_method],
+                'regions': default_regions,
+                'internal_reference_region': default_internal_ref_region,
+                'extract_mass_spectra': [mass_spec_default],
+                'peak_pick_threshold': [default_peak_pick_threshold],
+                'dilution_factor': [default_dilution_factor],
+                'dilution_factor_error': [default_dilution_factor_error],
+                'internal_ref_concentration': [default_internal_ref_concentration],
+                'internal_ref_concentration_error': [default_internal_ref_concentration_error]
 }
 
 local_assignments = {}
@@ -102,6 +106,8 @@ if __name__ == "__main__":
 
     if len(sys.argv) >= 3:
         parent_directory = sys.argv[2]
+
+    print(f'Creating {folder_name} in {parent_directory}.')
     
     build_exp.build_project(folder_name, parent_directory,
                             build_exp.conditions, build_exp.analysis_details, build_exp.local_assignments)
