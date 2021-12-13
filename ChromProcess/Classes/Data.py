@@ -1,5 +1,4 @@
-import numpy as np
-from pathlib import Path
+import sys
 
 class Peak:
     def __init__(self,retention_time, indices):
@@ -9,9 +8,10 @@ class Peak:
         parent chromatogram from which the time and 
         signal of the peak can be obtained.
 
+        Parameters
+        ----------
         retention_time: float
         indices: list
-
         '''
 
         self.retention_time = retention_time
@@ -39,9 +39,12 @@ class Peak:
         secure. The baseline substraction substracts a baseliner interpolated
         linearly between the start and the end of the peak.
 
+        Parameters
+        ----------
         chromatogram: ChromProcess Chromatogram object
         baseline_subtract: bool
         '''
+        
         import numpy as np
 
         time = chromatogram.time[self.indices]
@@ -71,10 +74,12 @@ class Peak:
     def get_mass_spectrum(self, chromatogram):
         '''
         Get the mass spectrum at the apex of the peak.
+
         Parameters
         ----------
         chromatogram: ChromProcess Chromatogram object
         '''
+        import numpy as np
 
         if len(chromatogram.scan_indices) == 0:
             # no mass spectral information in the chromatogram
@@ -91,7 +96,6 @@ class Peak:
                                 np.round(chromatogram.mass_values[start:end],2),
                                 chromatogram.mass_intensity[start:end]
                                 ]
-
 
 class Chromatogram:
     def __init__(self, file, 
@@ -110,16 +114,22 @@ class Chromatogram:
         channel_select: str
             For HPLC data, which detector channel to select.
         '''
+        import numpy as np
+        from pathlib import Path
 
-        if type(file) != str:
+        if isinstance(file, Path):
             self.initialised_path = file
             self.filename = file.stem.split('.')[0]
             self.filetype = file.suffix.strip('.')
-        else:
+        elif isinstance(file, str):
             # convert the path as a string into a Path object.
             self.initialised_path = Path(file)
             self.filename = self.initialised_path.stem.split('.')[0]
             self.filetype = self.initialised_path.suffix.strip('.')
+        else: sys.exit(
+                    '''ChromProcess.Classes.Data.Chromatogram: 
+                        expected file arg to be string or pathlib Path.'''
+                        )
 
         self.peaks = {}
 
@@ -188,7 +198,7 @@ class Chromatogram:
 
         Parameters
         ----------
-        file: str
+        file: str or pathlib Path
             name of chromatogram file
             (ASCII exported from Shimadzu LC software)
         dat_dict: dict
@@ -199,6 +209,7 @@ class Chromatogram:
         Updated dat_dict with chromatogram data added from the file
 
         '''
+        import numpy as np
 
         for b in range(0,len(dat_dict['Data set start'])):
             with open(file, 'r') as f:
@@ -300,6 +311,9 @@ class Chromatogram:
         return output
 
     def MS_Load(self):
+
+        import numpy as np
+
         file = self.initialised_path
 
         self.mass_spectra = True
@@ -331,6 +345,8 @@ class Chromatogram:
         signal: numpy array
             signal axis
         '''
+        import numpy as np
+
         data = []
         with open(file, 'r') as f:
 
@@ -353,6 +369,8 @@ class Chromatogram:
         '''
         Write chromatgram to a .csv file.
         '''
+        import numpy as np
+
         if filename == '':
             filename = self.filename
 
@@ -361,7 +379,7 @@ class Chromatogram:
         chrom_out = np.vstack((time,signal))
         chrom_out = chrom_out.T
 
-        with open(f'{filename}.csv', 'w') as f:
+        with open(filename, 'w') as f:
             f.write('time/ min, signal/ total ion counts\n')
             for x in range(0,len(chrom_out)):
                 f.write(f'{chrom_out[x,0]},{chrom_out[x,1]}\n')
@@ -415,7 +433,7 @@ class Chromatogram:
 
         Parameters
         ----------
-        filename: str
+        filename: str or pathlib Path
             Name for the file
         value: float, str, bool
             Value assigned to the variable assigned to the chromatogram.
@@ -425,7 +443,8 @@ class Chromatogram:
         -------
         None
         '''
-        with open("{}.csv".format(filename), "w") as f:
+
+        with open(filename, "w") as f:
             f.write("{},{}\n".format(series_unit,value))
             f.write('IS_retention_time/ min,IS_integral,IS_peak start/ min,IS_peak end/ min\n')
             if self.internal_reference:
@@ -500,7 +519,7 @@ class Chromatogram:
         None
         '''
 
-        with open('{}.csv'.format(filename), 'w') as f:
+        with open(filename, 'w') as f:
 
             for p in self.peaks:
                 if self.peaks[p].mass_spectrum:
@@ -532,6 +551,7 @@ class Chromatogram:
         mass: numpy array
         intensity: numpy array
         '''
+        import numpy as np
 
         inds = np.where(self.time == time)[0]
 
@@ -555,6 +575,8 @@ class Chromatogram:
         ion_chromatograms: dict
             Dict of ion chromatograms
         '''
+        import numpy as np
+
         if len(self.scan_indices) == 0:
             return {}
         else:
@@ -591,6 +613,8 @@ class Chromatogram:
 class Chromatogram_Series:
     def __init__(self,chromatogram_list, information_file):
         '''
+        NOT MAINTAINED: pefer PeakCollection route for creating series data.
+
         Initialises a series of chromatograms from a
         list of chromatograms
         objects and an information file.
@@ -683,6 +707,8 @@ class PeakCollectionElement:
         Parameters
         ----------
         position, integral, start, end: float
+        parent: str
+        mass_spectrum: bool
         '''
 
         self.retention_time = position
@@ -740,6 +766,8 @@ class PeakCollectionElement:
         ----------
         A, B, C, internal_standard: float
         '''
+        import numpy as np
+
         conversion = lambda x : ((-B+np.sqrt((B**2)-(4*A*(C-x))))/(2*A))
         c1 = conversion(self.integral)
 
@@ -764,6 +792,7 @@ class PeakCollectionElement:
         Modifies PeakCollectionElement object attributes.
         '''
         import numpy as np
+
         from ChromProcess import calibration as cal_ops
         from ChromProcess import simple_functions as s_f
 
@@ -800,6 +829,7 @@ class PeakCollectionElement:
         Parameters
         ----------
         factor: float
+        factor_error: float
         '''
         from ChromProcess import simple_functions as s_f
         err=s_f.mult_div_error_prop([self.concentration, factor],
@@ -814,6 +844,7 @@ class PeakCollection:
     def __init__(self, file = ''):
 
         from ChromProcess import Classes
+
 
         self.filename = 'not specified'
         self.series_value = None
@@ -831,12 +862,23 @@ class PeakCollection:
             self.read_from_file(file)
 
     def read_from_file(self, file):
+        '''
+        Read in information to the object from a file.
+        '''
+
+        from pathlib import Path
         from ChromProcess import Classes
 
-        if type(file) == str:
-            file = Path(file)
+        fname = Path('')
+        if isinstance(file, str):
+            fname = Path(file)
+        elif isinstance(file, Path):
+            fname = file
+        else:
+            sys.exit('''PeakCollection requires file kwarg to be string or
+            pathlib Path.''')
 
-        self.filename = file.name
+        self.filename = fname.name
 
         read_line = lambda line: [float(x) for x in line.strip('\n').split(",") if x != '']
         peaks = []
@@ -878,9 +920,6 @@ class PeakCollection:
                                                   round(rd[3],3),
                                                   parent = self.filename.split('.')[0]))
 
-
-
-
         self.series_value = value
         self.series_unit = variable
         self.internal_standard = IS
@@ -907,6 +946,11 @@ class PeakCollection:
         self.peaks = [v for i,v in enumerate(self.peaks) if i not in del_idx]
 
     def align_peaks_to_IS(self, IS_set = 0.0):
+        '''
+        Parameters
+        ----------
+            IS_set: float
+        '''
 
         is_rt = self.internal_standard.retention_time
 
@@ -945,6 +989,7 @@ class PeakCollection:
                 peak_dict[p].mass_spectrum = ms_dict[p]
 
     def get_peak_positions(self):
+        import numpy as np
         return np.array([p.retention_time for p in self.peaks])
 
     def reference_integrals_to_IS(self):
@@ -974,6 +1019,7 @@ class PeakCollection:
             internal standard concentration
 
         '''
+
         if IS_conc == 0.0:
             # results in division by 1 during conversion
             IS_conc = 1.0
@@ -987,7 +1033,7 @@ class PeakCollection:
                     pk.apply_quadratic_calibration(CF['A'], CF['B'], CF['C'],
                                                    internal_standard = IS_conc)
 
-    def calculate_conc_errors(self, calibrations,IS_conc,IS_conc_err):
+    def calculate_conc_errors(self, calibrations, IS_conc, IS_conc_err):
         '''
         Calculation of the standard error on a concentration estimation from
         th calibration.
@@ -996,6 +1042,9 @@ class PeakCollection:
         ----------
         calibrations: ChromProcess Instrument_Calibration object
             Contains calibration information.
+        IS_conc: float
+        IS_conc_err: float
+
         Returns
         -------
         None
@@ -1032,11 +1081,22 @@ class PeakCollection:
 
 
     def write_to_file(self, directory = ''):
+        '''
+        Write the object to a structured file.
 
-        if directory == '':
-            fname = "{}".format(self.filename)
-        else:
-            fname = directory/"{}".format(self.filename)
+        Parameters
+        ----------
+        directory: str or pathlib Path
+        '''
+
+        from pathlib import Path
+
+        fname = Path(self.filename)
+        if isinstance(directory, str):
+            if directory == '':
+                fname = Path(f"{self.filename}")
+        elif isinstance(directory, Path):
+            fname = directory/f"{self.filename}"
 
         IS_header = 'IS_retention_time/ min,IS_integral,IS_peak start/ min,IS_peak end/ min\n'
         pk_header = "Retention_time/ min,integral,peak start/ min,peak end/ min\n"
@@ -1060,6 +1120,15 @@ class PeakCollection:
 class PeakCollectionSeries:
     def __init__(self, peak_collections, name = 'not specified',
                  conditions = {}):
+        '''
+        An object which wraps multiple PeakCollection objects.
+
+        Parameters
+        ----------
+        peak_collections: List of ChromProcess PeakCollection objects
+        name: str
+        conditions: dict
+        '''
 
         self.name = name
         self.peak_collections = peak_collections
@@ -1067,6 +1136,7 @@ class PeakCollectionSeries:
         self.series_unit = peak_collections[0].series_unit
         self.conditions = conditions
         self.clusters = []
+        self.cluster_assignments = []
 
     def remove_peaks_below_threshold(self,threshold):
         '''
@@ -1087,15 +1157,21 @@ class PeakCollectionSeries:
             pc.align_peaks_to_IS(IS_set = IS_set)
 
     def get_peak_positions(self):
+
         import numpy as np
+
         peak_pos = np.array([])
         for pc in self.peak_collections:
             peak_pos = np.hstack((peak_pos, pc.get_peak_positions()))
 
         i = np.argsort(peak_pos)
+
         return peak_pos[i]
 
     def get_peak_clusters(self, bound = 0.1):
+        '''
+        bound: float
+        '''
 
         from ChromProcess import simple_functions as sf
 
@@ -1114,6 +1190,7 @@ class PeakCollectionSeries:
         boundaries: dict
             {'compound_name', [lower bound, upper bound]}
         '''
+
         for pc in self.peak_collections:
             pc.assign_peaks(boundaries)
 
@@ -1124,8 +1201,9 @@ class PeakCollectionSeries:
         boundaries: dict
             {'compound_name', [lower bound, upper bound]}
         '''
+        import numpy as np
         from ChromProcess import processing_functions as p_f
-        self.cluster_assignments = []
+
         for c in self.clusters:
             pos = np.mean(c)
             clust_name = p_f.name_peak(pos, boundaries)
@@ -1184,8 +1262,16 @@ class PeakCollectionSeries:
 
     def make_integral_series(self, cluster_bound = 0.0):
 
+        '''
+        Parameters
+        ----------
+        cluster_bound: float
+        '''
+
+        import numpy as np
+
         if len(self.clusters) == 0:
-            self.get_peak_clusters(self, bound = cluster_bound)
+            self.get_peak_clusters(bound = cluster_bound)
 
         series_courses = np.zeros((len(self.series_values), len(self.clusters)))
 
@@ -1200,6 +1286,13 @@ class PeakCollectionSeries:
         self.integral_series = series_courses.T
 
     def make_concentration_series(self, cluster_bound = 0.0):
+        '''
+        Parameters
+        ----------
+        cluster_bound: float
+        '''
+
+        import numpy as np
 
         if len(self.clusters) == 0:
             self.get_peak_clusters(bound = cluster_bound)
@@ -1225,6 +1318,13 @@ class PeakCollectionSeries:
         self.conc_err_series = error_courses.T
 
     def concentration_traces_as_dict(self, name_conversions = {}):
+        '''
+        Parameters
+        ----------
+        name_conversions: dict
+        '''
+
+        import numpy as np
 
         conc_dict = {}
         for x in range(0,len(self.concentration_series)):
@@ -1237,10 +1337,22 @@ class PeakCollectionSeries:
         return conc_dict
 
     def integral_traces_as_dict(self, name_conversions = {}):
+        '''
+        Parameters
+        ----------
+        name_conversions: dict
+        '''
+
+        import numpy as np
+
+        if len(self.cluster_assignments) == 0:
+            get_name = lambda _: ''
+        else:
+            get_name = lambda x: self.cluster_assignments[x].split(' ')[0]
 
         integral_dict = {}
         for x in range(0,len(self.integral_series)):
-            name = self.cluster_assignments[x].split(' ')[0]
+            name = get_name(x)
             if name in name_conversions:
                 smiles = name_conversions[name.split(' ')[0]]
                 pos = np.mean(self.clusters[x])
@@ -1253,6 +1365,13 @@ class PeakCollectionSeries:
         return integral_dict
 
     def concentration_error_traces_dict(self, name_conversions = {}):
+        '''
+        Parameters
+        ----------
+        name_conversions: dict
+        '''
+
+        import numpy as np
 
         err_dict = {}
         for x in range(0,len(self.conc_err_series)):
@@ -1301,8 +1420,15 @@ class PeakCollectionSeries:
 
         information: ChromProcess Instrument_Calibration object
         '''
+        
         import numpy as np
+        from pathlib import Path
 
+        if isinstance(filename, str):
+            filename = filename
+        elif isinstance(filename, Path):
+            filename = str(filename)
+            
         out_type = 'concentration_report'
         fname = '{}_{}_{}.csv'.format(filename, information.type, out_type)
 
@@ -1351,6 +1477,13 @@ class PeakCollectionSeries:
         '''
 
         import numpy as np
+        from pathlib import Path
+
+        if isinstance(filename, str):
+            filename = filename
+        elif isinstance(filename, Path):
+            filename = str(filename)
+
         out_type = 'integral_report'
         fname = '{}_{}_{}.csv'.format(filename, information.type, out_type)
 
@@ -1390,6 +1523,7 @@ class PeakCollectionSeries:
         ----------
         information: ChromProcess Instrument_Calibration object
         '''
+
         from ChromProcess import Classes
 
         data_report = Classes.DataReport()
@@ -1433,6 +1567,7 @@ class PeakCollectionSeries:
         ----------
         information: ChromProcess Instrument_Calibration object
         '''
+
         out_type = 'integral_report'
         fname = '{}_{}_{}.csv'.format(self.name, information.type, out_type)
 
@@ -1445,7 +1580,26 @@ class PeakCollectionSeries:
 
 class MassSpectrum:
     def __init__(self, fname, mz, inten, pos = None):
-        self.filename = fname
+        '''
+        Parameters
+        ----------
+        fname: str or pathlib Path
+        mz: array
+        inten: array
+        pos: None or float
+        '''
+
+        from pathlib import Path
+
+        filename = fname
+        if isinstance(fname, str):
+            filename = Path(fname)
+        elif isinstance(fname, Path):
+            pass
+        else:
+            sys.exit('''''')
+
+        self.filename = filename;
         self.mz = mz
         self.relative_abundances = inten
         self.retention_time = pos

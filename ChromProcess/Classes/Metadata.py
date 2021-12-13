@@ -1,53 +1,3 @@
-import numpy as np
-from ChromProcess.simple_functions import isfloat
-
-class Information:
-    def __init__(self, information_file):
-        with open(information_file, 'r') as f:
-            for line in f:
-                if "Dataset" in line:
-                    ins = line.strip("\n")
-                    self.set_name = ins.split(",")[1]
-                if "dilution_factor" in line:
-                    ins = line.strip("\n")
-                    self.dilution = float(ins.split(",")[1])
-                if "series_values" in line:
-                    ins = line.strip("\n")
-                    spl = ins.split(",")
-                    self.x_series =  [float(x) for x in spl[1:] if x != ""]
-                if "series_unit" in line:
-                    ins = line.strip("\n")
-                    self.x_name = ins.split(",")[1]
-                if "series_regions" in line:
-                    ins = line.strip("\n")
-                    reg = [float(x) for x in ins.split(",")[1:] if x != ""]
-                    self.regions = [reg[x:x+2] for x in range(0, len(reg), 2)]
-                if "internal_ref_region" in line:
-                    ins = line.strip("\n")
-                    reg = [float(x) for x in ins.split(",")[1:] if x != ""]
-                    self.internal_ref_region = [reg[x:x+2] for x in range(0, len(reg), 2) if x != ""][0]
-                if "internal_ref_concentration" in line:
-                    ins = line.strip("\n")
-                    self.internal_ref_concentration = float(ins.split(",")[1])
-
-        '''Read conditions'''
-        condset = []
-        readstate = False
-        with open(information_file, "r") as f:
-            for c,line in enumerate(f):
-                if "start_conditions" in line:
-                    readstate = True
-                    line = next(f)
-                if "end_conditions" in line:
-                    readstate = False
-                if readstate:
-                    newline = line.strip("\n")
-                    condset.append([x for x in newline.split(",") if x != ""])
-        c_out = {}
-        for c in condset:
-            c_out[c[0]] = [float(x) for x in c[1:]]
-
-        self.conditions = c_out
 
 class Analysis_Information:
     '''
@@ -59,6 +9,23 @@ class Analysis_Information:
                  dilution_factor = 1.0, dil_err = 0.0,
                  IS_conc = 1.0, IS_err = 0.0,
                  information_file = ''):
+        '''
+        Parameters
+        ----------
+        Stores information about analysis procedure for chromatography data.
+        regions: list of lists
+        IS_region: list
+        use_MS: bool
+        analysis_type: str 
+        i_thres_MS: float
+        peak_pick_thres: float
+        exp_name: float
+        dilution_factor: float
+        dil_err: float
+        IS_conc: float
+        IS_err: float
+        information_file: str or pathlib Path
+        '''
 
         self.experiment_code = exp_name
         self.analysis_type = analysis_type
@@ -77,37 +44,13 @@ class Analysis_Information:
         else:
             self.read_from_file(information_file)
 
-    def write_to_file(self, directory = ''):
+    def read_from_file(self, fname):
         '''
-        directory: str or pathlib Path
+        Parameters
+        ----------
+        fname: str or pathlib Path
         '''
-        if directory == '':
-            fname = '{}_analysis_details.csv'.format(self.experiment_code)
-        else:
-            fname = directory/'{}_analysis_details.csv'.format(self.experiment_code)
 
-        with open(fname, 'w') as f:
-            f.write('Dataset,{}\n'.format(self.experiment_code))
-            f.write('Method,{}\n'.format(self.analysis_type))
-            f.write('regions,')
-            for r in self.regions:
-                for pos in r:
-                    f.write('{},'.format(pos))
-            f.write('\n')
-
-            f.write('internal_reference_region,')
-            for r in self.internal_ref_region:
-                f.write('{},'.format(r))
-            f.write('\n')
-            f.write('extract_mass_spectra,{}\n'.format(str(self.use_MS)))
-            f.write('mass_spectra_filter,{}\n'.format(self.MS_cutoff))
-            f.write('peak_pick_threshold,{}\n'.format(self.peak_pick_threshold))
-            f.write('dilution_factor,{}\n'.format(self.dilution_factor))
-            f.write('dilution_factor_error,{}\n'.format(self.dilution_factor_error))
-            f.write('internal_ref_concentration,{}\n'.format(self.internal_ref_concentration))
-            f.write('internal_ref_concentration_error,{}\n'.format(self.internal_ref_concentration_error))
-
-    def read_from_file(self,fname):
         rdlin = lambda x : [e for e in x.strip('\n').split(',') if e != '']
         with open(fname, 'r') as f:
             for line in f:
@@ -164,8 +107,53 @@ class Analysis_Information:
                     ins = rdlin(line)
                     self.internal_ref_concentration_error = float(ins[1])
 
+    def write_to_file(self, directory = ''):
+        '''
+        Parameters
+        ----------
+        directory: str or pathlib Path
+        '''
+        from pathlib import Path
+
+        fname = self.experiment_code
+        if isinstance(directory, str):
+            if directory == '':
+                fname = f'{self.experiment_code}_analysis_details.csv'
+            else:
+                fname = f'{directory}/{self.experiment_code}_analysis_details.csv'
+        elif isinstance(directory, Path):
+            fname = directory/f'{self.experiment_code}_analysis_details.csv'.format()
+        else:
+            pass
+
+        with open(fname, 'w') as f:
+            f.write('Dataset,{}\n'.format(self.experiment_code))
+            f.write('Method,{}\n'.format(self.analysis_type))
+            f.write('regions,')
+            for r in self.regions:
+                for pos in r:
+                    f.write('{},'.format(pos))
+            f.write('\n')
+
+            f.write('internal_reference_region,')
+            for r in self.internal_ref_region:
+                f.write('{},'.format(r))
+            f.write('\n')
+            f.write('extract_mass_spectra,{}\n'.format(str(self.use_MS)))
+            f.write('mass_spectra_filter,{}\n'.format(self.MS_cutoff))
+            f.write('peak_pick_threshold,{}\n'.format(self.peak_pick_threshold))
+            f.write('dilution_factor,{}\n'.format(self.dilution_factor))
+            f.write('dilution_factor_error,{}\n'.format(self.dilution_factor_error))
+            f.write('internal_ref_concentration,{}\n'.format(self.internal_ref_concentration))
+            f.write('internal_ref_concentration_error,{}\n'.format(self.internal_ref_concentration_error))
+
 class Experiment_Conditions:
     def __init__(self, information_file = ''):
+        '''
+        Parameters
+        ----------
+        information_file: str or pathlib Path
+        '''
 
         self.experiment_code = 'not specified'
         self.series_values = []
@@ -178,10 +166,25 @@ class Experiment_Conditions:
             self.read_from_file(information_file)
 
     def write_to_file(self, directory = ''):
-        if directory == '':
-            fname = '{}_conditions.csv'.format(self.experiment_code)
+        '''
+        Parameters
+        ----------
+        directory: str or pathlib Path
+        '''
+
+        from pathlib import Path
+
+        fname = self.experiment_code
+        if isinstance(directory, str):
+            if directory == '':
+                fname = '{}_conditions.csv'.format(self.experiment_code)
+            else:
+                fname = f'{directory}/{self.experiment_code}_conditions.csv'
+
+        elif isinstance(directory, Path):
+            fname = directory/f'{self.experiment_code}_conditions.csv'
         else:
-            fname = directory/'{}_conditions.csv'.format(self.experiment_code)
+            pass
 
         with open(fname, 'w') as f:
             f.write('Dataset,{}\n'.format(self.experiment_code))
@@ -203,6 +206,14 @@ class Experiment_Conditions:
             f.write("end_conditions\n")
 
     def read_from_file(self,information_file):
+        '''
+        Parameters
+        ----------
+        information_file: str or pathlib Path
+        '''
+
+        from ChromProcess import simple_functions as s_f
+
         with open(information_file, 'r', encoding = 'latin-1') as f:
             for line in f:
                 if "Dataset" in line:
@@ -233,99 +244,12 @@ class Experiment_Conditions:
         for c in condset:
             c_out[c[0]] = []
             for x in c[1:]:
-                if isfloat(x):
+                if s_f.isfloat(x):
                     c_out[c[0]].append(float(x))
                 else:
                     c_out[c[0]].append(x)
 
         self.conditions = c_out
-
-class Calibration_File:
-    '''
-    Contains information from a calibration file.
-    '''
-    def __init__(self,file, type = "None"):
-
-        if type == "None":
-            print("Specify calibration type (GCMS or HPLC)")
-            print("quitting")
-            quit()
-
-        self.calibrations = {}
-        self.boundaries = {}
-        self.type = type
-        header = []
-        upper_ind = 0
-        lower_ind = 0
-        A_ind = 0
-        B_ind = 0
-        C_ind = 0
-        info = []
-        with open(file, "r") as f:
-            readstate = False
-            for line in f:
-                if "Date_{}".format(type) in line:
-                    ins = line.strip("\n").split(",")
-                    self.date = ins[1]
-                if "Method_file_{}".format(type) in line:
-                    ins = line.strip("\n").split(",")
-                    self.method = ins[1]
-                if "Derivatisation_details_{}".format(type) in line:
-                    ins = line.strip("\n").split(",")
-                    self.derivatisation = ins[1]
-
-                if "start_calibration" in line:
-                    readstate = True
-                elif "compound_name" in line:
-                    header = line.strip("\n").split(",")
-                elif "end_calibration" in line:
-                    break
-                elif readstate:
-                    info.append(line.strip("\n").split(","))
-
-        info = [list(x) for x in zip(*info)]
-
-        comp_ind = header.index('compound_name')
-
-        if type == "GCMS":
-            A_ind = header.index('A(GCMS)')
-            B_ind = header.index('B(GCMS)')
-            C_ind = header.index('C(GCMS)')
-            lower_ind = header.index('lower(GCMS)')
-            upper_ind = header.index('upper(GCMS)')
-
-        elif type == "HPLC":
-            A_ind = header.index('A(HPLC)')
-            B_ind = header.index('B(HPLC)')
-            C_ind = header.index('C(HPLC)')
-            lower_ind = header.index('lower(HPLC)')
-            upper_ind = header.index('upper(HPLC)')
-
-        bound_tuples = [(l,u) for l,u in zip(info[lower_ind],info[upper_ind])]
-        self.boundaries = {k:[float(v[0]),float(v[1])] for k,v in zip(info[comp_ind],bound_tuples) if v != ("None","None")}
-
-        calib_tuples = [(a,b,c) for a,b,c in zip(info[A_ind],info[B_ind],info[C_ind])]
-        self.calibrations = {k:{"A": float(v[0]), "B": float(v[1]), "C": float(v[2])} for k,v in zip(info[comp_ind],calib_tuples) if v != ("None","None","None")}
-
-    def modify_boundaries(self, modified_bounds):
-
-        temp_dict = {}
-        for m in modified_bounds:
-            if len(modified_bounds[m]) != 2:
-                pass
-            else:
-                temp_dict[m] = modified_bounds[m]
-
-        for i in self.boundaries:
-            if i in temp_dict:
-                pass
-            else:
-                temp_dict[i] = self.boundaries[i]
-
-        self.boundaries = {}
-        for t in temp_dict:
-            self.boundaries[t] = temp_dict[t]
-
 
 class CalibrationAllocations:
     '''
@@ -333,6 +257,12 @@ class CalibrationAllocations:
     set.
     '''
     def __init__(self,filename):
+
+        '''
+        Parameters
+        ----------
+        filename: str or pathlib Path
+        '''
 
         self.experiments = []
         self.GCMS_allocations = {}
@@ -345,6 +275,12 @@ class CalibrationAllocations:
             self.import_file(filename)
 
     def import_file(self,filename):
+        '''
+        Parameters
+        ----------
+        filename: str or pathlib Path
+        '''
+
         rdln = lambda x : [e for e in x.strip('\n').split(',') if e != '']
         GCMS_idx = 0
         HPLC_idx = 0
@@ -368,9 +304,23 @@ class DataPath:
     Contains information paths to data files.
     '''
     def __init__(self, exp_code, data_type, path):
+        '''
+        Parameters
+        ----------
+        exp_code: str 
+        data_type: str
+        path: str or pathlib Path
+        '''
+
+        from pathlib import Path
+
         self.experiment_code = exp_code
         self.data_type = data_type
-        self.path = path
+
+        if isinstance(path, str):
+            self.path = Path(path)
+        if isinstance(path, Path):
+            self.path = path
 
 class DataPaths:
     '''
@@ -378,6 +328,12 @@ class DataPaths:
     '''
 
     def __init__(self, filename):
+        '''
+        Parameters
+        ----------
+        filename: str or pathlib Path
+        '''
+
         from pathlib import Path
         from ChromProcess import Classes
 
@@ -399,6 +355,13 @@ class DataPaths:
 
 class DataReport:
     def __init__(self, file = ''):
+        '''
+        Parameters
+        ----------
+        file: str or pathlib Path
+        '''
+        import numpy as np
+
         self.filename = 'not specified'
         self.experiment_code = 'not specified'
         self.conditions = {}
@@ -421,6 +384,13 @@ class DataReport:
             path to file.
         '''
 
+        from pathlib import Path
+        import numpy as np
+        from ChromProcess import simple_functions as s_f
+
+        if isinstance(file, str):
+            file = Path(file)
+
         spl_lin = lambda x : [e for e in x.strip('\n').split(',') if e != '']
 
         self.filename = file.stem
@@ -437,7 +407,7 @@ class DataReport:
         for c in condset:
             self.conditions[c[0]] = []
             for x in c[1:]:
-                if isfloat(x):
+                if s_f.isfloat(x):
                     self.conditions[c[0]].append(float(x))
                 else:
                     self.conditions[c[0]].append(x)
@@ -467,7 +437,6 @@ class DataReport:
         ----------
         file: str or pathlib Path
             path to file
-
         start_token: str
             String in line to start reading file from.
         end_token:
@@ -526,11 +495,14 @@ class DataReport:
         '''
 
         import numpy as np
+        from pathlib import Path
+
+        if isinstance(path, str):
+            path = Path(path)
 
         if filename == '':
             filename = self.filename
-        elif not filename.endswith('csv'):
-            filename = filename + 'csv'
+
         if path == None:
             fname = filename
         else:
@@ -592,6 +564,7 @@ class DataReport:
         return list(set(repeat_entries))
 
     def remove_repeat_entries(self):
+
         import numpy as np
         # deleting duplicate entries: taking the entry with the higher signal using the
         # signal sum as a discriminant.
@@ -672,6 +645,13 @@ class Instrument_Calibration:
             self.read_calibration_file(file)
 
     def read_calibration_file(self, fname):
+        '''
+        Parameters
+        ----------
+        fname: str or pathlib Path
+            name for file
+        '''
+
         rdlin = lambda x : [e for e in x.strip('\n').split(',') if e != '']
         info = []
         header = []
@@ -741,7 +721,7 @@ class Instrument_Calibration:
         '''
         Parameters
         ----------
-        modified_bounds:
+        modified_bounds: dict
             Dictionary of modifications to make to self.boundaries
         '''
 
