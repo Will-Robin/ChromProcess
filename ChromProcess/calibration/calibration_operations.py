@@ -1,6 +1,7 @@
 '''
 Tools for analysing calibration data.
 '''
+from ChromProcess import simple_functions as s_f 
 
 def AnalyseCalibrationCurve(x,y,error = [.0,.0],
                             function = s_f.QuadraticFunction,
