@@ -1,7 +1,0 @@
-from ChromProcess.Classes.Chromatogram import Chromatogram
-from ChromProcess.Classes.MassSpectrum import MassSpectrum
-from ChromProcess.Classes.Peak import Peak
-from ChromProcess.Classes.PeakCollection import PeakCollection
-from ChromProcess.Classes.PeakCollectionElement import PeakCollectionElement
-from ChromProcess.Classes.PeakCollectionSeries import PeakCollectionSeries
-
