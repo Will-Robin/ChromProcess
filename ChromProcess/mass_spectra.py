@@ -3,11 +3,21 @@ import numpy as np
 '''
 Functions for dealing with mass spectra.
 '''
-def bin_ion_chromatograms(peak, stdev = 0.001):
+def bin_dictionary(value_dict, stdev = 0.001):
+    '''
+    Parameters 
+    ----------
+    value_dict: dict
+        Keys are floats.
 
-    from ChromProcess import simple_functions as s_f
+    Returns
+    -------
+    out_log: dict
+        Binned dictionary
+    '''
 
-    sorted_masses = sorted([*peak.ion_chromatograms])
+    # create clusters of values for sorting
+    sorted_values = sorted([*value_dict])
 
     clusters = []
     for c in s_f.cluster(sorted_masses, bound = stdev):
@@ -21,19 +31,20 @@ def bin_ion_chromatograms(peak, stdev = 0.001):
         out_log[position] = []
 
         for o in range(0,len(sorted_masses)):
-            if sorted_masses[o] in c:
+            value = sorted_masses[o]
+            if value in c:
                 if len(out_log[position]) == 0:
-                    out_log[position] = peak.ion_chromatograms[ sorted_masses[o] ]
+                    out_log[position] = value_dict[value]
                 else:
                     for count,p in enumerate(out_log[position]):
                         if p == 0:
-                            out_log[position][count] = peak.ion_chromatograms[ sorted_masses[o] ][count]
+                            out_log[position][count] = value_dict[values][count]
                         else:
                             pass
 
-    peak.ion_chromatograms = out_log
+    return out_log
 
-def ion_chromatogram_region(chromatogram, lower, upper, threshold = 0.1):
+def ion_chromatogram_from_region(chromatogram, lower, upper, threshold = 0.1):
     '''
     Get the ion chromatograms from a region of a chromatogram.
 
@@ -60,6 +71,7 @@ def ion_chromatogram_region(chromatogram, lower, upper, threshold = 0.1):
 
     time = np.array([])
     ion_dict = {}
+
     if len(chromatogram.scan_indices) == 0:
         pass
     else:
