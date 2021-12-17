@@ -25,3 +25,24 @@ class MassSpectrum:
         self.mz = mz
         self.relative_abundances = inten
         self.retention_time = pos
+
+    def write_to_string(self):
+        '''
+        Write a row-wise csv for the mass spectrum.
+
+        Returns
+        -------
+        ms_string: str
+        '''
+        ms_string = 'm/z,'
+        for x in range(0,len(self.mz)):
+            ms_string += f'{self.mz[x]},'
+
+        ms_string += "\nrelative abundance,"
+
+        for x in range(0,len(self.relative_abundances)):
+            ms_string += f'{self.mz[x]}'
+            
+        ms_string += "\n"
+
+        return ms_string
