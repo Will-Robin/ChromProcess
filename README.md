@@ -75,17 +75,7 @@ pip:
   - Install from the repository root using pip: `pip install .`,
   - Or in editable mode (so edits are immediately reflected): `pip install -e .`
 
-### Check install worked
-
-Type `python` in the command line/terminal and then return. This opens a Python interpreter. Type:
-
-`from ChromProcess import info_params` then the return key.
-
-If no errors occur (i.e. nothing happens), the installation worked.
-
 ## Using the code in Scripts
-
-You can import the ChromProcess code by putting `import ChromProcess` at the top of your scripts. You can import from specific files from ChromProcess using syntax like `from ChromProcess import info_params` or ` from ChromProcess.info_params import colour_assignments`. You can then use the code written in the files with similar names in the ChromProcess folder.
 
 Take a look in the Scripts folder for some examples.
 
