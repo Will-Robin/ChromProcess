@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from converters import chrom_from_text
-from converters import parse_text_columns
+from ChromProcess.Loading.Conversions.converters import chrom_from_text
+from ChromProcess.Loading.Conversions.converters import parse_text_columns
 
 def chrom_from_csv(filename):
     '''
@@ -28,7 +28,7 @@ def chrom_from_csv(filename):
     else:
         fname = filename
 
-    assert isinstance(fname, Path) "filename should be string or pathlib Path"
+    assert isinstance(fname, Path), "filename should be string or pathlib Path"
 
     with open(fname, 'r') as file:
         text = file.read()
@@ -38,8 +38,8 @@ def chrom_from_csv(filename):
     x_values = [float(x) for x in data[0][1:]]
     y_values = [float(y) for y in data[1][1:]]
 
-    x_name = data[0][0].split('/ ')[1]
-    y_name = data[1][0].split('/ ')[1]
+    x_name = data[0][0]
+    y_name = data[1][0]
 
     chrom = chrom_from_text(
                             x_values, 

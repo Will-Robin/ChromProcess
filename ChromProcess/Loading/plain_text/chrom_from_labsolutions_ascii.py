@@ -3,8 +3,8 @@ from pathlib import Path
 
 from ChromProcess import Classes
 
-from converters import chrom_from_text
-from converters import parse_text_columns
+from ChromProcess.Loading.Conversions.converters import chrom_from_text
+from ChromProcess.Loading.Conversions.converters import parse_text_columns
 
 def chrom_from_labsolutions_ascii(filename, data_key = 'Detector A-Ch1'):
     '''
@@ -31,7 +31,7 @@ def chrom_from_labsolutions_ascii(filename, data_key = 'Detector A-Ch1'):
     else:
         fname = filename
 
-    assert isinstance(fname, Path) "filename should be string or pathlib Path"
+    assert isinstance(fname, Path), "filename should be string or pathlib Path"
 
     with open(fname, 'r') as file:
         text = file.read()
