@@ -20,6 +20,10 @@ def parse_text_columns(text, point_delimiter, ordinal_delimiter):
         Dictionary containing data scraper from the file.
     '''
 
+    assert isinstance(text, str) "text arg should be a string"
+    assert isinstance(point_delimiter, str) "point_delimiter arg should be str"
+    assert isinstance(ordinal_delimiter, str) "ordinal_delimiter arg should be str"
+
     lines = text.split(point_delimiter)
     scrub_lines = [x for x in lines if x != '']
     points = [list(x.split(ordinal_delimiter)) for x in scrub_lines]
@@ -43,6 +47,10 @@ def chrom_from_text(x_values, y_values, x_unit, y_unit, filename):
     -------
     chrom: ChromProcess Chromatogram object
     '''
+    assert isinstance(x_values, list) "x_values arg should be a list"
+    assert isinstance(y_values, list) "y_values arg should be list"
+    assert isinstance(x_unit, str) "x_unit arg should be str"
+    assert isinstance(y_unit, str) "y_unit arg should be str"
 
     chrom = Classes.Chromatogram()
     chrom.filename = filename

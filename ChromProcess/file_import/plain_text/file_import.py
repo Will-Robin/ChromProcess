@@ -1,7 +1,6 @@
 '''
 Functions for importing chromatography data.
 '''
-
 def read_local_assignments(file):
     '''
     Read a comma-separated values file containing assignments of compounds to
@@ -27,8 +26,10 @@ def read_local_assignments(file):
     modified_bounds = {}
 
     if not os.path.exists(file):
-        print(f'ChromProcess.file_import.read_local_assignments: Local assignments file at {file} not found')
-        print('ChromProcess.file_import.read_local_assignments:Returning empty dict')
+        print(f'''ChromProcess.file_import.read_local_assignments:
+        Local assignments file at {file} not found''')
+        print('''ChromProcess.file_import.read_local_assignments:
+        Returning empty dict''')
         return modified_bounds
     else:
         with open(file, 'r') as f:
@@ -128,4 +129,5 @@ def read_point_removals_file(fname):
             else:
                 ins = line.strip('\n').split(',')
                 point_removals[ins[0]] = [int(x) for x in ins[1:] if x!='']
+
     return point_removals

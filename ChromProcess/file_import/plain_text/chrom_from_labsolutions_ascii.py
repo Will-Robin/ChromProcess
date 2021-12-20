@@ -1,11 +1,10 @@
 import re
-import numpy as np
 from pathlib import Path
 
 from ChromProcess import Classes
 
-from converters import parse_text_columns
 from converters import chrom_from_text
+from converters import parse_text_columns
 
 def chrom_from_labsolutions_ascii(filename, data_key = 'Detector A-Ch1'):
     '''
@@ -32,21 +31,20 @@ def chrom_from_labsolutions_ascii(filename, data_key = 'Detector A-Ch1'):
     else:
         fname = filename
 
+    assert isinstance(fname, Path) "filename should be string or pathlib Path"
+
     with open(fname, 'r') as file:
         text = file.read()
 
     blocks = text.split('\n\n')
 
-    type_regex = r'(?:\[)(.[^\]\(]*)'
-
     item_regex = r'(?:[A-Z][a-z]*\()(.*)(?:\)\])'
-    data_regex = "(?:Intensity\n)([\s\S]*)"
+    data_regex = r"(?:Intensity\n)([\s\S]*)"
     x_units_regex = r"Intensity\sUnits\s(.+)"
     y_units_regex = r"R.Time\s\((.+)\)"
 
     data_container = {}
     for b in blocks:
-        type_segment = re.findall(type_regex, b)
         name_segment = re.findall(item_regex, b)
         data_segment = re.findall(data_regex, b)
         x_units_segment = re.findall(x_units_regex, b)
@@ -73,9 +71,8 @@ def chrom_from_labsolutions_ascii(filename, data_key = 'Detector A-Ch1'):
                                 )
 
         return chrom
+
     else:
         print('Scraping data from file failed.')
 
     return Classes.Chromatogram()
-
-chrom = chrom_from_labsolutions_ascii('example.txt')

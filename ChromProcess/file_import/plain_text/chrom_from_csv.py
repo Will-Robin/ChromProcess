@@ -1,11 +1,7 @@
-import re
-import numpy as np
 from pathlib import Path
 
-from ChromProcess import Classes
-
-from converters import parse_text_columns
 from converters import chrom_from_text
+from converters import parse_text_columns
 
 def chrom_from_csv(filename):
     '''
@@ -31,6 +27,8 @@ def chrom_from_csv(filename):
         fname = Path(filename)
     else:
         fname = filename
+
+    assert isinstance(fname, Path) "filename should be string or pathlib Path"
 
     with open(fname, 'r') as file:
         text = file.read()
