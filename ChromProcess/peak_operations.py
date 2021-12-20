@@ -10,7 +10,6 @@ the wrong mass spectrum for the peak can be obtained.
 '''
 
 def peakMassSpectrum(peak, chromatogram):
-
     '''
     Get the mass spectrum at the apex of a peak. Inserts the mass spectrum into
     the Peak object and returns the mass spectrum.
