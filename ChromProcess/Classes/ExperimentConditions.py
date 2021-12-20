@@ -12,11 +12,6 @@ class ExperimentConditions:
         self.series_unit = 'not specified'
         self.conditions = {}
 
-        if information_file == '':
-            pass
-        else:
-            self.read_from_file(information_file)
-
     def write_to_file(self, directory = ''):
         '''
         Parameters

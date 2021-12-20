@@ -1,3 +1,4 @@
+import os
 import sys
 import numpy as np
 
@@ -96,10 +97,10 @@ class Chromatogram:
         None
         '''
 
-        output_text = self.write_peak_collection_text()
+        output_text = self.write_peak_collection_text(header_text = header_text)
 
         with open(filename, "w") as f:
-            f.write(output_text, header_text = header_text)
+            f.write(output_text)
 
     def get_mass_spectrum(self, time):
         '''

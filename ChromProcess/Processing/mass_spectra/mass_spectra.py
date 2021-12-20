@@ -3,47 +3,6 @@ import numpy as np
 '''
 Functions for dealing with mass spectra.
 '''
-def bin_dictionary(value_dict, stdev = 0.001):
-    '''
-    Parameters 
-    ----------
-    value_dict: dict
-        Keys are floats.
-
-    Returns
-    -------
-    out_log: dict
-        Binned dictionary
-    '''
-
-    # create clusters of values for sorting
-    sorted_values = sorted([*value_dict])
-
-    clusters = []
-    for c in s_f.cluster(sorted_masses, bound = stdev):
-        clusters.append(c)
-
-    out_log = {}
-    for c in clusters:
-
-        position = np.round(np.average(c),2)
-
-        out_log[position] = []
-
-        for o in range(0,len(sorted_masses)):
-            value = sorted_masses[o]
-            if value in c:
-                if len(out_log[position]) == 0:
-                    out_log[position] = value_dict[value]
-                else:
-                    for count,p in enumerate(out_log[position]):
-                        if p == 0:
-                            out_log[position][count] = value_dict[values][count]
-                        else:
-                            pass
-
-    return out_log
-
 def ion_chromatogram_from_region(chromatogram, lower, upper, threshold = 0.1):
     '''
     Get the ion chromatograms from a region of a chromatogram.

@@ -1,9 +1,5 @@
-'''
-A bunch of gaussian sums for fitting and the fitting function.
-'''
-# TODO: clean up for inclusion
-
 import numpy as np
+from scipy.optimize import curve_fit
 from ChromProcess.Utils import deconvolution as d_c
 
 def _1gaussian(x, amp1, cen1, sigma1):
@@ -50,7 +46,7 @@ def _2gaussian(x, amp1, cen1, sigma1, amp2, cen2, sigma2):
 def _3gaussian(x, amp1, cen1, sigma1,amp2, cen2, sigma2, amp3, cen3, sigma3):
     return d_c._1gaussian(x, amp1, cen1, sigma1) + d_c._2gaussian(x, amp2, cen2, sigma2, amp3, cen3, sigma3)
 
-def fit_gaussian_peaks( 
+def fit_gaussian_peaks(
                     time, sig,
                     peaks,
                     initial_guess = [10000              , 1, 0.005],
@@ -74,7 +70,7 @@ def fit_gaussian_peaks(
     peaks: list of peak positions
         list peak positions in the time
 
-    initial_guess: list 
+    initial_guess: list
         Initial guess for the peak amplitude, position and width
         e.g. see _1gaussian() function arguments.
 
@@ -92,8 +88,6 @@ def fit_gaussian_peaks(
     pcov: array
         correlation matrix
     '''
-    import numpy as np
-    from scipy.optimize import curve_fit
 
     guess = [] # amp, cen, sig
     lbds = []

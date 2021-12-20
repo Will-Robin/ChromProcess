@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from ChromProcess.Loading.Conversions.converters import chrom_from_text
-from ChromProcess.Loading.Conversions.converters import parse_text_columns
+from ChromProcess.Loading.parsers import parsers
+from ChromProcess.Loading.chromatogram.text import chrom_from_text
 
 def chrom_from_csv(filename):
     '''
@@ -33,7 +33,7 @@ def chrom_from_csv(filename):
     with open(fname, 'r') as file:
         text = file.read()
 
-    data = parse_text_columns(text, '\n', ',')
+    data = parsers.parse_text_columns(text, '\n', ',')
 
     x_values = [float(x) for x in data[0][1:]]
     y_values = [float(y) for y in data[1][1:]]
@@ -41,13 +41,13 @@ def chrom_from_csv(filename):
     x_name = data[0][0]
     y_name = data[1][0]
 
-    chrom = chrom_from_text(
-                            x_values, 
-                            y_values, 
-                            x_name, 
-                            y_name, 
-                            fname.name
-                            )
+    chrom = chrom_from_text.chrom_from_text(
+                                            x_values, 
+                                            y_values, 
+                                            x_name, 
+                                            y_name, 
+                                            fname.name
+                                            )
 
     return chrom
 

@@ -3,8 +3,8 @@ from pathlib import Path
 
 from ChromProcess import Classes
 
-from ChromProcess.Loading.Conversions.converters import chrom_from_text
-from ChromProcess.Loading.Conversions.converters import parse_text_columns
+from ChromProcess.Loading.chromatogram.text import chrom_from_text
+from ChromProcess.Loading.parsers import parsers
 
 def chrom_from_labsolutions_ascii(filename, data_key = 'Detector A-Ch1'):
     '''
@@ -54,7 +54,7 @@ def chrom_from_labsolutions_ascii(filename, data_key = 'Detector A-Ch1'):
         # data trace.
         if len(data_segment) > 0 and len(name_segment) > 0:
             name = name_segment[0]
-            data = parse_text_columns(data_segment[0], '\n', '\t')
+            data = parsers.parse_text_columns(data_segment[0], '\n', '\t')
             data_container[name] = {
                                     'data': data,
                                     'x_unit': x_units_segment[0],
@@ -62,13 +62,13 @@ def chrom_from_labsolutions_ascii(filename, data_key = 'Detector A-Ch1'):
                                     }
 
     if 'data_key' in data_container:
-        chrom = chrom_from_text(
-                                data_container[data_key]['data'][0],
-                                data_container[data_key]['data'][1],
-                                data_container[data_key]['x_unit'],
-                                data_container[data_key]['y_unit'],
-                                fname.name
-                                )
+        chrom = chrom_from_text.chrom_from_text(
+                                        data_container[data_key]['data'][0],
+                                        data_container[data_key]['data'][1],
+                                        data_container[data_key]['x_unit'],
+                                        data_container[data_key]['y_unit'],
+                                        fname.name
+                                        )
 
         return chrom
 

@@ -27,7 +27,7 @@ def load_conditions_from_csv(filename):
     # Read conditions
     condset = []
     readstate = False
-    with open(information_file, "r", encoding = 'latin-1') as f:
+    with open(filename, "r", encoding = 'latin-1') as f:
         for c,line in enumerate(f):
             if "start_conditions" in line:
                 readstate = True

@@ -1,6 +1,6 @@
 from ChromProcess import Classes
 
-def analysis_info_from_csv(fname):
+def load_analysis_from_csv(fname):
     '''
     Parameters
     ----------
@@ -10,7 +10,7 @@ def analysis_info_from_csv(fname):
     analysis = Classes.AnalysisInformation()
 
     rdlin = lambda x : [e for e in x.strip('\n').split(',') if e != '']
-    with open(fname, 'r') as f:
+    with open(fname, 'r') as file:
         lines = file.readlines()
 
     for line in lines:
@@ -34,7 +34,7 @@ def analysis_info_from_csv(fname):
 
         if 'extract_mass_spectra' in line:
             ins = rdlin(line)
-            use_ms = insp[1].lower()
+            use_ms = ins[1].lower()
             if ins[1] == 'true':
                 analysis.use_MS = True
             if ins[1] == 'false':
