@@ -131,7 +131,7 @@ def runSVD(matrix):
     '''
 
     import numpy as np
-    from ChromProcess import simple_functions as simp_func
+    from ChromProcess.Utils import simple_functions as simp_func
 
     # perform SVD using numpy
     U, S, Vh = np.linalg.svd(matrix, full_matrices = False,
@@ -164,7 +164,8 @@ def SVDflipSigns(U,V):
 
 def runPCA(matrix, n_components = 10):
 
-    from ChromProcess import simple_functions as simp_func
+    from ChromProcess.Utils import simple_functions as simp_func
+
     samples = matrix.shape[0]
 
     U, S, Vh = simp_func.runSVD(matrix)
@@ -259,7 +260,7 @@ def isfloat(thing):
         return False
 
 def get_rt_from_header(element):
-    from ChromProcess import simple_functions as s_f
+    from ChromProcess.Utils import simple_functions as s_f
 
     if s_f.isfloat(element):
         position = float(element)
@@ -325,8 +326,8 @@ def weighted_cov(samples, weights, ddof = 1):
     return cov
 
 def weighted_corrcoef(samples,weights):
-    from ChromProcess import simple_functions as s_f
     import numpy as np
+    from ChromProcess.Utils import simple_functions as s_f
 
     cov = s_f.weighted_cov(samples, weights, ddof = 1)
     v = np.sqrt(np.diag(cov))
@@ -378,7 +379,7 @@ def bin_mass_spectra(masses, data_mat, bound = 0.1):
         shape: (n, len(binned_masses))
     '''
     import numpy as np
-    from ChromProcess import simple_functions as s_f
+    from ChromProcess.Utils import simple_functions as s_f
 
     # Binning mass spectra
     clusters = []

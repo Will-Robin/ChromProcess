@@ -65,7 +65,7 @@ def peakIonChromatograms(peak, parent_chromatogram,
     modifies peak.ion_chromatograms dictionary in Peak object
     '''
     import numpy as np
-    from ChromProcess import mass_spectra as ms
+    from ChromProcess.Processing import mass_spectra as ms
 
     # wipe previously stored ion chromatograms
     peak.ion_chromatograms = {}

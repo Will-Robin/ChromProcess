@@ -6,14 +6,13 @@ Consider using cookiecutter (https://github.com/cookiecutter/cookiecutter).
 import os 
 import sys
 from pathlib import Path
-from ChromProcess import build_experiment as build_exp
+from ChromProcess.Utils import build_experiment as build_exp
 
 # The home directory is default.
 default_parent_directory = Path.home()
 
 exp_code = 'experiment_code'
 default_folder_name = exp_code
-
 
 # defaults for the conditions file
 default_series_values = ['1','2','3','4','5','6','7','8','9']

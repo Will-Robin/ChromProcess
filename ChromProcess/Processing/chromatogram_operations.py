@@ -19,7 +19,7 @@ def pickPeaks(time, signal, threshold = 0.1):
         Time windows for peaks
     '''
     import numpy as np
-    from ChromProcess import processing_functions as p_f
+    from ChromProcess.Processing import processing_functions as p_f
 
     peaks = p_f.Peak_finder(signal, thres = threshold, min_dist = 0.1,
                             max_inten = 1e100, min_inten = -1e100)
@@ -63,7 +63,7 @@ def regionPeakPick(chromatogram, region, threshold = 0.1):
     None
     '''
     import numpy as np
-    from ChromProcess import chromatogram_operations as chrom_ops
+    from ChromProcess.Processing import chromatogram_operations as chrom_ops
 
     low_limit = region[0]
     high_limit = region[1]
@@ -252,7 +252,7 @@ def internalRefIntegral(chromatogram, internal_ref_region):
         modified by the function.
     '''
     from ChromProcess import Classes
-    from ChromProcess import chromatogram_operations as chrom_ops
+    from ChromProcess.Processing import chromatogram_operations as chrom_ops
 
     if len(chromatogram.peaks) == 0:
         chrom_ops.regionPeakPick(chromatogram, internal_ref_region, threshold = 0.1)
@@ -358,8 +358,8 @@ def RegionSVD(chromatogram, region, ic_threshold = 0.1,
 
     '''
     import numpy as np
-    from ChromProcess import chromatogram_operations as chrom_ops
-    from ChromProcess import simple_functions as simp_func
+    from ChromProcess.Processing import chromatogram_operations as chrom_ops
+    from ChromProcess.Utils import simple_functions as simp_func
 
     ic_dict = chrom_ops.getIonChromatogramsFromRegion(chromatogram,
                                                       region[0], region[1],

@@ -4,7 +4,7 @@ A bunch of gaussian sums for fitting and the fitting function.
 # TODO: clean up for inclusion
 
 import numpy as np
-from ChromProcess import deconvolution as d_c
+from ChromProcess.Utils import deconvolution as d_c
 
 def _1gaussian(x, amp1, cen1, sigma1):
     '''

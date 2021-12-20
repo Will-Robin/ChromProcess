@@ -1,5 +1,5 @@
 import numpy as np
-from ChromProcess import processing_functions as p_f
+from ChromProcess.Processing import processing_functions as p_f
 
 '''
 Basic functions to be applied to chromatography data.
