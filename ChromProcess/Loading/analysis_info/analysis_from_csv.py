@@ -1,6 +1,6 @@
 from ChromProcess import Classes
 
-def load_analysis_from_csv(fname):
+def analysis_from_csv(fname):
     '''
     Parameters
     ----------

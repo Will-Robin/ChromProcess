@@ -1,13 +1,13 @@
 import sys
+import numpy as np
+from pathlib import Path
+from ChromProcess import Classes
 
 class PeakCollection:
-    def __init__(self, file = ''):
-
-        from ChromProcess import Classes
-
+    def __init__(self):
 
         self.filename = 'not specified'
-        self.series_value = None
+        self.series_value = 0.0
         self.series_unit = 'not specified'
         self.internal_standard = Classes.PeakCollectionElement(0,0,0,0)
         self.peaks = [Classes.PeakCollectionElement(0,0,0,0)]
@@ -16,23 +16,14 @@ class PeakCollection:
         self.initial_IS_pos = 0.0
         self.assigned_compounds = []
 
-        if file == '':
-            pass
-        else:
-            self.read_from_file(file)
-
-    def inspect_peaks(self):
-        for p in self.peaks:
-            p.inspect_peak()
-
-    def remove_peaks_below_threshold(self,threshold):
+    def remove_peaks_below_threshold(self, threshold):
         '''
         Parameters
         ----------
         threshold: float
         '''
         del_idx = []
-        for c,pk in enumerate(self.peaks):
+        for c, pk in enumerate(self.peaks):
             if pk.integral < threshold:
                 del_idx.append(c)
 
@@ -82,7 +73,6 @@ class PeakCollection:
                 peak_dict[p].mass_spectrum = ms_dict[p]
 
     def get_peak_positions(self):
-        import numpy as np
         return np.array([p.retention_time for p in self.peaks])
 
     def reference_integrals_to_IS(self):
@@ -110,7 +100,6 @@ class PeakCollection:
             Container for calibration information
         IS_conc: float
             internal standard concentration
-
         '''
 
         if IS_conc == 0.0:
@@ -118,13 +107,18 @@ class PeakCollection:
             IS_conc = 1.0
         for pk in self.peaks:
             if pk.assignment in calibrations.calibration_factors:
+
                 CF = calibrations.calibration_factors[pk.assignment]
+
                 if calibrations.calibration_model == 'linear':
                     pk.apply_linear_calibration(CF['B'], CF['C'],
                                                 internal_standard = IS_conc)
+
                 elif calibrations.calibration_model == 'quadratic':
                     pk.apply_quadratic_calibration(CF['A'], CF['B'], CF['C'],
                                                    internal_standard = IS_conc)
+                else:
+                    print('Calibration type not recognised')
 
     def calculate_conc_errors(self, calibrations, IS_conc, IS_conc_err):
         '''
@@ -172,7 +166,6 @@ class PeakCollection:
         assigns = list(set(assigns))
         self.assigned_compounds = sorted(assigns, key = lambda x:x.count('C'))
 
-
     def write_to_file(self, directory = ''):
         '''
         Write the object to a structured file.
@@ -182,8 +175,6 @@ class PeakCollection:
         directory: str or pathlib Path
         '''
 
-        from pathlib import Path
-
         fname = Path(self.filename)
         if isinstance(directory, str):
             if directory == '':
@@ -191,22 +182,35 @@ class PeakCollection:
         elif isinstance(directory, Path):
             fname = directory/f"{self.filename}"
 
-        IS_header = 'IS_retention_time/ min,IS_integral,IS_peak start/ min,IS_peak end/ min\n'
-        pk_header = "Retention_time/ min,integral,peak start/ min,peak end/ min\n"
+        IS_header = ''
+        IS_header += 'IS_retention_time/ min,'
+        IS_header += 'IS_integral,'
+        IS_header += 'IS_peak start/ min,'
+        IS_header += 'IS_peak end/ min\n'
+        
+        pk_header = ''
+        pk_header += 'Retention_time/ min,'
+        pk_header += 'integral,'
+        pk_header += 'peak start/ min,'
+        pk_header += 'peak end/ min\n'
 
+        unit = self.series_unit
+        value = self.series_value
         with open(fname, "w") as f:
-            f.write("{},{}\n".format(self.series_unit,self.series_value))
+            f.write(f"{unit},{value}\n")
             f.write(IS_header)
+
             IS_rt = self.internal_standard.retention_time
             IS_integ = self.internal_standard.integral
             strt = self.internal_standard.start
             end = self.internal_standard.end
-            f.write("{},{},{},{}\n".format(IS_rt, IS_integ,strt,end))
+
+            f.write(f"{IS_rt},{IS_integ},{strt},{end}\n")
             f.write(pk_header)
             for p in self.peaks:
                 rt = p.retention_time
                 integ = p.integral
                 start = p.start
                 end = p.end
-                f.write("{},{},{},{}\n".format(rt, integ, start, end))
+                f.write(f"{rt},{integ},{start},{end}\n")
 

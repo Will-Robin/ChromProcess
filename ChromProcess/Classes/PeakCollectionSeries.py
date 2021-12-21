@@ -1,3 +1,9 @@
+import numpy as np
+from pathlib import Path
+
+from ChromProcess.Utils.utils import utils
+from ChromProcess.Processing.peak import assign_peak
+from ChromProcess.Utils.utils.clustering import cluster
 
 class PeakCollectionSeries:
     def __init__(self, peak_collections, name = 'not specified',
@@ -44,8 +50,6 @@ class PeakCollectionSeries:
 
     def get_peak_positions(self):
 
-        import numpy as np
-
         peak_pos = np.array([])
         for pc in self.peak_collections:
             peak_pos = np.hstack((peak_pos, pc.get_peak_positions()))
@@ -59,12 +63,10 @@ class PeakCollectionSeries:
         bound: float
         '''
 
-        from ChromProcess import simple_functions as sf
-
         peaks = self.get_peak_positions()
 
         clusts = []
-        for c in sf.cluster(peaks, bound = bound):
+        for c in cluster(peaks, bound = bound):
             clusts.append(c)
 
         self.clusters = clusts
@@ -87,12 +89,10 @@ class PeakCollectionSeries:
         boundaries: dict
             {'compound_name', [lower bound, upper bound]}
         '''
-        import numpy as np
-        from ChromProcess import processing_functions as p_f
 
         for c in self.clusters:
             pos = np.mean(c)
-            clust_name = p_f.name_peak(pos, boundaries)
+            clust_name = assign_peak.assign_retention_time(pos, boundaries)
             self.cluster_assignments.append(clust_name)
 
     def get_all_assigned_compounds(self):
@@ -103,7 +103,9 @@ class PeakCollectionSeries:
             assigns.extend( pc.assigned_compounds )
 
         assigns = list(set(assigns))
-        self.series_assigned_compounds = sorted(assigns, key = lambda x:x.count('C'))
+        count_C = lambda x:x.count('C')
+
+        self.series_assigned_compounds = sorted(assigns, key = count_C)
 
     def reference_integrals_to_IS(self):
         for pc in self.peak_collections:
@@ -154,8 +156,6 @@ class PeakCollectionSeries:
         cluster_bound: float
         '''
 
-        import numpy as np
-
         if len(self.clusters) == 0:
             self.get_peak_clusters(bound = cluster_bound)
 
@@ -177,8 +177,6 @@ class PeakCollectionSeries:
         ----------
         cluster_bound: float
         '''
-
-        import numpy as np
 
         if len(self.clusters) == 0:
             self.get_peak_clusters(bound = cluster_bound)
@@ -210,9 +208,6 @@ class PeakCollectionSeries:
         name_conversions: dict
         '''
 
-        import numpy as np
-        from ChromProcess import simple_functions as s_f
-
         if len(self.cluster_assignments) == 0:
             get_name = lambda _: ''
         else:
@@ -224,7 +219,7 @@ class PeakCollectionSeries:
             pos = np.round(np.mean(self.clusters[x]),3)
             if name == '':
                 pass
-            elif not s_f.isfloat(name):
+            elif not utils.is_float(name):
                 conc_dict[f'{name}/ M ({pos})'] = self.concentration_series[x]
             else:
                 pass
@@ -232,8 +227,6 @@ class PeakCollectionSeries:
         return conc_dict
 
     def integral_traces_as_dict(self):
-
-        import numpy as np
 
         if len(self.cluster_assignments) == 0:
             get_name = lambda _: ''
@@ -257,9 +250,6 @@ class PeakCollectionSeries:
 
     def concentration_error_traces_dict(self):
 
-        import numpy as np
-        from ChromProcess import simple_functions as s_f
-
         err_dict = {}
 
         if len(self.cluster_assignments) == 0:
@@ -272,14 +262,14 @@ class PeakCollectionSeries:
             pos = np.round(np.mean(self.clusters[x]),3)
             if name == '':
                 pass
-            elif not s_f.isfloat(name):
+            elif not utils.is_float(name):
                 err_dict[f'{name}/ M ({pos})'] = self.conc_err_series[x]
             else:
                 pass
 
         return err_dict
 
-    def write_conditions_header(self, outfile, information):
+    def write_conditions_header(self, outfile, info):
         '''
         Parameters
         ----------
@@ -289,25 +279,24 @@ class PeakCollectionSeries:
         '''
 
         # writing experiment conditions to file
-        outfile.write("Dataset,{}\n".format(self.name))
+        outfile.write(f"Dataset,{self.name}\n")
         outfile.write("start_conditions\n")
         for c in self.conditions:
-            outfile.write("{},".format(c))
-            [outfile.write("{},".format(x)) for x in self.conditions[c]]
+            outfile.write(f"{c},")
+            [outfile.write(f"{x},") for x in self.conditions[c]]
             outfile.write("\n")
         outfile.write("end_conditions\n")
+
         # writing analysis details
         outfile.write("start_analysis_details\n")
-        outfile.write('Instrument, {}\n'.format(information.instrument))
-        outfile.write("Chromatography_method,{},{}\n".format(information.type, information.method))
-        outfile.write("Derivatisation_method,{}\n".format(information.derivatisation))
-        outfile.write("Calibrations_file,{}\n".format(information.filename.name))
-        outfile.write('Calibration_model,{}\n'.format(information.calibration_model))
-        outfile.write("end_analysis_details\n")
+        outfile.write(f'Instrument, {info.instrument}\n')
+        outfile.write(f"Chromatography_method,{info.type},{info.method}\n")
+        outfile.write(f"Derivatisation_method,{info.derivatisation}\n")
+        outfile.write(f"Calibrations_file,{info.filename}\n")
+        outfile.write(f'Calibration_model,{info.calibration_model}\n')
+        outfile.write(f"end_analysis_details\n")
 
-    def write_concentrations_to_file(self,
-                                    filename, information,
-                                    ):
+    def write_concentrations_to_file(self, filename, info):
         '''
         Parameters
         ----------
@@ -316,8 +305,6 @@ class PeakCollectionSeries:
         information: ChromProcess Instrument_Calibration object
         '''
 
-        import numpy as np
-        from pathlib import Path
 
         if isinstance(filename, str):
             filename = filename
@@ -325,11 +312,11 @@ class PeakCollectionSeries:
             filename = str(filename)
 
         out_type = 'concentration_report'
-        fname = '{}_{}_{}.csv'.format(filename, information.type, out_type)
+        fname = '{}_{}_{}.csv'.format(filename, info.type, out_type)
 
         with open(fname, 'w') as outfile:
             # writing experiment conditions to file
-            self.write_conditions_header(outfile,information)
+            self.write_conditions_header(outfile,info)
 
             # writing data
             conc_traces = self.concentration_traces_as_dict()
@@ -408,7 +395,7 @@ class PeakCollectionSeries:
 
             outfile.write("end_data\n")
 
-    def create_DataReport_base(self, information):
+    def create_DataReport_base(self, info):
         '''
         Parameters
         ----------
@@ -420,13 +407,13 @@ class PeakCollectionSeries:
         data_report = Classes.DataReport()
         data_report.experiment_code = self.name
         data_report.conditions = self.conditions
-        data_report.analysis_details['Instrument'] = information.instrument
-        chrom_method = [information.type, information.method]
+        data_report.analysis_details['Instrument'] = info.instrument
+        chrom_method = [info.type, info.method]
         data_report.analysis_details['Chromatography_method'] = chrom_method
-        deriv_info = information.derivatisation
+        deriv_info = info.derivatisation
         data_report.analysis_details['Derivatisation_method'] = deriv_info
-        data_report.analysis_details['Calibrations_file'] = information.filename.name
-        data_report.analysis_details['Calibration_model'] =information.calibration_model
+        data_report.analysis_details['Calibrations_file'] = info.filename
+        data_report.analysis_details['Calibration_model'] =info.calibration_model
 
         data_report.series_values = self.series_values
         data_report.series_unit = self.series_unit

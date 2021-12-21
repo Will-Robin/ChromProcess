@@ -1,7 +1,7 @@
 from pathlib import Path
 from ChromProcess import Classes
 
-def read_from_file(filename):
+def peak_collection_from_csv(filename):
     '''
     Read in information to the object from a file.
 
@@ -12,9 +12,9 @@ def read_from_file(filename):
 
     fname = Path('')
     if isinstance(filename, str):
-        fname = Path(file)
+        fname = Path(filename)
     elif isinstance(filename, Path):
-        fname = file
+        fname = filename
     else:
         sys.exit('''PeakCollection requires file kwarg to be string or
         pathlib Path.''')
@@ -29,7 +29,7 @@ def read_from_file(filename):
 
     value = 0.0
     variable = ''
-    with open(file, "r") as f:
+    with open(fname, "r") as f:
         for c,line in enumerate(f):
             if 'None' in line:
                 pass
@@ -68,4 +68,6 @@ def read_from_file(filename):
     peak_collection.assignment = 'not specified'
     peak_collection.mass_spectra = []
     peak_collection.initial_IS_pos = IS.retention_time
+
+    return peak_collection
 

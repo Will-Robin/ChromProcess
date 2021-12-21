@@ -26,7 +26,7 @@ def assign_retention_time(retention_time, boundaries):
     # Default assignment to rounded retention time.
     peak_name = str(round(retention_time,3))
     for b in boundaries:
-        if boundaries[b][0] < peak_rt < boundaries[b][1]:
+        if boundaries[b][0] < retention_time < boundaries[b][1]:
             peak_name = b
             break
 

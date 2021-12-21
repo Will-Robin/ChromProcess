@@ -1,13 +1,13 @@
 from ChromProcess import Classes
+from ChromProcess.Utils.utils import utils
 
-def load_conditions_from_csv(filename):
+def conditions_from_csv(filename):
     '''
     Parameters
     ----------
     filename: str or pathlib Path
     '''
 
-    from ChromProcess.Utils import simple_functions as s_f
 
     conditions = Classes.ExperimentConditions()
 
@@ -41,7 +41,7 @@ def load_conditions_from_csv(filename):
     for c in condset:
         c_out[c[0]] = []
         for x in c[1:]:
-            if s_f.isfloat(x):
+            if utils.is_float(x):
                 c_out[c[0]].append(float(x))
             else:
                 c_out[c[0]].append(x)

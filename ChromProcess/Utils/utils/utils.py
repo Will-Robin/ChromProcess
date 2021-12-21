@@ -48,9 +48,10 @@ def indices_from_boundary(time, start, end):
         Indices where start < time < end.
     '''
     pre_indices = np.where(
-                            (time >= p[0]) &
-                            (time <= p[-1])
+                            (time >= start) &
+                            (time <= end)
                             )
+
     indices = pre_indices[0]
 
     return indices

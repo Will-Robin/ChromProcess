@@ -1,3 +1,4 @@
+from ChromProcess import Classes
 from ChromProcess.Utils.utils import utils
 from ChromProcess.Processing.chromatogram import find_peaks
 
@@ -43,7 +44,7 @@ def integrate_chromatogram_peaks(chromatogram, baseline_subtract = False):
                                         baseline_subtract = baseline_subtract
                                         )
 
-def internal_ref_integral(chromatogram, internal_ref_region):
+def internal_ref_integral(chromatogram, is_start, is_end):
     '''
     Finds and adds internal reference information into a chromatogram.
 
@@ -58,22 +59,21 @@ def internal_ref_integral(chromatogram, internal_ref_region):
     None
     '''
 
-    start = internal_ref_region[0]
-    end = internal_ref_region[1]
-    if len(chromatogram.peaks) == 0:
-        find_peaks.find_peaks_in_region(
-                                        chromatogram, 
-                                        start, 
-                                        end,
-                                        threshold = 0.1
-                                        )
-    else:
-        pass
+    peaks = find_peaks.find_peaks_in_region(
+                                            chromatogram, 
+                                            is_start, 
+                                            is_end,
+                                            threshold = 0.1
+                                            )
+    
+    start, retention_time, end = peaks[0][0], peaks[0][1], peaks[0][2]
 
-    for p in chromatogram.peaks:
-        if p > start and p < end:
-            rt = chromatogram.peaks[p].retention_time
-            indices = chromatogram.peaks[p].indices
-            chromatogram.internal_reference = Classes.Peak(rt, indices)
-            chromatogram.internal_reference.get_integral(chromatogram)
+    time = chromatogram.time
+    idx = utils.indices_from_boundary(time, start, end)
+
+    peak = Classes.Peak(retention_time, idx)
+    peak.get_integral(chromatogram)
+
+    chromatogram.internal_reference = peak
+
 

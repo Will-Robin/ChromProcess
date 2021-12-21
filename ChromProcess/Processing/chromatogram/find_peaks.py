@@ -1,5 +1,5 @@
 from ChromProcess.Utils.utils import utils
-from ChromProcess.Utils.utils import peak_finding as pfind
+from ChromProcess.Utils.peak_finding import pick_peaks as pfind
 
 def find_peaks_in_region(chromatogram, start, end, threshold = 0.1):
     '''
@@ -30,14 +30,24 @@ def find_peaks_in_region(chromatogram, start, end, threshold = 0.1):
     time = chromatogram.time[inds]
     signal = chromatogram.signal[inds]
 
-    rts, peak_times = pfind.find_peaks(
-                                        time,
+    picked_peaks = pfind.find_peaks(
                                         signal,
-                                        threshold = threshold
+                                        thres = threshold
                                         )
+
     peak_features = []
-    for rt, times in zip(rts,peak_times):
-        feature = [times[0], rt, times[-1]]
-        peak_features.append(feature)
+    for x in range(0,len(picked_peaks['Peak_indices'])):
+
+        rt_ind = picked_peaks['Peak_indices']
+        start_ind = picked_peaks['Peak_start_indices']
+        end_ind = picked_peaks['Peak_end_indices']
+
+        retention_time = time[rt_ind][0]
+        start = time[start_ind][0]
+        end = time[end_ind][0]
+
+        peak_params = [start, retention_time, end]
+
+        peak_features.append(peak_params)
 
     return peak_features
