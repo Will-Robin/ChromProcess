@@ -1,8 +1,8 @@
 from pathlib import Path
 from ChromProcess import Classes
 
-from ChromProcess.Loading.chromatograms.cdf.instruments import JEOL
-from ChromProcess.Loading.chromatograms.cdf.cdf_loading import load_from_cdf
+from ChromProcess.Loading.chromatogram.cdf.instruments import JEOL
+from ChromProcess.Loading.chromatogram.cdf.cdf_loading import load_from_cdf
 
 def chrom_from_cdf(filename, instrument = JEOL, load_ms = False):
     '''

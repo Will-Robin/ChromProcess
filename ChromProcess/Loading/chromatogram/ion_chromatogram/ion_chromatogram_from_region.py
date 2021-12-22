@@ -1,6 +1,6 @@
 import numpy as np
 
-def region_ion_chromatogram(chromatogram, lower, upper, threshold = 0.1):
+def ion_chromatogram_from_region(chromatogram, lower, upper, threshold = 0.1):
     '''
     Get the ion chromatograms for a region of a chromatogram. Requires mass
     spectra information to be present in the chromatogram.
