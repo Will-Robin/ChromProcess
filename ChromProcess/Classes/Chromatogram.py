@@ -117,10 +117,10 @@ class Chromatogram:
         scan_inds = self.scan_indices[inds][0]
         p_counts = self.point_counts[inds][0]
 
-        intensity = self.mass_intensity[scan_inds:scan_inds+p_counts]
-        mass = np.round(self.mass_values[scan_inds:scan_inds+p_counts], 2)
+        intensity = self.mz_intensity[scan_inds:scan_inds+p_counts]
+        m_z = np.round(self.mz_values[scan_inds:scan_inds+p_counts], 2)
 
-        return mass, intensity
+        return m_z, intensity
 
     def ion_chromatogram(self, clusters):
         '''
