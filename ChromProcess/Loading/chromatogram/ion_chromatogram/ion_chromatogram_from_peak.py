@@ -35,8 +35,8 @@ def ion_chromatogram_from_peak(
     # iterate over mass spectra recorded at each time point
     for s in range(0,len(time)):
         # get mass spectrum at time point
-        inten = parent_chromatogram.mass_intensity[scan_inds[s]:scan_inds[s]+p_counts[s]]
-        mz_values = parent_chromatogram.mass_values[scan_inds[s]:scan_inds[s]+p_counts[s]]
+        inten = parent_chromatogram.mz_intensity[scan_inds[s]:scan_inds[s]+p_counts[s]]
+        mz_values = parent_chromatogram.mz_values[scan_inds[s]:scan_inds[s]+p_counts[s]]
 
         # filter out low intensity m/z signals
         filt_inds = np.where(inten > spectrum_filter*np.amax(inten))[0]

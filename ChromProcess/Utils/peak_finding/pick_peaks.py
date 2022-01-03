@@ -1,7 +1,7 @@
 import numpy as np
 from ChromProcess.Utils.signal_processing import signal_processing as sig
 
-def find_peaks(intensity, thres=0.1, min_dist=1, max_inten = 1e100, min_inten = -1e100):
+def find_peaks(signal, thres=0.1, min_dist=1, max_inten = 1e100, min_inten = -1e100):
 
     '''
     Peak detection routine.
@@ -33,26 +33,26 @@ def find_peaks(intensity, thres=0.1, min_dist=1, max_inten = 1e100, min_inten = 
         Array containing the indexes of the peaks that were detected
     '''
 
-    test = np.where((intensity < max_inten))[0]
-    thres *= np.max(intensity[test]) - np.min(intensity[test])
+    test = np.where((signal < max_inten))[0]
+    thres *= np.max(signal[test]) - np.min(signal[test])
 
     # find the peaks by using the first order difference
-    diff = np.diff(intensity)
+    diff = np.diff(signal)
 
     smoothed_diff = sig.savitzky_golay(diff, 7, 3, deriv=0, rate=1)
 
     pre_peak_inds = np.where(
-                              (np.hstack([diff, 0.]) < 0.)
-                            & (np.hstack([0., diff]) > 0.)
-                            & (intensity > thres)
-                            & (intensity < max_inten)
-                            & (intensity > min_inten))
+                              (np.hstack([smoothed_diff, 0.]) < 0.)
+                            & (np.hstack([0., smoothed_diff]) > 0.)
+                            & (signal > thres)
+                            & (signal < max_inten)
+                            & (signal > min_inten))
 
     peaks_indices = pre_peak_inds[0]
 
     if peaks_indices.size > 1 and min_dist > 1:
-        highest = peaks_indices[np.argsort(intensity[peaks_indices])][::-1]
-        rem = np.ones(intensity.size, dtype=bool)
+        highest = peaks_indices[np.argsort(signal[peaks_indices])][::-1]
+        rem = np.ones(signal.size, dtype=bool)
         rem[peaks_indices] = False
 
         for peak in highest:
@@ -61,7 +61,7 @@ def find_peaks(intensity, thres=0.1, min_dist=1, max_inten = 1e100, min_inten = 
                 rem[sl] = True
                 rem[peaks_indices] = False
 
-        peaks_indices = np.arange(intensity.size)[~rem]
+        peaks_indices = np.arange(signal.size)[~rem]
 
     # find beginning of peaks
     peak_starts = []

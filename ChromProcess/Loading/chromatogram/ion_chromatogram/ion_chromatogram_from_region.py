@@ -38,14 +38,14 @@ def ion_chromatogram_from_region(chromatogram, lower, upper, threshold = 0.1):
 
         for s in range(0,len(time)):
 
-            inten = chromatogram.mass_intensity[scan_inds[s]:scan_inds[s]+p_counts[s]]
-            masses = chromatogram.mass_values[scan_inds[s]:scan_inds[s]+p_counts[s]]
+            inten = chromatogram.mz_intensity[scan_inds[s]:scan_inds[s]+p_counts[s]]
+            mz_values = chromatogram.mz_values[scan_inds[s]:scan_inds[s]+p_counts[s]]
 
             if len(inten) > 0:
 
                 filt_inds = np.where(inten > threshold*np.amax(inten))[0]
                 inten = inten[filt_inds]
-                masses = masses[filt_inds]
+                masses = mz_values[filt_inds]
 
                 round = np.round(masses, 2)
 

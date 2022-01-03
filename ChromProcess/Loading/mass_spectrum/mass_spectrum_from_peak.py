@@ -28,10 +28,10 @@ def mass_spectrum_from_peak(peak, chromatogram):
         start = chromatogram.scan_indices[idx][0]
         end = start + chromatogram.point_counts[idx][0]
 
-        masses = np.round(chromatogram.mass_values[start:end],2)
-        intensities = chromatogram.mass_intensity[start:end]
+        mz_values = np.round(chromatogram.mz_values[start:end],2)
+        intensities = chromatogram.mz_intensity[start:end]
         v_idx = np.where(intensities > 0.0)[0]
-        mass_spectrum = [masses[v_idx],intensities[v_idx]]
+        mass_spectrum = [mz_values[v_idx],intensities[v_idx]]
 
         peak.mass_spectrum = mass_spectrum
 

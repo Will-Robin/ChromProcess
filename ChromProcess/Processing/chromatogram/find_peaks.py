@@ -31,9 +31,9 @@ def find_peaks_in_region(chromatogram, start, end, threshold = 0.1):
     signal = chromatogram.signal[inds]
 
     picked_peaks = pfind.find_peaks(
-                                        signal,
-                                        thres = threshold
-                                        )
+                                    signal,
+                                    thres = threshold
+                                    )
 
     peak_features = []
     for x in range(0,len(picked_peaks['Peak_indices'])):
