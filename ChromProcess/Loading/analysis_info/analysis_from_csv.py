@@ -30,7 +30,7 @@ def analysis_from_csv(fname):
         if 'internal_standard_region' in line:
             ins = rdlin(line)
             reg = [float(x) for x in ins[1:]]
-            analysis.internal_ref_region = reg
+            analysis.internal_standard_region = reg
 
         if 'extract_mass_spectra' in line:
             ins = rdlin(line)
@@ -56,13 +56,13 @@ def analysis_from_csv(fname):
             ins = rdlin(line)
             analysis.dilution_factor_error = float(ins[1])
 
-        if "internal_ref_concentration," in line:
+        if "internal_standard_concentration," in line:
             ins = rdlin(line)
-            analysis.internal_ref_concentration = float(ins[1])
+            analysis.internal_standard_concentration = float(ins[1])
 
-        if 'internal_ref_concentration_error' in line:
+        if 'internal_standard_concentration_error' in line:
             ins = rdlin(line)
-            analysis.internal_ref_concentration_error = float(ins[1])
+            analysis.internal_standard_concentration_error = float(ins[1])
 
     return analysis
 

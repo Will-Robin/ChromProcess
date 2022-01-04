@@ -23,13 +23,13 @@ example_condition_value = 'condition_1_value'
 # defaults for the analysis file
 default_analysis_method = 'GC'
 default_regions = ['0','1', '2', '3']
-default_internal_ref_region = ['6.7','6.8']
+default_internal_standard_region = ['6.7','6.8']
 mass_spec_default = 'FALSE'
 default_peak_pick_threshold = '0.1'
 default_dilution_factor = '1'
 default_dilution_factor_error = '0.0447'
-default_internal_ref_concentration = '0.0008'
-default_internal_ref_concentration_error = '9.89E-06'
+default_internal_standard_concentration = '0.0008'
+default_internal_standard_concentration_error = '9.89E-06'
 
 # basis for conditions file
 conditions = {
@@ -47,13 +47,13 @@ analysis_details = {
                 'Dataset': [exp_code],
                 'Method': [default_analysis_method],
                 'regions': default_regions,
-                'internal_standard_region': default_internal_ref_region,
+                'internal_standard_region': default_internal_standard_region,
                 'extract_mass_spectra': [mass_spec_default],
                 'peak_pick_threshold': [default_peak_pick_threshold],
                 'dilution_factor': [default_dilution_factor],
                 'dilution_factor_error': [default_dilution_factor_error],
-                'internal_ref_concentration': [default_internal_ref_concentration],
-                'internal_ref_concentration_error': [default_internal_ref_concentration_error]
+                'internal_standard_concentration': [default_internal_standard_concentration],
+                'internal_standard_concentration_error': [default_internal_standard_concentration_error]
 }
 
 local_assignments = {}

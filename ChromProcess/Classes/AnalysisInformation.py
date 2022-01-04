@@ -9,41 +9,41 @@ class AnalysisInformation:
 
         Attributes
         ----------
-        regions: list of lists
-            List of upper and lower bounds describing the regions of a chromatogram.
-        IS_region: list
-            Upper and lower bounds for the internal standard.
-        use_MS: bool
-            Whether to extract mass spectra information for GC-MS data.
-        analysis_type: str
-            The type of chromatographic methods used.
-        i_thres_MS: float
-            The lower threshold for inclusion of mass spectral signals.
-        peak_pick_thres: float
-            The relative cut off for peak picking.
-        exp_name: float
+        self.experiment_code: str
             Experiment code.
-        dilution_factor: float
-            How much samples were diluted.
-        dil_err: float
+        self.analysis_type: str
+            The type of chromatographic methods used.
+        self.regions: list of lists
+            List of upper and lower bounds describing the regions of a chromatogram.
+        self.internal_standard_region: list
+            Upper and lower bounds for the internal standard.
+        self.use_MS: bool
+            Whether to extract mass spectra information for GC-MS data.
+        self.MS_cutoff: float
+            The lower threshold for inclusion of mass spectral signals.
+        self.peak_pick_threshold: float 
+            The relative cut off for peak picking.
+        self.dilution_factor = 1.0
+            Sample dilution factor.
+        self.dilution_factor_error: float
             Error on dilution factor.
-        IS_conc: float
+        self.internal_standard_concentration: float
             Concentration of the internal standard.
-        IS_err: float
+        self.internal_standard_concentration_error: float
             Error on the concentration of the internal standard.
         '''
 
         self.experiment_code = ''
         self.analysis_type = ''
         self.regions = []
-        self.internal_ref_region = []
+        self.internal_standard_region = []
         self.use_MS = False
         self.MS_cutoff = 0.0
         self.peak_pick_threshold = 0.0
         self.dilution_factor = 1.0
         self.dilution_factor_error = 0.0
-        self.internal_ref_concentration = 0.0
-        self.internal_ref_concentration_error = 0.0
+        self.internal_standard_concentration = 0.0
+        self.internal_standard_concentration_error = 0.0
 
     def write_to_file(self, directory = ''):
         '''
@@ -66,8 +66,8 @@ class AnalysisInformation:
         else:
             pass
 
-        is_conc = self.internal_ref_concentration
-        is_conc_err = self.internal_ref_concentration_error
+        is_conc = self.internal_standard_concentration
+        is_conc_err = self.internal_standard_concentration_error
         dil_factor = self.dilution_factor
         dil_factor_err = self.dilution_factor_error
         peak_pick_thresh = self.peak_pick_threshold
@@ -84,7 +84,7 @@ class AnalysisInformation:
             f.write('\n')
 
             f.write('internal_standard_region,')
-            for r in self.internal_ref_region:
+            for r in self.internal_standard_region:
                 f.write(f'{r},')
             f.write('\n')
             f.write(f'extract_mass_spectra,{use_ms}\n')
@@ -92,6 +92,6 @@ class AnalysisInformation:
             f.write(f'peak_pick_threshold,{peak_pick_thresh}\n')
             f.write(f'dilution_factor,{dil_factor}\n')
             f.write(f'dilution_factor_error,{dil_factor_err}\n')
-            f.write(f'internal_ref_concentration,{is_conc}\n')
-            f.write(f'internal_ref_concentration_error,{is_conc_err}\n')
+            f.write(f'internal_standard_concentration,{is_conc}\n')
+            f.write(f'internal_standard_concentration_error,{is_conc_err}\n')
 

@@ -122,7 +122,7 @@ class PeakCollectionSeries:
             Contains calibration information.
         '''
 
-        IS_conc = conditions.internal_ref_concentration
+        IS_conc = conditions.internal_standard_concentration
 
         for pc in self.peak_collections:
             pc.apply_calibrations_to_peaks(calibrations, IS_conc)
@@ -133,8 +133,8 @@ class PeakCollectionSeries:
         ----------
         calib: ChromProcess Instrument_Calibration object
         '''
-        IS_conc = conditions.internal_ref_concentration
-        IS_conc_err = conditions.internal_ref_concentration_error
+        IS_conc = conditions.internal_standard_concentration
+        IS_conc_err = conditions.internal_standard_concentration_error
 
         for pc in self.peak_collections:
             pc.calculate_conc_errors(calib,IS_conc,IS_conc_err)

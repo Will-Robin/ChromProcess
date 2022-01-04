@@ -44,7 +44,7 @@ def integrate_chromatogram_peaks(chromatogram, baseline_subtract = False):
                                         baseline_subtract = baseline_subtract
                                         )
 
-def internal_ref_integral(chromatogram, is_start, is_end):
+def internal_standard_integral(chromatogram, is_start, is_end):
     '''
     Finds and adds internal standard information into a chromatogram.
 
