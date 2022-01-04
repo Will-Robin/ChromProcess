@@ -5,21 +5,32 @@ class AnalysisInformation:
     '''
     def __init__(self):
         '''
+        Stores information about analysis procedure for chromatography data.
+
         Attributes
         ----------
-        Stores information about analysis procedure for chromatography data.
         regions: list of lists
+            List of upper and lower bounds describing the regions of a chromatogram.
         IS_region: list
+            Upper and lower bounds for the internal standard.
         use_MS: bool
+            Whether to extract mass spectra information for GC-MS data.
         analysis_type: str
+            The type of chromatographic methods used.
         i_thres_MS: float
+            The lower threshold for inclusion of mass spectral signals.
         peak_pick_thres: float
+            The relative cut off for peak picking.
         exp_name: float
+            Experiment code.
         dilution_factor: float
+            How much samples were diluted.
         dil_err: float
+            Error on dilution factor.
         IS_conc: float
+            Concentration of the internal standard.
         IS_err: float
-        information_file: str or pathlib Path
+            Error on the concentration of the internal standard.
         '''
 
         self.experiment_code = ''
@@ -39,6 +50,7 @@ class AnalysisInformation:
         Parameters
         ----------
         directory: str or pathlib Path
+            Directory in which the file will be saved in.
         '''
         from pathlib import Path
 
@@ -71,7 +83,7 @@ class AnalysisInformation:
                     f.write(f'{pos},')
             f.write('\n')
 
-            f.write('internal_reference_region,')
+            f.write('internal_standard_region,')
             for r in self.internal_ref_region:
                 f.write(f'{r},')
             f.write('\n')

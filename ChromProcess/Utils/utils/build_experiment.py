@@ -47,7 +47,7 @@ analysis_details = {
                 'Dataset': [exp_code],
                 'Method': [default_analysis_method],
                 'regions': default_regions,
-                'internal_reference_region': default_internal_ref_region,
+                'internal_standard_region': default_internal_ref_region,
                 'extract_mass_spectra': [mass_spec_default],
                 'peak_pick_threshold': [default_peak_pick_threshold],
                 'dilution_factor': [default_dilution_factor],

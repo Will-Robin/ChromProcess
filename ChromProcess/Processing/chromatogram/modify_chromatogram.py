@@ -46,7 +46,7 @@ def integrate_chromatogram_peaks(chromatogram, baseline_subtract = False):
 
 def internal_ref_integral(chromatogram, is_start, is_end):
     '''
-    Finds and adds internal reference information into a chromatogram.
+    Finds and adds internal standard information into a chromatogram.
 
     Parameters
     ----------
@@ -74,6 +74,6 @@ def internal_ref_integral(chromatogram, is_start, is_end):
     peak = Classes.Peak(retention_time, idx)
     peak.get_integral(chromatogram)
 
-    chromatogram.internal_reference = peak
+    chromatogram.internal_standard = peak
 
 

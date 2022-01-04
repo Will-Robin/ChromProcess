@@ -12,8 +12,30 @@ class Chromatogram:
         '''
         Initialise an empty chromatogram.
 
-        Parameters
+        Attributes
         ----------
+        self.filename: str
+            Name of the file containing the source data.
+        self.x_unit: str
+            Name of the x units (prefer 'unit name/ SI symbol')
+        self.y_unit: str
+            Name of the y units (prefer 'unit name/ SI symbol')
+        self.time: numpy array
+            Time axis for the chromatogram.
+        self.signal: numpy array
+            Signal of the chromatogram.
+        self.peaks: dict
+            Container for the peaks derived from the chromatogram.
+        self.mz_values: list/numpy array
+            Container for the m/z values from mass spectra.
+        self.mz_intensity: list/numpy array
+            Container for the intensity values from mass spectra.
+        self.scan_indices: list/numpy array
+            Container for the scan indices from mass spectra.
+        self.point_counts: list/numpy array
+            Container for the point counts from mass spectra.
+        self.internal_standard: ChromProcess.Classes.Peak
+            The internal standard peak.
         '''
 
         self.filename = ''
@@ -30,7 +52,7 @@ class Chromatogram:
         self.scan_indices = []
         self.point_counts = []
 
-        self.internal_reference = Classes.Peak(0.0, [])
+        self.internal_standard = Classes.Peak(0.0, [])
 
     def write_to_csv(self, filename = 'chromatogram.csv'):
         '''
@@ -64,7 +86,7 @@ class Chromatogram:
         peak_collection_string += 'IS_integral,IS_peak start/ min,'
         peak_collection_string += 'IS_peak end/ min\n'
 
-        IS_entry = self.internal_reference.peak_table_entry_text(self)
+        IS_entry = self.internal_standard.peak_table_entry_text(self)
 
         peak_collection_string += IS_entry
 

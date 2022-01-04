@@ -27,7 +27,7 @@ def analysis_from_csv(fname):
             reg = [float(x) for x in ins[1:]]
             analysis.regions = [reg[x:x+2] for x in range(0, len(reg), 2)]
 
-        if 'internal_reference_region' in line:
+        if 'internal_standard_region' in line:
             ins = rdlin(line)
             reg = [float(x) for x in ins[1:]]
             analysis.internal_ref_region = reg
