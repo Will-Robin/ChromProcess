@@ -17,4 +17,6 @@ from .peak.peak_from_chromatogram import peak_from_chromatogram
 from .mass_spectrum.mass_spectrum_from_peak import mass_spectrum_from_peak
 from .peak_collection.peak_collection_from_csv import peak_collection_from_csv
 
+from .data_report import data_report_from_csv
+
 from .parsers import parsers
