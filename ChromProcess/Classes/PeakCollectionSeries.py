@@ -286,12 +286,14 @@ class PeakCollectionSeries:
             filename = str(filename)
 
         analysis_type = information.analysis_type
-        print(analysis_type)
+
         conc_fname = f'{filename}_{analysis_type}_concentration_report.csv'
         integral_fname = f'{filename}_{analysis_type}_integral_report.csv'
 
+        # create output dictionaries
         conc_dict, err_dict, integral_dict = self.series_traces_as_dict()
 
+        # create spreadsheet-like output
         conc_header, conc_grid = utils.peak_dict_to_spreadsheet(
                                 conc_dict, self.series_values, self.series_unit
                                 )
@@ -306,8 +308,9 @@ class PeakCollectionSeries:
 
         header_text = self.write_conditions_header(information)
 
+        # Write concentration report to file
         with open(conc_fname, 'w') as outfile:
-            # writing experiment conditions to file
+
             outfile.write(header_text)
 
             outfile.write("start_data\n")
@@ -333,8 +336,9 @@ class PeakCollectionSeries:
                 outfile.write("\n")
             outfile.write("end_errors\n")
         
+        # Write integral report to file
         with open(integral_fname, 'w') as outfile:
-            # writing experiment conditions to file
+
             outfile.write(header_text)
 
             outfile.write("start_data\n")
