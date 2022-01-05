@@ -1,3 +1,4 @@
+import numpy as np
 
 class Peak:
     def __init__(self,retention_time, indices):
@@ -29,32 +30,6 @@ class Peak:
 
         self.deconvolution = []
 
-    def peak_table_entry_text(self, chromatogram):
-        '''
-        For writing the peak's row in a peak table.
-        Returns
-        -------
-        entry: str
-            Row for the peak table output
-        '''
-
-        st_ind = 0
-        end_ind = 0
-        peak_start = 0.0
-        peak_end = 0.0
-        if len(self.indices) > 0:
-            st_ind = self.indices[0]
-            end_ind = self.indices[-1]
-            peak_start = chromatogram.time[st_ind]
-            peak_end = chromatogram.time[end_ind]
-
-        rtn_time = self.retention_time
-        integral = self.integral
-
-        entry = f"{rtn_time},{integral},{peak_start},{peak_end}\n"
-
-        return entry
-
     def get_integral(self, chromatogram, baseline_subtract = False):
         '''
         Get the integral of the peak using a chromatogram. Note that an
@@ -67,8 +42,6 @@ class Peak:
         chromatogram: ChromProcess Chromatogram object
         baseline_subtract: bool
         '''
-
-        import numpy as np
 
         time = chromatogram.time[self.indices]
         signal = chromatogram.signal[self.indices]
@@ -102,7 +75,6 @@ class Peak:
         ----------
         chromatogram: ChromProcess Chromatogram object
         '''
-        import numpy as np
 
         if len(chromatogram.scan_indices) == 0:
             # no mass spectral information in the chromatogram
