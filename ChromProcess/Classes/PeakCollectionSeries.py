@@ -1,7 +1,5 @@
 import numpy as np
-from pathlib import Path
 
-from ChromProcess.Utils.utils import utils
 from ChromProcess.Processing.peak import assign_peak
 from ChromProcess.Utils.utils.clustering import cluster
 
@@ -198,15 +196,12 @@ class PeakCollectionSeries:
         err_dict = {}
         integral_dict = {}
 
-        series_length = len(self.series_values)
-
         if len(self.cluster_assignments) == 0:
-            cluster_names = ['' for c in self.clusters]
+            cluster_names = ['' for _ in self.clusters]
         else:
             cluster_names = [n.split(' ')[0] for n in self.cluster_assignments]
 
         for c1,pc in enumerate(self.peak_collections):
-            is_rt = pc.internal_standard.retention_time
 
             for c2,clust in enumerate(self.clusters):
                 name = cluster_names[c2]
@@ -217,140 +212,30 @@ class PeakCollectionSeries:
                         if pk.integral:
                             token = name + f' ({average_position})'
                             if token not in integral_dict:
-                                integral_dict[token] = [0.0 for x in self.series_values]
+                                integral_dict[token] = [0.0 for _ in self.series_values]
                             integral_dict[token][c1] += pk.integral
 
                         if pk.concentration:
                             token = name + '/ M'
                             if token not in conc_dict:
-                                conc_dict[token] = [0.0 for x in self.series_values]
+                                conc_dict[token] = [0.0 for _ in self.series_values]
                             conc_dict[token][c1] += pk.concentration
 
                         if pk.conc_error:
                             token = name + '/ M'
                             if token not in err_dict:
-                                err_dict[token] = [0.0 for x in self.series_values]
+                                err_dict[token] = [0.0 for _ in self.series_values]
                             err_dict[token][c1] += pk.conc_error
 
         return conc_dict, err_dict, integral_dict
-
-    def write_conditions_header(self, info):
-        '''
-        Parameters
-        ----------
-        information: ChromProcess Analysis_Information object
-
-        Returns
-        -------
-        header_text: str
-        '''
-
-        header_text = ''
-        # writing experiment conditions to file
-        header_text += f"Dataset,{self.name}\n"
-        header_text += "start_conditions\n"
-        for c in self.conditions:
-            header_text += f"{c},"
-
-            for x in self.conditions[c]:
-                header_text += f"{x},"
-
-            header_text += "\n"
-        header_text += "end_conditions\n"
-
-        # writing analysis details
-        header_text += "start_analysis_details\n"
-        header_text += f'Instrument, {info.instrument}\n'
-        header_text += f"Chromatography_method,{info.analysis_type},{info.instrument_method}\n"
-        header_text += f"Derivatisation_method,{info.derivatisation_method}\n"
-        header_text += f"Calibrations_file,{info.calibration_file}\n"
-        header_text += f'Calibration_model,{info.calibration_model}\n'
-        header_text += f"end_analysis_details\n"
-        
-        return header_text
-
 
     def write_data_reports(self, filename, information):
         '''
         Parameters
         ----------
         filename: name for file including path
-
         information: ChromProcess Analysis_Information object
         '''
-        from ChromProcess.Utils.utils import utils
+        import ChromProcess.Writers as write
 
-        if isinstance(filename, str):
-            filename = filename
-        elif isinstance(filename, Path):
-            filename = str(filename)
-
-        analysis_type = information.analysis_type
-
-        conc_fname = f'{filename}_{analysis_type}_concentration_report.csv'
-        integral_fname = f'{filename}_{analysis_type}_integral_report.csv'
-
-        # create output dictionaries
-        conc_dict, err_dict, integral_dict = self.series_traces_as_dict()
-
-        # create spreadsheet-like output
-        conc_header, conc_grid = utils.peak_dict_to_spreadsheet(
-                                conc_dict, self.series_values, self.series_unit
-                                )
-
-        peak_integral_header, integ_grid = utils.peak_dict_to_spreadsheet(
-                        integral_dict, self.series_values, self.series_unit
-                        )
-
-        peak_err_header, err_grid = utils.peak_dict_to_spreadsheet(
-                                err_dict, self.series_values, self.series_unit
-                                )
-
-        header_text = self.write_conditions_header(information)
-
-        # Write concentration report to file
-        with open(conc_fname, 'w') as outfile:
-
-            outfile.write(header_text)
-
-            outfile.write("start_data\n")
-
-            [outfile.write("{},".format(x)) for x in conc_header]
-
-            outfile.write("\n")
-
-            for x in range(0,len(conc_grid)):
-                for y in range(0,len(conc_grid[x])):
-                    val = conc_grid[x][y]
-                    outfile.write(f"{val},")
-                outfile.write("\n")
-
-            outfile.write("end_data\n")
-
-            outfile.write("start_errors\n")
-            [outfile.write("{},".format(x)) for x in peak_err_header]
-            for x in range(0,len(err_grid)):
-                for y in range(0,len(err_grid[x])):
-                    val = err_grid[x][y]
-                    outfile.write(f"{val},")
-                outfile.write("\n")
-            outfile.write("end_errors\n")
-        
-        # Write integral report to file
-        with open(integral_fname, 'w') as outfile:
-
-            outfile.write(header_text)
-
-            outfile.write("start_data\n")
-
-            [outfile.write("{},".format(x)) for x in peak_integral_header]
-
-            outfile.write("\n")
-            for x in range(0,len(integ_grid)):
-                for y in range(0,len(integ_grid[x])):
-                    val = integ_grid[x][y]
-                    outfile.write(f"{val},")
-                outfile.write("\n")
-
-            outfile.write("end_data\n")
-
+        write.peak_collection_series_to_data_report(self, filename, information)
