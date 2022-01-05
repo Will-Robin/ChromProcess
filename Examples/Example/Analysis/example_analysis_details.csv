@@ -1,11 +1,16 @@
 Dataset,example_dataset_name,,,
 Method,GCMS,,,
-regions,7.4,8.4,10.2,11.2,12.8,14.0
-internal_standard_region,6.6,6.79
-extract_mass_spectra,FALSE,,,
-mass_spectra_filter,500,,,
-peak_pick_threshold,0.1,,,
-dilution_factor,5.714285714,,,
-dilution_factor_error,0.0447,,,
-internal_standard_concentration,0.0008,,,
-internal_standard_concentration_error,9.89E-06,,,
+Instrument,GCv Agilent/JEOL
+Instrument_method,Method 5
+Derivatisation_method,75 uL EtONH2.HCl; 30 mins @ 70 oC; 25 uL N;O-Bis(trimethylsilyl)trifluoroacetamide; 30 mins @ 70 oC; dilution to 200 uL with internal standard solution
+Calibration_model,quadratic
+Calibration_file,2020_03_16_GCMS_Calibrations.csv
+Regions,7.4,8.4,10.2,11.2,12.8,14.0
+Internal_standard_region,6.6,6.79
+Extract_mass_spectra,FALSE,,,
+Mass_spectra_filter,500,,,
+Peak_pick_threshold,0.1,,,
+Dilution_factor,5.714285714,,,
+Dilution_factor_error,0.0447,,,
+Internal_standard_concentration,0.0008,,,
+Internal_standard_concentration_error,9.89E-06,,,
