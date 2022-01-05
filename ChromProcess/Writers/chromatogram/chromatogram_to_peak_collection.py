@@ -1,4 +1,4 @@
-from Writers.peak.peak_to_entry_text import peak_table_entry_text
+from ChromProcess.Writers.peak.peak_to_entry_text import peak_table_entry_text
 
 def write_peak_collection_text(chromatogram, header_text = ''):
     '''
@@ -26,7 +26,7 @@ def write_peak_collection_text(chromatogram, header_text = ''):
     peak_collection_string += 'IS_peak end/ min\n'
 
     i_s = chromatogram.internal_standard
-    IS_entry = peak_table_entry_text(chromatogram, i_s)
+    IS_entry = peak_table_entry_text(i_s, chromatogram)
 
     peak_collection_string += IS_entry
 
@@ -59,9 +59,10 @@ def write_peak_collection(
     None
     '''
 
-    output_text = chromatogram.write_peak_collection_text(
-                                                    header_text = header_text
-                                                    )
+    output_text = write_peak_collection_text(
+                                            chromatogram,
+                                            header_text = header_text
+                                            )
     with open(filename, "w") as f:
         f.write(output_text)
 
