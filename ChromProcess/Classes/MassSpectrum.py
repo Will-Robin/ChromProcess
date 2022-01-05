@@ -34,15 +34,8 @@ class MassSpectrum:
         -------
         ms_string: str
         '''
-        ms_string = 'm/z,'
-        for x in range(0,len(self.mz)):
-            ms_string += f'{self.mz[x]},'
+        import ChromProcess.Writers as write
 
-        ms_string += "\nrelative abundance,"
-
-        for x in range(0,len(self.relative_abundances)):
-            ms_string += f'{self.mz[x]}'
-            
-        ms_string += "\n"
+        ms_string = write.mass_spectrum_to_string(self)
 
         return ms_string
