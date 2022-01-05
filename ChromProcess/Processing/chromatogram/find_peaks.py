@@ -38,16 +38,17 @@ def find_peaks_in_region(chromatogram, start, end, threshold = 0.1):
     peak_features = []
     for x in range(0,len(picked_peaks['Peak_indices'])):
 
-        rt_ind = picked_peaks['Peak_indices']
-        start_ind = picked_peaks['Peak_start_indices']
-        end_ind = picked_peaks['Peak_end_indices']
+        rt_ind = picked_peaks['Peak_indices'][x]
+        start_ind = picked_peaks['Peak_start_indices'][x]
+        end_ind = picked_peaks['Peak_end_indices'][x]
 
-        retention_time = time[rt_ind][0]
-        start = time[start_ind][0]
-        end = time[end_ind][0]
+        retention_time = time[rt_ind]
+        start = time[start_ind]
+        end = time[end_ind]
 
         peak_params = [start, retention_time, end]
 
         peak_features.append(peak_params)
 
     return peak_features
+
