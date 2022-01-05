@@ -115,3 +115,20 @@ class Chromatogram:
 
         return ion_dict
 
+    def write_to_csv(self, filename = 'chromatogram.csv'):
+        import ChromProcess.Writers as write_chrom
+        write_chrom.chromatogram_to_csv(self, filename = filename)
+
+    def write_peak_collection(
+                        self, 
+                        filename = 'peak_collection.csv',
+                        header_text = ""
+                        ):
+
+        import ChromProcess.Writers as write_chrom
+        write_chrom.write_peak_collection(
+                                        self, 
+                                        filename = filename,
+                                        header_text = header_text 
+                                        )
+
