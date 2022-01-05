@@ -1,5 +1,5 @@
 
-def write_to_csv(chromatogram, filename = 'chromatogram.csv'):
+def chromatogram_to_csv(chromatogram, filename = 'chromatogram.csv'):
     '''
     Write chromatogram to a .csv file.
     '''
