@@ -35,6 +35,10 @@ class AnalysisInformation:
 
         self.experiment_code = ''
         self.analysis_type = ''
+        self.derivatisation_method = ''
+        self.instrument = ''
+        self.instrument_method = ''
+        self.calibration_model = ''
         self.regions = []
         self.internal_standard_region = []
         self.use_MS = False
