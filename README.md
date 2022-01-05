@@ -75,41 +75,7 @@ pip:
   - Install from the repository root using pip: `pip install .`,
   - Or in editable mode (so edits are immediately reflected): `pip install -e .`
 
-### Check install worked
-
-Type `python` in the command line/terminal and then return. This opens a Python interpreter. Type:
-
-`from ChromProcess import info_params` then the return key.
-
-If no errors occur (i.e. nothing happens), the installation worked.
-
-## Using the code in Scripts
-
-You can import the ChromProcess code by putting `import ChromProcess` at the top of your scripts. You can import from specific files from ChromProcess using syntax like `from ChromProcess import info_params` or ` from ChromProcess.info_params import colour_assignments`. You can then use the code written in the files with similar names in the ChromProcess folder.
-
-Take a look in the Scripts folder for some examples.
-
-## Using ChromProcess in Jupyter Notebooks
-
-Jupyter Notebooks and Jupyter Lab([1][jupyter-link]) are excellent tools for executing blocks of code alongside notes and data plots.
-For more information on which one to choose and how to install them, go to the annotated link.
-
-There is a little to add to the setup of a Jupyter Notebook, since we have installed ChromProcess in a virtual environment. In short, an IPython kernel must be installed in the ChromProcess environment, and a file must be created so that the Jupyter Notebook can access the kernel.
-
-Activate the ChromProcess environment (see above), then run:
-
-`pip install --user ipykernel`
-
-then:
-
-`python -m ipykernel install --user --name=chromprocess-env`
-
-Deactivate the environment (`conda deactivate` or `deactivate`).
-
-The next time you open Jupyter Notebook, a ChromProcess kernel should be available to choose in the launcher, or in a dropdown list in the top right of the notebook window. Choose the ChromProcess kernel, and get scripting!
-
 ## Acknowledgement
 
 ChromProcess was created by William E. Robinson during free time and working in the group of Prof. Wilhelm T. S. Huck (Radboud University Nijmegen) supported by NWO, The Simons Foundation and the ERC.
 
-[jupyter-link]: https://jupyter.org
