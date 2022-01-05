@@ -19,7 +19,7 @@ def analysis_from_csv(fname):
         if 'Dataset' in line:
             analysis.experiment_code = ins[1]
 
-        if 'Method' in line:
+        if 'Method' in line and not 'Instrument' in line:
             analysis.analysis_type = ins[1]
 
         if 'Regions' in line:
@@ -56,7 +56,6 @@ def analysis_from_csv(fname):
             analysis.internal_standard_concentration_error = float(ins[1])
 
         if 'Instrument' in line and not 'method' in line:
-            print(ins)
             analysis.instrument = ins[1]
 
         if 'Instrument_method' in line:
@@ -67,6 +66,9 @@ def analysis_from_csv(fname):
 
         if 'Calibration_model' in line:
             analysis.calibration_model = ins[1]
+
+        if 'Calibration_file' in line:
+            analysis.calibration_file = ins[1]
 
     return analysis
 

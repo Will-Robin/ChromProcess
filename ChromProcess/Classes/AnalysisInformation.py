@@ -39,6 +39,7 @@ class AnalysisInformation:
         self.instrument = ''
         self.instrument_method = ''
         self.calibration_model = ''
+        self.calibration_file = ''
         self.regions = []
         self.internal_standard_region = []
         self.use_MS = False
