@@ -27,8 +27,9 @@ def find_peaks(signal, thres=0.1, min_dist=1, min_inten = -1e100):
 
     Returns
     -------
-    ndarray
-        Array containing the indexes of the peaks that were detected
+    dict
+        dict containing the indexes of the peaks that were detected and their
+        start and end indices.
     '''
 
     thres *= np.max(signal) - np.min(signal)
@@ -36,7 +37,7 @@ def find_peaks(signal, thres=0.1, min_dist=1, min_inten = -1e100):
     # find the peaks by using the first order difference
     diff = np.diff(signal)
 
-    smoothed_diff = sig.savitzky_golay(diff, 7, 3, deriv=0, rate=1)
+    smoothed_diff = sig.savitzky_golay(diff, 5, 3, deriv=0, rate=1)
 
     pre_peak_inds = np.where(
                               (np.hstack([smoothed_diff, 0.]) < 0.)
