@@ -1,6 +1,4 @@
-import sys
 import numpy as np
-from pathlib import Path
 from ChromProcess import Classes
 
 class PeakCollection:
@@ -175,44 +173,11 @@ class PeakCollection:
         Parameters
         ----------
         directory: str or pathlib Path
+
+        Returns
+        -------
+        None
         '''
+        import ChromProcess.Writers as write
 
-        fname = Path(self.filename)
-        if isinstance(directory, str):
-            if directory == '':
-                fname = Path(f"{self.filename}")
-        elif isinstance(directory, Path):
-            fname = directory/f"{self.filename}"
-
-        IS_header = ''
-        IS_header += 'IS_retention_time/ min,'
-        IS_header += 'IS_integral,'
-        IS_header += 'IS_peak start/ min,'
-        IS_header += 'IS_peak end/ min\n'
-        
-        pk_header = ''
-        pk_header += 'Retention_time/ min,'
-        pk_header += 'integral,'
-        pk_header += 'peak start/ min,'
-        pk_header += 'peak end/ min\n'
-
-        unit = self.series_unit
-        value = self.series_value
-        with open(fname, "w") as f:
-            f.write(f"{unit},{value}\n")
-            f.write(IS_header)
-
-            IS_rt = self.internal_standard.retention_time
-            IS_integ = self.internal_standard.integral
-            strt = self.internal_standard.start
-            end = self.internal_standard.end
-
-            f.write(f"{IS_rt},{IS_integ},{strt},{end}\n")
-            f.write(pk_header)
-            for p in self.peaks:
-                rt = p.retention_time
-                integ = p.integral
-                start = p.start
-                end = p.end
-                f.write(f"{rt},{integ},{start},{end}\n")
-
+        write.peak_collection_to_csv(self, directory = directory)
