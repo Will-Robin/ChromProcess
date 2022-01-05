@@ -142,18 +142,17 @@ class PeakCollection:
         for pk in self.peaks:
             pk.calculate_error(calibrations,IS_conc,IS_conc_err)
 
-    def dilution_correct_peaks(self, analysis):
+    def dilution_correct_peaks(self, dilution_factor, error):
         '''
         Parameters
         ----------
-        analysis: ChromProcess Analysis_Information object
+        dilution_factor: float
+        error: float
         '''
 
-        dil = analysis.dilution_factor
-        dil_err = analysis.dilution_factor_error
         for pk in self.peaks:
             if pk.concentration:
-                pk.dilution_correction(dil, dil_err)
+                pk.dilution_correction(dilution_factor, error)
 
     def get_all_assigned_compounds(self):
         assigns = []
