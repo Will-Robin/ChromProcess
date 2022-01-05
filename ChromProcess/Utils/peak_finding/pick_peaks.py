@@ -1,7 +1,7 @@
 import numpy as np
 from ChromProcess.Utils.signal_processing import signal_processing as sig
 
-def find_peaks(signal, thres=0.1, min_dist=1, max_inten = 1e100, min_inten = -1e100):
+def find_peaks(signal, thres=0.1, min_dist=1, min_inten = -1e100):
 
     '''
     Peak detection routine.
@@ -22,8 +22,6 @@ def find_peaks(signal, thres=0.1, min_dist=1, max_inten = 1e100, min_inten = -1e
     min_dist: int
         Minimum distance between each detected peak. The peak with the highest
         amplitude is preferred to satisfy this constraint.
-    max_inten: float
-        peaks will not be detected above this threshold.
     min_inten: float
         peaks will not be detected below this threshold.
 
@@ -33,8 +31,7 @@ def find_peaks(signal, thres=0.1, min_dist=1, max_inten = 1e100, min_inten = -1e
         Array containing the indexes of the peaks that were detected
     '''
 
-    test = np.where((signal < max_inten))[0]
-    thres *= np.max(signal[test]) - np.min(signal[test])
+    thres *= np.max(signal) - np.min(signal)
 
     # find the peaks by using the first order difference
     diff = np.diff(signal)
@@ -45,7 +42,6 @@ def find_peaks(signal, thres=0.1, min_dist=1, max_inten = 1e100, min_inten = -1e
                               (np.hstack([smoothed_diff, 0.]) < 0.)
                             & (np.hstack([0., smoothed_diff]) > 0.)
                             & (signal > thres)
-                            & (signal < max_inten)
                             & (signal > min_inten))
 
     peaks_indices = pre_peak_inds[0]
