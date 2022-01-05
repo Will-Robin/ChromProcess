@@ -1,3 +1,5 @@
+import numpy as np
+from pathlib import Path
 
 class DataReport:
     def __init__(self, file = ''):
@@ -6,7 +8,6 @@ class DataReport:
         ----------
         file: str or pathlib Path
         '''
-        import numpy as np
 
         self.filename = 'not specified'
         self.experiment_code = 'not specified'
@@ -57,8 +58,6 @@ class DataReport:
             Path to folder for file storage.
         '''
 
-        import numpy as np
-        from pathlib import Path
 
         if isinstance(path, str):
             path = Path(path)
@@ -130,7 +129,6 @@ class DataReport:
 
     def remove_repeat_entries(self):
 
-        import numpy as np
         # deleting duplicate entries: taking the entry with the higher signal using the
         # signal sum as a discriminant.
         repeat_entries = self.find_repeat_data_entries()
@@ -166,7 +164,6 @@ class DataReport:
         threshold: float
             threshold below which entries will be removed.
         '''
-        import numpy as np
         # remove entries whose concentrations/integrals do not cross a defined boundary
         del_list = []
         for d in self.data:
