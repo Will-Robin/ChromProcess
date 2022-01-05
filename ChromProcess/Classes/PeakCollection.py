@@ -37,22 +37,25 @@ class PeakCollection:
         '''
 
         is_rt = self.internal_standard.retention_time
+        is_start = self.internal_standard.start
+        is_end = self.internal_standard.end
 
-        for p in self.peaks:
-            p.retention_time = p.retention_time - is_rt + IS_set
-            p.start = p.start - is_rt + IS_set
-            p.end = p.end - is_rt + IS_set
+        if is_rt == 0.0:
+            print('''Internal standard retention time is set to 0.0.
+            No alignment performed.''')
+        else:
+            for p in self.peaks:
+                p.retention_time = p.retention_time - is_rt + IS_set
+                p.start = p.start - is_rt + IS_set
+                p.end = p.end - is_rt + IS_set
 
-        for m in self.mass_spectra:
-            m.retention_time = m.retention_time - is_rt + IS_set
+            for m in self.mass_spectra:
+                m.retention_time = m.retention_time - is_rt + IS_set
 
-        self.internal_standard.start = (self.internal_standard.start - is_rt +
-                                                                        IS_set)
-        self.internal_standard.end = (self.internal_standard.end - is_rt +
-                                                                        IS_set)
-        self.internal_standard.retention_time = (
-                                           self.internal_standard.retention_time
-                                           - is_rt + IS_set)
+            self.internal_standard.start = (is_start - is_rt + IS_set)
+            self.internal_standard.end = (is_end - is_rt + IS_set)
+            self.internal_standard.retention_time = ( is_rt - is_rt + IS_set)
+
     def add_mass_spectra(self, ms_list):
         '''
         Add mass spectrum information into PeakCollectionElement objects.
