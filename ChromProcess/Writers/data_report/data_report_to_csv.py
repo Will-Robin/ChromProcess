@@ -1,6 +1,7 @@
-import numpy as np
 from pathlib import Path
-from ChromProcess.Writers import write_conditions_text as w_ct
+
+from ChromProcess.Utils.utils import utils
+from ChromProcess.Writers.general import write_header
 
 def data_report_to_csv(data_report, filename = '', path = None):
     '''
@@ -25,52 +26,51 @@ def data_report_to_csv(data_report, filename = '', path = None):
     else:
         fname = path/filename
 
-    header = w_ct.write_conditions_text(data_report)
+    header_text = write_header.write_conditions_header(
+                                            data_report.name, 
+                                            data_report.conditions, 
+                                            data_report.analysis
+                                            )
+    conc_header, conc_grid = utils.peak_dict_to_spreadsheet(
+                                        data_report.data, 
+                                        data_report.series_values,
+                                        data_report.series_unit
+                                        )
+    peak_err_header, err_grid = utils.peak_dict_to_spreadsheet(
+                                        data_report.errors, 
+                                        data_report.series_values,
+                                        data_report.series_unit
+                                        )
 
     with open(fname, 'w') as outfile:
-        # writing experiment conditions to file
-        outfile.write(header)
-        # writing data
-        sorted_keys = sorted([*data_report.data], key = lambda x:x.count('C'))
+
+        outfile.write(header_text)
 
         outfile.write("start_data\n")
 
-        p_header = [data_report.series_unit]
-        out = np.array([data_report.series_values])
-
-        for s in sorted_keys:
-            p_header.append(s)
-            out = np.vstack((out,data_report.data[s]))
-
-        out = out.T
-
-        [outfile.write("{},".format(x)) for x in p_header]
+        [outfile.write("{},".format(x)) for x in conc_header]
 
         outfile.write("\n")
 
-        for x in range(0,len(out)):
-            for y in range(0,len(out[x])):
-                outfile.write("{},".format(out[x,y]))
+        for x in range(0,len(conc_grid)):
+            for y in range(0,len(conc_grid[x])):
+                val = conc_grid[x][y]
+                outfile.write(f"{val},")
             outfile.write("\n")
 
         outfile.write("end_data\n")
 
-        outfile.write('start_errors\n')
+        outfile.write("start_errors\n")
 
-        if len(data_report.errors)> 0:
-            err_out = np.array([data_report.series_values])
+        [outfile.write("{},".format(x)) for x in peak_err_header]
 
-            for s in sorted_keys:
-                trace = data_report.errors[s]
-                err_out = np.vstack((err_out,trace))
+        outfile.write("\n")
 
-            err_out = err_out.T
-            [outfile.write("{},".format(x)) for x in p_header]
+        for x in range(0,len(err_grid)):
+            for y in range(0,len(err_grid[x])):
+                val = err_grid[x][y]
+                outfile.write(f"{val},")
             outfile.write("\n")
-            for x in range(0,len(err_out)):
-                for y in range(0,len(err_out[x])):
-                    outfile.write("{},".format(err_out[x,y]))
-                outfile.write("\n")
 
-        outfile.write('end_errors\n')
+        outfile.write("end_errors\n")
 

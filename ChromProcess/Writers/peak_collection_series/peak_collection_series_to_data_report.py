@@ -1,5 +1,6 @@
 from pathlib import Path
 
+from ChromProcess.Utils.utils import utils
 from ChromProcess.Writers.general import write_header
 
 def peak_collection_series_to_data_report(peak_collection_series, filename, information):
@@ -14,7 +15,6 @@ def peak_collection_series_to_data_report(peak_collection_series, filename, info
     -------
     None
     '''
-    from ChromProcess.Utils.utils import utils
 
     if isinstance(filename, str):
         filename = filename
@@ -74,13 +74,17 @@ def peak_collection_series_to_data_report(peak_collection_series, filename, info
         outfile.write("end_data\n")
 
         outfile.write("start_errors\n")
+
         [outfile.write("{},".format(x)) for x in peak_err_header]
+
         outfile.write("\n")
+
         for x in range(0,len(err_grid)):
             for y in range(0,len(err_grid[x])):
                 val = err_grid[x][y]
                 outfile.write(f"{val},")
             outfile.write("\n")
+
         outfile.write("end_errors\n")
 
     # Write integral report to file
