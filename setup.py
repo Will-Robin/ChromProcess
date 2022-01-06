@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="ChromProcess",
-    vesion="0.1.0",
+    vesion="0.0.0",
     author=["William E. Robinson"],
     packages=["ChromProcess"],
     install_requires=[
