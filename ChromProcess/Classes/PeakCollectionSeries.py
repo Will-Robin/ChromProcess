@@ -1,3 +1,7 @@
+import numpy as np
+
+from ChromProcess.Processing.peak import assign_peak
+from ChromProcess.Utils.utils.clustering import cluster
 
 class PeakCollectionSeries:
     def __init__(self, peak_collections, name = 'not specified',
@@ -44,8 +48,6 @@ class PeakCollectionSeries:
 
     def get_peak_positions(self):
 
-        import numpy as np
-
         peak_pos = np.array([])
         for pc in self.peak_collections:
             peak_pos = np.hstack((peak_pos, pc.get_peak_positions()))
@@ -59,12 +61,10 @@ class PeakCollectionSeries:
         bound: float
         '''
 
-        from ChromProcess import simple_functions as sf
-
         peaks = self.get_peak_positions()
 
         clusts = []
-        for c in sf.cluster(peaks, bound = bound):
+        for c in cluster(peaks, bound = bound):
             clusts.append(c)
 
         self.clusters = clusts
@@ -87,12 +87,10 @@ class PeakCollectionSeries:
         boundaries: dict
             {'compound_name', [lower bound, upper bound]}
         '''
-        import numpy as np
-        from ChromProcess import processing_functions as p_f
 
         for c in self.clusters:
             pos = np.mean(c)
-            clust_name = p_f.name_peak(pos, boundaries)
+            clust_name = assign_peak.assign_retention_time(pos, boundaries)
             self.cluster_assignments.append(clust_name)
 
     def get_all_assigned_compounds(self):
@@ -103,7 +101,9 @@ class PeakCollectionSeries:
             assigns.extend( pc.assigned_compounds )
 
         assigns = list(set(assigns))
-        self.series_assigned_compounds = sorted(assigns, key = lambda x:x.count('C'))
+        count_C = lambda x:x.count('C')
+
+        self.series_assigned_compounds = sorted(assigns, key = count_C)
 
     def reference_integrals_to_IS(self):
         for pc in self.peak_collections:
@@ -120,7 +120,7 @@ class PeakCollectionSeries:
             Contains calibration information.
         '''
 
-        IS_conc = conditions.internal_ref_concentration
+        IS_conc = conditions.internal_standard_concentration
 
         for pc in self.peak_collections:
             pc.apply_calibrations_to_peaks(calibrations, IS_conc)
@@ -131,338 +131,111 @@ class PeakCollectionSeries:
         ----------
         calib: ChromProcess Instrument_Calibration object
         '''
-        IS_conc = conditions.internal_ref_concentration
-        IS_conc_err = conditions.internal_ref_concentration_error
+        IS_conc = conditions.internal_standard_concentration
+        IS_conc_err = conditions.internal_standard_concentration_error
 
         for pc in self.peak_collections:
             pc.calculate_conc_errors(calib,IS_conc,IS_conc_err)
 
-    def apply_peak_dilution_factors(self,analysis):
+    def apply_peak_dilution_factors(self, dilution_factor, error):
         '''
         Parameters
         ----------
-        analysis: ChromProcess Analysis_Information object
+        dilution_factor: float
+        error: float
         '''
         for pc in self.peak_collections:
-            pc.dilution_correct_peaks(analysis)
+            pc.dilution_correct_peaks(dilution_factor, error)
 
-    def make_integral_series(self, cluster_bound = 0.0):
-
+    def create_peak_series(self):
         '''
-        Parameters
-        ----------
-        cluster_bound: float
+        Creates arrays for series of peaks using self.clusters to identify 
+        similar peaks between chromatograms. If more than one peak from a
+        single chromatogram is in a cluster, their values are added together.
+
+        The ordering of the series in the arrays is given by the order of the
+        self.clusters.
         '''
 
-        import numpy as np
+        series_length = len(self.series_values)
+        number_of_peaks = len(self.clusters)
 
-        if len(self.clusters) == 0:
-            self.get_peak_clusters(bound = cluster_bound)
-
-        series_courses = np.zeros((len(self.series_values), len(self.clusters)))
+        integral_series = np.zeros((series_length, number_of_peaks))
+        concentration_series = np.zeros((series_length, number_of_peaks))
+        error_series = np.zeros((series_length, number_of_peaks))
 
         for c1,pc in enumerate(self.peak_collections):
+            is_rt = pc.internal_standard.retention_time
+
             for c2,clust in enumerate(self.clusters):
                 for pk in pc.peaks:
-                    if pk.retention_time == pc.internal_standard.retention_time:
+
+                    if pk.retention_time == is_rt:
                         continue
-                    if pk.retention_time in clust and pk.integral:
-                        series_courses[c1,c2] += pk.integral
 
-        self.integral_series = series_courses.T
+                    if pk.retention_time in clust:
+                        if pk.integral:
+                            integral_series[c1,c2] += pk.integral
 
-    def make_concentration_series(self, cluster_bound = 0.0):
+                        if pk.concentration:
+                            concentration_series[c1,c2] += pk.concentration
+
+                        if pk.conc_error:
+                            error_series[c1,c2] += pk.conc_error
+
+        self.integral_series = integral_series.T
+        self.concentration_series = concentration_series.T
+        self.conc_err_series = error_series.T
+
+    def series_traces_as_dict(self):
         '''
-        Parameters
-        ----------
-        cluster_bound: float
+        Create dictionaries of peak series values derived using the
+        self.clusters.
         '''
-
-        import numpy as np
-
-        if len(self.clusters) == 0:
-            self.get_peak_clusters(bound = cluster_bound)
-
-        series_courses = np.zeros((len(self.series_values), len(self.clusters)))
-        error_courses = np.zeros((len(self.series_values), len(self.clusters)))
-
-        clust_assigns = []
-        for c1,pc in enumerate(self.peak_collections):
-            for c2,clust in enumerate(self.clusters):
-                loc_assigns = []
-                for pk in pc.peaks:
-                    if pk.retention_time == pc.internal_standard.retention_time:
-                        continue
-                    if pk.retention_time in clust and pk.concentration:
-                        loc_assigns.append(pk.assignment)
-                        series_courses[c1,c2] += pk.concentration
-                        error_courses[c1,c2] += pk.conc_error
-
-                clust_assigns.append(loc_assigns)
-
-        self.concentration_series = series_courses.T
-        self.conc_err_series = error_courses.T
-
-    def concentration_traces_as_dict(self):
-        '''
-        Parameters
-        ----------
-        name_conversions: dict
-        '''
-
-        import numpy as np
-        from ChromProcess import simple_functions as s_f
-
-        if len(self.cluster_assignments) == 0:
-            get_name = lambda _: ''
-        else:
-            get_name = lambda x: self.cluster_assignments[x].split(' ')[0]
-
         conc_dict = {}
-        for x in range(0,len(self.concentration_series)):
-            name = get_name(x)
-            pos = np.round(np.mean(self.clusters[x]),3)
-            if name == '':
-                pass
-            elif not s_f.isfloat(name):
-                conc_dict[f'{name}/ M ({pos})'] = self.concentration_series[x]
-            else:
-                pass
-
-        return conc_dict
-
-    def integral_traces_as_dict(self):
-
-        import numpy as np
-
-        if len(self.cluster_assignments) == 0:
-            get_name = lambda _: ''
-        else:
-            get_name = lambda x: self.cluster_assignments[x].split(' ')[0]
-
-        integral_dict = {}
-        for x in range(0,len(self.integral_series)):
-            name = get_name(x)
-            if name != '':
-                pos = np.mean(self.clusters[x])
-                token = f'{name} ({np.round(pos,3)})'
-            else:
-                cluster_average = np.mean(self.clusters[x])
-                val = np.round(cluster_average, 3)
-                token = f'{val} ({val})'
-
-            integral_dict[token] = self.integral_series[x]
-
-        return integral_dict
-
-    def concentration_error_traces_dict(self):
-
-        import numpy as np
-        from ChromProcess import simple_functions as s_f
-
         err_dict = {}
+        integral_dict = {}
 
         if len(self.cluster_assignments) == 0:
-            get_name = lambda _: ''
+            cluster_names = ['' for _ in self.clusters]
         else:
-            get_name = lambda x: self.cluster_assignments[x].split(' ')[0]
+            cluster_names = [n.split(' ')[0] for n in self.cluster_assignments]
 
-        for x in range(0,len(self.conc_err_series)):
-            name = get_name(x)
-            pos = np.round(np.mean(self.clusters[x]),3)
-            if name == '':
-                pass
-            elif not s_f.isfloat(name):
-                err_dict[f'{name}/ M ({pos})'] = self.conc_err_series[x]
-            else:
-                pass
+        for c1,pc in enumerate(self.peak_collections):
 
-        return err_dict
+            for c2,clust in enumerate(self.clusters):
+                name = cluster_names[c2]
+                average_position = sum(clust)/len(clust)
 
-    def write_conditions_header(self, outfile, information):
-        '''
-        Parameters
-        ----------
-        outfile: Python file object
+                for pk in pc.peaks:
+                    if pk.retention_time in clust:
+                        if pk.integral:
+                            token = name + f' ({average_position})'
+                            if token not in integral_dict:
+                                integral_dict[token] = [0.0 for _ in self.series_values]
+                            integral_dict[token][c1] += pk.integral
 
-        information: ChromProcess Instrument_Calibration object
-        '''
+                        if pk.concentration:
+                            token = name + '/ M'
+                            if token not in conc_dict:
+                                conc_dict[token] = [0.0 for _ in self.series_values]
+                            conc_dict[token][c1] += pk.concentration
 
-        # writing experiment conditions to file
-        outfile.write("Dataset,{}\n".format(self.name))
-        outfile.write("start_conditions\n")
-        for c in self.conditions:
-            outfile.write("{},".format(c))
-            [outfile.write("{},".format(x)) for x in self.conditions[c]]
-            outfile.write("\n")
-        outfile.write("end_conditions\n")
-        # writing analysis details
-        outfile.write("start_analysis_details\n")
-        outfile.write('Instrument, {}\n'.format(information.instrument))
-        outfile.write("Chromatography_method,{},{}\n".format(information.type, information.method))
-        outfile.write("Derivatisation_method,{}\n".format(information.derivatisation))
-        outfile.write("Calibrations_file,{}\n".format(information.filename.name))
-        outfile.write('Calibration_model,{}\n'.format(information.calibration_model))
-        outfile.write("end_analysis_details\n")
+                        if pk.conc_error:
+                            token = name + '/ M'
+                            if token not in err_dict:
+                                err_dict[token] = [0.0 for _ in self.series_values]
+                            err_dict[token][c1] += pk.conc_error
 
-    def write_concentrations_to_file(self,
-                                    filename, information,
-                                    ):
+        return conc_dict, err_dict, integral_dict
+
+    def write_data_reports(self, filename, information):
         '''
         Parameters
         ----------
         filename: name for file including path
-
-        information: ChromProcess Instrument_Calibration object
+        information: ChromProcess Analysis_Information object
         '''
+        import ChromProcess.Writers as write
 
-        import numpy as np
-        from pathlib import Path
-
-        if isinstance(filename, str):
-            filename = filename
-        elif isinstance(filename, Path):
-            filename = str(filename)
-
-        out_type = 'concentration_report'
-        fname = '{}_{}_{}.csv'.format(filename, information.type, out_type)
-
-        with open(fname, 'w') as outfile:
-            # writing experiment conditions to file
-            self.write_conditions_header(outfile,information)
-
-            # writing data
-            conc_traces = self.concentration_traces_as_dict()
-            sorted_keys = sorted([*conc_traces], key = lambda x:x.count('C'))
-
-            outfile.write("start_data\n")
-
-            p_header = [self.series_unit]
-            out = np.array([self.series_values])
-
-            for s in sorted_keys:
-                p_header.append(s)
-                out = np.vstack((out,conc_traces[s]))
-
-            out = out.T
-            [outfile.write("{},".format(x)) for x in p_header]
-
-            outfile.write("\n")
-
-            for x in range(0,len(out)):
-                for y in range(0,len(out[x])):
-                    outfile.write("{},".format(out[x,y]))
-                outfile.write("\n")
-
-            outfile.write("end_data\n")
-
-    def write_integrals_to_file(self,
-                                filename,
-                                information,
-                                ):
-        '''
-        Parameters
-        ----------
-        filename: name for file including path
-
-        information: ChromProcess Instrument_Calibration object
-        '''
-
-        import numpy as np
-        from pathlib import Path
-
-        name = ''
-        if isinstance(filename, str):
-            name = filename
-        elif isinstance(filename, Path):
-            name = str(filename)
-
-        out_type = 'integral_report'
-        fname = '{}_{}_{}.csv'.format(name, information.type, out_type)
-
-        with open(fname, 'w') as outfile:
-            # writing experiment conditions to file
-            self.write_conditions_header(outfile,information)
-
-            # writing data
-            integral_traces = self.integral_traces_as_dict()
-
-            outfile.write("start_data\n")
-
-            p_header = [self.series_unit]
-            out = np.array([self.series_values])
-
-            for s in [*integral_traces]:
-                p_header.append(s)
-                out = np.vstack((out,integral_traces[s]))
-
-            out = out.T
-            [outfile.write("{},".format(x)) for x in p_header]
-
-            outfile.write("\n")
-
-            for x in range(0,len(out)):
-                for y in range(0,len(out[x])):
-                    outfile.write("{},".format(out[x,y]))
-                outfile.write("\n")
-
-            outfile.write("end_data\n")
-
-    def create_DataReport_base(self, information):
-        '''
-        Parameters
-        ----------
-        information: ChromProcess Instrument_Calibration object
-        '''
-
-        from ChromProcess import Classes
-
-        data_report = Classes.DataReport()
-        data_report.experiment_code = self.name
-        data_report.conditions = self.conditions
-        data_report.analysis_details['Instrument'] = information.instrument
-        chrom_method = [information.type, information.method]
-        data_report.analysis_details['Chromatography_method'] = chrom_method
-        deriv_info = information.derivatisation
-        data_report.analysis_details['Derivatisation_method'] = deriv_info
-        data_report.analysis_details['Calibrations_file'] = information.filename.name
-        data_report.analysis_details['Calibration_model'] =information.calibration_model
-
-        data_report.series_values = self.series_values
-        data_report.series_unit = self.series_unit
-
-        return data_report
-
-    def create_conc_DataReport(self, information):
-        '''
-        Parameters
-        ----------
-        information: ChromProcess Instrument_Calibration object
-        '''
-
-        out_type = 'concentration_report'
-        fname = '{}_{}_{}.csv'.format(self.name, information.type, out_type)
-
-        data_report = self.create_DataReport_base(information)
-        data_report.data = self.concentration_traces_as_dict()
-        data_report.errors = self.concentration_error_traces_dict()
-        data_report.filename = fname
-
-        return data_report
-
-    def create_integral_DataReport(self, information):
-        '''
-        Parameters
-        ----------
-        information: ChromProcess Instrument_Calibration object
-        '''
-
-        out_type = 'integral_report'
-        fname = '{}_{}_{}.csv'.format(self.name, information.type, out_type)
-
-        data_report = self.create_DataReport_base(information)
-        data_report.data = self.integral_traces_as_dict()
-        data_report.errors = {}
-        data_report.filename = fname
-
-        return data_report
+        write.peak_collection_series_to_data_report(self, filename, information)

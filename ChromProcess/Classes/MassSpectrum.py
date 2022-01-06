@@ -25,3 +25,17 @@ class MassSpectrum:
         self.mz = mz
         self.relative_abundances = inten
         self.retention_time = pos
+
+    def write_to_string(self):
+        '''
+        Write a row-wise csv for the mass spectrum.
+
+        Returns
+        -------
+        ms_string: str
+        '''
+        import ChromProcess.Writers as write
+
+        ms_string = write.mass_spectrum_to_string(self)
+
+        return ms_string

@@ -1,0 +1,27 @@
+Dataset,Example
+start_conditions
+dihydroxyacetone/ M,2.0,
+formaldehyde/ M,2.0,
+NaOH/ M,0.12,
+CaCl2/ M,0.06,
+water/ M,0.0,
+end_conditions
+start_analysis_details
+Instrument, GCv Agilent/JEOL
+Chromatography_method,GCMS,Method 5
+Derivatisation_method,75 uL EtONH2.HCl; 30 mins @ 70 oC; 25 uL N;O-Bis(trimethylsilyl)trifluoroacetamide; 30 mins @ 70 oC; dilution to 200 uL with internal standard solution
+Calibrations_file,2020_03_16_GCMS_Calibrations.csv
+Calibration_model,quadratic
+end_analysis_details
+start_data
+time/ s,compound_1/ M,compound_2/ M,compound_3/ M,
+30.0,8.792632137935235e-07,4.786380602293597e-07,9.440933931823984e-07,
+20.0,8.952454578685331e-07,4.544570762522185e-07,5.590251552027428e-07,
+10.0,8.854426696971814e-07,5.500486976157815e-07,1.5941458096535603e-07,
+end_data
+start_errors
+time/ s,compound_1/ M,compound_2/ M,compound_3/ M,
+30.0,1.0869891480522435e-08,5.91716301958546e-09,1.16713545732174e-08,
+20.0,1.106747197289974e-08,5.618225605168051e-09,6.910948481193907e-09,
+10.0,1.0946285004131406e-08,6.799977024275099e-09,1.9707627571842137e-09,
+end_errors

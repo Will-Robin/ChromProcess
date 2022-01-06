@@ -1,3 +1,4 @@
+import numpy as np
 
 class Peak:
     def __init__(self,retention_time, indices):
@@ -17,19 +18,17 @@ class Peak:
 
         self.indices = indices
 
-        self.integral = False
+        self.integral = 0.0
 
-        self.height = False
+        self.height = 0.0
 
         self.ion_chromatograms = {}
 
         self.ion_integrals = {}
 
-        self.mass_spectrum = False
+        self.mass_spectrum = []
 
-        self.character = "Unknown"
-
-        self.deconvolution = None
+        self.deconvolution = []
 
     def get_integral(self, chromatogram, baseline_subtract = False):
         '''
@@ -43,8 +42,6 @@ class Peak:
         chromatogram: ChromProcess Chromatogram object
         baseline_subtract: bool
         '''
-
-        import numpy as np
 
         time = chromatogram.time[self.indices]
         signal = chromatogram.signal[self.indices]
@@ -78,7 +75,6 @@ class Peak:
         ----------
         chromatogram: ChromProcess Chromatogram object
         '''
-        import numpy as np
 
         if len(chromatogram.scan_indices) == 0:
             # no mass spectral information in the chromatogram

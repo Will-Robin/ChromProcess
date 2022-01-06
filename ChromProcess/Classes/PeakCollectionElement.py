@@ -1,3 +1,7 @@
+import numpy as np
+from ChromProcess.Utils.utils import functions
+from ChromProcess.Processing.peak import assign_peak
+from ChromProcess.Utils.utils import error_propagation as error_prop
 
 class PeakCollectionElement:
     '''
@@ -23,13 +27,6 @@ class PeakCollectionElement:
         self.mass_spectrum = mass_spectrum
         self.parent_peak_collection = parent
 
-    def inspect_peak(self):
-        print('retention_time',self.retention_time)
-        print('start',self.start)
-        print('end',self.end)
-        print('integral',self.integral)
-        print()
-
     def reference_integral_to_IS(self, IS_integral):
         '''
         Parameters
@@ -48,8 +45,10 @@ class PeakCollectionElement:
         boundaries: dict
             {'compound name': [lower bound, upper bound]}
         '''
-        from ChromProcess import processing_functions as p_f
-        self.assignment = p_f.name_peak(self.retention_time,boundaries)
+        self.assignment = assign_peak.assign_retention_time(
+                                                            self.retention_time,
+                                                            boundaries
+                                                            )
 
     def apply_linear_calibration(self, A, B, internal_standard = 1.0):
         '''
@@ -58,8 +57,7 @@ class PeakCollectionElement:
         A, B, internal_standard: float
         '''
 
-        conversion = lambda x : (x-B)/A
-        c1 = conversion(self.integral)
+        c1 = functions.inverse_linear(self.integral, A, B, factor = 1.0)
         self.concentration = internal_standard*c1
 
     def apply_quadratic_calibration(self, A, B, C, internal_standard = 1.0):
@@ -68,17 +66,16 @@ class PeakCollectionElement:
         ----------
         A, B, C, internal_standard: float
         '''
-        import numpy as np
-
-        conversion = lambda x : ((-B+np.sqrt((B**2)-(4*A*(C-x))))/(2*A))
-        c1 = conversion(self.integral)
+        
+        c1 = functions.inverse_quadratic(self.integral, A, B, C, factor = 1.0)
 
         self.concentration = internal_standard*c1
+
         if np.isnan(self.concentration):
             self.apply_linear_calibration(B,C,
                                           internal_standard = internal_standard)
 
-    def calculate_error(self,calibrations,IS_conc,IS_conc_err):
+    def calculate_error(self, calibrations, IS_conc, IS_conc_err):
         '''
         Calculation of the standard error on a concentration estimation from
         th calibration.
@@ -93,36 +90,37 @@ class PeakCollectionElement:
 
         Modifies PeakCollectionElement object attributes.
         '''
-        import numpy as np
 
-        from ChromProcess import calibration as cal_ops
-        from ChromProcess import simple_functions as s_f
+        assign = self.assignment
+        yhat = self.integral
+        sy2 = 1e-10
 
-        if self.assignment in calibrations.calibration_factors:
-            yhat = self.integral
-            sy2 = 1e-10
+        if assign in calibrations.calibration_factors:
 
-            a = calibrations.calibration_factors[self.assignment]['A']
-            b = calibrations.calibration_factors[self.assignment]['B']
-            c = calibrations.calibration_factors[self.assignment]['C']
+            a = calibrations.calibration_factors[assign]['A']
+            b = calibrations.calibration_factors[assign]['B']
+            c = calibrations.calibration_factors[assign]['C']
 
-            sa2 = calibrations.calibration_factors[self.assignment]['A_variance']
-            sb2 = calibrations.calibration_factors[self.assignment]['B_variance']
-            sc2 = calibrations.calibration_factors[self.assignment]['C_variance']
+            sa2 = calibrations.calibration_factors[assign]['A_variance']
+            sb2 = calibrations.calibration_factors[assign]['B_variance']
+            sc2 = calibrations.calibration_factors[assign]['C_variance']
 
-            sab = calibrations.calibration_factors[self.assignment]['AB_covariance']
-            sac = calibrations.calibration_factors[self.assignment]['AC_covariance']
-            sbc = calibrations.calibration_factors[self.assignment]['BC_covariance']
+            sab = calibrations.calibration_factors[assign]['AB_covariance']
+            sac = calibrations.calibration_factors[assign]['AC_covariance']
+            sbc = calibrations.calibration_factors[assign]['BC_covariance']
 
-            err = cal_ops.QuadraticPredictionSE(yhat, sy2,
-                                                 a, b, c,
-                                                 sa2, sb2, sc2,
-                                                 sab, sac, sbc)
+            err = functions.inverse_quadratic_standard_error(
+                                                            yhat, sy2,
+                                                            a, b, c,
+                                                            sa2, sb2, sc2,
+                                                            sab, sac, sbc
+                                                            )
             err = np.nan_to_num(err)
-            val = ((-b+np.sqrt((b**2)-(4*a*(c-self.integral))))/(2*a))
-
-            err = IS_conc*val*s_f.mult_div_error_prop([val, IS_conc],
-                                          [err, IS_conc_err])
+            val = functions.inverse_quadratic(yhat, a, b, c, factor = 1.0)
+            err = IS_conc*val*error_prop.mult_div_error_prop(
+                                                            [val, IS_conc],
+                                                            [err, IS_conc_err]
+                                                            )
 
             self.conc_error = np.nan_to_num(err)
 
@@ -133,12 +131,12 @@ class PeakCollectionElement:
         factor: float
         factor_error: float
         '''
-        from ChromProcess import simple_functions as s_f
-        err=s_f.mult_div_error_prop([self.concentration, factor],
+
+        err = error_prop.mult_div_error_prop([self.concentration, factor],
                                     [self.conc_error, factor_error])
 
         corr_conc = self.concentration*factor
-        err*=corr_conc
+        err *= corr_conc
         self.concentration = corr_conc
         self.conc_error = err
 
