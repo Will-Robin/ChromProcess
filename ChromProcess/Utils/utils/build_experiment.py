@@ -16,9 +16,9 @@ default_folder_name = exp_code
 
 # defaults for the conditions file
 default_series_values = ['1','2','3','4','5','6','7','8','9']
-default_series_unit = 'sample_number/ n'
-example_condition_name = 'condition 1'
-example_condition_value = 'condition_1_value'
+default_series_unit = 'Sample_number/ n'
+example_condition_name = 'Condition 1'
+example_condition_value = 'Condition_1_value'
 
 # defaults for the analysis file
 default_analysis_method = 'GC'
@@ -35,8 +35,8 @@ default_internal_standard_concentration_error = '9.89E-06'
 conditions = {
             'Dataset': [exp_code],
             'start_experiment_information': [],
-            'series_values': default_series_values,
-            'series_unit': [default_series_unit],
+            'Series_values': default_series_values,
+            'Series_unit': [default_series_unit],
             'end_experiment_information': [],
             'start_conditions': [],
             'example_condition_name': [example_condition_value],
@@ -46,14 +46,14 @@ conditions = {
 analysis_details = {
                 'Dataset': [exp_code],
                 'Method': [default_analysis_method],
-                'regions': default_regions,
-                'internal_standard_region': default_internal_standard_region,
-                'extract_mass_spectra': [mass_spec_default],
-                'peak_pick_threshold': [default_peak_pick_threshold],
-                'dilution_factor': [default_dilution_factor],
-                'dilution_factor_error': [default_dilution_factor_error],
-                'internal_standard_concentration': [default_internal_standard_concentration],
-                'internal_standard_concentration_error': [default_internal_standard_concentration_error]
+                'Regions': default_regions,
+                'Internal_standard_region': default_internal_standard_region,
+                'Extract_mass_spectra': [mass_spec_default],
+                'Peak_pick_threshold': [default_peak_pick_threshold],
+                'Dilution_factor': [default_dilution_factor],
+                'Dilution_factor_error': [default_dilution_factor_error],
+                'Internal_standard_concentration': [default_internal_standard_concentration],
+                'Internal_standard_concentration_error': [default_internal_standard_concentration_error]
 }
 
 local_assignments = {}
