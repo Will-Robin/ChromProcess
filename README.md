@@ -74,7 +74,7 @@ conda:
 pip:
   - Install from the repository root using pip: `pip install .`,
   - Or in editable mode (so edits are immediately reflected): `pip install -e .`
-
+  
 ## Acknowledgement
 
 ChromProcess was created by William E. Robinson during free time and working in the group of Prof. Wilhelm T. S. Huck (Radboud University Nijmegen) supported by NWO, The Simons Foundation and the ERC.
