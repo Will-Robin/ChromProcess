@@ -1,5 +1,5 @@
 
-def peak_table_entry_text(peak, chromatogram):
+def peak_to_entry_text(peak, chromatogram):
     '''
     For writing the peak's row in a peak table.
     

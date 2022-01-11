@@ -40,7 +40,7 @@ def write_peak_collection_text(chromatogram, header_text = ''):
 
     return peak_collection_string
 
-def write_peak_collection(
+def chromatogram_to_peak_collection(
                         chromatogram, 
                         filename = 'peak_collection.csv',
                         header_text = ""
