@@ -1,6 +1,3 @@
-from .peak_finding.pick_peaks import find_peaks 
-
-from .custom import *
-from .signal_processing import *
+from ChromProcess.Utils.peak_finding import find_peaks 
 
 from .utils.utils import *
