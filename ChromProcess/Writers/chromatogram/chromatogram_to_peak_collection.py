@@ -1,4 +1,4 @@
-from ChromProcess.Writers.peak.peak_to_entry_text import peak_table_entry_text
+from ChromProcess.Writers.peak.peak_to_entry_text import peak_to_entry_text
 
 def write_peak_collection_text(chromatogram, header_text = ''):
     '''
