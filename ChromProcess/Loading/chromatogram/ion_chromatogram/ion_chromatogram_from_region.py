@@ -34,9 +34,8 @@ def ion_chromatogram_from_region(
         {m/z: intensities over time}
     '''
 
-    if len(chromatogram.mz_values) == 0:
-        return None
-    else:
+    mz_regions = {}
+    if len(chromatogram.mz_values) > 0:
         inds = utils.indices_from_boundary(chromatogram.time, lower, upper)
 
         time = chromatogram.time[inds]
@@ -44,7 +43,6 @@ def ion_chromatogram_from_region(
         scan_inds = chromatogram.scan_indices[inds]
         p_counts = chromatogram.point_counts[inds]
 
-        mz_regions = {}
 
         # iterate over mass spectra recorded at each time point
         for s in range(0,len(time)):
