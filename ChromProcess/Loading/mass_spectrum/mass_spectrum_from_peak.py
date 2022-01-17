@@ -22,7 +22,7 @@ def mass_spectrum_from_peak(peak, chromatogram):
     '''
     import numpy as np
 
-    if chromatogram.mass_spectra:
+    if len(chromatogram.mz_values) > 0:
         idx = np.where(chromatogram.time == peak.retention_time)[0]
 
         start = chromatogram.scan_indices[idx][0]
