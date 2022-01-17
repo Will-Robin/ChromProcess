@@ -1,7 +1,7 @@
 import sys
 
 class MassSpectrum:
-    def __init__(self, fname, mz, inten, pos = None):
+    def __init__(self, mz, inten, pos = None):
         '''
         Parameters
         ----------
@@ -11,17 +11,6 @@ class MassSpectrum:
         pos: None or float
         '''
 
-        from pathlib import Path
-
-        filename = fname
-        if isinstance(fname, str):
-            filename = Path(fname)
-        elif isinstance(fname, Path):
-            pass
-        else:
-            sys.exit('''''')
-
-        self.filename = filename
         self.mz = mz
         self.relative_abundances = inten
         self.retention_time = pos
@@ -36,6 +25,6 @@ class MassSpectrum:
         '''
         import ChromProcess.Writers as write
 
-        ms_string = write.mass_spectrum_to_string(self)
+        ms_string = write.mass_spectrum_to_string_rows(self)
 
         return ms_string
