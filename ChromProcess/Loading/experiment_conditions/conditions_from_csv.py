@@ -16,11 +16,11 @@ def conditions_from_csv(filename):
             if "Dataset" in line:
                 ins = line.strip("\n")
                 conditions.experiment_code = ins.split(",")[1]
-            if "series_values" in line:
+            if "Series_values" in line:
                 ins = line.strip("\n")
                 spl = ins.split(",")
                 conditions.series_values =  [float(x) for x in spl[1:] if x != ""]
-            if "series_unit" in line:
+            if "Series_unit" in line:
                 ins = line.strip("\n")
                 conditions.series_unit = ins.split(",")[1]
 

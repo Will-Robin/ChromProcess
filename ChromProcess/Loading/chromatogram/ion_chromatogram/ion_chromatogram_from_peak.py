@@ -36,11 +36,15 @@ def ion_chromatogram_from_peak(
     # find the relevant chromatogram attribute sections
     time = parent_chromatogram.time[inds]
 
-    ion_chromatograms = ion_chromatogram_from_region(
-                                                    parent_chromatogram,
-                                                    time.min(), 
-                                                    time.max(), 
-                                                    spectrum_filter = spectrum_filter, 
-                                                    threshold = threshold)
+    if len(time) != 0:
+        ion_chromatograms = ion_chromatogram_from_region(
+                                            parent_chromatogram,
+                                            time.min(), 
+                                            time.max(), 
+                                            spectrum_filter = spectrum_filter, 
+                                            threshold = threshold
+                                            )
+    else:
+        ion_chromatograms = {}
 
     return ion_chromatograms

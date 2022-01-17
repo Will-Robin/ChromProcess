@@ -26,7 +26,7 @@ def write_peak_collection_text(chromatogram, header_text = ''):
     peak_collection_string += 'IS_peak end/ min\n'
 
     i_s = chromatogram.internal_standard
-    IS_entry = peak_table_entry_text(i_s, chromatogram)
+    IS_entry = peak_to_entry_text(i_s, chromatogram)
 
     peak_collection_string += IS_entry
 
@@ -36,7 +36,7 @@ def write_peak_collection_text(chromatogram, header_text = ''):
 
     for p in chromatogram.peaks:
         peak = chromatogram.peaks[p]
-        peak_collection_string += peak_table_entry_text(peak, chromatogram)
+        peak_collection_string += peak_to_entry_text(peak, chromatogram)
 
     return peak_collection_string
 

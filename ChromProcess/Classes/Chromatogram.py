@@ -126,7 +126,8 @@ class Chromatogram:
                         ):
 
         import ChromProcess.Writers as write_chrom
-        write_chrom.write_peak_collection(
+
+        write_chrom.chromatogram_to_peak_collection(
                                         self, 
                                         filename = filename,
                                         header_text = header_text 
