@@ -29,13 +29,13 @@ def is_int(x):
     except ValueError:
             return False
 
-def indices_from_boundary(time, start, end):
+def indices_from_boundary(data, start, end):
     '''
-    Get the indices of elements of the time array between start and end.
+    Get the indices of elements of the data array between start and end.
 
     Parameters
     ----------
-    time: ndarray
+    data: ndarray
         Array from which indice will be found
     start: float
         Lower boundary.
@@ -45,11 +45,11 @@ def indices_from_boundary(time, start, end):
     Returns
     -------
     indices: ndarray
-        Indices where start < time < end.
+        Indices where start < data < end.
     '''
     pre_indices = np.where(
-                            (time >= start) &
-                            (time <= end)
+                            (data >= start) &
+                            (data <= end)
                             )
 
     indices = pre_indices[0]
