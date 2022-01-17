@@ -1,4 +1,5 @@
 import numpy as np
+from ChromProcess import Classes
 
 def mass_spectrum_from_peak(peak, chromatogram):
     '''
@@ -17,8 +18,7 @@ def mass_spectrum_from_peak(peak, chromatogram):
 
     Returns
     -------
-    mass_spectrum: list
-        list; [m/z, intensity] as numpy arrays
+    mass_spectrum: Classes.MassSpectrum
     '''
     import numpy as np
 
@@ -31,12 +31,13 @@ def mass_spectrum_from_peak(peak, chromatogram):
         mz_values = np.round(chromatogram.mz_values[start:end],2)
         intensities = chromatogram.mz_intensity[start:end]
         v_idx = np.where(intensities > 0.0)[0]
-        mass_spectrum = [mz_values[v_idx],intensities[v_idx]]
 
-        peak.mass_spectrum = mass_spectrum
-
-        return mass_spectrum
+        return Classes.MassSpectrum(
+                                    mz_values[v_idx],
+                                    intensities[v_idx], 
+                                    pos = peak.retention_time
+                                    )
 
     else:
-        return [np.array([]),np.array([])]
+        return Classes.MassSpectrum([],[])
 
