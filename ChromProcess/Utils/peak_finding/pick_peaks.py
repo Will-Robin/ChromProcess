@@ -87,8 +87,8 @@ def find_peaks_scipy(signal, threshold=0.1, min_dist=1, max_inten = 1e100, promi
                                     height = [max(smooth_signal)*threshold,max_inten], 
                                     prominence = prominence, 
                                     wlen = wlen)
-    peak_starts, peak_ends = find_peak_boundaries(smooth_signal, peaks_indices, peak_window=peak_window)
 
+    peak_starts, peak_ends = find_peak_boundaries(smooth_signal, peaks_indices, peak_window=peak_window)
     return {'Peak_indices':peaks_indices, 'Peak_start_indices':peak_starts, 'Peak_end_indices':peak_ends}
 
 def find_peaks(signal, thres=0.1, min_dist=1, min_inten = -1e100):
