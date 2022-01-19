@@ -129,3 +129,34 @@ def peak_dict_to_spreadsheet(peak_dict, series_values, series_unit):
     peak_grid_transposed = [list(i) for i in zip(*peak_grid)]
 
     return peak_header, peak_grid_transposed
+
+def peak_indices_to_times(time,picked_peaks):
+    '''
+    Converts peak indices to times.
+    time: ndarray
+        array of time, should match the indices.
+    picked_peaks: dict
+        dictionary containing list of indices of peak start, center, and end.
+    
+    Returns
+    -----------
+    peak_features: list
+        list of list containing times of peak start, center, and end.
+    
+    '''
+    peak_features = []
+    for x in range(0,len(picked_peaks['Peak_indices'])):
+
+        rt_ind = picked_peaks['Peak_indices'][x]
+        start_ind = picked_peaks['Peak_start_indices'][x]
+        end_ind = picked_peaks['Peak_end_indices'][x]
+
+        retention_time = time[rt_ind]
+        start = time[start_ind]
+        end = time[end_ind]
+
+        peak_params = [start, retention_time, end]
+
+        peak_features.append(peak_params)
+
+    return peak_features
