@@ -97,7 +97,7 @@ def find_peaks(signal, thres=0.1, min_dist=1, min_inten = -1e100):
     Peak detection routine.
 
     Modified from PeakUtils:
-    https://github.com/atjacobs/PeakUtils/tree/master/peakutils
+    https://github.com/atjacobs/PeakUtils/tree/master/peakedutils
     Finds the peaks in *y* by taking its first order difference. By using
     *thres* and *min_dist* parameters, it is possible to reduce the number of
     detected peaks.

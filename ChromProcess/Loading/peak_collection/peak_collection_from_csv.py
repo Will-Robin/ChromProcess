@@ -1,7 +1,7 @@
 from pathlib import Path
 from ChromProcess import Classes
 
-def peak_collection_from_csv(filename):
+def peak_collection_from_csv(filename,round_digits=3):
     '''
     Read in information to the object from a file.
 
@@ -46,19 +46,19 @@ def peak_collection_from_csv(filename):
                 else:
                     read = read_line(line)
 
-                    IS = Classes.PeakCollectionElement(round(read[0],3),
+                    IS = Classes.PeakCollectionElement(round(read[0],round_digits),
                                    read[1],
-                                   round(read[2],3),
-                                   round(read[3],3),
+                                   round(read[2],round_digits),
+                                   round(read[3],round_digits),
                                    parent = peak_collection.filename.split('.')[0])
             elif c < 4:
                 pass
             else:
                 rd = read_line(line)
                 peaks.append(
-                Classes.PeakCollectionElement(round(rd[0],3), rd[1],
-                                              round(rd[2],3),
-                                              round(rd[3],3),
+                Classes.PeakCollectionElement(round(rd[0],round_digits), rd[1],
+                                              round(rd[2],round_digits),
+                                              round(rd[3],round_digits),
                                               parent = peak_collection.filename.split('.')[0]))
 
     peak_collection.series_value = value

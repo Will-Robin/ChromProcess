@@ -3,7 +3,7 @@ import numpy as np
 from ChromProcess.Loading.peak_collection.peak_collection_from_csv import peak_collection_from_csv
 
 
-def peak_rt_from_csv(chromatogram, Peakfile):
+def peak_rt_from_file(chromatogram, Peakfile):
     '''
     Get peak retention time indices from a PeakCollections file.
     chromatogram: Chromatogram object
@@ -50,7 +50,7 @@ def peak_from_csv(chromatogram, Peakfile, peak_window = 12):
     from ChromProcess.Utils.peak_finding.pick_peaks import find_peak_boundaries
     from ChromProcess.Utils.utils.utils import peak_indices_to_times
     
-    peaks_indices =  peak_rt_from_csv(chromatogram, Peakfile)
+    peaks_indices =  peak_rt_from_file(chromatogram, Peakfile)
     peak_starts, peak_ends = find_peak_boundaries(chromatogram.signal, peaks_indices, peak_window=1)
     picked_peaks = {'Peak_indices':peaks_indices, 'Peak_start_indices':peak_starts, 'Peak_end_indices':peak_ends}
     peak_features = peak_indices_to_times(chromatogram.time, picked_peaks)
