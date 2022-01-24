@@ -27,20 +27,22 @@ def find_peak_boundaries(signal, peaks_indices, peak_window=1):
     peak_starts = []
     for n in range(0,len(peaks_indices)):
         cursor = peaks_indices[n]-2
-        while not cursor-1 < peak_window and signal[cursor] > np.min(signal[cursor-peak_window:cursor]):
-            cursor -= 1
-        while signal[cursor] > signal[cursor-1] and not cursor-1 != 0: #if the search is stopped because the peak window is nearing the border continue stepwise search
-            cursor -= 1
+        print(f"{cursor}")
+        next_cursor = cursor - 1 - np.max( signal[cursor-peak_window:cursor].argmin())
+        while not cursor-1 < peak_window and signal[cursor] > signal[next_cursor]:
+            cursor = next_cursor
+            next_cursor = cursor - 1 - np.max(signal[cursor-peak_window:cursor].argmin())
+        print(f"final {cursor}")
         peak_starts.append(cursor)
 
     peak_ends = []
 
     for n in range(0,len(peaks_indices)):
         cursor = peaks_indices[n]+2
-        while not cursor+1+peak_window > len(signal) and signal[cursor] > np.min(signal[cursor:cursor+peak_window]):
-            cursor += 1  
-        while signal[cursor] > 0 and not cursor + 1 < len(signal):
-            cursor += 1
+        next_cursor = cursor + 1 + np.max(signal[cursor:cursor+peak_window].argmin())
+        while not cursor+1+peak_window > len(signal) and signal[cursor] > signal[next_cursor]:
+            cursor = next_cursor  
+            next_cursor = cursor + 1 + np.max(signal[cursor:cursor+peak_window].argmin())
         peak_ends.append(cursor)
 
     return peak_starts, peak_ends
@@ -150,26 +152,6 @@ def find_peaks(signal, thres=0.1, min_dist=1, min_inten = -1e100):
 
         peaks_indices = np.arange(signal.size)[~rem]
 
-    # find beginning of peaks
-    peak_starts = []
-    for n in range(0,len(peaks_indices)):
-        cursor = peaks_indices[n]-2
-        while diff[cursor] > 0:
-            cursor -= 1
-        peak_starts.append(cursor)
-
-    # find end of peaks
-    peak_ends = []
-    for n in range(0,len(peaks_indices)):
-        cursor = peaks_indices[n]+2
-        if int(cursor) >= len(diff):
-            cursor = len(diff)-1
-
-        while diff[cursor] < 0:
-            cursor += 1
-            if int(cursor) >= len(diff):
-                cursor = len(diff)-1
-                break
-        peak_ends.append(cursor)
-
+    peak_starts, peak_ends = find_peak_boundaries(signal, peaks_indices)
+    print(f"{peak_starts} {peak_ends}")
     return {'Peak_indices':peaks_indices, 'Peak_start_indices':peak_starts, 'Peak_end_indices':peak_ends}
