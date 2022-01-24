@@ -27,22 +27,20 @@ def find_peak_boundaries(signal, peaks_indices, peak_window=1):
     peak_starts = []
     for n in range(0,len(peaks_indices)):
         cursor = peaks_indices[n]-2
-        print(f"{cursor}")
         next_cursor = cursor - 1 - np.max( signal[cursor-peak_window:cursor].argmin())
         while not cursor-1 < peak_window and signal[cursor] > signal[next_cursor]:
             cursor = next_cursor
             next_cursor = cursor - 1 - np.max(signal[cursor-peak_window:cursor].argmin())
-        print(f"final {cursor}")
         peak_starts.append(cursor)
 
     peak_ends = []
 
     for n in range(0,len(peaks_indices)):
         cursor = peaks_indices[n]+2
-        next_cursor = cursor + 1 + np.max(signal[cursor:cursor+peak_window].argmin())
+        next_cursor = cursor + 1 + np.min(signal[cursor:cursor+peak_window].argmin())
         while not cursor+1+peak_window > len(signal) and signal[cursor] > signal[next_cursor]:
             cursor = next_cursor  
-            next_cursor = cursor + 1 + np.max(signal[cursor:cursor+peak_window].argmin())
+            next_cursor = cursor + 1 + np.min(signal[cursor:cursor+peak_window].argmin())
         peak_ends.append(cursor)
 
     return peak_starts, peak_ends
