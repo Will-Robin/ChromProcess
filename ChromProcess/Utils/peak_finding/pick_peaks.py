@@ -64,7 +64,7 @@ def find_peaks(signal, thres=0.1, min_dist=1, min_inten = -1e100):
     peak_starts = []
     for n in range(0,len(peaks_indices)):
         cursor = peaks_indices[n]-2
-        while diff[cursor] >= 0:
+        while diff[cursor] > 0:
             cursor -= 1
 
         peak_starts.append(cursor)
@@ -76,7 +76,7 @@ def find_peaks(signal, thres=0.1, min_dist=1, min_inten = -1e100):
         if int(cursor) >= len(diff):
             cursor = len(diff)-1
 
-        while diff[cursor] <= 0:
+        while diff[cursor] < 0:
             cursor += 1
             if int(cursor) >= len(diff):
                 cursor = len(diff)-1
