@@ -117,7 +117,7 @@ def find_peak_boundaries(diff, peaks_indices):
     peak_starts = []
     for n in range(0,len(peaks_indices)):
         cursor = peaks_indices[n]-2
-        while diff[cursor] >= 0:
+        while diff[cursor] > 0:
             cursor -= 1
 
         peak_starts.append(cursor)
@@ -129,13 +129,13 @@ def find_peak_boundaries(diff, peaks_indices):
         if int(cursor) >= len(diff):
             cursor = len(diff)-1
 
-        while diff[cursor] <= 0:
+        while diff[cursor] < 0:
             cursor += 1
             if int(cursor) >= len(diff):
                 cursor = len(diff)-1
                 break
 
-            peak_ends.append(cursor)
+        peak_ends.append(cursor)
 
     return peak_starts, peak_ends
 
