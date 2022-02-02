@@ -205,4 +205,5 @@ def find_peaks(signal, thres=0.1, min_dist=1, min_inten = -1e100):
         peaks_indices = np.arange(signal.size)[~rem]
 
     peak_starts, peak_ends = find_peak_boundaries(diff, peaks_indices)
+
     return {'Peak_indices':peaks_indices, 'Peak_start_indices':peak_starts, 'Peak_end_indices':peak_ends}
