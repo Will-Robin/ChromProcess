@@ -26,29 +26,13 @@ def find_peaks_in_region(chromatogram, start, end, threshold = 0.1):
         return None
 
     inds = utils.indices_from_boundary(chromatogram.time, start, end)
-
     time = chromatogram.time[inds]
     signal = chromatogram.signal[inds]
-
     picked_peaks = pfind.find_peaks(
                                     signal,
                                     thres = threshold
                                     )
-
-    peak_features = []
-    for x in range(0,len(picked_peaks['Peak_indices'])):
-
-        rt_ind = picked_peaks['Peak_indices'][x]
-        start_ind = picked_peaks['Peak_start_indices'][x]
-        end_ind = picked_peaks['Peak_end_indices'][x]
-
-        retention_time = time[rt_ind]
-        start = time[start_ind]
-        end = time[end_ind]
-
-        peak_params = [start, retention_time, end]
-
-        peak_features.append(peak_params)
+    peak_features = utils.peak_indices_to_times(time,picked_peaks)
 
     return peak_features
 
