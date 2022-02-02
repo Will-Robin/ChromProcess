@@ -210,7 +210,7 @@ class PeakCollectionSeries:
                 for pk in pc.peaks:
                     if pk.retention_time in clust:
                         if pk.integral:
-                            token = name + f' ({average_position})'
+                            token = name + f' [{average_position}]'
                             if token not in integral_dict:
                                 integral_dict[token] = [0.0 for _ in self.series_values]
                             integral_dict[token][c1] += pk.integral
