@@ -1,4 +1,5 @@
 import numpy as np
+
 from ChromProcess.Utils.utils.utils import peak_indices_to_times
 from ChromProcess.Utils.peak_finding.pick_peaks import find_peak_boundaries_look_ahead
 from ChromProcess.Loading.peak_collection.peak_collection_from_csv import peak_collection_from_csv
@@ -25,26 +26,19 @@ def peak_rt_from_file(peak_file, chromatogram):
 
     # Find the indices of the retention times in the 
     # chromatogram time axis.
-    peaks_indices = np.empty(0,dtype='int64') 
+    peaks_indices = np.empty(0, dtype='int64') 
     for p_rt in peak_retention_times:
-        # This covers any exact matches
-        idx = np.where(chromatogram.time == p_rt)[0]
-
-        if len(idx) == 0: 
-            # If the exact value of p_rt is not in the time axis, 
-            # find the closest time value.
-            delta_rt = np.abs(chromatogram.signal - p_rt)
-            # Create in list; similar behaviour to return of np.where()[0]
-            idx = [delta_rt.argmin()]
-
-        peaks_indices = np.append(peaks_indices, idx[0])
+        # Find the closest retention time value in to p_rt
+        delta_rt = np.abs(chromatogram.time - p_rt)
+        idx = delta_rt.argmin()
+        peaks_indices = np.append(peaks_indices, idx)
 
     return peaks_indices
 
 def peak_from_csv(peak_file, chromatogram, look_ahead = 12):
     '''
-    Get the peak retention times from a PeakCollections file rather 
-    than directly from a chromatogram.
+    Load sets of peak indices from a set of retention times stored in a
+    PeakCollections file rather than directly from a chromatogram.
 
     Parameters
     ----------
@@ -72,6 +66,7 @@ def peak_from_csv(peak_file, chromatogram, look_ahead = 12):
                                                             peaks_indices,
                                                             look_ahead = 1
                                                             )
+
     picked_peaks = {
                     'Peak_indices': peaks_indices,
                     'Peak_start_indices': peak_starts,
