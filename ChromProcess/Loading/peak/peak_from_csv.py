@@ -4,7 +4,7 @@ from ChromProcess.Utils.utils.utils import peak_indices_to_times
 from ChromProcess.Utils.peak_finding.pick_peaks import find_peak_boundaries_look_ahead
 from ChromProcess.Loading.peak_collection.peak_collection_from_csv import peak_collection_from_csv
 
-def peak_rt_from_file(peak_file, chromatogram):
+def peak_indices_from_file(peak_file, chromatogram):
     '''
     Get peak retention time indices from a PeakCollections file.
 
@@ -56,10 +56,10 @@ def peak_from_csv(peak_file, chromatogram, look_ahead = 12):
         list of list containing times of peak start, center, and end.
     '''
 
-    peaks_indices = peak_rt_from_file(
-                                    peak_file,
-                                    chromatogram
-                                    )
+    peaks_indices = peak_indices_from_file(
+                                            peak_file,
+                                            chromatogram
+                                            )
 
     peak_starts, peak_ends = find_peak_boundaries_look_ahead(
                                                         chromatogram.signal,
