@@ -21,17 +21,21 @@ def find_peaks_in_region(chromatogram, start, end, threshold = 0.1):
     -------
     None
     '''
+
     if start > end:
         print(f'peak start ({start}) > peak end, ({end}) returning None')
         return None
 
     inds = utils.indices_from_boundary(chromatogram.time, start, end)
+
     time = chromatogram.time[inds]
     signal = chromatogram.signal[inds]
+
     picked_peaks = pfind.find_peaks(
                                     signal,
                                     thres = threshold
                                     )
+
     peak_features = utils.peak_indices_to_times(time,picked_peaks)
 
     return peak_features
