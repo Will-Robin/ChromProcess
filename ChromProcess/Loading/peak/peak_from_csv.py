@@ -62,10 +62,10 @@ def peak_from_csv(peak_file, chromatogram, look_ahead = 12):
                                     )
 
     peak_starts, peak_ends = find_peak_boundaries_look_ahead(
-                                                            chromatogram.signal,
-                                                            peaks_indices,
-                                                            look_ahead = 1
-                                                            )
+                                                        chromatogram.signal,
+                                                        peaks_indices,
+                                                        look_ahead = look_ahead
+                                                        )
 
     picked_peaks = {
                     'Peak_indices': peaks_indices,
