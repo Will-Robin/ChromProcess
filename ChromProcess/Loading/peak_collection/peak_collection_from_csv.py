@@ -1,11 +1,18 @@
 from pathlib import Path
 from ChromProcess import Classes
 
-def peak_collection_from_csv(filename,round_digits=3):
+def peak_collection_from_csv(filename, round_digits=3):
     '''
-    Read in information to the object from a file.
+    Create a PeakCollection object from a formatted file.
 
+    Parameters
+    ----------
     filename: str or pathlib Path
+    round_digits: int
+
+    Returns
+    -------
+    peak_collection: Classes.PeakCollection
     '''
 
     peak_collection = Classes.PeakCollection()
@@ -30,36 +37,50 @@ def peak_collection_from_csv(filename,round_digits=3):
     value = 0.0
     variable = ''
     with open(fname, "r") as f:
+
+        parent_filename = peak_collection.filename.split('.')[0]
+
         for c,line in enumerate(f):
             if 'None' in line:
                 pass
+
             elif c == 0:
                 read = [x for x in line.strip('\n').split(',') if x != '']
                 variable = read[0]
                 value = float(read[1])
+
             elif 'IS_' in line:
                 IS_line_num = c + 1
 
             elif c == IS_line_num:
                 if 'None' in line:
                     pass
+
                 else:
                     read = read_line(line)
 
-                    IS = Classes.PeakCollectionElement(round(read[0],round_digits),
-                                   read[1],
-                                   round(read[2],round_digits),
-                                   round(read[3],round_digits),
-                                   parent = peak_collection.filename.split('.')[0])
+                    IS = Classes.PeakCollectionElement(
+                                                round(read[0], round_digits),
+                                                read[1],
+                                                round(read[2], round_digits),
+                                                round(read[3], round_digits),
+                                                parent = parent_filename 
+                                               )
+
             elif c < 4:
                 pass
+
             else:
                 rd = read_line(line)
                 peaks.append(
-                Classes.PeakCollectionElement(round(rd[0],round_digits), rd[1],
-                                              round(rd[2],round_digits),
-                                              round(rd[3],round_digits),
-                                              parent = peak_collection.filename.split('.')[0]))
+                Classes.PeakCollectionElement(
+                                                round(rd[0], round_digits), 
+                                                rd[1],
+                                                round(rd[2], round_digits),
+                                                round(rd[3], round_digits),
+                                                parent = parent_filename
+                                              )
+                )
 
     peak_collection.series_value = value
     peak_collection.series_unit = variable
