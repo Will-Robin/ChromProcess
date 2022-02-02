@@ -7,3 +7,6 @@ API
 
    Classes
    Loading
+   Processing
+   Writers
+   Utils
