@@ -96,7 +96,7 @@ def find_peak_boundaries(diff, peaks_indices):
                 cursor = len(diff)-1
                 break
 
-            peak_ends.append(cursor)
+        peak_ends.append(cursor)
     return peak_starts, peak_ends
 
 def find_peaks_scipy(signal, threshold=0.1, min_dist=1, max_inten = 1e100, prominence = 0.7, wlen = 1001, look_ahead = 12):

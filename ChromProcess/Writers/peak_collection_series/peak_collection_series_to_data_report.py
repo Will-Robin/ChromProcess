@@ -94,7 +94,7 @@ def peak_collection_series_to_data_report(peak_collection_series, filename, info
 
         outfile.write("start_data\n")
 
-        [outfile.write("{},".format(x)) for x in peak_integral_header]
+        [outfile.write(f"{x},") for x in peak_integral_header]
 
         outfile.write("\n")
         for x in range(0,len(integ_grid)):
