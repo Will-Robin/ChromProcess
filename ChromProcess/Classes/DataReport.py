@@ -23,7 +23,7 @@ class DataReport:
         else:
             self.read_from_file(file)
 
-    def write_to_file(self, filename = '', path = None):
+    def write_to_file(self, filename = ''):
         '''
         Parameters
         ----------
@@ -34,7 +34,7 @@ class DataReport:
         '''
         import ChromProcess.Writers as write
 
-        write.data_report_to_csv(self, filename = filename, path = path)
+        write.data_report_to_csv(self, filename = filename)
 
     def find_repeat_data_entries(self):
         entries = []

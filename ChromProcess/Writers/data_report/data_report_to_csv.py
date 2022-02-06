@@ -72,7 +72,7 @@ def write_data_report_text(data_report):
 
     return data_report_text
 
-def data_report_to_csv(data_report, filename = '', path = None):
+def data_report_to_csv(data_report, filename = ''):
     '''
     Write a data report to a csv file.
 
@@ -90,16 +90,8 @@ def data_report_to_csv(data_report, filename = '', path = None):
     None
     '''
 
-    if isinstance(path, str):
-        path = Path(path)
-
     if filename == '':
         filename = data_report.filename
-
-    if path is None:
-        fname = filename
-    else:
-        fname = path/filename
 
     data_report_as_string = write_data_report_text(data_report)
 
