@@ -56,9 +56,17 @@ class Chromatogram:
         '''
         Get the mass spectrim at a given time point in the chromatogram.
 
+        Parameters
+        ----------
         time: float
-        mass: numpy array
-        intensity: numpy array
+            Time point for the mass spectrum in the chromatogram.
+
+        Returns
+        -------
+        m_z: 1d array
+            m/z value
+        intensity: 1d array
+            Ion counts.
         '''
 
         inds = np.where(self.time == time)[0]
@@ -76,10 +84,15 @@ class Chromatogram:
         Get all ion chromatograms from the Chromatogram using
         pre-defined clusters of m/z values to bin signals.
 
+        Parameters
+        ----------
         clusters: dict
             Clusters of m/z values. Mass values which are
             together in the list values will be combined in
             the output.
+
+        Returns
+        -------
         ion_chromatograms: dict
             Dict of ion chromatograms
         '''
@@ -115,21 +128,44 @@ class Chromatogram:
 
         return ion_dict
 
-    def write_to_csv(self, filename = 'chromatogram.csv'):
+    def write_to_csv(self, filename = ''):
+        '''
+        Write to csv.
+
+        Parameters
+        ----------
+        filename: str
+            Name for the output file
+
+        Returns
+        -------
+        None
+        '''
         import ChromProcess.Writers as write_chrom
         write_chrom.chromatogram_to_csv(self, filename = filename)
 
-    def write_peak_collection(
-                        self, 
-                        filename = 'peak_collection.csv',
-                        header_text = ""
-                        ):
+    def write_peak_collection(self, filename = '', header_text = ''):
+        '''
+        Write the peaks in a chromatogram file to a formatted peak collection
+        file.
+
+        Parameters
+        ----------
+        filename: str
+            Name for the output file.
+        header_text: str
+            Extra text to add at the top of the file
+
+        Returns
+        -------
+        None
+        '''
 
         import ChromProcess.Writers as write_chrom
 
         write_chrom.chromatogram_to_peak_collection(
-                                        self, 
+                                        self,
                                         filename = filename,
-                                        header_text = header_text 
+                                        header_text = header_text
                                         )
 
