@@ -29,10 +29,17 @@ class PeakCollectionElement:
 
     def reference_integral_to_IS(self, IS_integral):
         '''
+        Divide the peak integral by IS_integral.
+
         Parameters
         ----------
         IS_integral: float
+
+        Returns
+        -------
+        None
         '''
+
         if IS_integral > 0.0:
             self.integral = self.integral/IS_integral
         else:
@@ -40,11 +47,18 @@ class PeakCollectionElement:
 
     def assign_peak(self, boundaries):
         '''
+        Assign a name to the peak using boundaries.
+
         Parameters
         ----------
         boundaries: dict
             {'compound name': [lower bound, upper bound]}
+
+        Returns
+        -------
+        None
         '''
+
         self.assignment = assign_peak.assign_retention_time(
                                                             self.retention_time,
                                                             boundaries
@@ -52,9 +66,16 @@ class PeakCollectionElement:
 
     def apply_linear_calibration(self, A, B, internal_standard = 1.0):
         '''
+        Apply a linear calibration conversion to the peak integral to obtain a
+        concentration value.
+
         Parameters
         ----------
         A, B, internal_standard: float
+
+        Returns
+        -------
+        None
         '''
 
         c1 = functions.inverse_linear(self.integral, A, B, factor = 1.0)
@@ -62,33 +83,48 @@ class PeakCollectionElement:
 
     def apply_quadratic_calibration(self, A, B, C, internal_standard = 1.0):
         '''
+        Apply a quadratic calibration conversion to the peak integral to obtain
+        a concentration value.
+
         Parameters
         ----------
         A, B, C, internal_standard: float
+
+        Returns
+        -------
+        None
         '''
-        
+
         c1 = functions.inverse_quadratic(self.integral, A, B, C, factor = 1.0)
 
         self.concentration = internal_standard*c1
 
         if np.isnan(self.concentration):
-            self.apply_linear_calibration(B,C,
-                                          internal_standard = internal_standard)
+            self.apply_linear_calibration(
+                                        B,
+                                        C,
+                                        internal_standard = internal_standard
+                                      )
 
     def calculate_error(self, calibrations, IS_conc, IS_conc_err):
         '''
         Calculation of the standard error on a concentration estimation from
-        th calibration.
+        the calibration.
+
+        Modifies PeakCollectionElement object attributes.
 
         Parameters
         ----------
         calibrations: ChromProcess Instrument_Calibration object
             Contains calibration information.
+        IS_conc: float
+            Concentration of the internal standard.
+        IS_conc_err: float
+            Concentration error for the internal standard.
+
         Returns
         -------
         None
-
-        Modifies PeakCollectionElement object attributes.
         '''
 
         assign = self.assignment
@@ -126,10 +162,20 @@ class PeakCollectionElement:
 
     def dilution_correction(self,factor,factor_error):
         '''
+        Apply a correction to obtain the sample concentration considering its
+        dilution before analysis.
+
         Parameters
         ----------
         factor: float
+            Factor by which the concentration value must be multiplied to
+            obtain the sample concentration before dilution.
         factor_error: float
+            Error for the dilution factor.
+
+        Returns
+        -------
+        None
         '''
 
         err = error_prop.mult_div_error_prop([self.concentration, factor],

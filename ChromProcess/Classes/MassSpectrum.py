@@ -19,6 +19,9 @@ class MassSpectrum:
         '''
         Write a row-wise csv for the mass spectrum.
 
+        Parameters
+        ----------
+
         Returns
         -------
         ms_string: str

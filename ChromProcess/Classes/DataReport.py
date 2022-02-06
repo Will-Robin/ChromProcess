@@ -25,6 +25,8 @@ class DataReport:
 
     def write_to_file(self, filename = ''):
         '''
+        Write the data report to a csv file.
+
         Parameters
         ----------
         filename: str
@@ -37,6 +39,18 @@ class DataReport:
         write.data_report_to_csv(self, filename = filename)
 
     def find_repeat_data_entries(self):
+        '''
+        Find data entries that have similar assignments.
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+        repeat_entries: list
+            A list of the names of entries which are repeated.
+        '''
+
         entries = []
         repeat_entries = []
         for d in self.data:
@@ -45,9 +59,24 @@ class DataReport:
                 repeat_entries.append(token)
             entries.append(token)
 
-        return list(set(repeat_entries))
+        repeated_entries = list(set(repeat_entries))
+
+        return repeat_entries
 
     def remove_repeat_entries(self):
+        '''
+        If entries are repeated, remove the one with the lower total magnitude.
+        Modified the data report in place.
+
+        TODO: remove? This could be too specific.
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+        None
+        '''
 
         # deleting duplicate entries: taking the entry with the higher signal using the
         # signal sum as a discriminant.
@@ -69,21 +98,36 @@ class DataReport:
 
     def remove_specific_entries(self,remove_list):
         '''
+        Remove the entries in the data report's data using list of them.
+
         Parameters
         ----------
         remove_list: list
             List of entries to remove from self.data
+
+        Returns
+        -------
+        None
         '''
+
         for r in remove_list:
             del self.data[r]
 
     def remove_entries_below_threshold(self, threshold):
         '''
+        Remove entries of the data report whose maximal values do not exceed a
+        threshold.
+
         Parameters
         ----------
         threshold: float
             threshold below which entries will be removed.
+
+        Returns
+        -------
+        None
         '''
+
         # remove entries whose concentrations/integrals do not cross a defined boundary
         del_list = []
         for d in self.data:

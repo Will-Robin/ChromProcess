@@ -38,10 +38,16 @@ class InstrumentCalibration:
 
     def modify_boundaries(self, modified_bounds):
         '''
+        Modify the assignment boundaries in the calibration.
+
         Parameters
         ----------
         modified_bounds: dict
             Dictionary of modifications to make to self.boundaries
+
+        Returns
+        -------
+        None
         '''
 
         self.modified_bounds = modified_bounds

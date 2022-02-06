@@ -12,6 +12,17 @@ class Peak:
         ----------
         retention_time: float
         indices: list
+
+        Attributes
+        ----------
+        self.retention_time: float
+        self.indices: array or list
+        self.integral: float
+        self.height: float
+        self.ion_chromatograms: dict
+        self.ion_integrals: dict
+        self.mass_spectrum: list
+        self.deconvolution: list
         '''
 
         self.retention_time = retention_time
@@ -41,6 +52,10 @@ class Peak:
         ----------
         chromatogram: ChromProcess Chromatogram object
         baseline_subtract: bool
+
+        Returns:
+        self.integral: float
+            Integral of the peak.
         '''
 
         time = chromatogram.time[self.indices]
@@ -63,9 +78,16 @@ class Peak:
         Parameters
         ----------
         chromatogram: ChromProcess Chromatogram object
+
+        Returns
+        -------
+        self.height: float
+            Height of the peak.
         '''
 
         self.height = chromatogram.signal[self.indices]
+
+        return self.height
 
     def get_mass_spectrum(self, chromatogram):
         '''
@@ -74,6 +96,12 @@ class Peak:
         Parameters
         ----------
         chromatogram: ChromProcess Chromatogram object
+            Parent chromatogram of the peak.
+
+        Return
+        ------
+        self.mass_spectrum
+            Mass spectrum.
         '''
 
         if len(chromatogram.scan_indices) == 0:
@@ -91,5 +119,7 @@ class Peak:
                                 np.round(chromatogram.mass_values[start:end],2),
                                 chromatogram.mass_intensity[start:end]
                                 ]
+
+        return self.mass_spectrum
 
 

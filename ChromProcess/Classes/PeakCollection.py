@@ -3,6 +3,28 @@ from ChromProcess import Classes
 
 class PeakCollection:
     def __init__(self):
+        '''
+        Attributes
+        ----------
+
+        self.filename: str
+            Name of the file that the object was created from.
+        self.series_value: float
+            Value of the point in the series at which the peaks were measured.
+        self.series_unit: str
+            Unit for the series values.
+        self.internal_standard: Classes.PeakCollectionElement
+            The internal standard PeakCollectionElement.
+        self.peaks: list
+            List of peaks.
+        self.mass_spectra: list
+            List of mass spectra.
+        self.initial_IS_pos: float
+            The position of the internal standard when the object is created
+            from a file.
+        self.assigned_compounds: list
+            A list of names of assigned compounds in the PeakCollection.
+        '''
 
         self.filename = 'not specified'
         self.series_value = 0.0
@@ -16,10 +38,21 @@ class PeakCollection:
 
     def remove_peaks_below_threshold(self, threshold):
         '''
+        Remove peaks below a certain integral threshold (note that this
+        operates on the values held in the PeakCollectionElement
+        integral attributes. If they have been normalised to an
+        internal standard, the threshold value should probably be lower
+        than for the 'raw' integral data).
+
         Parameters
         ----------
         threshold: float
+
+        Returns
+        -------
+        None
         '''
+
         del_idx = []
         for c, pk in enumerate(self.peaks):
             if pk.integral < threshold:
@@ -29,9 +62,17 @@ class PeakCollection:
 
     def align_peaks_to_IS(self, IS_set = 0.0):
         '''
+        Align the peak integral retention times to the internal standard's
+        position, which will be set to IS_set.
+
         Parameters
         ----------
-            IS_set: float
+        IS_set: float
+            Position to set the internal standard's retention time.
+
+        Returns
+        -------
+        None
         '''
 
         is_rt = self.internal_standard.retention_time
@@ -58,9 +99,16 @@ class PeakCollection:
         '''
         Add mass spectrum information into PeakCollectionElement objects.
 
+        Parameters
+        ----------
         ms_list: list of ChromProcess MassSpectrum objects
             Mass spectra to be added.
+
+        Returns
+        -------
+        None
         '''
+
         ms_dict = {}
         for m in ms_list:
             ms_dict[m.retention_time] = m
@@ -74,26 +122,55 @@ class PeakCollection:
                 peak_dict[p].mass_spectrum = ms_dict[p]
 
     def get_peak_positions(self):
+        '''
+        Ge the positions of all of the peaks in the PeakCollection.
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+        array: 2D numpy array
+        '''
         return np.array([p.retention_time for p in self.peaks])
 
     def reference_integrals_to_IS(self):
+        '''
+        Divide all peak integrals by the integral of the internal standard
+        peak.
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+        None
+        '''
+
         IS_integral = self.internal_standard.integral
         for p in self.peaks:
             p.reference_integral_to_IS(IS_integral)
 
     def assign_peaks(self, boundaries):
         '''
+        Assign peaks using boundaries.
+
         Parameters
         ----------
         boundaries: dict
             {'compound_name': [lower bound, upper bound]}
+
+        Returns
+        -------
+        None
         '''
+
         for pk in self.peaks:
             pk.assign_peak(boundaries)
 
     def apply_calibrations_to_peaks(self, calibrations, IS_conc):
         '''
-        Applies calibrations
+        Apply calibrations to peals
 
         Parameters
         ----------
@@ -101,6 +178,10 @@ class PeakCollection:
             Container for calibration information
         IS_conc: float
             internal standard concentration
+
+        Returns
+        -------
+        None
         '''
 
         if IS_conc == 0.0:
@@ -137,7 +218,7 @@ class PeakCollection:
         -------
         None
 
-        Modifies PeakCollectionElement object attributes.
+        Moifies PeakCollectionElement object attributes.
         '''
 
         for pk in self.peaks:
@@ -145,10 +226,16 @@ class PeakCollection:
 
     def dilution_correct_peaks(self, dilution_factor, error):
         '''
+        Divide peaks by dilution_factor, accounting for error.
+
         Parameters
         ----------
         dilution_factor: float
         error: float
+
+        Returns
+        -------
+        None
         '''
 
         for pk in self.peaks:
@@ -156,6 +243,17 @@ class PeakCollection:
                 pk.dilution_correction(dilution_factor, error)
 
     def get_all_assigned_compounds(self):
+        '''
+        Get the names of all of the compounds assigned in the PeakCollection.
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+        self.assigned_compounds: list
+            List of names of assigned compounds.
+        '''
         assigns = []
         for pk in self.peaks:
             if pk.assignment == 'none':
@@ -164,7 +262,10 @@ class PeakCollection:
                 assigns.append(pk.assignment)
 
         assigns = list(set(assigns))
+
         self.assigned_compounds = sorted(assigns, key = lambda x:x.count('C'))
+
+        return self.assigned_compounds[:]
 
     def write_to_file(self, directory = ''):
         '''

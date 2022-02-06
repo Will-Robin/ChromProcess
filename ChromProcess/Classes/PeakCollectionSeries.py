@@ -14,6 +14,32 @@ class PeakCollectionSeries:
         peak_collections: List of ChromProcess PeakCollection objects
         name: str
         conditions: dict
+
+        Attributes
+        ----------
+        self.name: str
+            Name of the series.
+        self.peak_collections: list
+            List of peak collections.
+        self.series_values:
+            The values of the series (should be in the same order as the
+            peak_collections)
+        self.series_unit: str
+            Unit of the series values.
+        self.conditions: dict
+            Experimental conditions for the series.
+        self.clusters: list
+            List of peak clusters in the series.
+        self.cluster_assignments: list
+            List of names assigned to the self.clusters in a similar order.
+        self.integral_series: list
+            Peak information from the peak collections organised in a series.
+        self.concentration_series: list
+            Peak information from the peak collections organised in a series.
+        self.conc_err_series: list
+            Peak information from the peak collections organised in a series.
+        self.series_assigned_compounds: list
+            List of compounds assigned in the series.
         '''
 
         self.name = name
@@ -30,23 +56,49 @@ class PeakCollectionSeries:
 
     def remove_peaks_below_threshold(self,threshold):
         '''
+        Remove peaks whose integrals fall below a threshold.
+
         Parameters
         ----------
         threshold: float (from 0.0 to 1.0)
+
+        Returns
+        -------
+        None
         '''
+
         for pc in self.peak_collections:
             pc.remove_peaks_below_threshold(threshold)
 
     def align_peaks_to_IS(self, IS_set):
         '''
+        Align the retention times of the peaks to a set
+        internal standard retention time.
+
         Parameters
         ----------
         IS_set: float
+
+        Returns
+        -------
+        None
         '''
+
         for pc in self.peak_collections:
             pc.align_peaks_to_IS(IS_set = IS_set)
 
     def get_peak_positions(self):
+        '''
+        Get the position of all of the peaks in the series.
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+        peak_pos: 2d array
+            Array of sorted peak positions.
+        '''
 
         peak_pos = np.array([])
         for pc in self.peak_collections:
@@ -58,7 +110,17 @@ class PeakCollectionSeries:
 
     def get_peak_clusters(self, bound = 0.1):
         '''
+        Create clusters of peaks based on their retention times.
+
+        Parameters
+        ----------
         bound: float
+            Agglomeration boundary for the clustering algorithm.
+            (see cluster function).
+
+        Returns
+        -------
+        None
         '''
 
         peaks = self.get_peak_positions()
@@ -71,10 +133,16 @@ class PeakCollectionSeries:
 
     def assign_peaks(self, boundaries):
         '''
+        Assign peaks based on boundaries.
+
         Parameters
         ----------
         boundaries: dict
             {'compound_name', [lower bound, upper bound]}
+
+        Returns
+        -------
+        None
         '''
 
         for pc in self.peak_collections:
@@ -82,10 +150,16 @@ class PeakCollectionSeries:
 
     def assign_clusters(self,boundaries):
         '''
+        Assign the peak clusters.
+
         Parameters
         ----------
         boundaries: dict
             {'compound_name', [lower bound, upper bound]}
+
+        Returns
+        -------
+        None
         '''
 
         for c in self.clusters:
@@ -94,6 +168,17 @@ class PeakCollectionSeries:
             self.cluster_assignments.append(clust_name)
 
     def get_all_assigned_compounds(self):
+        '''
+        Create a list of all the compounds assigned in the series.
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+        self.series_assigned_compounds: list
+        '''
+
         assigns = []
         for pc in self.peak_collections:
             if len(pc.assigned_compounds) == 0:
@@ -105,12 +190,26 @@ class PeakCollectionSeries:
 
         self.series_assigned_compounds = sorted(assigns, key = count_C)
 
+        return self.series_assigned_compounds[:]
+
     def reference_integrals_to_IS(self):
+        '''
+        Divide all peak integrals by the integral of the internal standard.
+        Parameters
+        ----------
+
+        Returns
+        -------
+        None
+        '''
+
         for pc in self.peak_collections:
             pc.reference_integrals_to_IS()
 
     def apply_calibrations(self, conditions, calibrations):
         '''
+        Apply calibrations to peaks in the series.
+
         Parameters
         ----------
         conditions: ChromProcess Analysis_Information object
@@ -118,6 +217,10 @@ class PeakCollectionSeries:
 
         calibrations: ChromProcess Instrument_Calibration object
             Contains calibration information.
+
+        Returns
+        -------
+        None
         '''
 
         IS_conc = conditions.internal_standard_concentration
@@ -127,10 +230,21 @@ class PeakCollectionSeries:
 
     def calculate_conc_errors(self, calib, conditions):
         '''
+        Calculate the errors on concentration estimates.
+
         Parameters
         ----------
-        calib: ChromProcess Instrument_Calibration object
+        conditions: ChromProcess Analysis_Information object
+            container for analysis information
+
+        calibrations: ChromProcess Instrument_Calibration object
+            Contains calibration information.
+
+        Returns
+        -------
+        None
         '''
+
         IS_conc = conditions.internal_standard_concentration
         IS_conc_err = conditions.internal_standard_concentration_error
 
@@ -139,11 +253,22 @@ class PeakCollectionSeries:
 
     def apply_peak_dilution_factors(self, dilution_factor, error):
         '''
+        Apply correction for dilution.
+
         Parameters
         ----------
         dilution_factor: float
+            Factor by which concentrations must be multiplied to obtain their
+            concentrations pre-dilution.
+
         error: float
+            Error on the dilution factor. 
+
+        Returns
+        -------
+        None
         '''
+
         for pc in self.peak_collections:
             pc.dilution_correct_peaks(dilution_factor, error)
 
@@ -155,6 +280,13 @@ class PeakCollectionSeries:
 
         The ordering of the series in the arrays is given by the order of the
         self.clusters.
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+        None
         '''
 
         series_length = len(self.series_values)
@@ -191,7 +323,17 @@ class PeakCollectionSeries:
         '''
         Create dictionaries of peak series values derived using the
         self.clusters.
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+        conc_dict: dict
+        err_dict: dict
+        integral_dict: dict
         '''
+
         conc_dict = {}
         err_dict = {}
         integral_dict = {}
@@ -231,10 +373,16 @@ class PeakCollectionSeries:
 
     def write_data_reports(self, filename, information):
         '''
+        Write the peak collection series to a formatted data report csv file.
+
         Parameters
         ----------
         filename: name for file including path
         information: ChromProcess Analysis_Information object
+
+        Returns
+        -------
+        None
         '''
         import ChromProcess.Writers as write
 
