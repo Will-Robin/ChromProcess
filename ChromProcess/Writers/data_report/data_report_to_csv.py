@@ -24,7 +24,7 @@ def write_data_report_text(data_report):
                                             data_report.analysis
                                             )
 
-    conc_header, conc_grid = utils.peak_dict_to_spreadsheet(
+    data_header, data_grid = utils.peak_dict_to_spreadsheet(
                                         data_report.data,
                                         data_report.series_values,
                                         data_report.series_unit
@@ -42,14 +42,14 @@ def write_data_report_text(data_report):
 
     data_report_text += "start_data\n"
 
-    for x in conc_header:
+    for x in data_header:
         data_report_text += f"{x},"
 
     data_report_text += "\n"
 
-    for x in range(0,len(conc_grid)):
-        for y in range(0,len(conc_grid[x])):
-            val = conc_grid[x][y]
+    for x in range(0,len(data_grid)):
+        for y in range(0,len(data_grid[x])):
+            val = data_grid[x][y]
             data_report_text += f"{val},"
         data_report_text += "\n"
 
