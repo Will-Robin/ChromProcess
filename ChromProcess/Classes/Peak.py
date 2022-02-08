@@ -53,7 +53,8 @@ class Peak:
         chromatogram: ChromProcess Chromatogram object
         baseline_subtract: bool
 
-        Returns:
+        Returns
+        -------
         self.integral: float
             Integral of the peak.
         '''

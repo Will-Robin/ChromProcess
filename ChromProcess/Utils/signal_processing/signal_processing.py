@@ -9,6 +9,7 @@ def savitzky_golay(y, window_size, order, deriv=0, rate=1):
     It has the advantage of preserving the original shape and
     features of the signal better than other types of filtering
     approaches, such as moving averages techniques.
+
     Parameters
     ----------
     y : array_like, shape (N,)
@@ -20,10 +21,12 @@ def savitzky_golay(y, window_size, order, deriv=0, rate=1):
         Must be less then `window_size` - 1.
     deriv: int
         the order of the derivative to compute (default = 0 means only smoothing)
+
     Returns
     -------
     ys : ndarray, shape (N)
         the smoothed signal (or it's n-th derivative).
+
     Notes
     -----
     The Savitzky-Golay is a type of low-pass filter, particularly
@@ -31,6 +34,7 @@ def savitzky_golay(y, window_size, order, deriv=0, rate=1):
     approach is to make for each point a least-square fit with a
     polynomial of high order over a odd-sized window centered at
     the point.
+
     Examples
     --------
     t = np.linspace(-4, 4, 500)
@@ -42,6 +46,7 @@ def savitzky_golay(y, window_size, order, deriv=0, rate=1):
     plt.plot(t, ysg, 'r', label='Filtered signal')
     plt.legend()
     plt.show()
+
     References
     ----------
     .. [1] A. Savitzky, M. J. E. Golay, Smoothing and Differentiation of

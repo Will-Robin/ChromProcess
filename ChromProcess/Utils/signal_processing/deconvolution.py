@@ -16,6 +16,7 @@ def _1gaussian(x, amp1, cen1, sigma1):
         centre of the function (mean)
     sigma1: float
         width of the function (standard deviation)
+
     Returns
     -------
     function: numpy array
@@ -26,6 +27,7 @@ def _1gaussian(x, amp1, cen1, sigma1):
 def _2gaussian(x, amp1, cen1, sigma1, amp2, cen2, sigma2):
     '''
     A double gaussian function
+
     Parameters
     ----------
     x: array
@@ -36,6 +38,7 @@ def _2gaussian(x, amp1, cen1, sigma1, amp2, cen2, sigma2):
         centre of a component gaussian function (mean)
     sigman: float
         width of a component gaussian function (standard deviation)
+
     Returns
     -------
     function: numpy array
@@ -120,10 +123,19 @@ def deconvolute_region(chromatogram, region, num_peaks = 1):
     '''
     TODO: Combine the ideas in this function with fit_gaussian_peaks()
 
+    Parameters
+    ----------
     chromatogram: ChromProcess Chromatogram object
         Chromatogram
     region: list
         region of chromatogram under operation [lower bound, upper bound]
+
+    Returns
+    -------
+    popt: ndarray
+        list of fitted values [[amplitude, centre, width],]
+    pcov: array
+        correlation matrix
     '''
 
     upper = region[1]
@@ -156,10 +168,19 @@ def deconvolute_peak(peak, chromatogram, num_peaks = 2):
     TODO: this function is quite similar in scope to deconvolute_region().
     Refactor with the other two deconvolution macros.
 
+    Parameters
+    ----------
     chromatogram: ChromProcess Chromatogram object
         Chromatogram
     region: list
         region of chromatogram under operation [lower bound, upper bound]
+
+    Returns
+    -------
+    popt: ndarray
+        list of fitted values [[amplitude, centre, width],]
+    pcov: array
+        correlation matrix
     '''
 
     peaks = [peak.retention_time for _ in range(num_peaks)]

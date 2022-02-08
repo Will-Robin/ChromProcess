@@ -5,6 +5,8 @@ from ChromProcess.Writers.general import write_header
 
 def peak_collection_series_to_data_report(peak_collection_series, filename, information):
     '''
+    Write a peak collection series as a formatted data report file.
+
     Parameters
     ----------
     peak_collection_series: Classes.PeakCollectionSeries

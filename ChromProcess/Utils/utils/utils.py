@@ -4,6 +4,14 @@ from ChromProcess.Utils.utils import clustering as clust
 def is_float(thing):
     '''
     Test if an thing (e.g. str) can be converted to a float.
+
+    Parameters
+    ----------
+    thing: any type
+
+    Returns
+    -------
+    bool
     '''
     try:
         float(thing)
@@ -58,7 +66,9 @@ def indices_from_boundary(data, start, end):
 
 def bin_dictionary(value_dict, stdev = 0.001):
     '''
-    Parameters 
+    Combine dictionary values using a clustering algorithm.
+
+    Parameters
     ----------
     value_dict: dict
         Keys are floats.
@@ -140,7 +150,7 @@ def peak_indices_to_times(time, picked_peaks):
         array of time, should match the indices.
     picked_peaks: dict
         dictionary containing list of indices of peak start, center, and end.
-    
+
     Returns
     -----------
     peak_features: list

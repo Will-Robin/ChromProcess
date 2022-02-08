@@ -33,7 +33,12 @@ class DataReport:
             name for file
         path: pathlib Path object
             Path to folder for file storage.
+
+        Returns
+        -------
+        None
         '''
+
         import ChromProcess.Writers as write
 
         write.data_report_to_csv(self, filename = filename)

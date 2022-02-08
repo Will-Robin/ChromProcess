@@ -195,6 +195,7 @@ class PeakCollectionSeries:
     def reference_integrals_to_IS(self):
         '''
         Divide all peak integrals by the integral of the internal standard.
+
         Parameters
         ----------
 
@@ -387,3 +388,4 @@ class PeakCollectionSeries:
         import ChromProcess.Writers as write
 
         write.peak_collection_series_to_data_report(self, filename, information)
+

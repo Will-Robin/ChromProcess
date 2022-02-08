@@ -4,10 +4,9 @@ from ChromProcess import Classes
 def mass_spectrum_from_peak(peak, chromatogram):
     '''
     Get the mass spectrum at the apex of a peak. Inserts the mass spectrum into
-    the Peak object and returns the mass spectrum.
-    If mass spectra information is not present in the chromatogram, an ewmpty
-    list is returned and the Peak's mass_spectra value remains unchanged
-    (False by default).
+    the Peak object and returns the mass spectrum. If mass spectra information
+    is not present in the chromatogram, an ewmpty list is returned and the
+    Peak's mass_spectra value remains unchanged (False by default).
 
     Parameters
     ----------

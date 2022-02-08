@@ -10,11 +10,19 @@ class PeakCollectionElement:
     def __init__(self, position, integral, start, end, parent = 'not specified',
                     mass_spectrum = False):
         '''
+        An object for storage and manipulation of peak data.
+
         Parameters
         ----------
-        position, integral, start, end: float
-        parent: str
-        mass_spectrum: bool
+        self.retention_time: float
+        self.start: float
+        self.end: float
+        self.integral: float
+        self.assignment: str
+        self.concentration: bool or float
+        self.conc_error: bool or float
+        self.mass_spectrum: bool or MassSpectrum object.
+        self.parent_peak_collection: str
         '''
 
         self.retention_time = position

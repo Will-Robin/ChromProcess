@@ -3,14 +3,18 @@ from ChromProcess import Classes
 
 def peak_from_chromatogram(chrom, start, end):
     '''
-    Create a peak using the boundaries defined within chrom
+    Create a peak using the boundaries defined within a chromatogram.
 
+    Parameters
+    ----------
     chrom: Chromatogram object
     start: float
         Start of the peak
     end: float
         End of the peak
-    
+
+    Returns
+    -------
     peak: Peak object
         peak created from the bounds
     '''

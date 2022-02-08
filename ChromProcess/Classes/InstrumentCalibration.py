@@ -2,6 +2,8 @@
 class InstrumentCalibration:
     def __init__(self):
         '''
+        A container for calibration information.
+
         Attributes
         ----------
         calibration_factors: dict

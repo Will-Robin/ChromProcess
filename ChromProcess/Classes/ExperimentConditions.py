@@ -2,6 +2,8 @@
 class ExperimentConditions:
     def __init__(self):
         '''
+        A container for experimental information.
+
         Attributes
         ----------
         self.experiment_code: str

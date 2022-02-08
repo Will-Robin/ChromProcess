@@ -3,11 +3,16 @@ from ChromProcess.Utils.utils import utils
 
 def conditions_from_csv(filename):
     '''
+    Create a ExperimentConditions object from a formatted .csv file.
+
     Parameters
     ----------
     filename: str or pathlib Path
-    '''
 
+    Returns
+    -------
+    conditions: Classes.ExperimentConditions
+    '''
 
     conditions = Classes.ExperimentConditions()
 

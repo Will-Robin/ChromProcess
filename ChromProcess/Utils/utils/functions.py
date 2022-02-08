@@ -20,6 +20,7 @@ def linear(X, A, B):
 def inverse_linear(variable, gradient, intercept, factor = 1.0):
     '''
     Solution to linear function
+
     Parameters
     ----------
     integ: float
@@ -40,6 +41,7 @@ def inverse_linear(variable, gradient, intercept, factor = 1.0):
 def quadratic_function(variable, A, B, C):
     '''
     Quadratic function
+
     Parameters
     ----------
     X: numpy array, float, int
@@ -56,6 +58,7 @@ def quadratic_function(variable, A, B, C):
 def inverse_quadratic(integ, A, B, C, factor = 1.0):
     '''
     Solution to quadratic function
+
     Parameters
     ----------
     integ: float
@@ -105,7 +108,6 @@ def inverse_quadratic_standard_error(
     -------
     unew: float or numpy array
         Calculated standard error of the estimation.
-
     '''
 
     # The partial derivatives of f with respect to Y is:
@@ -149,6 +151,7 @@ def residual_squared_error(data_1, data_2):
 def _1gaussian(x, amp1, cen1, sigma1):
     '''
     A single gaussian function
+
     Parameters
     ----------
     x: array
@@ -159,6 +162,7 @@ def _1gaussian(x, amp1, cen1, sigma1):
         centre of the function (mean)
     sigma1: float
         width of the function (standard deviation)
+
     Returns
     -------
     function: numpy array

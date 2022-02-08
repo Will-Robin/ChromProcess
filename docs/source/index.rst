@@ -1,4 +1,4 @@
-ChromProcess documentation!
+Documentation for ChromProcess
 ========================================
 
 .. toctree::

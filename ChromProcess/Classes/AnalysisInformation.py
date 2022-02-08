@@ -56,6 +56,11 @@ class AnalysisInformation:
         ----------
         directory: str or pathlib Path
             Directory in which the file will be saved in.
+
+        Returns
+        -------
+        None
+
         '''
         from pathlib import Path
 

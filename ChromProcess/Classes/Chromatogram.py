@@ -141,6 +141,7 @@ class Chromatogram:
         -------
         None
         '''
+
         import ChromProcess.Writers as write_chrom
         write_chrom.chromatogram_to_csv(self, filename = filename)
 

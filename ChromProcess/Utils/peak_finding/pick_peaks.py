@@ -45,9 +45,8 @@ def find_peak_boundaries_look_ahead(signal, peaks_indices, look_ahead=1):
         next_cursor = cursor - 1 - np.max(cursor_region_min_idx)
 
         # ensure the function can't go out of bounds, and check if there is a
-        # smaller value within the look ahead window
-        # TODO: can `while not cursor-1 < look_ahead` be 
-        # `while cursor-1 > look_ahead`
+        # smaller value within the look ahead window TODO: can `while not
+        # cursor-1 < look_ahead` be `while cursor-1 > look_ahead`
         while not cursor - 1 < look_ahead and signal[cursor] > signal[next_cursor]:
             cursor = next_cursor
             # find next minimum
@@ -104,7 +103,7 @@ def find_peak_boundaries(diff, peaks_indices):
         array of 1st differential values
     peak_indices: 1D array
         Array of peak retention times
-   
+
     Returns
     --------
     peak_starts: list
@@ -212,11 +211,12 @@ def find_peaks(signal, thres=0.1, min_dist=1, min_inten = -1e100):
     '''
     Peak detection routine.
 
-    Modified from PeakUtils:
-        https://github.com/atjacobs/PeakUtils/tree/master/peakedutils Finds the
-        peaks in *y* by taking its first order difference. By using *thres* and
-        *min_dist* parameters, it is possible to reduce the number of detected
-        peaks.
+    Modified from PeakUtils.
+    https://github.com/atjacobs/PeakUtils/tree/master/peakutils 
+
+    Finds the peaks in *y* by taking its first order difference. By using
+    *thres* and *min_dist* parameters, it is possible to reduce the number of
+    detected peaks.
 
     Parameters
     ----------

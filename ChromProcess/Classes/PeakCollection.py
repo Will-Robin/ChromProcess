@@ -4,9 +4,10 @@ from ChromProcess import Classes
 class PeakCollection:
     def __init__(self):
         '''
+        An object for storing and operating upon collections of peaks.
+
         Attributes
         ----------
-
         self.filename: str
             Name of the file that the object was created from.
         self.series_value: float
@@ -123,7 +124,7 @@ class PeakCollection:
 
     def get_peak_positions(self):
         '''
-        Ge the positions of all of the peaks in the PeakCollection.
+        Get the positions of all of the peaks in the PeakCollection.
 
         Parameters
         ----------
@@ -205,7 +206,7 @@ class PeakCollection:
     def calculate_conc_errors(self, calibrations, IS_conc, IS_conc_err):
         '''
         Calculation of the standard error on a concentration estimation from
-        th calibration.
+        a calibration calculation.
 
         Parameters
         ----------
@@ -217,8 +218,6 @@ class PeakCollection:
         Returns
         -------
         None
-
-        Moifies PeakCollectionElement object attributes.
         '''
 
         for pk in self.peaks:
@@ -282,3 +281,4 @@ class PeakCollection:
         import ChromProcess.Writers as write
 
         write.peak_collection_to_csv(self, directory = directory)
+

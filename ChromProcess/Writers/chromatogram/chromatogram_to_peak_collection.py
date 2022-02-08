@@ -13,7 +13,6 @@ def write_peak_collection_text(chromatogram, header_text = ''):
     Returns
     -------
     peak_collection_string: str
-    
     '''
 
     peak_collection_string = ''
@@ -41,10 +40,10 @@ def write_peak_collection_text(chromatogram, header_text = ''):
     return peak_collection_string
 
 def chromatogram_to_peak_collection(
-                        chromatogram, 
-                        filename = 'peak_collection.csv',
-                        header_text = ""
-                        ):
+                                    chromatogram,
+                                    filename = 'peak_collection.csv',
+                                    header_text = ""
+                                    ):
     '''
     For writing peak integrals from a chromatogram to a .csv file.
 
@@ -54,6 +53,7 @@ def chromatogram_to_peak_collection(
         Name for the file
     header_text: str
        Text to place at the top of the peak table. 
+
     Returns
     -------
     None

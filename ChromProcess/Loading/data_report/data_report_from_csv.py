@@ -14,6 +14,10 @@ def data_report_from_csv(file):
     ----------
     file: pathlib Path or str
         Path to file.
+
+    Returns
+    -------
+    data_report: Classes.DataReport
     '''
 
     data_report = Classes.DataReport()

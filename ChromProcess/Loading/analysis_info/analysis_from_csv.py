@@ -2,9 +2,15 @@ from ChromProcess import Classes
 
 def analysis_from_csv(fname):
     '''
+    Create and AnalysisInformation object from a formatted csv file.
+
     Parameters
     ----------
     fname: str or pathlib Path
+
+    Returns
+    -------
+    analysis: Classes.AnalysisInformation
     '''
 
     analysis = Classes.AnalysisInformation()

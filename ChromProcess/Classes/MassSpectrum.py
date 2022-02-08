@@ -9,6 +9,10 @@ class MassSpectrum:
         mz: array
         inten: array
         pos: None or float
+
+        Returns
+        -------
+        None
         '''
 
         self.mz = mz

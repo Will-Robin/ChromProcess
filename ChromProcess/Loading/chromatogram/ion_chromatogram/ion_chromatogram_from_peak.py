@@ -2,7 +2,7 @@ import numpy as np
 from .ion_chromatogram_from_region import ion_chromatogram_from_region
 
 def ion_chromatogram_from_peak(
-                                peak, 
+                                peak,
                                 parent_chromatogram,
                                 spectrum_filter = 0.1,
                                 threshold = 0.1
