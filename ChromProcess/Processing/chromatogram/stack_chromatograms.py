@@ -1,30 +1,59 @@
+'''
+Functions for plotting a heat map of
+a chromatogram series.
+'''
 import numpy as np
+from scipy import interpolate
+from chromatogramStacks import getChromTimeMinMax
 
-def stack_chromatograms(chromatogram_list):
+def get_chrom_time_min_max(chromatograms):
     '''
-    A bit crude. Could also stack chromatograms using interpolations.
+    Get the highest and lowest retention times from a set of chromatograms.
 
     Parameters
     ----------
-    chromatogram_list: list of ChromProcess Chromatogram objects.
-        List of chromatograms to stack.
+    chromatograms: list of Chromatogram objects.
 
     Returns
     -------
-    chrom_stack: numpy array (2D)
-        Stack of chromatograms
-        shape = (len(chromatogram_list), minimum chromatogram time axis length)
+    max_time, min_time: float
     '''
-    import numpy as np
+    max_time = 1e100
+    min_time = 0
 
-    min_length = 1e100
-    for c in chromatogram_list:
-        if len(c.time) < min_length:
-            min_length = len(c.time)
+    for c in chromatograms:
+        if c.time.min() > min_time:
+            min_time = c.time.min()
+        if c.time.max() < max_time:
+            max_time = c.time.max()
 
-    chrom_stack = np.empty((len(chromatogram_list),min_length))
+    return min_time, max_time
 
-    for c in range(0,len(chromatogram_list)):
-        chrom_stack[c] = chromatogram_list[c].signal[:min_length]
+def stack_chromatograms(chromatograms):
+    '''
+    Create a stack of chromatogram signals in a numpy array.
 
-    return chrom_stack
+    Parameters
+    ----------
+    chromatograms: list of Chromatogram Objects
+
+    Returns
+    -------
+    time_axis: 1d numpy array
+    chrom_stack: 2d numpy array (len(time_axis),len(chromatograms))
+    '''
+
+    min_time, max_time = get_chrom_time_min_max(chromatograms)
+
+    interpolation_length = len(chromatograms[0].time)
+
+    chrom_stack = np.empty((len(chromatograms), interpolation_length))
+    time_axis = np.linspace(min_time, max_time, num = interpolation_length)
+
+    for c,chrom in enumerate(chromatograms):
+        interp_function = interpolate.interp1d(chrom.time, chrom.signal)
+        interpolated_signal = interp_function(time_axis)
+        chrom_stack[c] = interpolated_signal
+
+    return time_axis, chrom_stack
+
