@@ -38,3 +38,4 @@ def ic_background_subtraction(chromatogram, threshold = 500):
             new_chromatogram[s] = np.sum(inten)
 
         return new_chromatogram
+

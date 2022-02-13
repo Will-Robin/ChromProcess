@@ -15,8 +15,7 @@ def parse_text_columns(text, point_delimiter, ordinal_delimiter):
 
     Returns
     -------
-    data_container: dict
-        Dictionary containing data scraper from the file.
+    data: list
     '''
 
     assert isinstance(text, str), "text arg should be a string"

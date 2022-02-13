@@ -19,7 +19,6 @@ def mass_spectrum_from_peak(peak, chromatogram):
     -------
     mass_spectrum: Classes.MassSpectrum
     '''
-    import numpy as np
 
     if len(chromatogram.mz_values) > 0:
         idx = np.where(chromatogram.time == peak.retention_time)[0]

@@ -3,7 +3,7 @@ from ChromProcess import Classes
 
 def instrument_cal_from_csv(filename):
     '''
-    Create a InstrumentCalibration object from a formatted csv file.
+    Create an InstrumentCalibration object from a formatted .csv file.
 
     Parameters
     ----------
