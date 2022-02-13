@@ -12,10 +12,10 @@ def parse_text_columns(text, point_delimiter, ordinal_delimiter):
         Delimiter for separating point coordintes.
     ordinal_delimiter: str
         Delimiter for separating x,y pairs
+
     Returns
     -------
-    data_container: dict
-        Dictionary containing data scraper from the file.
+    data: list
     '''
 
     assert isinstance(text, str), "text arg should be a string"
@@ -41,6 +41,10 @@ def import_file_section(file, start_token, end_token):
         String in line to start reading file from.
     end_token:
         String in line to end reading file from.
+
+    Returns
+    -------
+    c_set: list
     '''
 
     spl_lin = lambda x : [e for e in x.strip('\n').split(',') if e != '']

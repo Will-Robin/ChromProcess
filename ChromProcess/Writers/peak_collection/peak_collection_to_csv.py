@@ -1,7 +1,6 @@
 from pathlib import Path
 
 def peak_collection_to_csv(peak_collection, directory = ''):
-
     '''
     Write a PeakCollection to a csv file.
 
@@ -27,7 +26,7 @@ def peak_collection_to_csv(peak_collection, directory = ''):
     IS_header += 'IS_integral,'
     IS_header += 'IS_peak start/ min,'
     IS_header += 'IS_peak end/ min\n'
-    
+
     pk_header = ''
     pk_header += 'Retention_time/ min,'
     pk_header += 'integral,'

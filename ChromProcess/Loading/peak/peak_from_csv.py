@@ -17,7 +17,7 @@ def peak_indices_from_file(peak_file, chromatogram):
 
     Returns
     -------
-    peak_indices: ndarray  
+    peak_indices: ndarray
         array of peak indices
     '''
 

@@ -33,6 +33,6 @@ def write_conditions_header(name, conditions, information):
     header_text += f"Calibrations_file,{information.calibration_file}\n"
     header_text += f'Calibration_model,{information.calibration_model}\n'
     header_text += f"end_analysis_details\n"
-    
+
     return header_text
 

@@ -5,12 +5,16 @@ def peak_from_chromatogram(chrom, start, end):
     '''
     Create a peak using the boundaries defined within chrom
 
+    Parameters
+    ----------
     chrom: Chromatogram object
     start: float
         Start of the peak
     end: float
         End of the peak
-    
+
+    Returns
+    -------
     peak: Peak object
         peak created from the bounds
     '''

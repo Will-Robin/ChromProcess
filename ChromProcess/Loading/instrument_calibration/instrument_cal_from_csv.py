@@ -3,10 +3,16 @@ from ChromProcess import Classes
 
 def instrument_cal_from_csv(filename):
     '''
+    Create an InstrumentCalibration object from a formatted .csv file.
+
     Parameters
     ----------
     fname: str or pathlib Path
         name for file
+
+    Returns
+    -------
+    calibration: Classes.InstrumentCalibration
     '''
 
     if isinstance(filename, str):

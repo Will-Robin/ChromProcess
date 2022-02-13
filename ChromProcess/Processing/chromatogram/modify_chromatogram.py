@@ -77,7 +77,7 @@ def internal_standard_integral(chromatogram, is_start, is_end):
                                             is_end,
                                             threshold = 0.1
                                             )
-    
+
     start, retention_time, end = peaks[0][0], peaks[0][1], peaks[0][2]
 
     time = chromatogram.time

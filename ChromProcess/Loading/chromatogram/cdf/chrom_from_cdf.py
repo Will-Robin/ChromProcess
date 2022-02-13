@@ -6,6 +6,8 @@ from ChromProcess.Loading.chromatogram.cdf.cdf_loading import load_from_cdf
 
 def chrom_from_cdf(filename, instrument = JEOL, load_ms = False):
     '''
+    Load a chromatogram from .cdf file.
+
     Parameters
     ----------
     filename: str or pathlib Path

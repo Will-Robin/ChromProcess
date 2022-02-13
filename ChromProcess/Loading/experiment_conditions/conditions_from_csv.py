@@ -6,8 +6,11 @@ def conditions_from_csv(filename):
     Parameters
     ----------
     filename: str or pathlib Path
-    '''
 
+    Returns
+    -------
+    conditions: Classes.ExperimentConditions
+    '''
 
     conditions = Classes.ExperimentConditions()
 

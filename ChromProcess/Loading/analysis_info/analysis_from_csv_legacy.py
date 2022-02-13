@@ -2,9 +2,15 @@ from ChromProcess import Classes
 
 def analysis_from_csv_legacy(fname):
     '''
+    Create an AnalysisInformation from a formatted file (an older version).
+
     Parameters
     ----------
     fname: str or pathlib Path
+
+    Returns
+    -------
+    None
     '''
 
     analysis = Classes.AnalysisInformation()

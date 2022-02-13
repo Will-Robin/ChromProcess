@@ -13,7 +13,6 @@ def write_peak_collection_text(chromatogram, header_text = ''):
     Returns
     -------
     peak_collection_string: str
-    
     '''
 
     peak_collection_string = ''
