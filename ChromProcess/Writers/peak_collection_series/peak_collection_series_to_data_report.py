@@ -3,7 +3,7 @@ from pathlib import Path
 from ChromProcess.Utils.utils import utils
 from ChromProcess.Writers.general import write_header
 
-def peak_collection_series_to_data_report(peak_collection_series, filename, information):
+def peak_collection_series_to_data_report(peak_collection_series, filename, information, cluster_removal_limit = False):
     '''
     Parameters
     ----------
@@ -28,7 +28,13 @@ def peak_collection_series_to_data_report(peak_collection_series, filename, info
 
     # create output dictionaries
     conc_dict, err_dict, integral_dict = peak_collection_series.series_traces_as_dict()
-
+    
+    if cluster_removal_limit:
+        to_remove = []
+        for k in integral_dict:
+            if max(integral_dict[k]) < cluster_removal_limit:
+                to_remove = to_remove + [k]
+        [integral_dict.pop(key) for key in to_remove]
     # create spreadsheet-like output
     conc_header, conc_grid = utils.peak_dict_to_spreadsheet(
                                         conc_dict, 
@@ -53,6 +59,8 @@ def peak_collection_series_to_data_report(peak_collection_series, filename, info
                                             peak_collection_series.conditions, 
                                             information
                                             )
+
+
 
     # Write concentration report to file
     with open(conc_fname, 'w') as outfile:

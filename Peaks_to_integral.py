@@ -4,8 +4,8 @@ from ChromProcess.Loading import peak_collection_from_csv
 from ChromProcess.Loading import analysis_from_csv
 from ChromProcess.Loading import conditions_from_csv
 
-experiment_number = 'FRN140'
-experiment_folder = r"C:\Users\thijs\Documents\PhD\Data\FRN140"
+experiment_number = 'FRN141'
+experiment_folder = r"C:\Users\thijs\Documents\PhD\Data\FRN141"
 peak_collection_directory = f'{experiment_folder}\PeakCollections'
 conditions_file = f'{experiment_folder}\{experiment_number}_conditions.csv'
 analysis_file = f'{experiment_folder}\{experiment_number}_analysis_details.csv'
@@ -29,8 +29,11 @@ series = Classes.PeakCollectionSeries(
 IS_pos = 7.43
 series.align_peaks_to_IS(IS_pos)
 series.reference_integrals_to_IS()
-peak_removal_limit = 0.05 # 5% of internal standard integral if integrals are normalised to IS
-series.remove_peaks_below_threshold(peak_removal_limit)
+ # 5% of internal standard integral if integrals are normalised to IS
+#series.remove_peaks_below_threshold(peak_removal_limit)
 peak_agglomeration_boundary = 0.025 # distance cutoff 
 series.get_peak_clusters(bound = peak_agglomeration_boundary)
-series.write_data_reports(f'{data_report_directory}/{series.name}', analysis) # create arrays for output
+cluster_removal_limit = 0.008
+
+
+series.write_data_reports(f'{data_report_directory}/{series.name}', analysis,cluster_removal_limit = cluster_removal_limit) # create arrays for output

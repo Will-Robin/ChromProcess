@@ -44,7 +44,7 @@ def analysis_from_csv(fname):
             if len(ins) == 2:
                 analysis.peak_pick_threshold = float(ins[1])
             else:
-                analysis.peak_pick_threshold = ins[1:-1]
+                analysis.peak_pick_threshold = [float(thres) for thres in ins[1:]]
 
         if 'Dilution_factor,' in line:
             analysis.dilution_factor = float(ins[1])

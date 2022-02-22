@@ -29,6 +29,30 @@ def peak_rt_from_file(chromatogram, peak_file):
         peaks_indices = np.append(peaks_indices, int(idx[0]))
     return peaks_indices
 
+def peak_boundaries_from_file(chromatogram, peak_file):
+    peak_collection = peak_collection_from_csv(peak_file,round_digits=7)
+    peak_start_retention_times = [p.start for p in peak_collection.peaks]
+
+    peak_starts = np.empty(0,dtype='int64') #the functions written to find the start and end of the peak relies on indexes, so we need to convert the retention times to their corresponding indexes.
+    for ps_rt in peak_start_retention_times:
+        idx = np.where(chromatogram.time == float(ps_rt))[0] #This covers any exact matches
+        if len(idx) == 0: #no exact match found, this should mean that a value was manually inserted, the function will now search the closest time value.
+            idx = np.searchsorted(np.round(chromatogram.time,7), float(ps_rt), "left") #The rounding should not be necessary, but without it searchsorted can give wrong values
+        peak_starts = np.append(peak_starts, int(idx))
+    
+    peak_end_retention_times = [p.end for p in peak_collection.peaks]
+
+    peak_ends = np.empty(0,dtype='int64') #the functions written to find the start and end of the peak relies on indexes, so we need to convert the retention times to their corresponding indexes.
+    for pe_rt in peak_end_retention_times:
+        idx = np.where(chromatogram.time == float(pe_rt))[0] #This covers any exact matches
+        if len(idx) == 0: #no exact match found, this should mean that a value was manually inserted, the function will now search the closest time value.
+            idx =  np.searchsorted(np.round(chromatogram.time,7), float(pe_rt), "left")
+        peak_ends = np.append(peak_ends, int(idx))
+    
+    return peak_starts, peak_ends
+
+
+
 
 def peak_from_csv(chromatogram, peak_file, look_ahead = 12):
     '''

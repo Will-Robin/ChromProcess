@@ -234,7 +234,7 @@ class PeakCollectionSeries:
 
         return conc_dict, err_dict, integral_dict
 
-    def write_data_reports(self, filename, information):
+    def write_data_reports(self, filename, information, cluster_removal_limit = False):
         '''
         Parameters
         ----------
@@ -243,4 +243,4 @@ class PeakCollectionSeries:
         '''
         import ChromProcess.Writers as write
 
-        write.peak_collection_series_to_data_report(self, filename, information)
+        write.peak_collection_series_to_data_report(self, filename, information, cluster_removal_limit = cluster_removal_limit)
