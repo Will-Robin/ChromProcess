@@ -2,12 +2,14 @@ import numpy as np
 
 from ChromProcess import Classes
 
+
 class Chromatogram:
-    '''
+    """
     A class for storing chromatographic data.
-    '''
+    """
+
     def __init__(self):
-        '''
+        """
         Initialise an empty chromatogram.
 
         Attributes
@@ -34,11 +36,11 @@ class Chromatogram:
             Container for the point counts from mass spectra.
         self.internal_standard: ChromProcess.Classes.Peak
             The internal standard peak.
-        '''
+        """
 
-        self.filename = ''
-        self.x_unit = ''
-        self.y_unit = ''
+        self.filename = ""
+        self.x_unit = ""
+        self.y_unit = ""
 
         self.time = []
         self.signal = []
@@ -53,7 +55,7 @@ class Chromatogram:
         self.internal_standard = Classes.Peak(0.0, [])
 
     def get_mass_spectrum(self, time):
-        '''
+        """
         Get the mass spectrim at a given time point in the chromatogram.
 
         Parameters
@@ -67,20 +69,20 @@ class Chromatogram:
             m/z value
         intensity: 1d array
             Ion counts.
-        '''
+        """
 
         inds = np.where(self.time == time)[0]
 
         scan_inds = self.scan_indices[inds][0]
         p_counts = self.point_counts[inds][0]
 
-        intensity = self.mz_intensity[scan_inds:scan_inds+p_counts]
-        m_z = np.round(self.mz_values[scan_inds:scan_inds+p_counts], 2)
+        intensity = self.mz_intensity[scan_inds : scan_inds + p_counts]
+        m_z = np.round(self.mz_values[scan_inds : scan_inds + p_counts], 2)
 
         return m_z, intensity
 
     def ion_chromatogram(self, clusters):
-        '''
+        """
         Get all ion chromatograms from the Chromatogram using
         pre-defined clusters of m/z values to bin signals.
 
@@ -95,41 +97,33 @@ class Chromatogram:
         -------
         ion_chromatograms: dict
             Dict of ion chromatograms
-        '''
+        """
 
         ion_dict = {}
         if len(self.scan_indices) != 0:
-            ion_dict = {
-                        np.average(c): np.zeros(len(self.time))
-                                                 for c in clusters
-                        }
+            ion_dict = {np.average(c): np.zeros(len(self.time)) for c in clusters}
 
             scan_brackets = []
 
-            for s in range(0,len(self.scan_indices)-1):
-                scan_brackets.append(
-                                    [
-                                    self.scan_indices[s],
-                                    self.scan_indices[s+1]
-                                    ]
-                                )
+            for s in range(0, len(self.scan_indices) - 1):
+                scan_brackets.append([self.scan_indices[s], self.scan_indices[s + 1]])
 
-            for s,bracket in enumerate(scan_brackets):
-                st_bracket  = bracket[0]
+            for s, bracket in enumerate(scan_brackets):
+                st_bracket = bracket[0]
                 end_bracket = bracket[1]
                 inten = self.mz_intensity[st_bracket:end_bracket]
                 masses = self.mz_values[st_bracket:end_bracket]
 
-                for m in range(0,len(masses)):
-                    for _,c in enumerate(clusters):
+                for m in range(0, len(masses)):
+                    for _, c in enumerate(clusters):
                         if masses[m] in c:
                             ion_dict[np.average(c)][s] = inten[m]
                             break
 
         return ion_dict
 
-    def write_to_csv(self, filename = ''):
-        '''
+    def write_to_csv(self, filename=""):
+        """
         Write to csv.
 
         Parameters
@@ -140,13 +134,14 @@ class Chromatogram:
         Returns
         -------
         None
-        '''
+        """
 
         import ChromProcess.Writers as write_chrom
-        write_chrom.chromatogram_to_csv(self, filename = filename)
 
-    def write_peak_collection(self, filename = '', header_text = ''):
-        '''
+        write_chrom.chromatogram_to_csv(self, filename=filename)
+
+    def write_peak_collection(self, filename="", header_text=""):
+        """
         Write the peaks in a chromatogram file to a formatted peak collection
         file.
 
@@ -160,13 +155,10 @@ class Chromatogram:
         Returns
         -------
         None
-        '''
+        """
 
         import ChromProcess.Writers as write_chrom
 
         write_chrom.chromatogram_to_peak_collection(
-                                        self,
-                                        filename = filename,
-                                        header_text = header_text
-                                        )
-
+            self, filename=filename, header_text=header_text
+        )

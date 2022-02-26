@@ -2,8 +2,9 @@ from ChromProcess import Classes
 from ChromProcess.Utils.utils import utils
 from ChromProcess.Processing.chromatogram import find_peaks
 
+
 def add_peaks_to_chromatogram(peak_times, chromatogram):
-    '''
+    """
     Add peaks to a chromatogram (modifies the chromatogram in place).
 
     Parameters
@@ -17,7 +18,7 @@ def add_peaks_to_chromatogram(peak_times, chromatogram):
     Returns
     ------
     None
-    '''
+    """
 
     time = chromatogram.time
     for p in peak_times:
@@ -28,8 +29,9 @@ def add_peaks_to_chromatogram(peak_times, chromatogram):
         peak = Classes.Peak(retention_time, idx)
         chromatogram.peaks[retention_time] = peak
 
-def integrate_chromatogram_peaks(chromatogram, baseline_subtract = False):
-    '''
+
+def integrate_chromatogram_peaks(chromatogram, baseline_subtract=False):
+    """
     Integrate all of the peaks in a chromatogram (modifies them in place).
 
     Parameters
@@ -42,16 +44,16 @@ def integrate_chromatogram_peaks(chromatogram, baseline_subtract = False):
     Returns
     ------
     None
-    '''
+    """
 
     for p in chromatogram.peaks:
         chromatogram.peaks[p].get_integral(
-                                        chromatogram, 
-                                        baseline_subtract = baseline_subtract
-                                        )
+            chromatogram, baseline_subtract=baseline_subtract
+        )
+
 
 def internal_standard_integral(chromatogram, is_start, is_end):
-    '''
+    """
     Finds and adds internal standard information into a chromatogram.
 
     Parameters
@@ -69,14 +71,11 @@ def internal_standard_integral(chromatogram, is_start, is_end):
     Returns
     ------
     None
-    '''
+    """
 
     peaks = find_peaks.find_peaks_in_region(
-                                            chromatogram, 
-                                            is_start, 
-                                            is_end,
-                                            threshold = 0.1
-                                            )
+        chromatogram, is_start, is_end, threshold=0.1
+    )
 
     start, retention_time, end = peaks[0][0], peaks[0][1], peaks[0][2]
 
@@ -87,5 +86,3 @@ def internal_standard_integral(chromatogram, is_start, is_end):
     peak.get_integral(chromatogram)
 
     chromatogram.internal_standard = peak
-
-

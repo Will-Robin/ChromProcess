@@ -8,4 +8,3 @@ from .chromatogram.modify_chromatogram import internal_standard_integral
 from .chromatogram.stack_chromatograms import stack_chromatograms
 
 from .peak.assign_peak import assign_retention_time
-

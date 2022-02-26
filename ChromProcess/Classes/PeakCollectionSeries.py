@@ -3,10 +3,10 @@ import numpy as np
 from ChromProcess.Processing.peak import assign_peak
 from ChromProcess.Utils.utils.clustering import cluster
 
+
 class PeakCollectionSeries:
-    def __init__(self, peak_collections, name = 'not specified',
-                 conditions = {}):
-        '''
+    def __init__(self, peak_collections, name="not specified", conditions={}):
+        """
         An object which wraps multiple PeakCollection objects.
 
         Parameters
@@ -40,7 +40,7 @@ class PeakCollectionSeries:
             Peak information from the peak collections organised in a series.
         self.series_assigned_compounds: list
             List of compounds assigned in the series.
-        '''
+        """
 
         self.name = name
         self.peak_collections = peak_collections
@@ -54,8 +54,8 @@ class PeakCollectionSeries:
         self.conc_err_series = []
         self.series_assigned_compounds = []
 
-    def remove_peaks_below_threshold(self,threshold):
-        '''
+    def remove_peaks_below_threshold(self, threshold):
+        """
         Remove peaks whose integrals fall below a threshold.
 
         Parameters
@@ -65,13 +65,13 @@ class PeakCollectionSeries:
         Returns
         -------
         None
-        '''
+        """
 
         for pc in self.peak_collections:
             pc.remove_peaks_below_threshold(threshold)
 
     def align_peaks_to_IS(self, IS_set):
-        '''
+        """
         Align the retention times of the peaks to a set
         internal standard retention time.
 
@@ -82,13 +82,13 @@ class PeakCollectionSeries:
         Returns
         -------
         None
-        '''
+        """
 
         for pc in self.peak_collections:
-            pc.align_peaks_to_IS(IS_set = IS_set)
+            pc.align_peaks_to_IS(IS_set=IS_set)
 
     def get_peak_positions(self):
-        '''
+        """
         Get the position of all of the peaks in the series.
 
         Parameters
@@ -98,7 +98,7 @@ class PeakCollectionSeries:
         -------
         peak_pos: 2d array
             Array of sorted peak positions.
-        '''
+        """
 
         peak_pos = np.array([])
         for pc in self.peak_collections:
@@ -108,8 +108,8 @@ class PeakCollectionSeries:
 
         return peak_pos[i]
 
-    def get_peak_clusters(self, bound = 0.1):
-        '''
+    def get_peak_clusters(self, bound=0.1):
+        """
         Create clusters of peaks based on their retention times.
 
         Parameters
@@ -121,18 +121,18 @@ class PeakCollectionSeries:
         Returns
         -------
         None
-        '''
+        """
 
         peaks = self.get_peak_positions()
 
         clusts = []
-        for c in cluster(peaks, bound = bound):
+        for c in cluster(peaks, bound=bound):
             clusts.append(c)
 
         self.clusters = clusts
 
     def assign_peaks(self, boundaries):
-        '''
+        """
         Assign peaks based on boundaries.
 
         Parameters
@@ -143,13 +143,13 @@ class PeakCollectionSeries:
         Returns
         -------
         None
-        '''
+        """
 
         for pc in self.peak_collections:
             pc.assign_peaks(boundaries)
 
-    def assign_clusters(self,boundaries):
-        '''
+    def assign_clusters(self, boundaries):
+        """
         Assign the peak clusters.
 
         Parameters
@@ -160,7 +160,7 @@ class PeakCollectionSeries:
         Returns
         -------
         None
-        '''
+        """
 
         for c in self.clusters:
             pos = np.mean(c)
@@ -168,7 +168,7 @@ class PeakCollectionSeries:
             self.cluster_assignments.append(clust_name)
 
     def get_all_assigned_compounds(self):
-        '''
+        """
         Create a list of all the compounds assigned in the series.
 
         Parameters
@@ -177,23 +177,23 @@ class PeakCollectionSeries:
         Returns
         -------
         self.series_assigned_compounds: list
-        '''
+        """
 
         assigns = []
         for pc in self.peak_collections:
             if len(pc.assigned_compounds) == 0:
                 pc.get_all_assigned_compounds()
-            assigns.extend( pc.assigned_compounds )
+            assigns.extend(pc.assigned_compounds)
 
         assigns = list(set(assigns))
-        count_C = lambda x:x.count('C')
+        count_C = lambda x: x.count("C")
 
-        self.series_assigned_compounds = sorted(assigns, key = count_C)
+        self.series_assigned_compounds = sorted(assigns, key=count_C)
 
         return self.series_assigned_compounds[:]
 
     def reference_integrals_to_IS(self):
-        '''
+        """
         Divide all peak integrals by the integral of the internal standard.
 
         Parameters
@@ -202,13 +202,13 @@ class PeakCollectionSeries:
         Returns
         -------
         None
-        '''
+        """
 
         for pc in self.peak_collections:
             pc.reference_integrals_to_IS()
 
     def apply_calibrations(self, conditions, calibrations):
-        '''
+        """
         Apply calibrations to peaks in the series.
 
         Parameters
@@ -222,7 +222,7 @@ class PeakCollectionSeries:
         Returns
         -------
         None
-        '''
+        """
 
         IS_conc = conditions.internal_standard_concentration
 
@@ -230,7 +230,7 @@ class PeakCollectionSeries:
             pc.apply_calibrations_to_peaks(calibrations, IS_conc)
 
     def calculate_conc_errors(self, calib, conditions):
-        '''
+        """
         Calculate the errors on concentration estimates.
 
         Parameters
@@ -244,16 +244,16 @@ class PeakCollectionSeries:
         Returns
         -------
         None
-        '''
+        """
 
         IS_conc = conditions.internal_standard_concentration
         IS_conc_err = conditions.internal_standard_concentration_error
 
         for pc in self.peak_collections:
-            pc.calculate_conc_errors(calib,IS_conc,IS_conc_err)
+            pc.calculate_conc_errors(calib, IS_conc, IS_conc_err)
 
     def apply_peak_dilution_factors(self, dilution_factor, error):
-        '''
+        """
         Apply correction for dilution.
 
         Parameters
@@ -263,19 +263,19 @@ class PeakCollectionSeries:
             concentrations pre-dilution.
 
         error: float
-            Error on the dilution factor. 
+            Error on the dilution factor.
 
         Returns
         -------
         None
-        '''
+        """
 
         for pc in self.peak_collections:
             pc.dilution_correct_peaks(dilution_factor, error)
 
     def create_peak_series(self):
-        '''
-        Creates arrays for series of peaks using self.clusters to identify 
+        """
+        Creates arrays for series of peaks using self.clusters to identify
         similar peaks between chromatograms. If more than one peak from a
         single chromatogram is in a cluster, their values are added together.
 
@@ -288,7 +288,7 @@ class PeakCollectionSeries:
         Returns
         -------
         None
-        '''
+        """
 
         series_length = len(self.series_values)
         number_of_peaks = len(self.clusters)
@@ -297,10 +297,10 @@ class PeakCollectionSeries:
         concentration_series = np.zeros((series_length, number_of_peaks))
         error_series = np.zeros((series_length, number_of_peaks))
 
-        for c1,pc in enumerate(self.peak_collections):
+        for c1, pc in enumerate(self.peak_collections):
             is_rt = pc.internal_standard.retention_time
 
-            for c2,clust in enumerate(self.clusters):
+            for c2, clust in enumerate(self.clusters):
                 for pk in pc.peaks:
 
                     if pk.retention_time == is_rt:
@@ -308,20 +308,20 @@ class PeakCollectionSeries:
 
                     if pk.retention_time in clust:
                         if pk.integral:
-                            integral_series[c1,c2] += pk.integral
+                            integral_series[c1, c2] += pk.integral
 
                         if pk.concentration:
-                            concentration_series[c1,c2] += pk.concentration
+                            concentration_series[c1, c2] += pk.concentration
 
                         if pk.conc_error:
-                            error_series[c1,c2] += pk.conc_error
+                            error_series[c1, c2] += pk.conc_error
 
         self.integral_series = integral_series.T
         self.concentration_series = concentration_series.T
         self.conc_err_series = error_series.T
 
     def series_traces_as_dict(self):
-        '''
+        """
         Create dictionaries of peak series values derived using the
         self.clusters.
 
@@ -333,39 +333,39 @@ class PeakCollectionSeries:
         conc_dict: dict
         err_dict: dict
         integral_dict: dict
-        '''
+        """
 
         conc_dict = {}
         err_dict = {}
         integral_dict = {}
 
         if len(self.cluster_assignments) == 0:
-            cluster_names = ['' for _ in self.clusters]
+            cluster_names = ["" for _ in self.clusters]
         else:
-            cluster_names = [n.split(' ')[0] for n in self.cluster_assignments]
+            cluster_names = [n.split(" ")[0] for n in self.cluster_assignments]
 
-        for c1,pc in enumerate(self.peak_collections):
+        for c1, pc in enumerate(self.peak_collections):
 
-            for c2,clust in enumerate(self.clusters):
+            for c2, clust in enumerate(self.clusters):
                 name = cluster_names[c2]
-                average_position = sum(clust)/len(clust)
+                average_position = sum(clust) / len(clust)
 
                 for pk in pc.peaks:
                     if pk.retention_time in clust:
                         if pk.integral:
-                            token = name + f' [{average_position}]'
+                            token = name + f" [{average_position}]"
                             if token not in integral_dict:
                                 integral_dict[token] = [0.0 for _ in self.series_values]
                             integral_dict[token][c1] += pk.integral
 
                         if pk.concentration:
-                            token = name + '/ M'
+                            token = name + "/ M"
                             if token not in conc_dict:
                                 conc_dict[token] = [0.0 for _ in self.series_values]
                             conc_dict[token][c1] += pk.concentration
 
                         if pk.conc_error:
-                            token = name + '/ M'
+                            token = name + "/ M"
                             if token not in err_dict:
                                 err_dict[token] = [0.0 for _ in self.series_values]
                             err_dict[token][c1] += pk.conc_error
@@ -373,7 +373,7 @@ class PeakCollectionSeries:
         return conc_dict, err_dict, integral_dict
 
     def write_data_reports(self, filename, information):
-        '''
+        """
         Write the peak collection series to a formatted data report csv file.
 
         Parameters
@@ -384,8 +384,7 @@ class PeakCollectionSeries:
         Returns
         -------
         None
-        '''
+        """
         import ChromProcess.Writers as write
 
         write.peak_collection_series_to_data_report(self, filename, information)
-

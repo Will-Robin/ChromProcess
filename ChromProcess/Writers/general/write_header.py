@@ -1,6 +1,5 @@
-
 def write_conditions_header(name, conditions, information):
-    '''
+    """
     Write the text for a formatted file header detailing experiment
     information.
 
@@ -13,9 +12,9 @@ def write_conditions_header(name, conditions, information):
     Returns
     -------
     header_text: str
-    '''
+    """
 
-    header_text = ''
+    header_text = ""
 
     header_text += f"Dataset,{name}\n"
     header_text += "start_conditions\n"
@@ -29,12 +28,11 @@ def write_conditions_header(name, conditions, information):
     header_text += "end_conditions\n"
 
     header_text += "start_analysis_details\n"
-    header_text += f'Instrument, {information.instrument}\n'
+    header_text += f"Instrument, {information.instrument}\n"
     header_text += f"Chromatography_method,{information.analysis_type},{information.instrument_method}\n"
     header_text += f"Derivatisation_method,{information.derivatisation_method}\n"
     header_text += f"Calibrations_file,{information.calibration_file}\n"
-    header_text += f'Calibration_model,{information.calibration_model}\n'
+    header_text += f"Calibration_model,{information.calibration_model}\n"
     header_text += f"end_analysis_details\n"
 
     return header_text
-

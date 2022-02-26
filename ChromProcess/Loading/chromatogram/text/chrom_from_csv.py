@@ -3,8 +3,9 @@ from pathlib import Path
 from ChromProcess.Loading.parsers import parsers
 from ChromProcess.Loading.chromatogram.text import chrom_from_text
 
+
 def chrom_from_csv(filename):
-    '''
+    """
     A specific parser for .txt files exported from Shimadzu LabSolutions
     software.
 
@@ -21,7 +22,7 @@ def chrom_from_csv(filename):
     -------
     data_container: dict
         Dictionary containing data scraper from the file.
-    '''
+    """
 
     if isinstance(filename, str):
         fname = Path(filename)
@@ -30,10 +31,10 @@ def chrom_from_csv(filename):
 
     assert isinstance(fname, Path), "filename should be string or pathlib Path"
 
-    with open(fname, 'r') as file:
+    with open(fname, "r") as file:
         text = file.read()
 
-    data = parsers.parse_text_columns(text, '\n', ',')
+    data = parsers.parse_text_columns(text, "\n", ",")
 
     x_values = [float(x) for x in data[0][1:]]
     y_values = [float(y) for y in data[1][1:]]
@@ -42,12 +43,7 @@ def chrom_from_csv(filename):
     y_name = data[1][0]
 
     chrom = chrom_from_text.chrom_from_text(
-                                            x_values, 
-                                            y_values, 
-                                            x_name, 
-                                            y_name, 
-                                            fname.name
-                                            )
+        x_values, y_values, x_name, y_name, fname.name
+    )
 
     return chrom
-

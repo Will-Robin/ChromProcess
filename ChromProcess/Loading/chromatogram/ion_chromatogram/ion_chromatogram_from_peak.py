@@ -1,13 +1,11 @@
 import numpy as np
 from .ion_chromatogram_from_region import ion_chromatogram_from_region
 
+
 def ion_chromatogram_from_peak(
-                                peak,
-                                parent_chromatogram,
-                                spectrum_filter = 0.1,
-                                threshold = 0.1
-                                ):
-    '''
+    peak, parent_chromatogram, spectrum_filter=0.1, threshold=0.1
+):
+    """
     Create a dictionary of ion chromatograms using information from the peak
     and its parent chromatogram.
 
@@ -28,7 +26,7 @@ def ion_chromatogram_from_peak(
     -------
     ion_chromatograms: dict[mz]:array()
         A dictionary of ion chromatograms keyed by m/z value.
-    '''
+    """
 
     # Get the indices of the peaks data points in the chromatogram
     inds = peak.indices
@@ -38,12 +36,12 @@ def ion_chromatogram_from_peak(
 
     if len(time) != 0:
         ion_chromatograms = ion_chromatogram_from_region(
-                                            parent_chromatogram,
-                                            time.min(), 
-                                            time.max(), 
-                                            spectrum_filter = spectrum_filter, 
-                                            threshold = threshold
-                                            )
+            parent_chromatogram,
+            time.min(),
+            time.max(),
+            spectrum_filter=spectrum_filter,
+            threshold=threshold,
+        )
     else:
         ion_chromatograms = {}
 

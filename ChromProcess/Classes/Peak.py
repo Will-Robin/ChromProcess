@@ -1,8 +1,9 @@
 import numpy as np
 
+
 class Peak:
-    def __init__(self,retention_time, indices):
-        '''
+    def __init__(self, retention_time, indices):
+        """
         Creates a Peak object using a retention time
         and the indices of the places in the data's
         parent chromatogram from which the time and
@@ -23,7 +24,7 @@ class Peak:
         self.ion_integrals: dict
         self.mass_spectrum: list
         self.deconvolution: list
-        '''
+        """
 
         self.retention_time = retention_time
 
@@ -41,8 +42,8 @@ class Peak:
 
         self.deconvolution = []
 
-    def get_integral(self, chromatogram, baseline_subtract = False):
-        '''
+    def get_integral(self, chromatogram, baseline_subtract=False):
+        """
         Get the integral of the peak using a chromatogram. Note that an
         arbitray chromatogram can be passed to this method, meaning it is not
         secure. The baseline substraction substracts a baseliner interpolated
@@ -57,7 +58,7 @@ class Peak:
         -------
         self.integral: float
             Integral of the peak.
-        '''
+        """
 
         time = chromatogram.time[self.indices]
         signal = chromatogram.signal[self.indices]
@@ -66,14 +67,14 @@ class Peak:
             time_bound = [time[0], time[-1]]
             signal_bound = [signal[0], signal[-1]]
             linterp = np.interp(time, time_bound, signal_bound)
-            self.integral = ( np.trapz(signal - linterp, x = time) )
+            self.integral = np.trapz(signal - linterp, x=time)
         else:
-            self.integral = ( np.trapz(signal, x = time) )
+            self.integral = np.trapz(signal, x=time)
 
         return self.integral
 
     def get_height(self, chromatogram):
-        '''
+        """
         Get the height of the peak.
 
         Parameters
@@ -84,14 +85,14 @@ class Peak:
         -------
         self.height: float
             Height of the peak.
-        '''
+        """
 
         self.height = chromatogram.signal[self.indices]
 
         return self.height
 
     def get_mass_spectrum(self, chromatogram):
-        '''
+        """
         Get the mass spectrum at the apex of the peak.
 
         Parameters
@@ -103,7 +104,7 @@ class Peak:
         ------
         self.mass_spectrum
             Mass spectrum.
-        '''
+        """
 
         if len(chromatogram.scan_indices) == 0:
             # no mass spectral information in the chromatogram
@@ -117,10 +118,8 @@ class Peak:
             end = start + chromatogram.point_counts[ind][0]
 
             self.mass_spectrum = [
-                                np.round(chromatogram.mass_values[start:end],2),
-                                chromatogram.mass_intensity[start:end]
-                                ]
+                np.round(chromatogram.mass_values[start:end], 2),
+                chromatogram.mass_intensity[start:end],
+            ]
 
         return self.mass_spectrum
-
-

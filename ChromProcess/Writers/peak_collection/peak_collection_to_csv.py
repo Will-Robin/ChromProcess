@@ -1,7 +1,8 @@
 from pathlib import Path
 
-def peak_collection_to_csv(peak_collection, directory = ''):
-    '''
+
+def peak_collection_to_csv(peak_collection, directory=""):
+    """
     Write a PeakCollection to a csv file.
 
     Parameters
@@ -12,26 +13,26 @@ def peak_collection_to_csv(peak_collection, directory = ''):
     Returns
     -------
     None
-    '''
+    """
 
     fname = Path(peak_collection.filename)
     if isinstance(directory, str):
-        if directory == '':
+        if directory == "":
             fname = Path(f"{peak_collection.filename}")
     elif isinstance(directory, Path):
-        fname = directory/f"{peak_collection.filename}"
+        fname = directory / f"{peak_collection.filename}"
 
-    IS_header = ''
-    IS_header += 'IS_retention_time/ min,'
-    IS_header += 'IS_integral,'
-    IS_header += 'IS_peak start/ min,'
-    IS_header += 'IS_peak end/ min\n'
+    IS_header = ""
+    IS_header += "IS_retention_time/ min,"
+    IS_header += "IS_integral,"
+    IS_header += "IS_peak start/ min,"
+    IS_header += "IS_peak end/ min\n"
 
-    pk_header = ''
-    pk_header += 'Retention_time/ min,'
-    pk_header += 'integral,'
-    pk_header += 'peak start/ min,'
-    pk_header += 'peak end/ min\n'
+    pk_header = ""
+    pk_header += "Retention_time/ min,"
+    pk_header += "integral,"
+    pk_header += "peak start/ min,"
+    pk_header += "peak end/ min\n"
 
     unit = peak_collection.series_unit
     value = peak_collection.series_value

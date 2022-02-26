@@ -1,35 +1,37 @@
-'''
+"""
 Keys for cdf files organised by instrument type.
-'''
+"""
+
+
 class JEOL:
-    X_UNIT = 'total ion counts'
-    Y_UNIT = 'min.'
+    X_UNIT = "total ion counts"
+    Y_UNIT = "min."
     TIME_CONVERSION = 60
-    ERROR_LOG = 'error_log'
-    AD_SAMPLING_RATE = 'a_d_sampling_rate'
-    AD_COADDITION_FACTOR = 'a_d_coaddition_factor'
-    TIME_KEY = 'scan_acquisition_time'
-    SCAN_DURATION = 'scan_duration'
-    INTER_SCAN_TIME = 'inter_scan_time'
-    RESOLUTION = 'resolution'
-    ACTUAL_SCAN_NUMBER = 'actual_scan_number',
-    TIC_KEY = 'total_intensity'
-    MASS_RANGE_MIN = 'mass_range_min'
-    MASS_RANGE_MAX = 'mass_range_max'
-    TIME_RANGE_MIN = 'time_range_min'
-    TIME_RANGE_MAX = 'time_range_max'
-    SCAN_INDEX_KEY = 'scan_index'
-    POINT_COUNT_KEY = 'point_count'
-    FLAG_COUNT = 'flag_count'
-    MZ_KEY = 'mass_values' 
-    MS_INTENSITY_KEY = 'intensity_values'
-    INSTRUMENT_NAME = 'instrument_name'
-    INSTRUMENT_ID = 'instrument_id'
-    INSTRUMENT_MFR = 'instrument_mfr'
-    INSTRUMENT_MODEL = 'instrument_model'
-    INSTRUMENT_SERIAL_NO = 'instrument_serial_no'
-    INSTRUMENT_SW_VERSI = 'instrument_sw_versi on'
-    INSTRUMENT_FW_VERSION = 'instrument_fw_version'
-    INSTRUMENT_OS_VERSION = 'instrument_os_version'
-    INSTRUMENT_APP_VERSION = 'instrument_app_version'
-    INSTRUMENT_COMMENTS = 'instrument_comments'
+    ERROR_LOG = "error_log"
+    AD_SAMPLING_RATE = "a_d_sampling_rate"
+    AD_COADDITION_FACTOR = "a_d_coaddition_factor"
+    TIME_KEY = "scan_acquisition_time"
+    SCAN_DURATION = "scan_duration"
+    INTER_SCAN_TIME = "inter_scan_time"
+    RESOLUTION = "resolution"
+    ACTUAL_SCAN_NUMBER = ("actual_scan_number",)
+    TIC_KEY = "total_intensity"
+    MASS_RANGE_MIN = "mass_range_min"
+    MASS_RANGE_MAX = "mass_range_max"
+    TIME_RANGE_MIN = "time_range_min"
+    TIME_RANGE_MAX = "time_range_max"
+    SCAN_INDEX_KEY = "scan_index"
+    POINT_COUNT_KEY = "point_count"
+    FLAG_COUNT = "flag_count"
+    MZ_KEY = "mass_values"
+    MS_INTENSITY_KEY = "intensity_values"
+    INSTRUMENT_NAME = "instrument_name"
+    INSTRUMENT_ID = "instrument_id"
+    INSTRUMENT_MFR = "instrument_mfr"
+    INSTRUMENT_MODEL = "instrument_model"
+    INSTRUMENT_SERIAL_NO = "instrument_serial_no"
+    INSTRUMENT_SW_VERSI = "instrument_sw_versi on"
+    INSTRUMENT_FW_VERSION = "instrument_fw_version"
+    INSTRUMENT_OS_VERSION = "instrument_os_version"
+    INSTRUMENT_APP_VERSION = "instrument_app_version"
+    INSTRUMENT_COMMENTS = "instrument_comments"

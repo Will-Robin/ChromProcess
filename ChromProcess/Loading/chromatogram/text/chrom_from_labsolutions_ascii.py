@@ -6,8 +6,9 @@ from ChromProcess import Classes
 from ChromProcess.Loading.chromatogram.text import chrom_from_text
 from ChromProcess.Loading.parsers import parsers
 
-def chrom_from_labsolutions_ascii(filename, data_key = 'Detector A-Ch1'):
-    '''
+
+def chrom_from_labsolutions_ascii(filename, data_key="Detector A-Ch1"):
+    """
     A specific parser for .txt files exported from Shimadzu LabSolutions
     software.
 
@@ -24,7 +25,7 @@ def chrom_from_labsolutions_ascii(filename, data_key = 'Detector A-Ch1'):
     -------
     data_container: dict
         Dictionary containing data scraper from the file.
-    '''
+    """
 
     if isinstance(filename, str):
         fname = Path(filename)
@@ -33,12 +34,12 @@ def chrom_from_labsolutions_ascii(filename, data_key = 'Detector A-Ch1'):
 
     assert isinstance(fname, Path), "filename should be string or pathlib Path"
 
-    with open(fname, 'r') as file:
+    with open(fname, "r") as file:
         text = file.read()
 
-    blocks = text.split('\n\n')
+    blocks = text.split("\n\n")
 
-    item_regex = r'(?:[A-Z][a-z]*\()(.*)(?:\)\])'
+    item_regex = r"(?:[A-Z][a-z]*\()(.*)(?:\)\])"
     data_regex = r"(?:Intensity\n)([\s\S]*)"
     x_units_regex = r"Intensity\sUnits\s(.+)"
     y_units_regex = r"R.Time\s\((.+)\)"
@@ -54,25 +55,25 @@ def chrom_from_labsolutions_ascii(filename, data_key = 'Detector A-Ch1'):
         # data trace.
         if len(data_segment) > 0 and len(name_segment) > 0:
             name = name_segment[0]
-            data = parsers.parse_text_columns(data_segment[0], '\n', '\t')
+            data = parsers.parse_text_columns(data_segment[0], "\n", "\t")
             data_container[name] = {
-                                    'data': data,
-                                    'x_unit': x_units_segment[0],
-                                    'y_unit': y_units_segment[0]
-                                    }
+                "data": data,
+                "x_unit": x_units_segment[0],
+                "y_unit": y_units_segment[0],
+            }
 
-    if 'data_key' in data_container:
+    if "data_key" in data_container:
         chrom = chrom_from_text.chrom_from_text(
-                                        data_container[data_key]['data'][0],
-                                        data_container[data_key]['data'][1],
-                                        data_container[data_key]['x_unit'],
-                                        data_container[data_key]['y_unit'],
-                                        fname.name
-                                        )
+            data_container[data_key]["data"][0],
+            data_container[data_key]["data"][1],
+            data_container[data_key]["x_unit"],
+            data_container[data_key]["y_unit"],
+            fname.name,
+        )
 
         return chrom
 
     else:
-        print('Scraping data from file failed.')
+        print("Scraping data from file failed.")
 
     return Classes.Chromatogram()

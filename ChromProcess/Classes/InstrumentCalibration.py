@@ -1,7 +1,6 @@
-
 class InstrumentCalibration:
     def __init__(self):
-        '''
+        """
         A container for calibration information.
 
         Attributes
@@ -17,29 +16,32 @@ class InstrumentCalibration:
         calibration_factors: dict
         internal_stanard_position: float
         modified_bounds: dict
-        '''
+        """
 
-        self.filename = 'not specified'
+        self.filename = "not specified"
         self.calibration_factors = {}
         self.boundaries = {}
-        self.type = 'not specified'
-        self.date = 'not specified'
-        self.method = 'not specified'
-        self.derivatisation = 'not specified'
-        self.calibration_model = 'not specified'
-        self.instrument = 'not specified'
+        self.type = "not specified"
+        self.date = "not specified"
+        self.method = "not specified"
+        self.derivatisation = "not specified"
+        self.calibration_model = "not specified"
+        self.instrument = "not specified"
         self.calibration_factors = {}
         self.internal_standard_position = 0.0
         self.modified_bounds = {}
 
     def get_info(self):
-        return {'date':self.date, 'method': self.method,
-                'derivatisation details': self.derivatisation,
-                'calibration model': self.calibration_model,
-                'calibration type':self.type}
+        return {
+            "date": self.date,
+            "method": self.method,
+            "derivatisation details": self.derivatisation,
+            "calibration model": self.calibration_model,
+            "calibration type": self.type,
+        }
 
     def modify_boundaries(self, modified_bounds):
-        '''
+        """
         Modify the assignment boundaries in the calibration.
 
         Parameters
@@ -50,7 +52,7 @@ class InstrumentCalibration:
         Returns
         -------
         None
-        '''
+        """
 
         self.modified_bounds = modified_bounds
 
