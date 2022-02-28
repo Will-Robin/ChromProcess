@@ -33,7 +33,7 @@ def peak_collection_series_to_data_report(
 
     # create output dictionaries
     conc_dict, err_dict, integral_dict = peak_collection_series.series_traces_as_dict()
-
+    
     # create spreadsheet-like output
     conc_header, conc_grid = utils.peak_dict_to_spreadsheet(
         conc_dict,
@@ -97,7 +97,7 @@ def peak_collection_series_to_data_report(
 
         outfile.write("start_data\n")
 
-        [outfile.write("{},".format(x)) for x in peak_integral_header]
+        [outfile.write(f"{x},") for x in peak_integral_header]
 
         outfile.write("\n")
         for x in range(0, len(integ_grid)):

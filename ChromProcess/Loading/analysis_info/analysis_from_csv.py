@@ -47,7 +47,7 @@ def analysis_from_csv(fname):
         if "Mass_spectra_filter" in line:
             analysis.MS_cutoff = float(ins[1])
 
-        if "Peak_pick_threshold" in line:
+        if 'Peak_pick_threshold' in line:
             analysis.peak_pick_threshold = float(ins[1])
 
         if "Dilution_factor," in line:
