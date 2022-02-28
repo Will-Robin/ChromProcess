@@ -161,3 +161,34 @@ def peak_indices_to_times(time,picked_peaks):
         peak_features.append(peak_params)
 
     return peak_features
+
+def searchsorted(array,value):
+    '''
+    Give the indice in which the value should be placed, made to replace
+    np.searchsorted which had trouble with rounding errors.
+    
+    array: ndarray
+        a sorted array through which will be searched
+    value: float
+        value that will be used
+
+    Returns
+    -----------------
+    
+    idx: int
+        The indice where the value should be placed to keep array sorted
+    '''
+    if(not np.all(array == sorted(array))):
+        print('Warning: searchsorted used on unsorted list, this can result in unexpected results')
+    
+    if value <= array[0]:
+        return 0
+    elif array[-1] < value:
+        return len(array)
+
+    idx = 1
+    while not array[idx-1] < value <= array[idx]:
+        idx += 1
+    
+    return idx
+    

@@ -34,7 +34,7 @@ fig, ax = plt.subplots()
 for c in chroms:
     ax.plot(c.time, c.signal, label = c.filename)
 
-plt.show()
+#plt.show()
 
 is_start = analysis.internal_standard_region[0]
 is_end = analysis.internal_standard_region[1]
@@ -45,35 +45,35 @@ threshold = analysis.peak_pick_threshold
 if type(threshold) == float:
     threshold = [threshold for r in analysis.regions]
 
-for chrom in chroms:
-    for reg,thres in zip(analysis.regions,threshold):
-        inds = indices_from_boundary(chrom.time, reg[0], reg[1])
-        time = chrom.time[inds]
-        signal = chrom.signal[inds]
-        picked_peaks = find_peaks_scipy(signal, 
-                        threshold=thres, 
-                        min_dist=1, 
-                        max_inten = 1e100, 
-                        prominence = 1000, 
-                        wlen = 1001, 
-                        look_ahead = 12
-                        )
-        
-        
-        peak_features = peak_indices_to_times(time,picked_peaks)
-        add_peaks_to_chromatogram(peak_features, chrom)
-        integrate_chromatogram_peaks(chrom)
-
 #for chrom in chroms:
-#    peaks_indices = peak_rt_from_file(chrom,f"{peak_collection_directory}\\{chrom.filename}")
-#    peak_starts, peak_ends = peak_boundaries_from_file(chrom,f"{peak_collection_directory}\\{chrom.filename}")
-#    picked_peaks = {'Peak_indices':peaks_indices, 'Peak_start_indices':peak_starts, 'Peak_end_indices':peak_ends}
-#    
-#    peak_features = peak_indices_to_times(chrom.time,picked_peaks)
-#    add_peaks_to_chromatogram(peak_features, chrom)
-#    integrate_chromatogram_peaks(chrom)
+#    for reg,thres in zip(analysis.regions,threshold):
+#        inds = indices_from_boundary(chrom.time, reg[0], reg[1])
+#        time = chrom.time[inds]
+#        signal = chrom.signal[inds]
+#        picked_peaks = find_peaks_scipy(signal, 
+#                        threshold=thres, 
+#                        min_dist=1, 
+#                        max_inten = 1e100, 
+#                        prominence = 1000, 
+#                        wlen = 1001, 
+#                        look_ahead = 12
+#                        )
+#        
+#        
+#        peak_features = peak_indices_to_times(time,picked_peaks)
+#        add_peaks_to_chromatogram(peak_features, chrom)
+#        integrate_chromatogram_peaks(chrom)
 
-print('test')
+for chrom in chroms:
+    peaks_indices = peak_rt_from_file(chrom,f"{peak_collection_directory}\\{chrom.filename}")
+    peak_starts, peak_ends = peak_boundaries_from_file(chrom,f"{peak_collection_directory}\\{chrom.filename}")
+    picked_peaks = {'Peak_indices':peaks_indices, 'Peak_start_indices':peak_starts, 'Peak_end_indices':peak_ends}
+    
+    peak_features = peak_indices_to_times(chrom.time,picked_peaks)
+    add_peaks_to_chromatogram(peak_features, chrom)
+    integrate_chromatogram_peaks(chrom)
+
+#print('test')
 for c,v in zip(chroms, conditions.series_values):
     c.write_peak_collection(filename = f'{peak_collection_directory}/{c.filename}',
                         header_text = f"{conditions.series_unit},{v}\n",
