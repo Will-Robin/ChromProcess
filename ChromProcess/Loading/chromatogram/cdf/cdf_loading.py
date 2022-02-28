@@ -1,10 +1,11 @@
-'''
+"""
 Functions for loading data from .cdf files (ANDI format).
-'''
+"""
 from netCDF4 import Dataset
 
+
 def load_from_cdf(filename, keys):
-    '''
+    """
     Extracts data from a .cdf file using the Dataset function
     from the netCDF4 library.
 
@@ -19,7 +20,7 @@ def load_from_cdf(filename, keys):
     -------
     data_container: dict of numpy arrays
         Container for the extracted data.
-    '''
+    """
 
     data_container = {}
 
@@ -30,4 +31,3 @@ def load_from_cdf(filename, keys):
     f.close()
 
     return data_container
-

@@ -3,8 +3,16 @@ from pathlib import Path
 from ChromProcess.Utils.utils import utils
 from ChromProcess.Writers.general import write_header
 
+<<<<<<< HEAD
 def peak_collection_series_to_data_report(peak_collection_series, filename, information, cluster_removal_limit = False):
     '''
+=======
+
+def peak_collection_series_to_data_report(
+    peak_collection_series, filename, information
+):
+    """
+>>>>>>> 96221a1dbe6074120e3132d71a08d30a6abec5a5
     Write a peak collection series as a formatted data report file.
 
     Parameters
@@ -16,7 +24,7 @@ def peak_collection_series_to_data_report(peak_collection_series, filename, info
     Returns
     -------
     None
-    '''
+    """
 
     if isinstance(filename, str):
         filename = filename
@@ -25,8 +33,8 @@ def peak_collection_series_to_data_report(peak_collection_series, filename, info
 
     analysis_type = information.analysis_type
 
-    conc_fname = f'{filename}_{analysis_type}_concentration_report.csv'
-    integral_fname = f'{filename}_{analysis_type}_integral_report.csv'
+    conc_fname = f"{filename}_{analysis_type}_concentration_report.csv"
+    integral_fname = f"{filename}_{analysis_type}_integral_report.csv"
 
     # create output dictionaries
     conc_dict, err_dict, integral_dict = peak_collection_series.series_traces_as_dict()
@@ -39,33 +47,31 @@ def peak_collection_series_to_data_report(peak_collection_series, filename, info
         [integral_dict.pop(key) for key in to_remove]
     # create spreadsheet-like output
     conc_header, conc_grid = utils.peak_dict_to_spreadsheet(
-                                        conc_dict, 
-                                        peak_collection_series.series_values,
-                                        peak_collection_series.series_unit
-                                        )
+        conc_dict,
+        peak_collection_series.series_values,
+        peak_collection_series.series_unit,
+    )
 
     peak_integral_header, integ_grid = utils.peak_dict_to_spreadsheet(
-                                        integral_dict, 
-                                        peak_collection_series.series_values,
-                                        peak_collection_series.series_unit
-                                        )
+        integral_dict,
+        peak_collection_series.series_values,
+        peak_collection_series.series_unit,
+    )
 
     peak_err_header, err_grid = utils.peak_dict_to_spreadsheet(
-                                        err_dict, 
-                                        peak_collection_series.series_values,
-                                        peak_collection_series.series_unit
-                                        )
+        err_dict,
+        peak_collection_series.series_values,
+        peak_collection_series.series_unit,
+    )
 
     header_text = write_header.write_conditions_header(
-                                            peak_collection_series.name, 
-                                            peak_collection_series.conditions, 
-                                            information
-                                            )
+        peak_collection_series.name, peak_collection_series.conditions, information
+    )
 
 
 
     # Write concentration report to file
-    with open(conc_fname, 'w') as outfile:
+    with open(conc_fname, "w") as outfile:
 
         outfile.write(header_text)
 
@@ -75,8 +81,8 @@ def peak_collection_series_to_data_report(peak_collection_series, filename, info
 
         outfile.write("\n")
 
-        for x in range(0,len(conc_grid)):
-            for y in range(0,len(conc_grid[x])):
+        for x in range(0, len(conc_grid)):
+            for y in range(0, len(conc_grid[x])):
                 val = conc_grid[x][y]
                 outfile.write(f"{val},")
             outfile.write("\n")
@@ -89,8 +95,8 @@ def peak_collection_series_to_data_report(peak_collection_series, filename, info
 
         outfile.write("\n")
 
-        for x in range(0,len(err_grid)):
-            for y in range(0,len(err_grid[x])):
+        for x in range(0, len(err_grid)):
+            for y in range(0, len(err_grid[x])):
                 val = err_grid[x][y]
                 outfile.write(f"{val},")
             outfile.write("\n")
@@ -98,7 +104,7 @@ def peak_collection_series_to_data_report(peak_collection_series, filename, info
         outfile.write("end_errors\n")
 
     # Write integral report to file
-    with open(integral_fname, 'w') as outfile:
+    with open(integral_fname, "w") as outfile:
 
         outfile.write(header_text)
 
@@ -107,11 +113,10 @@ def peak_collection_series_to_data_report(peak_collection_series, filename, info
         [outfile.write(f"{x},") for x in peak_integral_header]
 
         outfile.write("\n")
-        for x in range(0,len(integ_grid)):
-            for y in range(0,len(integ_grid[x])):
+        for x in range(0, len(integ_grid)):
+            for y in range(0, len(integ_grid[x])):
                 val = integ_grid[x][y]
                 outfile.write(f"{val},")
             outfile.write("\n")
 
         outfile.write("end_data\n")
-

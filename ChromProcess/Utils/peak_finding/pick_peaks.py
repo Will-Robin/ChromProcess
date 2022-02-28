@@ -2,8 +2,9 @@ import numpy as np
 from scipy.signal import find_peaks
 from ChromProcess.Utils.signal_processing import signal_processing as sig
 
+
 def find_peak_boundaries_look_ahead(signal, peaks_indices, look_ahead=1):
-    '''
+    """
     Find the start and end of a peak using the peak rt and signal, looking
     ahead a number of indices according to look_ahead. The function searches
     all values within the look_ahead window and finds the minimum. If the
@@ -30,7 +31,7 @@ def find_peak_boundaries_look_ahead(signal, peaks_indices, look_ahead=1):
         Indices of peak start.
     peak_ends: list
         Indices of peak ends.
-    '''
+    """
 
     peak_starts = [] #list to which to add the 
     for n in range(0,len(peaks_indices)):
@@ -75,8 +76,9 @@ def find_peak_boundaries_look_ahead(signal, peaks_indices, look_ahead=1):
 
     return peak_starts, peak_ends
 
+
 def find_peak_boundaries(diff, peaks_indices):
-    '''
+    """
     Find peak boundaries based on differential without look ahead. The function
     runs through the array stepwise until  the differential is no longer
     negative.
@@ -94,12 +96,12 @@ def find_peak_boundaries(diff, peaks_indices):
         Indices of peak start.
     peak_ends: list
         Indices of peak ends.
-    '''
+    """
 
     # find beginning of peaks
     peak_starts = []
-    for n in range(0,len(peaks_indices)):
-        cursor = peaks_indices[n]-2
+    for n in range(0, len(peaks_indices)):
+        cursor = peaks_indices[n] - 2
         while diff[cursor] > 0:
             cursor -= 1
             if cursor == 0:
@@ -108,29 +110,31 @@ def find_peak_boundaries(diff, peaks_indices):
 
     # find end of peaks
     peak_ends = []
-    for n in range(0,len(peaks_indices)):
-        cursor = peaks_indices[n]+2
+    for n in range(0, len(peaks_indices)):
+        cursor = peaks_indices[n] + 2
         if int(cursor) >= len(diff):
-            cursor = len(diff)-1
+            cursor = len(diff) - 1
 
         while diff[cursor] < 0:
             cursor += 1
             if int(cursor) >= len(diff):
-                cursor = len(diff)-1
+                cursor = len(diff) - 1
                 break
 
         peak_ends.append(cursor)
     return peak_starts, peak_ends
 
+
 def find_peaks_scipy(
-                    signal,
-                    threshold=0.1,
-                    min_dist=1,
-                    max_inten = 1e100,
-                    prominence = 0.7,
-                    wlen = 1001,
-                    look_ahead = 12):
-    '''
+    signal,
+    threshold=0.1,
+    min_dist=1,
+    max_inten=1e100,
+    prominence=0.7,
+    wlen=1001,
+    look_ahead=12,
+):
+    """
     Peak finding function that relies on scipy.signal.find_peaks rather than
     the first derivative. This allows to specify peak prominence, making it
     more suited for a noisy data set.
@@ -165,38 +169,37 @@ def find_peaks_scipy(
     -------
     ndarray
         Array containing the indexes of the peaks that were detected
-    '''
+    """
 
     # Smooth out the function before starting the picking
-    smooth_signal = sig.savitzky_golay(signal, 7, 3, deriv=0, rate=1) 
+    smooth_signal = sig.savitzky_golay(signal, 7, 3, deriv=0, rate=1)
 
-    height_ = [max(smooth_signal)*threshold,max_inten]
+    height_ = [max(smooth_signal) * threshold, max_inten]
     peaks_indices, properties = find_peaks(
-                                            smooth_signal, 
-                                            distance = min_dist,
-                                            height = height_,
-                                            prominence = prominence,
-                                            wlen = wlen
-                                            )
+        smooth_signal,
+        distance=min_dist,
+        height=height_,
+        prominence=prominence,
+        wlen=wlen,
+    )
 
     peak_starts, peak_ends = find_peak_boundaries_look_ahead(
-                                                        smooth_signal, 
-                                                        peaks_indices, 
-                                                        look_ahead = look_ahead
-                                                        )
+        smooth_signal, peaks_indices, look_ahead=look_ahead
+    )
 
     return {
-            'Peak_indices': peaks_indices, 
-            'Peak_start_indices': peak_starts, 
-            'Peak_end_indices': peak_ends
-            }
+        "Peak_indices": peaks_indices,
+        "Peak_start_indices": peak_starts,
+        "Peak_end_indices": peak_ends,
+    }
 
-def find_peaks(signal, thres=0.1, min_dist=1, min_inten = -1e100):
-    '''
+
+def find_peaks(signal, thres=0.1, min_dist=1, min_inten=-1e100):
+    """
     Peak detection routine.
 
     Modified from PeakUtils.
-    https://github.com/atjacobs/PeakUtils/tree/master/peakutils 
+    https://github.com/atjacobs/PeakUtils/tree/master/peakutils
 
     Finds the peaks in *y* by taking its first order difference. By using
     *thres* and *min_dist* parameters, it is possible to reduce the number of
@@ -220,7 +223,7 @@ def find_peaks(signal, thres=0.1, min_dist=1, min_inten = -1e100):
     dict
         dict containing the indexes of the peaks that were detected and their
         start and end indices.
-    '''
+    """
 
     thres *= np.max(signal) - np.min(signal)
 
@@ -230,11 +233,11 @@ def find_peaks(signal, thres=0.1, min_dist=1, min_inten = -1e100):
     smoothed_diff = sig.savitzky_golay(diff, 5, 3, deriv=0, rate=1)
 
     pre_peak_inds = np.where(
-                              (np.hstack([smoothed_diff, 0.]) < 0.)
-                            & (np.hstack([0., smoothed_diff]) > 0.)
-                            & (signal > thres)
-                            & (signal > min_inten)
-                            )
+        (np.hstack([smoothed_diff, 0.0]) < 0.0)
+        & (np.hstack([0.0, smoothed_diff]) > 0.0)
+        & (signal > thres)
+        & (signal > min_inten)
+    )
 
     peaks_indices = pre_peak_inds[0]
 
@@ -254,7 +257,7 @@ def find_peaks(signal, thres=0.1, min_dist=1, min_inten = -1e100):
     peak_starts, peak_ends = find_peak_boundaries(diff, peaks_indices)
 
     return {
-            'Peak_indices': peaks_indices,
-            'Peak_start_indices': peak_starts,
-            'Peak_end_indices': peak_ends
-            }
+        "Peak_indices": peaks_indices,
+        "Peak_start_indices": peak_starts,
+        "Peak_end_indices": peak_ends,
+    }

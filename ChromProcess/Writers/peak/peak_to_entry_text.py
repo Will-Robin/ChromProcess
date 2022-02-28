@@ -1,6 +1,5 @@
-
 def peak_to_entry_text(peak, chromatogram):
-    '''
+    """
     For writing the peak's row in a peak table.
 
     Parameters
@@ -12,7 +11,7 @@ def peak_to_entry_text(peak, chromatogram):
     -------
     entry: str
         Row for the peak table output
-    '''
+    """
 
     st_ind = 0
     end_ind = 0
@@ -30,4 +29,3 @@ def peak_to_entry_text(peak, chromatogram):
     entry = f"{rtn_time},{integral},{peak_start},{peak_end}\n"
 
     return entry
-

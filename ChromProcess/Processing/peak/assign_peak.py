@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def assign_retention_time(retention_time, boundaries):
     """
     Possible TODO: Re-implement as decision tree. The current method works, but
@@ -25,11 +26,10 @@ def assign_retention_time(retention_time, boundaries):
     """
 
     # Default assignment to rounded retention time.
-    peak_name = str(round(retention_time,3))
+    peak_name = str(round(retention_time, 3))
     for b in boundaries:
         if boundaries[b][0] < retention_time < boundaries[b][1]:
             peak_name = b
             break
 
     return peak_name
-
