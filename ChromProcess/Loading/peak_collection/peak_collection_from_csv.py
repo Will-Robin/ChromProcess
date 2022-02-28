@@ -1,5 +1,6 @@
 from pathlib import Path
 from ChromProcess import Classes
+import sys
 
 def peak_collection_from_csv(filename, round_digits=3):
     '''

@@ -143,7 +143,9 @@ class Chromatogram:
         '''
 
         import ChromProcess.Writers as write_chrom
-        write_chrom.chromatogram_to_csv(self, filename = filename)
+        import os
+        csv_filename = os.path.splitext(filename)[0]+'.csv'
+        write_chrom.chromatogram_to_csv(self, filename = csv_filename)
 
     def write_peak_collection(self, filename = '', header_text = ''):
         '''

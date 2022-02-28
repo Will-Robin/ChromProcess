@@ -47,7 +47,10 @@ def analysis_from_csv(fname):
             analysis.MS_cutoff = float(ins[1])
 
         if 'Peak_pick_threshold' in line:
-            analysis.peak_pick_threshold = float(ins[1])
+            if len(ins) == 2:
+                analysis.peak_pick_threshold = float(ins[1])
+            else:
+                analysis.peak_pick_threshold = [float(thres) for thres in ins[1:]]
 
         if 'Dilution_factor,' in line:
             analysis.dilution_factor = float(ins[1])

@@ -372,7 +372,7 @@ class PeakCollectionSeries:
 
         return conc_dict, err_dict, integral_dict
 
-    def write_data_reports(self, filename, information):
+    def write_data_reports(self, filename, information, cluster_removal_limit = False):
         '''
         Write the peak collection series to a formatted data report csv file.
 

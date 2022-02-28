@@ -28,12 +28,35 @@ def peak_indices_from_file(peak_file, chromatogram):
     # chromatogram time axis.
     peaks_indices = np.empty(0, dtype='int64') 
     for p_rt in peak_retention_times:
-        # Find the closest retention time value in to p_rt
-        delta_rt = np.abs(chromatogram.time - p_rt)
-        idx = delta_rt.argmin()
+        delta_rt = np.abs(chromatogram.time - float(p_rt))
+        nearest_value_idx = delta_rt.argmin()
+        #search the 5 nearest value for the highest peak, in case the time input was not exact
+        idx = nearest_value_idx - 2 + chromatogram.signal[nearest_value_idx-2:nearest_value_idx+2].argmax() 
         peaks_indices = np.append(peaks_indices, idx)
-
     return peaks_indices
+
+def peak_boundaries_from_file(chromatogram, peak_file):
+    peak_collection = peak_collection_from_csv(peak_file,round_digits=7)
+    peak_start_retention_times = [p.start for p in peak_collection.peaks]
+
+    peak_starts = np.empty(0,dtype='int64') #the functions written to find the start and end of the peak relies on indexes, so we need to convert the retention times to their corresponding indexes.
+    for ps_rt in peak_start_retention_times:
+        delta_rt = np.abs(chromatogram.time-float(ps_rt))
+        idx = delta_rt.argmin()
+        peak_starts = np.append(peak_starts, idx)
+    
+    peak_end_retention_times = [p.end for p in peak_collection.peaks]
+
+    peak_ends = np.empty(0,dtype='int64') #the functions written to find the start and end of the peak relies on indexes, so we need to convert the retention times to their corresponding indexes.
+    for pe_rt in peak_end_retention_times:
+        delta_rt = np.abs(chromatogram.time-float(pe_rt))
+        idx = delta_rt.argmin()
+        peak_ends = np.append(peak_ends, idx)
+    
+    return peak_starts, peak_ends
+
+
+
 
 def peak_from_csv(peak_file, chromatogram, look_ahead = 12):
     '''
