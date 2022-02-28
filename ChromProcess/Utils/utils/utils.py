@@ -132,9 +132,9 @@ def peak_dict_to_spreadsheet(peak_dict, series_values, series_unit):
     peak_grid.append(series_values)
 
     # writing data
-    sorted_keys = sorted([*peak_dict], key=lambda x: x.count("C"))
+    peak_names = [*peak_dict]
 
-    for s in sorted_keys:
+    for s in peak_names:
         peak_header.append(s)
         peak_grid.append(peak_dict[s])
 
