@@ -4,8 +4,6 @@ a chromatogram series.
 """
 import numpy as np
 from scipy import interpolate
-from chromatogramStacks import getChromTimeMinMax
-
 
 def get_chrom_time_min_max(chromatograms):
     """
