@@ -175,7 +175,7 @@ def peak_collection_series_to_data_report(
         outfile.write(conc_rep_text)
 
     # Write integral report to file
-    i_data_rep_text = peak_collection_series_conc_report_text(peak_collection_series, information)
+    i_data_rep_text = peak_collection_series_integral_report_text(peak_collection_series, information)
     with open(integral_fname, "w") as outfile:
         outfile.write(i_data_rep_text)
 
