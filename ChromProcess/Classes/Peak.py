@@ -1,5 +1,7 @@
 import numpy as np
-
+from ChromProcess.Utils.utils import functions
+from ChromProcess.Processing.peak import assign_peak
+from ChromProcess.Utils.utils import error_propagation as error_prop
 
 class Peak:
     def __init__(
@@ -54,7 +56,7 @@ class Peak:
 
         self.indices = indices
 
-        if self.integral == None:
+        if integral == None:
             self.integral = 0.0
         else:
             self.integral = integral
