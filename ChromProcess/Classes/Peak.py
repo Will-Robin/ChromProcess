@@ -2,7 +2,16 @@ import numpy as np
 
 
 class Peak:
-    def __init__(self, retention_time, indices):
+    def __init__(
+            self,
+            retention_time,
+            start,
+            end,
+            indices,
+            integral = None,
+            parent="not specified",
+            mass_spectrum=False
+            ):
         """
         Creates a Peak object using a retention time
         and the indices of the places in the data's
@@ -12,7 +21,12 @@ class Peak:
         Parameters
         ----------
         retention_time: float
+        start: float
+        end: float
         indices: list
+        integral: float
+        parent: str
+        mass_spectrum: bool or MassSpectrum object
 
         Attributes
         ----------
@@ -25,7 +39,6 @@ class Peak:
         self.ion_chromatograms: dict
         self.ion_integrals: dict
         self.mass_spectrum: bool or MassSpectrum object.
-        self.mass_spectrum: list
         self.deconvolution: list
         self.assignment: str
         self.concentration: bool or float
@@ -41,7 +54,10 @@ class Peak:
 
         self.indices = indices
 
-        self.integral = 0.0
+        if self.integral == None:
+            self.integral = 0.0
+        else:
+            self.integral = integral
 
         self.height = 0.0
 
