@@ -3,7 +3,6 @@ from ChromProcess.Classes.Chromatogram import Chromatogram
 from ChromProcess.Classes.MassSpectrum import MassSpectrum
 
 from ChromProcess.Classes.PeakCollection import PeakCollection
-from ChromProcess.Classes.PeakCollectionElement import PeakCollectionElement
 from ChromProcess.Classes.PeakCollectionSeries import PeakCollectionSeries
 
 from ChromProcess.Classes.InstrumentCalibration import InstrumentCalibration

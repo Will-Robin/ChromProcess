@@ -15,8 +15,8 @@ class PeakCollection:
             Value of the point in the series at which the peaks were measured.
         self.series_unit: str
             Unit for the series values.
-        self.internal_standard: Classes.PeakCollectionElement
-            The internal standard PeakCollectionElement.
+        self.internal_standard: Classes.Peak
+            The internal standard Peak
         self.peaks: list
             List of peaks.
         self.mass_spectra: list
@@ -25,15 +25,14 @@ class PeakCollection:
             The position of the internal standard when the object is created
             from a file.
         self.assigned_compounds: list
-            A list of names of assigned compounds in the PeakCollection.
+            A list of names of assigned compounds in the Peak
         """
 
         self.filename = "not specified"
         self.series_value = 0.0
         self.series_unit = "not specified"
-        self.internal_standard = Classes.PeakCollectionElement(0, 0, 0, 0)
-        self.peaks = [Classes.PeakCollectionElement(0, 0, 0, 0)]
-        self.assignment = "not specified"
+        self.internal_standard = Classes.Peak(0, 0, 0, 0)
+        self.peaks = [Classes.Peak(0, 0, 0, 0)]
         self.mass_spectra = []
         self.initial_IS_pos = 0.0
         self.assigned_compounds = []
@@ -41,10 +40,10 @@ class PeakCollection:
     def remove_peaks_below_threshold(self, threshold):
         """
         Remove peaks below a certain integral threshold (note that this
-        operates on the values held in the PeakCollectionElement
-        integral attributes. If they have been normalised to an
-        internal standard, the threshold value should probably be lower
-        than for the 'raw' integral data).
+        operates on the values held in the Peak integral attributes. If
+        they have been normalised to an internal standard, the
+        threshold value should probably be lower than for the 'raw'
+        integral data).
 
         Parameters
         ----------
@@ -101,7 +100,7 @@ class PeakCollection:
 
     def add_mass_spectra(self, ms_list):
         """
-        Add mass spectrum information into PeakCollectionElement objects.
+        Add mass spectrum information into Peak objects.
 
         Parameters
         ----------
