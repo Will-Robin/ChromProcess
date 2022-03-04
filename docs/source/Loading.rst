@@ -31,7 +31,7 @@ Loading
    :undoc-members:
    :show-inheritance:
 
-.. automodule:: ChromProcess.Loading.chromatogram.text.chrom_from_labsolutions_acsii
+.. automodule:: ChromProcess.Loading.chromatogram.text.chrom_from_labsolutions_ascii
    :members:
    :undoc-members:
    :show-inheritance:
@@ -42,11 +42,6 @@ Loading
    :show-inheritance:
 
 .. automodule:: ChromProcess.Loading.chromatogram.ion_chromatogram.ion_chromatogram_from_peak
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-.. automodule:: ChromProcess.Loading.chromatogram.ion_chromatogram.ion_chromatogram_from_region
    :members:
    :undoc-members:
    :show-inheritance:

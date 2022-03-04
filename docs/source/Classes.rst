@@ -26,11 +26,6 @@ Classes
    :undoc-members:
    :show-inheritance:
 
-.. autoclass:: ChromProcess.Classes.PeakCollectionElement
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 .. autoclass:: ChromProcess.Classes.PeakCollection
    :members:
    :undoc-members:
