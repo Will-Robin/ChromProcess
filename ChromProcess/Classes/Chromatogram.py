@@ -52,7 +52,7 @@ class Chromatogram:
         self.scan_indices = []
         self.point_counts = []
 
-        self.internal_standard = Classes.Peak(0.0, [])
+        self.internal_standard = Classes.Peak(0.0, 0.0, 0.0)
 
     def get_mass_spectrum(self, time):
         """

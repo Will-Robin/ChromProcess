@@ -31,8 +31,8 @@ class PeakCollection:
         self.filename = "not specified"
         self.series_value = 0.0
         self.series_unit = "not specified"
-        self.internal_standard = Classes.Peak(0, 0, 0, 0)
-        self.peaks = [Classes.Peak(0, 0, 0, 0)]
+        self.internal_standard = Classes.Peak(0.0, 0.0, 0.0)
+        self.peaks = [Classes.Peak(0.0, 0.0, 0.0)]
         self.mass_spectra = []
         self.initial_IS_pos = 0.0
         self.assigned_compounds = []

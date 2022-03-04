@@ -32,6 +32,8 @@ def peak_from_chromatogram(chrom, start, end):
     peak_idx = np.argmax(sigseg)
     retention_time = timeseg[peak_idx]
 
-    peak = Classes.Peak(retention_time, inds)
+    start = timeseg[0]
+    end = timeseg[-1]
+    peak = Classes.Peak(retention_time, start, end, indices = inds)
 
     return peak

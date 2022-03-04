@@ -26,7 +26,8 @@ def add_peaks_to_chromatogram(peak_times, chromatogram):
 
         idx = utils.indices_from_boundary(time, start, end)
 
-        peak = Classes.Peak(retention_time, idx)
+
+        peak = Classes.Peak(retention_time, start, end, indices = idx)
         chromatogram.peaks[retention_time] = peak
 
 
@@ -82,7 +83,7 @@ def internal_standard_integral(chromatogram, is_start, is_end):
     time = chromatogram.time
     idx = utils.indices_from_boundary(time, start, end)
 
-    peak = Classes.Peak(retention_time, idx)
+    peak = Classes.Peak(retention_time, start, end, indices = idx)
     peak.get_integral(chromatogram)
 
     chromatogram.internal_standard = peak
