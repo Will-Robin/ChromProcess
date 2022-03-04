@@ -7,10 +7,10 @@ class Peak:
             retention_time,
             start,
             end,
-            indices,
+            indices = [],
             integral = None,
-            parent="not specified",
-            mass_spectrum=False
+            parent = "",
+            mass_spectrum = False
             ):
         """
         Creates a Peak object using a retention time
@@ -239,7 +239,7 @@ class Peak:
         Calculation of the standard error on a concentration estimation from
         the calibration.
 
-        Modifies PeakCollectionElement object attributes.
+        Modifies Peak object attributes.
 
         Parameters
         ----------
