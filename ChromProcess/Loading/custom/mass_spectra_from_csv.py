@@ -1,7 +1,7 @@
 import numpy as np
 
 from ChromProcess import Classes
-from ChromProcess.Utils import simple_functions as s_f
+from ChromProcess.Utils.utils import utils
 
 
 def mass_spectra_from_csv(file):
@@ -36,14 +36,14 @@ def mass_spectra_from_csv(file):
                 read = line.strip("\n").split(",")
                 rt = float(read[1])
             if "m/z" in line:
-                if s_f.isfloat(line.split(",")[1]):
+                if utils.is_float(line.split(",")[1]):
                     read = fltln(line)
                     mz = np.array(read)
                 else:
                     mz = np.array([0.0])
 
             if "relative abundance" in line:
-                if s_f.isfloat(line.split(",")[1]):
+                if utils.is_float(line.split(",")[1]):
                     read = fltln(line)
                     r_a = np.array(read)
                 else:
@@ -52,9 +52,7 @@ def mass_spectra_from_csv(file):
                 make_ms = True
 
             if make_ms:
-                mass_spectra.append(
-                    Classes.MassSpectrum(file, mz, r_a, pos=round(rt, 3))
-                )
+                mass_spectra.append(Classes.MassSpectrum(mz, r_a, pos=round(rt, 3)))
                 make_ms = False
 
     return mass_spectra

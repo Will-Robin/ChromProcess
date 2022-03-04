@@ -6,7 +6,6 @@ Consider using cookiecutter (https://github.com/cookiecutter/cookiecutter).
 import os
 import sys
 from pathlib import Path
-from ChromProcess.Utils import build_experiment as build_exp
 
 # The home directory is default.
 default_parent_directory = Path.home()
@@ -93,23 +92,21 @@ def build_project(
 
     project_root = f"{parent_directory}/{project_name}"
 
-    build_exp.write_dict_to_file(
-        f"{project_root}/{project_name}_conditions.csv", conditions
-    )
+    write_dict_to_file(f"{project_root}/{project_name}_conditions.csv", conditions)
 
-    build_exp.write_dict_to_file(
+    write_dict_to_file(
         f"{project_root}/{project_name}_analysis_details.csv", analysis_details
     )
 
-    build_exp.write_dict_to_file(
+    write_dict_to_file(
         f"{project_root}/{project_name}_local_assignments.csv", local_assignments
     )
 
 
 if __name__ == "__main__":
 
-    folder_name = build_exp.default_folder_name
-    parent_directory = build_exp.default_parent_directory
+    folder_name = default_folder_name
+    parent_directory = default_parent_directory
 
     if len(sys.argv) >= 2:
         folder_name = sys.argv[1]
@@ -119,10 +116,10 @@ if __name__ == "__main__":
 
     print(f"Creating {folder_name} in {parent_directory}.")
 
-    build_exp.build_project(
+    build_project(
         folder_name,
         parent_directory,
-        build_exp.conditions,
-        build_exp.analysis_details,
-        build_exp.local_assignments,
+        conditions,
+        analysis_details,
+        local_assignments,
     )

@@ -1,6 +1,6 @@
 import numpy as np
 from scipy.optimize import curve_fit
-from ChromProcess.Utils import deconvolution as d_c
+from ChromProcess.Utils.signal_processing import deconvolution as d_c
 
 
 def _1gaussian(x, amp1, cen1, sigma1):
