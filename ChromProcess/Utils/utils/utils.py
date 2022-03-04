@@ -109,8 +109,9 @@ def bin_dictionary(value_dict, stdev=0.001):
     return out_log
 
 
-def peak_dict_to_spreadsheet(peak_dict, series_values, series_unit,
-        sort_series_order = True):
+def peak_dict_to_spreadsheet(
+    peak_dict, series_values, series_unit, sort_series_order=True
+):
     """
     Convert a dictionary of peak series to a spreadsheet-like grid and a
     header.
@@ -143,7 +144,7 @@ def peak_dict_to_spreadsheet(peak_dict, series_values, series_unit,
         peak_header.append(s)
 
         if sort_series_order:
-            line = [n for _,n in sorted(zip(series_values, peak_dict[s]))]
+            line = [n for _, n in sorted(zip(series_values, peak_dict[s]))]
         else:
             line = peak_dict[s]
 

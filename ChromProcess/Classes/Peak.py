@@ -3,17 +3,18 @@ from ChromProcess.Utils.utils import functions
 from ChromProcess.Processing.peak import assign_peak
 from ChromProcess.Utils.utils import error_propagation as error_prop
 
+
 class Peak:
     def __init__(
-            self,
-            retention_time,
-            start,
-            end,
-            indices = [],
-            integral = None,
-            parent = "",
-            mass_spectrum = False
-            ):
+        self,
+        retention_time,
+        start,
+        end,
+        indices=[],
+        integral=None,
+        parent="",
+        mass_spectrum=False,
+    ):
         """
         Creates a Peak object using a retention time
         and the indices of the places in the data's
@@ -78,7 +79,6 @@ class Peak:
         self.mass_spectrum = mass_spectrum
 
         self.parent_peak_collection = parent
-
 
     def get_integral(self, chromatogram, baseline_subtract=False):
         """

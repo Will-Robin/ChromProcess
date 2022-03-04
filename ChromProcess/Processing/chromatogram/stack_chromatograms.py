@@ -5,6 +5,7 @@ a chromatogram series.
 import numpy as np
 from scipy import interpolate
 
+
 def get_chrom_time_min_max(chromatograms):
     """
     Get the highest and lowest retention times from a set of chromatograms.

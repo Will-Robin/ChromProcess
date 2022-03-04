@@ -37,13 +37,13 @@ def peak_collection_from_csv(filename, round_digits=3):
     IS_line_num = -1
     # Classes.Peak(
     #        retention_time,
-    #        start, 
-    #        end, 
+    #        start,
+    #        end,
     #        indices = [],
     #        integral = None,
     #        parent = "",
     #        mass_spectrum = False)
-    IS = Classes.Peak(0.0, 0.0, 0.0, integral = 1.0)
+    IS = Classes.Peak(0.0, 0.0, 0.0, integral=1.0)
 
     value = 0.0
     variable = ""
@@ -74,7 +74,7 @@ def peak_collection_from_csv(filename, round_digits=3):
                         round(read[0], round_digits),
                         round(read[2], round_digits),
                         round(read[3], round_digits),
-                        integral = read[1],
+                        integral=read[1],
                         parent=parent_filename,
                     )
 
@@ -88,7 +88,7 @@ def peak_collection_from_csv(filename, round_digits=3):
                         round(rd[0], round_digits),
                         round(rd[2], round_digits),
                         round(rd[3], round_digits),
-                        integral = rd[1],
+                        integral=rd[1],
                         parent=parent_filename,
                     )
                 )
