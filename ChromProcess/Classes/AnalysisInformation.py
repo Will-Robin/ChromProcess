@@ -82,7 +82,7 @@ class AnalysisInformation:
         dil_factor_err = self.dilution_factor_error
         peak_pick_thresh = self.peak_pick_threshold
         ms_cutoff = self.MS_cutoff
-        us_ms = self.use_MS
+        use_ms = self.use_MS
 
         with open(fname, "w") as f:
             f.write(f"Dataset,{exp_code}\n")

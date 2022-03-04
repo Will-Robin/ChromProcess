@@ -1,5 +1,3 @@
-from pathlib import Path
-
 from ChromProcess.Utils.utils import utils
 from ChromProcess.Writers.general import write_header
 
@@ -91,5 +89,5 @@ def data_report_to_csv(data_report, filename=""):
 
     data_report_as_string = write_data_report_text(data_report)
 
-    with open(fname, "w") as file:
+    with open(filename, "w") as file:
         file.write(data_report_as_string)

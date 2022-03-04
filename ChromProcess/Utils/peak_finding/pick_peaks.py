@@ -194,7 +194,7 @@ def find_peaks_scipy(
     smooth_signal = sig.savitzky_golay(signal, 7, 3, deriv=0, rate=1)
 
     height_ = [max(smooth_signal) * threshold, max_inten]
-    peaks_indices, properties = find_peaks(
+    peaks_indices, _ = find_peaks(
         smooth_signal,
         distance=min_dist,
         height=height_,

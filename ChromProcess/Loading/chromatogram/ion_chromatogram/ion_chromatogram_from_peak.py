@@ -1,4 +1,3 @@
-import numpy as np
 from .ion_chromatogram_from_region import ion_chromatogram_from_region
 
 

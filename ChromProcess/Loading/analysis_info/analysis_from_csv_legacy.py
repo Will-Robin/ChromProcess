@@ -40,9 +40,9 @@ def analysis_from_csv_legacy(fname):
 
         if "extract_mass_spectra" in line:
             use_ms = ins[1].lower()
-            if ins[1] == "true":
+            if use_ms == "true":
                 analysis.use_MS = True
-            if ins[1] == "false":
+            if use_ms == "false":
                 analysis.use_MS = False
 
         if "mass_spectra_filter" in line:

@@ -41,7 +41,7 @@ def inverse_linear(variable, gradient, intercept, factor=1.0):
     return factor * (variable - intercept) / gradient
 
 
-def quadratic_function(variable, A, B, C):
+def quadratic_function(X, A, B, C):
     """
     Quadratic function
 
@@ -147,7 +147,7 @@ def residual_squared_error(data_1, data_2):
     """
 
     RSS = np.sum(np.square(data_1 - data_2))
-    rse = np.sqrt(RSS / (len(dat_1) - 2))
+    rse = np.sqrt(RSS / (len(data_1) - 2))
     return rse
 
 

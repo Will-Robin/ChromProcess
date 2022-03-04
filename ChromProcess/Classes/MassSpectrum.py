@@ -1,6 +1,3 @@
-import sys
-
-
 class MassSpectrum:
     def __init__(self, mz, inten, pos=None):
         """

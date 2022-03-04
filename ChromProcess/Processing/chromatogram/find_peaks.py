@@ -20,7 +20,7 @@ def find_peaks_in_region(chromatogram, start, end, threshold=0.1):
 
     Returns
     -------
-    None
+    peak_features: list
     """
 
     if start > end:

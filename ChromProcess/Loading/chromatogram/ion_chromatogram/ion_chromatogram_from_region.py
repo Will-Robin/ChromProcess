@@ -2,9 +2,7 @@ import numpy as np
 from ChromProcess.Utils.utils import utils
 
 
-def ion_chromatogram_from_region(
-    chromatogram, lower, upper, spectrum_filter=0.1, threshold=0.1
-):
+def ion_chromatogram_from_region(chromatogram, lower, upper, threshold=0.1):
     """
     Get the ion chromatograms for a region of a chromatogram. Requires mass
     spectra information to be present in the chromatogram.
@@ -36,7 +34,6 @@ def ion_chromatogram_from_region(
         inds = utils.indices_from_boundary(chromatogram.time, lower, upper)
 
         time = chromatogram.time[inds]
-        signal = chromatogram.signal[inds]
         scan_inds = chromatogram.scan_indices[inds]
         p_counts = chromatogram.point_counts[inds]
 
@@ -73,7 +70,7 @@ def ion_chromatogram_from_region(
 
     # remove ion chromatograms whose maximum values do not exceed the
     # fraction of the total ion chromatogram defind by threshold
-    threshold = threshold * signal.max()
+    threshold = threshold * chromatogram.signal.max()
     remove_ic = []
     for ic in ion_chromatograms:
         if ion_chromatograms[ic].max() < threshold:

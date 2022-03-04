@@ -1,9 +1,8 @@
 import numpy as np
-from pathlib import Path
 
 
 class DataReport:
-    def __init__(self, file=""):
+    def __init__(self):
         """
         Parameters
         ----------
@@ -18,11 +17,6 @@ class DataReport:
         self.errors = np.array([])
         self.series_unit = "not specified"
         self.data = {}
-
-        if file == "":
-            pass
-        else:
-            self.read_from_file(file)
 
     def write_to_file(self, filename=""):
         """
@@ -67,7 +61,7 @@ class DataReport:
 
         repeated_entries = list(set(repeat_entries))
 
-        return repeat_entries
+        return repeated_entries
 
     def remove_repeat_entries(self):
         """

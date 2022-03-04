@@ -44,7 +44,7 @@ def chromatogram_to_csv(chromatogram, filename=""):
     """
 
     if filename == "":
-        filename = c.filename.split(".")[0] + ".csv"
+        filename = chromatogram.filename.split(".")[0] + ".csv"
 
     csv_text = write_chromatogram_csv_text(chromatogram)
 
