@@ -109,7 +109,8 @@ def bin_dictionary(value_dict, stdev=0.001):
     return out_log
 
 
-def peak_dict_to_spreadsheet(peak_dict, series_values, series_unit):
+def peak_dict_to_spreadsheet(peak_dict, series_values, series_unit,
+        sort_series_order = True):
     """
     Convert a dictionary of peak series to a spreadsheet-like grid and a
     header.
@@ -120,6 +121,10 @@ def peak_dict_to_spreadsheet(peak_dict, series_values, series_unit):
         Dictionary of peak series.
     series_values: list
         list of series values
+    series_unit: str
+        Units for the inpendent variable.
+    sort_series_order: bool
+        Whether to sort the output according to the series or not.
 
     Returns
     -------
@@ -129,14 +134,20 @@ def peak_dict_to_spreadsheet(peak_dict, series_values, series_unit):
     peak_grid = []
     peak_header = [series_unit]
 
-    peak_grid.append(series_values)
+    sorted_vals = sorted(series_values)
+    peak_grid.append(sorted_vals)
 
-    # writing data
     peak_names = [*peak_dict]
-
     for s in peak_names:
+
         peak_header.append(s)
-        peak_grid.append(peak_dict[s])
+
+        if sort_series_order:
+            line = [n for _,n in sorted(zip(series_values, peak_dict[s]))]
+        else:
+            line = peak_dict[s]
+
+        peak_grid.append(line)
 
     peak_grid_transposed = [list(i) for i in zip(*peak_grid)]
 
