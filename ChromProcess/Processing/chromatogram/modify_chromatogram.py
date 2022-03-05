@@ -1,33 +1,28 @@
-from ChromProcess import Classes
-from ChromProcess.Utils.utils import utils
+import numpy as np
 from ChromProcess.Processing.chromatogram import find_peaks
 
 
-def add_peaks_to_chromatogram(peak_times, chromatogram):
+def add_peaks_to_chromatogram(peaks, chromatogram):
     """
     Add peaks to a chromatogram (modifies the chromatogram in place).
 
     Parameters
     ----------
-    peak_times: list
-        [start, peak, end] in units of the chromatogram's
-        retention time axis.
+    peaks: list of Peak objects
 
     chromatogram: Chromatogram object
 
     Returns
-    ------
-    None
+    ------ None
     """
 
-    time = chromatogram.time
-    for p in peak_times:
-        start, retention_time, end = p[0], p[1], p[2]
-
-        idx = utils.indices_from_boundary(time, start, end)
-
-        peak = Classes.Peak(retention_time, start, end, indices=idx)
-        chromatogram.peaks[retention_time] = peak
+    for peak in peaks:
+        rt = peak.retention_time
+        indices = np.where(
+            (chromatogram.time >= peak.start) & (chromatogram.time <= peak.end)
+        )[0]
+        peak.indices = indices
+        chromatogram.peaks[rt] = peak
 
 
 def integrate_chromatogram_peaks(chromatogram, baseline_subtract=False):
@@ -77,12 +72,12 @@ def internal_standard_integral(chromatogram, is_start, is_end):
         chromatogram, is_start, is_end, threshold=0.1
     )
 
-    start, retention_time, end = peaks[0][0], peaks[0][1], peaks[0][2]
+    peak = peaks[0]
 
-    time = chromatogram.time
-    idx = utils.indices_from_boundary(time, start, end)
+    peak.indices = np.where(
+        (chromatogram.time >= peak.start) & (chromatogram.time <= peak.end)
+    )[0]
 
-    peak = Classes.Peak(retention_time, start, end, indices=idx)
     peak.get_integral(chromatogram)
 
     chromatogram.internal_standard = peak

@@ -36,14 +36,7 @@ def peak_collection_from_csv(filename, round_digits=3):
     peaks = []
 
     IS_line_num = -1
-    # Classes.Peak(
-    #        retention_time,
-    #        start,
-    #        end,
-    #        indices = [],
-    #        integral = None,
-    #        parent = "",
-    #        mass_spectrum = False)
+
     IS = Classes.Peak(0.0, 0.0, 0.0, integral=1.0)
 
     value = 0.0

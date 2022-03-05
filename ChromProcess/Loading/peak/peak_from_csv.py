@@ -1,6 +1,6 @@
 import numpy as np
 
-from ChromProcess.Utils.utils.utils import peak_indices_to_times
+from ChromProcess import Classes
 from ChromProcess.Utils.peak_finding.pick_peaks import find_peak_boundaries_look_ahead
 from ChromProcess.Loading.peak_collection.peak_collection_from_csv import (
     peak_collection_from_csv,
@@ -56,8 +56,7 @@ def peak_from_csv(peak_file, chromatogram, look_ahead=12):
 
     Returns
     -------
-    peak_features: list
-        list of list containing times of peak start, center, and end.
+    peaks: list of Peak objects
     """
 
     peaks_indices = peak_indices_from_file(peak_file, chromatogram)
@@ -72,6 +71,19 @@ def peak_from_csv(peak_file, chromatogram, look_ahead=12):
         "Peak_end_indices": peak_ends,
     }
 
-    peak_features = peak_indices_to_times(chromatogram.time, picked_peaks)
+    peaks = []
+    for x in range(0, len(picked_peaks["Peak_indices"])):
 
-    return peak_features
+        pk_idx = picked_peaks["Peak_indices"][x]
+        start_idx = picked_peaks["Peak_start_indices"][x]
+        end_idx = picked_peaks["Peak_end_indices"][x]
+
+        retention_time = chromatogram.time[pk_idx]
+        start = chromatogram.time[start_idx]
+        end = chromatogram.time[end_idx]
+
+        indices = np.where((chromatogram.time >= start) & (chromatogram.time <= end))[0]
+
+        peaks.append(Classes.Peak(retention_time, start, end, indices=indices))
+
+    return peaks
