@@ -1,0 +1,46 @@
+Dataset = "example_dataset_name"
+
+[Method_information]
+Method = "GCMS"
+Instrument = "GCv Agilent/JEOL"
+Instrument_method = "Method 5"
+Calibration_model = "quadratic"
+Calibration_file = "2020_03_16_GCMS_Calibrations.csv"
+# Note that \ removes whitespace between lines.
+Derivatisation_method = '''\
+Reaction samples (35 μL) were flash-frozen in liquid nitrogen and freeze-dried \
+overnight to give dry to oily residues. To each sample was added a solution of \
+O-ethylhydroxylamine hydrochloride in pyridine (75 μL, 20 g L^−1^). A solution \
+of dodecane and tetradecane (100 μL, 1.6 mM each in pyridine) was then added to \
+each sample. The samples were then shaken at 70 °C for 30 minutes. After \
+cooling to room temperature, N,O-bis(trimethylsilyl)trifluoroacetamide (25 μL) \
+was added to each sample. The samples were again shaken at 70 °C for 30 \
+minutes. The samples were then cooled to room temperature, followed by \
+centrifugation (3-5 min, 10,000 rpm). The supernatants were decanted into \
+sample vials for analysis by GC-MS.\
+'''
+
+[Peak_picking_options]
+Peak_pick_threshold = 0.1
+
+[Chromatogram_Regions]
+region_1 = [7.4, 8.4]
+region_2 = [10.2, 11.2]
+region_3 = [12.8, 14.0]
+
+[Internal_standard_region]
+# the variable name `internal_standard_1` should remain unchanged for now.
+internal_standard_1 = [6.6, 6.79]
+
+[Mass_spectra_options]
+Extract_mass_spectra = "FALSE"
+Mass_spectra_filter = 500
+
+[Sample_information]
+Dilution_factor = 5.714285714
+Dilution_factor_error = 0.0447
+Internal_standard_concentration = 0.0008
+Internal_standard_concentration_error = 9.89E-06
+
+[Deconvolution_regions]
+region_1 = [6.6, 6.79]

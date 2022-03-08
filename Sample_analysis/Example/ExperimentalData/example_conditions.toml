@@ -1,0 +1,10 @@
+Dataset = "example_dataset_name"
+Series_values = [10, 20, 30]
+Series_unit = "time/ s"
+
+[conditions]
+dihydroxyacetone = [2.0, "M"]
+formaldehyde = [2.0, "M"]
+NaOH = [0.12, "M"]
+CaCl2 = [0.06, "M"]
+water = [0.0, "M"]
