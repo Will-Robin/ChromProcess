@@ -140,6 +140,24 @@ class Chromatogram:
 
         write_chrom.chromatogram_to_csv(self, filename=filename)
 
+    def write_to_json(self, filename=""):
+        """
+        Write to csv.
+
+        Parameters
+        ----------
+        filename: str
+            Name for the output file
+
+        Returns
+        -------
+        None
+        """
+
+        import ChromProcess.Writers as write_chrom
+
+        write_chrom.chromatogram_to_json(self, filename=filename)
+
     def write_peak_collection(self, filename="", header_text=""):
         """
         Write the peaks in a chromatogram file to a formatted peak collection

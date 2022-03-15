@@ -1,4 +1,5 @@
 from .chromatogram import chromatogram_to_csv
+from .chromatogram import chromatogram_to_json
 from .chromatogram import chromatogram_to_peak_collection
 
 from .peak import peak_to_entry_text
