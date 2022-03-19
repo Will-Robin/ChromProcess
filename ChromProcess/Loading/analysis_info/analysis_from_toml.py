@@ -57,7 +57,11 @@ def analysis_from_toml(fname):
     sample_info = analysis_dict["Sample_information"]
     analysis.dilution_factor = sample_info["Dilution_factor"]
     analysis.dilution_factor_error = sample_info["Dilution_factor_error"]
-    analysis.internal_standard_concentration = sample_info["Internal_standard_concentration"]
-    analysis.internal_standard_concentration_error = sample_info["Internal_standard_concentration_error"]
+    analysis.internal_standard_concentration = sample_info[
+        "Internal_standard_concentration"
+    ]
+    analysis.internal_standard_concentration_error = sample_info[
+        "Internal_standard_concentration_error"
+    ]
 
     return analysis

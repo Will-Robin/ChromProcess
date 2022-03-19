@@ -1,3 +1,6 @@
+from ChromProcess.Writers import mass_spectrum_to_string_rows
+
+
 class MassSpectrum:
     def __init__(self, mz, inten, pos=None):
         """
@@ -28,8 +31,7 @@ class MassSpectrum:
         -------
         ms_string: str
         """
-        import ChromProcess.Writers as write
 
-        ms_string = write.mass_spectrum_to_string_rows(self)
+        ms_string = mass_spectrum_to_string_rows(self)
 
         return ms_string

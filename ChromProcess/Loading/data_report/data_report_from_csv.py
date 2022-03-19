@@ -2,9 +2,7 @@ import numpy as np
 from pathlib import Path
 
 from ChromProcess import Classes
-from ChromProcess.Loading import parsers
-
-# TODO: clean up this code (and use regex instead?)
+from ChromProcess.Loading.parsers import import_file_section
 
 
 def data_report_from_csv(file):
@@ -37,7 +35,7 @@ def data_report_from_csv(file):
                 data_report.experiment_code = ins[1]
 
     # parse conditions section
-    condset = parsers.import_file_section(file, "start_conditions", "end_conditions")
+    condset = import_file_section(file, "start_conditions", "end_conditions")
 
     for c in condset:
         entry = [float(x) for x in c[1:]]
@@ -47,7 +45,7 @@ def data_report_from_csv(file):
             data_report.conditions[c[0]] = np.array(entry)
 
     # parse data section
-    dataset = parsers.import_file_section(file, "start_data", "end_data")
+    dataset = import_file_section(file, "start_data", "end_data")
 
     transposed_datalines = [list(i) for i in zip(*dataset)]
     d_out = {}
@@ -62,7 +60,7 @@ def data_report_from_csv(file):
     data_report.data = d_out
 
     # parse errors section
-    errors = parsers.import_file_section(file, "start_errors", "end_errors")
+    errors = import_file_section(file, "start_errors", "end_errors")
 
     if len(errors) == 0:
         data_report.errors = {
@@ -77,7 +75,7 @@ def data_report_from_csv(file):
         data_report.errors = errors_out
 
     # Parse analysis details section
-    analysis = parsers.import_file_section(
+    analysis = import_file_section(
         file, "start_analysis_details", "end_analysis_details"
     )
     for a in analysis:

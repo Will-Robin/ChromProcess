@@ -4,6 +4,7 @@ from pathlib import Path
 
 from ChromProcess import Classes
 
+
 def chrom_from_json(filename):
     """
     A specific parser for .txt files exported from Shimadzu LabSolutions
@@ -47,13 +48,9 @@ def chrom_from_json(filename):
         start = peak["start"]
         end = peak["end"]
 
-        inds = np.where((chrom.time >= start)&(chrom.time <= end))[0]
+        inds = np.where((chrom.time >= start) & (chrom.time <= end))[0]
         chrom.peaks[retention_time] = Classes.Peak(
-                                                    retention_time,
-                                                    start,
-                                                    end,
-                                                    indices = inds,
-                                                    integral = peak["integral"]
-                                        )
+            retention_time, start, end, indices=inds, integral=peak["integral"]
+        )
 
     return chrom

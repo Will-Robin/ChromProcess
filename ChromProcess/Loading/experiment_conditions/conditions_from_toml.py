@@ -1,6 +1,7 @@
 import tomli
 from ChromProcess import Classes
 
+
 def conditions_from_toml(filename):
     """
     Create a ExperimentConditions object from a .toml file.
@@ -36,4 +37,3 @@ def conditions_from_toml(filename):
     conditions.conditions = conds
 
     return conditions
-

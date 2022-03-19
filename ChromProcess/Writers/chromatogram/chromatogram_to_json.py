@@ -1,5 +1,6 @@
 import json
 
+
 def write_chromatogram_json_text(chromatogram):
     """
     Write the text for a chromatogram in a column-wise csv format.
@@ -25,12 +26,14 @@ def write_chromatogram_json_text(chromatogram):
     chrom_dict["peaks"] = []
     for p_k in chromatogram.peaks:
         peak = chromatogram.peaks[p_k]
-        chrom_dict["peaks"].append({
-            "retention_time": peak.retention_time,
-            "start": peak.start,
-            "end": peak.end,
-            "integral": peak.integral,
-            })
+        chrom_dict["peaks"].append(
+            {
+                "retention_time": peak.retention_time,
+                "start": peak.start,
+                "end": peak.end,
+                "integral": peak.integral,
+            }
+        )
 
     json_string = json.dumps(chrom_dict)
 
@@ -60,4 +63,3 @@ def chromatogram_to_json(chromatogram, filename=""):
 
     with open(filename, "w") as f:
         f.write(json_text)
-

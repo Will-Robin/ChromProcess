@@ -1,7 +1,11 @@
 import numpy as np
-from ChromProcess.Utils.utils import functions
-from ChromProcess.Processing.peak import assign_peak
-from ChromProcess.Utils.utils import error_propagation as error_prop
+from ChromProcess.Utils.utils.functions import inverse_linear
+from ChromProcess.Utils.utils.functions import inverse_quadratic
+from ChromProcess.Utils.utils.functions import inverse_quadratic_standard_error
+from ChromProcess.Utils.utils.functions import inverse_linear
+
+from ChromProcess.Processing.peak.assign_peak import assign_retention_time
+from ChromProcess.Utils.utils.error_propagation import mult_div_error_prop
 
 
 class Peak:
@@ -194,9 +198,7 @@ class Peak:
         None
         """
 
-        self.assignment = assign_peak.assign_retention_time(
-            self.retention_time, boundaries
-        )
+        self.assignment = assign_retention_time(self.retention_time, boundaries)
 
     def apply_linear_calibration(self, A, B, internal_standard=1.0):
         """
@@ -212,7 +214,7 @@ class Peak:
         None
         """
 
-        c1 = functions.inverse_linear(self.integral, A, B, factor=1.0)
+        c1 = inverse_linear(self.integral, A, B, factor=1.0)
         self.concentration = internal_standard * c1
 
     def apply_quadratic_calibration(self, A, B, C, internal_standard=1.0):
@@ -229,7 +231,7 @@ class Peak:
         None
         """
 
-        c1 = functions.inverse_quadratic(self.integral, A, B, C, factor=1.0)
+        c1 = inverse_quadratic(self.integral, A, B, C, factor=1.0)
 
         self.concentration = internal_standard * c1
 
@@ -275,15 +277,13 @@ class Peak:
             sac = calibrations.calibration_factors[assign]["AC_covariance"]
             sbc = calibrations.calibration_factors[assign]["BC_covariance"]
 
-            err = functions.inverse_quadratic_standard_error(
+            err = inverse_quadratic_standard_error(
                 yhat, sy2, a, b, c, sa2, sb2, sc2, sab, sac, sbc
             )
             err = np.nan_to_num(err)
-            val = functions.inverse_quadratic(yhat, a, b, c, factor=1.0)
+            val = inverse_quadratic(yhat, a, b, c, factor=1.0)
             err = (
-                IS_conc
-                * val
-                * error_prop.mult_div_error_prop([val, IS_conc], [err, IS_conc_err])
+                IS_conc * val * mult_div_error_prop([val, IS_conc], [err, IS_conc_err])
             )
 
             self.conc_error = np.nan_to_num(err)
@@ -306,7 +306,7 @@ class Peak:
         None
         """
 
-        err = error_prop.mult_div_error_prop(
+        err = mult_div_error_prop(
             [self.concentration, factor], [self.conc_error, factor_error]
         )
 

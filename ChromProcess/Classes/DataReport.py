@@ -1,5 +1,7 @@
 import numpy as np
 
+from ChromProcess.Writers import data_report_to_csv
+
 
 class DataReport:
     def __init__(self):
@@ -34,9 +36,7 @@ class DataReport:
         None
         """
 
-        import ChromProcess.Writers as write
-
-        write.data_report_to_csv(self, filename=filename)
+        data_report_to_csv(self, filename=filename)
 
     def find_repeat_data_entries(self):
         """
@@ -67,8 +67,6 @@ class DataReport:
         """
         If entries are repeated, remove the one with the lower total magnitude.
         Modified the data report in place.
-
-        TODO: remove? This could be too specific.
 
         Parameters
         ----------

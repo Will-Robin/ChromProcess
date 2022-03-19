@@ -2,6 +2,7 @@ import numpy as np
 
 from ChromProcess.Processing.peak import assign_peak
 from ChromProcess.Utils.utils.clustering import cluster
+from ChromProcess.Writers import peak_collection_series_to_data_report
 
 
 class PeakCollectionSeries:
@@ -385,6 +386,5 @@ class PeakCollectionSeries:
         -------
         None
         """
-        import ChromProcess.Writers as write
 
-        write.peak_collection_series_to_data_report(self, filename, information)
+        peak_collection_series_to_data_report(self, filename, information)

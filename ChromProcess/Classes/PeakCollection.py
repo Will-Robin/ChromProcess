@@ -1,5 +1,6 @@
 import numpy as np
 from ChromProcess import Classes
+from ChromProcess.Writers import peak_collection_to_csv
 
 
 class PeakCollection:
@@ -282,6 +283,5 @@ class PeakCollection:
         -------
         None
         """
-        import ChromProcess.Writers as write
 
-        write.peak_collection_to_csv(self, directory=directory)
+        peak_collection_to_csv(self, directory=directory)

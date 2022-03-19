@@ -35,7 +35,7 @@ def write_conditions_header(name, conditions, information):
     header_text += f"Instrument,{information.instrument}\n"
     header_text += f"Chromatography_type,{information.analysis_type}\n"
     header_text += f"Chromatography_method,{information.instrument_method}\n"
-    deriv_method = information.derivatisation_method.replace(",",";")
+    deriv_method = information.derivatisation_method.replace(",", ";")
     deriv_list = deriv_method.split("\n")
     write_deriv = " ".join(deriv_list)
     header_text += f"Derivatisation_method,{write_deriv}\n"

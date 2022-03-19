@@ -1,3 +1,6 @@
+from pathlib import Path
+
+
 class ExperimentConditions:
     def __init__(self):
         """
@@ -34,8 +37,6 @@ class ExperimentConditions:
         -------
         None
         """
-
-        from pathlib import Path
 
         fname = self.experiment_code
         exp_code = self.experiment_code
