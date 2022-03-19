@@ -96,11 +96,6 @@ Loading
    :undoc-members:
    :show-inheritance:
 
-.. automodule:: ChromProcess.Loading.peak.peak_from_csv
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 .. automodule:: ChromProcess.Loading.peak_collection.peak_collection_from_csv
    :members:
    :undoc-members:

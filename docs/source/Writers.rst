@@ -6,6 +6,11 @@ Writers
    :undoc-members:
    :show-inheritance:
 
+.. automodule:: ChromProcess.Writers.chromatogram.chromatogram_to_json
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 .. automodule:: ChromProcess.Writers.chromatogram.chromatogram_to_peak_collection
    :members:
    :undoc-members:
