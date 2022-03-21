@@ -10,3 +10,5 @@ from ChromProcess.Classes.AnalysisInformation import AnalysisInformation
 from ChromProcess.Classes.ExperimentConditions import ExperimentConditions
 
 from ChromProcess.Classes.DataReport import DataReport
+
+from ChromProcess.Classes.BST import SearchNode
