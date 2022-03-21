@@ -155,6 +155,23 @@ class PeakCollection:
         for p in self.peaks:
             p.reference_integral_to_IS(IS_integral)
 
+    def reference_heights_to_IS(self):
+        """
+        Divide all peak heights by the height of the internal standard
+        peak.
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+        None
+        """
+
+        IS_height = self.internal_standard.height
+        for p in self.peaks:
+            p.reference_height_to_IS(IS_height)
+
     def assign_peaks(self, boundaries):
         """
         Assign peaks using boundaries.

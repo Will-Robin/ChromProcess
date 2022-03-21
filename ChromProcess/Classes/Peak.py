@@ -139,7 +139,7 @@ class Peak:
         else:
             print("Peak.get_height(): ")
             print(
-                f"""Could not find Peak retention time ({peak.retention_time}) 
+                f"""Could not find Peak retention time ({self.retention_time}) 
                     in Chromatogram ({chromatogram.filename})."""
             )
             print(f"Peak.height = {self.height}.")
@@ -194,6 +194,24 @@ class Peak:
 
         if IS_integral > 0.0:
             self.integral = self.integral / IS_integral
+        else:
+            pass
+
+    def reference_height_to_IS(self, IS_height):
+        """
+        Divide the peak integral by IS_height.
+
+        Parameters
+        ----------
+        IS_height: float
+
+        Returns
+        -------
+        None
+        """
+
+        if IS_height > 0.0:
+            self.height = self.height / IS_height
         else:
             pass
 
