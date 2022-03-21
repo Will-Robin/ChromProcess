@@ -30,9 +30,15 @@ def peak_collection_series_to_data_report(
 
     conc_fname = f"{filename}_{analysis_type}_concentration_report.csv"
     integral_fname = f"{filename}_{analysis_type}_integral_report.csv"
+    height_fname = f"{filename}_{analysis_type}_peak_height_report.csv"
 
     # create output dictionaries
-    conc_dict, err_dict, integral_dict = peak_collection_series.series_traces_as_dict()
+    (
+        conc_dict,
+        err_dict,
+        integral_dict,
+        height_dict,
+    ) = peak_collection_series.series_traces_as_dict()
 
     # create spreadsheet-like output
     conc_header, conc_grid = utils.peak_dict_to_spreadsheet(
@@ -43,6 +49,12 @@ def peak_collection_series_to_data_report(
 
     peak_integral_header, integ_grid = utils.peak_dict_to_spreadsheet(
         integral_dict,
+        peak_collection_series.series_values,
+        peak_collection_series.series_unit,
+    )
+
+    peak_height_header, height_grid = utils.peak_dict_to_spreadsheet(
+        height_dict,
         peak_collection_series.series_values,
         peak_collection_series.series_unit,
     )
@@ -103,6 +115,24 @@ def peak_collection_series_to_data_report(
         for x in range(0, len(integ_grid)):
             for y in range(0, len(integ_grid[x])):
                 val = integ_grid[x][y]
+                outfile.write(f"{val},")
+            outfile.write("\n")
+
+        outfile.write("end_data\n")
+
+    # Write height report to file
+    with open(height_fname, "w") as outfile:
+
+        outfile.write(header_text)
+
+        outfile.write("start_data\n")
+
+        [outfile.write("{},".format(x)) for x in peak_height_header]
+
+        outfile.write("\n")
+        for x in range(0, len(height_grid)):
+            for y in range(0, len(height_grid[x])):
+                val = height_grid[x][y]
                 outfile.write(f"{val},")
             outfile.write("\n")
 
