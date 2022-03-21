@@ -60,7 +60,7 @@ class Chromatogram:
 
     def get_mass_spectrum(self, time):
         """
-        Get the mass spectrim at a given time point in the chromatogram.
+        Get the mass spectrum at a given time point in the chromatogram.
 
         Parameters
         ----------
@@ -92,7 +92,7 @@ class Chromatogram:
 
         Parameters
         ----------
-        clusters: dict
+        clusters: list
             Clusters of m/z values. Mass values which are
             together in the list values will be combined in
             the output.
