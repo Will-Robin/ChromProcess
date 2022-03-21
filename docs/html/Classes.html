@@ -1,0 +1,1286 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Classes &#8212; ChromProcess 0.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pyramid.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Loading" href="Loading.html" />
+    <link rel="prev" title="API" href="API.html" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head><body>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Loading.html" title="Loading"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="API.html" title="API"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ChromProcess 0.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="API.html" accesskey="U">API</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Classes</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="classes">
+<h1>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="ChromProcess.Classes.Chromatogram">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ChromProcess.Classes.</span></span><span class="sig-name descname"><span class="pre">Chromatogram</span></span><a class="headerlink" href="#ChromProcess.Classes.Chromatogram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class for storing chromatographic data.</p>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.Chromatogram.get_mass_spectrum">
+<span class="sig-name descname"><span class="pre">get_mass_spectrum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.Chromatogram.get_mass_spectrum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the mass spectrim at a given time point in the chromatogram.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>time: float</strong></p>
+<blockquote>
+<div><p>Time point for the mass spectrum in the chromatogram.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>m_z: 1d <code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></p>
+<blockquote>
+<div><p>m/z value</p>
+</div></blockquote>
+<p>intensity: 1d <code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></p>
+<blockquote>
+<div><p>Ion counts.</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.Chromatogram.ion_chromatogram">
+<span class="sig-name descname"><span class="pre">ion_chromatogram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clusters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.Chromatogram.ion_chromatogram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all ion chromatograms from the Chromatogram using
+pre-defined clusters of m/z values to bin signals.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>clusters: dict</strong></p>
+<blockquote>
+<div><p>Clusters of m/z values. Mass values which are
+together in the list values will be combined in
+the output.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>ion_chromatograms: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:dict</span></code></p>
+<blockquote>
+<div><p>Dict of ion chromatograms</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.Chromatogram.write_peak_collection">
+<span class="sig-name descname"><span class="pre">write_peak_collection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.Chromatogram.write_peak_collection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the peaks in a chromatogram file to a formatted peak collection
+file.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename: str</strong></p>
+<blockquote>
+<div><p>Name for the output file.</p>
+</div></blockquote>
+<p><strong>header_text: str</strong></p>
+<blockquote>
+<div><p>Extra text to add at the top of the file</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.Chromatogram.write_to_csv">
+<span class="sig-name descname"><span class="pre">write_to_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.Chromatogram.write_to_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write to csv.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename: str</strong></p>
+<blockquote>
+<div><p>Name for the output file</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.Chromatogram.write_to_json">
+<span class="sig-name descname"><span class="pre">write_to_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.Chromatogram.write_to_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write to csv.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename: str</strong></p>
+<blockquote>
+<div><p>Name for the output file</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ChromProcess.Classes.Peak">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ChromProcess.Classes.</span></span><span class="sig-name descname"><span class="pre">Peak</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">retention_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">integral</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mass_spectrum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.Peak" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.Peak.apply_linear_calibration">
+<span class="sig-name descname"><span class="pre">apply_linear_calibration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">internal_standard</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.Peak.apply_linear_calibration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply a linear calibration conversion to the peak integral to obtain a
+concentration value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>A, B, internal_standard: float</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.Peak.apply_quadratic_calibration">
+<span class="sig-name descname"><span class="pre">apply_quadratic_calibration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">internal_standard</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.Peak.apply_quadratic_calibration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply a quadratic calibration conversion to the peak integral to obtain
+a concentration value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>A, B, C, internal_standard: float</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.Peak.assign_peak">
+<span class="sig-name descname"><span class="pre">assign_peak</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">boundaries</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.Peak.assign_peak" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assign a name to the peak using boundaries.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>boundaries: dict</strong></p>
+<blockquote>
+<div><p>{‘compound name’: [lower bound, upper bound]}</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.Peak.calculate_error">
+<span class="sig-name descname"><span class="pre">calculate_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calibrations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">IS_conc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">IS_conc_err</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.Peak.calculate_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculation of the standard error on a concentration estimation from
+the calibration.</p>
+<p>Modifies Peak object attributes.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>calibrations: ChromProcess Instrument_Calibration object</strong></p>
+<blockquote>
+<div><p>Contains calibration information.</p>
+</div></blockquote>
+<p><strong>IS_conc: float</strong></p>
+<blockquote>
+<div><p>Concentration of the internal standard.</p>
+</div></blockquote>
+<p><strong>IS_conc_err: float</strong></p>
+<blockquote>
+<div><p>Concentration error for the internal standard.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.Peak.dilution_correction">
+<span class="sig-name descname"><span class="pre">dilution_correction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">factor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor_error</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.Peak.dilution_correction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply a correction to obtain the sample concentration considering its
+dilution before analysis.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>factor: float</strong></p>
+<blockquote>
+<div><p>Factor by which the concentration value must be multiplied to
+obtain the sample concentration before dilution.</p>
+</div></blockquote>
+<p><strong>factor_error: float</strong></p>
+<blockquote>
+<div><p>Error for the dilution factor.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.Peak.get_height">
+<span class="sig-name descname"><span class="pre">get_height</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromatogram</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.Peak.get_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the height of the peak.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>chromatogram: ChromProcess Chromatogram object</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>self.height: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code></p>
+<blockquote>
+<div><p>Height of the peak.</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.Peak.get_integral">
+<span class="sig-name descname"><span class="pre">get_integral</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromatogram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baseline_subtract</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.Peak.get_integral" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the integral of the peak using a chromatogram. Note that an
+arbitray chromatogram can be passed to this method, meaning it is not
+secure. The baseline substraction substracts a baseliner interpolated
+linearly between the start and the end of the peak.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>chromatogram: ChromProcess Chromatogram object</strong></dt><dd></dd>
+<dt><strong>baseline_subtract: bool</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>self.integral: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code></p>
+<blockquote>
+<div><p>Integral of the peak.</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.Peak.get_mass_spectrum">
+<span class="sig-name descname"><span class="pre">get_mass_spectrum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromatogram</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.Peak.get_mass_spectrum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the mass spectrum at the apex of the peak.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>chromatogram: ChromProcess Chromatogram object</strong></p>
+<blockquote>
+<div><p>Parent chromatogram of the peak.</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.Peak.reference_height_to_IS">
+<span class="sig-name descname"><span class="pre">reference_height_to_IS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">IS_height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.Peak.reference_height_to_IS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Divide the peak integral by IS_height.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>IS_height: float</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.Peak.reference_integral_to_IS">
+<span class="sig-name descname"><span class="pre">reference_integral_to_IS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">IS_integral</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.Peak.reference_integral_to_IS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Divide the peak integral by IS_integral.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>IS_integral: float</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ChromProcess.Classes.MassSpectrum">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ChromProcess.Classes.</span></span><span class="sig-name descname"><span class="pre">MassSpectrum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inten</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.MassSpectrum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.MassSpectrum.write_to_string">
+<span class="sig-name descname"><span class="pre">write_to_string</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.MassSpectrum.write_to_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write a row-wise csv for the mass spectrum.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><blockquote>
+<div></div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>ms_string: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:str</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ChromProcess.Classes.ExperimentConditions">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ChromProcess.Classes.</span></span><span class="sig-name descname"><span class="pre">ExperimentConditions</span></span><a class="headerlink" href="#ChromProcess.Classes.ExperimentConditions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.ExperimentConditions.write_to_file">
+<span class="sig-name descname"><span class="pre">write_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.ExperimentConditions.write_to_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the conditions to a csv file.</p>
+<p>TODO: refactor the file writing into the Writers module</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>directory: str or pathlib Path</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ChromProcess.Classes.AnalysisInformation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ChromProcess.Classes.</span></span><span class="sig-name descname"><span class="pre">AnalysisInformation</span></span><a class="headerlink" href="#ChromProcess.Classes.AnalysisInformation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Stores information about analysis procedure for chromatography data.</p>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.AnalysisInformation.write_to_file">
+<span class="sig-name descname"><span class="pre">write_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.AnalysisInformation.write_to_file" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>directory: str or pathlib Path</strong></p>
+<blockquote>
+<div><p>Directory in which the file will be saved in.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ChromProcess.Classes.PeakCollection">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ChromProcess.Classes.</span></span><span class="sig-name descname"><span class="pre">PeakCollection</span></span><a class="headerlink" href="#ChromProcess.Classes.PeakCollection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.PeakCollection.add_mass_spectra">
+<span class="sig-name descname"><span class="pre">add_mass_spectra</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ms_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.PeakCollection.add_mass_spectra" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add mass spectrum information into Peak objects.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ms_list: list of ChromProcess MassSpectrum objects</strong></p>
+<blockquote>
+<div><p>Mass spectra to be added.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.PeakCollection.align_peaks_to_IS">
+<span class="sig-name descname"><span class="pre">align_peaks_to_IS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">IS_set</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.PeakCollection.align_peaks_to_IS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Align the peak integral retention times to the internal standard’s
+position, which will be set to IS_set.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>IS_set: float</strong></p>
+<blockquote>
+<div><p>Position to set the internal standard’s retention time.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.PeakCollection.apply_calibrations_to_peaks">
+<span class="sig-name descname"><span class="pre">apply_calibrations_to_peaks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calibrations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">IS_conc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.PeakCollection.apply_calibrations_to_peaks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply calibrations to peals</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>calibrations: ChromProcess Instrument_Calibration object</strong></p>
+<blockquote>
+<div><p>Container for calibration information</p>
+</div></blockquote>
+<p><strong>IS_conc: float</strong></p>
+<blockquote>
+<div><p>internal standard concentration</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.PeakCollection.assign_peaks">
+<span class="sig-name descname"><span class="pre">assign_peaks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">boundaries</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.PeakCollection.assign_peaks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assign peaks using boundaries.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>boundaries: dict</strong></p>
+<blockquote>
+<div><p>{‘compound_name’: [lower bound, upper bound]}</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.PeakCollection.calculate_conc_errors">
+<span class="sig-name descname"><span class="pre">calculate_conc_errors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calibrations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">IS_conc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">IS_conc_err</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.PeakCollection.calculate_conc_errors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculation of the standard error on a concentration estimation from
+a calibration calculation.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>calibrations: ChromProcess Instrument_Calibration object</strong></p>
+<blockquote>
+<div><p>Contains calibration information.</p>
+</div></blockquote>
+<dl class="simple">
+<dt><strong>IS_conc: float</strong></dt><dd></dd>
+<dt><strong>IS_conc_err: float</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.PeakCollection.dilution_correct_peaks">
+<span class="sig-name descname"><span class="pre">dilution_correct_peaks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dilution_factor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.PeakCollection.dilution_correct_peaks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Divide peaks by dilution_factor, accounting for error.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>dilution_factor: float</strong></dt><dd></dd>
+<dt><strong>error: float</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.PeakCollection.get_all_assigned_compounds">
+<span class="sig-name descname"><span class="pre">get_all_assigned_compounds</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.PeakCollection.get_all_assigned_compounds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the names of all of the compounds assigned in the PeakCollection.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><blockquote>
+<div></div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>self.assigned_compounds: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code></p>
+<blockquote>
+<div><p>List of names of assigned compounds.</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.PeakCollection.get_peak_positions">
+<span class="sig-name descname"><span class="pre">get_peak_positions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.PeakCollection.get_peak_positions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the positions of all of the peaks in the PeakCollection.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><blockquote>
+<div></div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>array: 2D <code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.PeakCollection.reference_heights_to_IS">
+<span class="sig-name descname"><span class="pre">reference_heights_to_IS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.PeakCollection.reference_heights_to_IS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Divide all peak heights by the height of the internal standard
+peak.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><blockquote>
+<div></div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.PeakCollection.reference_integrals_to_IS">
+<span class="sig-name descname"><span class="pre">reference_integrals_to_IS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.PeakCollection.reference_integrals_to_IS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Divide all peak integrals by the integral of the internal standard
+peak.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><blockquote>
+<div></div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.PeakCollection.remove_peaks_below_threshold">
+<span class="sig-name descname"><span class="pre">remove_peaks_below_threshold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threshold</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.PeakCollection.remove_peaks_below_threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove peaks below a certain integral threshold (note that this
+operates on the values held in the Peak integral attributes. If
+they have been normalised to an internal standard, the
+threshold value should probably be lower than for the ‘raw’
+integral data).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>threshold: float</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.PeakCollection.write_to_file">
+<span class="sig-name descname"><span class="pre">write_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.PeakCollection.write_to_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the object to a structured file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>directory: str or pathlib Path</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ChromProcess.Classes.PeakCollectionSeries">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ChromProcess.Classes.</span></span><span class="sig-name descname"><span class="pre">PeakCollectionSeries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">peak_collections</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'not</span> <span class="pre">specified'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conditions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.PeakCollectionSeries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.PeakCollectionSeries.align_peaks_to_IS">
+<span class="sig-name descname"><span class="pre">align_peaks_to_IS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">IS_set</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.PeakCollectionSeries.align_peaks_to_IS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Align the retention times of the peaks to a set
+internal standard retention time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>IS_set: float</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.PeakCollectionSeries.apply_calibrations">
+<span class="sig-name descname"><span class="pre">apply_calibrations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conditions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calibrations</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.PeakCollectionSeries.apply_calibrations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply calibrations to peaks in the series.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>conditions: ChromProcess Analysis_Information object</strong></p>
+<blockquote>
+<div><p>container for analysis information</p>
+</div></blockquote>
+<p><strong>calibrations: ChromProcess Instrument_Calibration object</strong></p>
+<blockquote>
+<div><p>Contains calibration information.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.PeakCollectionSeries.apply_peak_dilution_factors">
+<span class="sig-name descname"><span class="pre">apply_peak_dilution_factors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dilution_factor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.PeakCollectionSeries.apply_peak_dilution_factors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply correction for dilution.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dilution_factor: float</strong></p>
+<blockquote>
+<div><p>Factor by which concentrations must be multiplied to obtain their
+concentrations pre-dilution.</p>
+</div></blockquote>
+<p><strong>error: float</strong></p>
+<blockquote>
+<div><p>Error on the dilution factor.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.PeakCollectionSeries.assign_clusters">
+<span class="sig-name descname"><span class="pre">assign_clusters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">boundaries</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.PeakCollectionSeries.assign_clusters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assign the peak clusters.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>boundaries: dict</strong></p>
+<blockquote>
+<div><p>{‘compound_name’, [lower bound, upper bound]}</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.PeakCollectionSeries.assign_peaks">
+<span class="sig-name descname"><span class="pre">assign_peaks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">boundaries</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.PeakCollectionSeries.assign_peaks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assign peaks based on boundaries.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>boundaries: dict</strong></p>
+<blockquote>
+<div><p>{‘compound_name’, [lower bound, upper bound]}</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.PeakCollectionSeries.calculate_conc_errors">
+<span class="sig-name descname"><span class="pre">calculate_conc_errors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calib</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conditions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.PeakCollectionSeries.calculate_conc_errors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the errors on concentration estimates.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>conditions: ChromProcess Analysis_Information object</strong></p>
+<blockquote>
+<div><p>container for analysis information</p>
+</div></blockquote>
+<p><strong>calibrations: ChromProcess Instrument_Calibration object</strong></p>
+<blockquote>
+<div><p>Contains calibration information.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.PeakCollectionSeries.create_peak_series">
+<span class="sig-name descname"><span class="pre">create_peak_series</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.PeakCollectionSeries.create_peak_series" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates arrays for series of peaks using self.clusters to identify
+similar peaks between chromatograms. If more than one peak from a
+single chromatogram is in a cluster, their values are added together.</p>
+<p>The ordering of the series in the arrays is given by the order of the
+self.clusters.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><blockquote>
+<div></div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.PeakCollectionSeries.get_all_assigned_compounds">
+<span class="sig-name descname"><span class="pre">get_all_assigned_compounds</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.PeakCollectionSeries.get_all_assigned_compounds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a list of all the compounds assigned in the series.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><blockquote>
+<div></div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>self.series_assigned_compounds: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.PeakCollectionSeries.get_peak_clusters">
+<span class="sig-name descname"><span class="pre">get_peak_clusters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.PeakCollectionSeries.get_peak_clusters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create clusters of peaks based on their retention times.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>bound: float</strong></p>
+<blockquote>
+<div><p>Agglomeration boundary for the clustering algorithm.
+(see cluster function).</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.PeakCollectionSeries.get_peak_positions">
+<span class="sig-name descname"><span class="pre">get_peak_positions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.PeakCollectionSeries.get_peak_positions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the position of all of the peaks in the series.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><blockquote>
+<div></div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>peak_pos: 2d <code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></p>
+<blockquote>
+<div><p>Array of sorted peak positions.</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.PeakCollectionSeries.reference_heights_to_IS">
+<span class="sig-name descname"><span class="pre">reference_heights_to_IS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.PeakCollectionSeries.reference_heights_to_IS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Divide all peak integrals by the integral of the internal standard.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><blockquote>
+<div></div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.PeakCollectionSeries.reference_integrals_to_IS">
+<span class="sig-name descname"><span class="pre">reference_integrals_to_IS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.PeakCollectionSeries.reference_integrals_to_IS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Divide all peak integrals by the integral of the internal standard.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><blockquote>
+<div></div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.PeakCollectionSeries.remove_peaks_below_threshold">
+<span class="sig-name descname"><span class="pre">remove_peaks_below_threshold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threshold</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.PeakCollectionSeries.remove_peaks_below_threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove peaks whose integrals fall below a threshold.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>threshold: float (from 0.0 to 1.0)</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.PeakCollectionSeries.series_traces_as_dict">
+<span class="sig-name descname"><span class="pre">series_traces_as_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.PeakCollectionSeries.series_traces_as_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create dictionaries of peak series values derived using the
+self.clusters.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><blockquote>
+<div></div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>conc_dict: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:dict</span></code></dt><dd></dd>
+<dt>err_dict: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:dict</span></code></dt><dd></dd>
+<dt>integral_dict: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:dict</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.PeakCollectionSeries.write_data_reports">
+<span class="sig-name descname"><span class="pre">write_data_reports</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">information</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.PeakCollectionSeries.write_data_reports" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the peak collection series to a formatted data report csv file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>filename: name for file including path</strong></dt><dd></dd>
+<dt><strong>information: ChromProcess Analysis_Information object</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ChromProcess.Classes.DataReport">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ChromProcess.Classes.</span></span><span class="sig-name descname"><span class="pre">DataReport</span></span><a class="headerlink" href="#ChromProcess.Classes.DataReport" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.DataReport.find_repeat_data_entries">
+<span class="sig-name descname"><span class="pre">find_repeat_data_entries</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.DataReport.find_repeat_data_entries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find data entries that have similar assignments.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><blockquote>
+<div></div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>repeat_entries: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code></p>
+<blockquote>
+<div><p>A list of the names of entries which are repeated.</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.DataReport.remove_entries_below_threshold">
+<span class="sig-name descname"><span class="pre">remove_entries_below_threshold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threshold</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.DataReport.remove_entries_below_threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove entries of the data report whose maximal values do not exceed a
+threshold.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>threshold: float</strong></p>
+<blockquote>
+<div><p>threshold below which entries will be removed.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.DataReport.remove_repeat_entries">
+<span class="sig-name descname"><span class="pre">remove_repeat_entries</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.DataReport.remove_repeat_entries" title="Permalink to this definition">¶</a></dt>
+<dd><p>If entries are repeated, remove the one with the lower total magnitude.
+Modified the data report in place.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><blockquote>
+<div></div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.DataReport.remove_specific_entries">
+<span class="sig-name descname"><span class="pre">remove_specific_entries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">remove_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.DataReport.remove_specific_entries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove the entries in the data report’s data using list of them.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>remove_list: list</strong></p>
+<blockquote>
+<div><p>List of entries to remove from self.data</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.DataReport.write_to_file">
+<span class="sig-name descname"><span class="pre">write_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.DataReport.write_to_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the data report to a csv file.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename: str</strong></p>
+<blockquote>
+<div><p>name for file</p>
+</div></blockquote>
+<p><strong>path: pathlib Path object</strong></p>
+<blockquote>
+<div><p>Path to folder for file storage.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ChromProcess.Classes.InstrumentCalibration">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ChromProcess.Classes.</span></span><span class="sig-name descname"><span class="pre">InstrumentCalibration</span></span><a class="headerlink" href="#ChromProcess.Classes.InstrumentCalibration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 55%" />
+<col style="width: 45%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>get_info</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.InstrumentCalibration.get_info">
+<span class="sig-name descname"><span class="pre">get_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.InstrumentCalibration.get_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ChromProcess.Classes.InstrumentCalibration.modify_boundaries">
+<span class="sig-name descname"><span class="pre">modify_boundaries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modified_bounds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Classes.InstrumentCalibration.modify_boundaries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modify the assignment boundaries in the calibration.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>modified_bounds: dict</strong></p>
+<blockquote>
+<div><p>Dictionary of modifications to make to self.boundaries</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="API.html"
+                          title="previous chapter">API</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="Loading.html"
+                          title="next chapter">Loading</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Classes.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Loading.html" title="Loading"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="API.html" title="API"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ChromProcess 0.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="API.html" >API</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Classes</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, W. E. Robinson.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

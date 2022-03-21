@@ -1,0 +1,842 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Utils &#8212; ChromProcess 0.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pyramid.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Writers" href="Writers.html" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head><body>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Writers.html" title="Writers"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ChromProcess 0.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="API.html" accesskey="U">API</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Utils</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-ChromProcess.Utils.custom">
+<span id="utils"></span><h1>Utils<a class="headerlink" href="#module-ChromProcess.Utils.custom" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-ChromProcess.Utils.peak_finding.pick_peaks"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Utils.peak_finding.pick_peaks.find_peak_boundaries">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Utils.peak_finding.pick_peaks.</span></span><span class="sig-name descname"><span class="pre">find_peak_boundaries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peaks_indices</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Utils.peak_finding.pick_peaks.find_peak_boundaries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find peak boundaries based on differential without look ahead. The function
+runs through the array stepwise until  the differential is no longer
+negative.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>diff: 1D array</strong></p>
+<blockquote>
+<div><p>array of 1st differential values</p>
+</div></blockquote>
+<p><strong>peak_indices: 1D array</strong></p>
+<blockquote>
+<div><p>Array of peak retention times</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>peak_starts: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code></p>
+<blockquote>
+<div><p>Indices of peak start.</p>
+</div></blockquote>
+<p>peak_ends: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code></p>
+<blockquote>
+<div><p>Indices of peak ends.</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Utils.peak_finding.pick_peaks.find_peak_boundaries_look_ahead">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Utils.peak_finding.pick_peaks.</span></span><span class="sig-name descname"><span class="pre">find_peak_boundaries_look_ahead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peaks_indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">look_ahead</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Utils.peak_finding.pick_peaks.find_peak_boundaries_look_ahead" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the start and end of a peak using the peak rt and signal, looking
+ahead a number of indices according to look_ahead. The function searches
+all values within the look_ahead window and finds the minimum. If the
+minimum is lower than the current value it moves to the minimum. To search
+noisy data which might have a some small peaks on the slope of a peak the
+look_ahead can be used, extending the search range. Note: The function is
+cannot search beyond the signal boundaries, when using region_peak_picks
+this could cause early peak boundaries to be cut off early.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>signal: 1D array</strong></p>
+<blockquote>
+<div><p>The signal in which to search for the peak start and end. The smoothed
+signal can be used.</p>
+</div></blockquote>
+<p><strong>peaks_indices: ndarray</strong></p>
+<blockquote>
+<div><p>the indices of the centre of the peaks.</p>
+</div></blockquote>
+<p><strong>look_ahead: int, optional</strong></p>
+<blockquote>
+<div><p>The number of indices the function looks ahead to see if the signal
+value decreases</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>peak_starts: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code></p>
+<blockquote>
+<div><p>Indices of peak start.</p>
+</div></blockquote>
+<p>peak_ends: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code></p>
+<blockquote>
+<div><p>Indices of peak ends.</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Utils.peak_finding.pick_peaks.find_peaks">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Utils.peak_finding.pick_peaks.</span></span><span class="sig-name descname"><span class="pre">find_peaks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thres</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_dist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_inten</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">1e+100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Utils.peak_finding.pick_peaks.find_peaks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Peak detection routine.</p>
+<p>Modified from PeakUtils.
+<a class="reference external" href="https://github.com/atjacobs/PeakUtils/tree/master/peakutils">https://github.com/atjacobs/PeakUtils/tree/master/peakutils</a></p>
+<p>Finds the peaks in <em>y</em> by taking its first order difference. By using
+<em>thres</em> and <em>min_dist</em> parameters, it is possible to reduce the number of
+detected peaks.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>y: ndarray</strong></p>
+<blockquote>
+<div><p>1D amplitude data to search for peaks.</p>
+</div></blockquote>
+<p><strong>thres: float between [0., 1.]</strong></p>
+<blockquote>
+<div><p>Normalized threshold. Only the peaks with amplitude higher than the
+threshold will be detected.</p>
+</div></blockquote>
+<p><strong>min_dist: int</strong></p>
+<blockquote>
+<div><p>Minimum distance between each detected peak. The peak with the highest
+amplitude is preferred to satisfy this constraint.</p>
+</div></blockquote>
+<p><strong>min_inten: float</strong></p>
+<blockquote>
+<div><p>peaks will not be detected below this threshold.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">python:dict</span></code></p>
+<blockquote>
+<div><p>dict containing the indexes of the peaks that were detected and their
+start and end indices.</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Utils.peak_finding.pick_peaks.find_peaks_scipy">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Utils.peak_finding.pick_peaks.</span></span><span class="sig-name descname"><span class="pre">find_peaks_scipy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_dist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_inten</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e+100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prominence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wlen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">look_ahead</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Utils.peak_finding.pick_peaks.find_peaks_scipy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Peak finding function that relies on scipy.signal.find_peaks rather than
+the first derivative. This allows to specify peak prominence, making it
+more suited for a noisy data set.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>time, signal: 1D arrays</strong></p>
+<blockquote>
+<div><p>Signal from which peaks will be picked and its corresponding time axis.</p>
+</div></blockquote>
+<p><strong>thres</strong> : <code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">between</span></code> [0., 1.]</p>
+<blockquote>
+<div><p>Normalized threshold. Only the peaks with amplitude higher than the
+threshold will be detected.</p>
+</div></blockquote>
+<p><strong>min_dist</strong> : <code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code></p>
+<blockquote>
+<div><p>Minimum distance between each detected peak. The peak with the highest
+amplitude is preferred to satisfy this constraint.</p>
+</div></blockquote>
+<p><strong>max_inten: float</strong></p>
+<blockquote>
+<div><p>peaks will not be detected above this threshold.</p>
+</div></blockquote>
+<p><strong>min_inten: float</strong></p>
+<blockquote>
+<div><p>peaks will not be detected below this threshold.</p>
+</div></blockquote>
+<p><strong>Prominence: number or ndarray or sequence, optional</strong></p>
+<blockquote>
+<div><p>Required prominence of peaks. Either a number, None, an array matching
+x or a 2-element sequence of the former. The first element is always
+interpreted as the minimal and the second, if supplied, as the maximal
+required prominence.</p>
+</div></blockquote>
+<p><strong>wlen: int, optional</strong></p>
+<blockquote>
+<div><p>The number of indices to search for when determining the peak promince.
+Recommend to be roughly equal to average peak width.</p>
+</div></blockquote>
+<p><strong>look_ahead: int</strong></p>
+<blockquote>
+<div><p>Number of spaces the function will search through to find the start or
+end of a peak</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></p>
+<blockquote>
+<div><p>Array containing the indexes of the peaks that were detected</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Utils.signal_processing.deconvolution"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Utils.signal_processing.deconvolution.deconvolute_peak">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Utils.signal_processing.deconvolution.</span></span><span class="sig-name descname"><span class="pre">deconvolute_peak</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">peak</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chromatogram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_peaks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Utils.signal_processing.deconvolution.deconvolute_peak" title="Permalink to this definition">¶</a></dt>
+<dd><p>TODO: this function is quite similar in scope to deconvolute_region().
+Refactor with the other two deconvolution macros.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>chromatogram: ChromProcess Chromatogram object</strong></p>
+<blockquote>
+<div><p>Chromatogram</p>
+</div></blockquote>
+<p><strong>region: list</strong></p>
+<blockquote>
+<div><p>region of chromatogram under operation [lower bound, upper bound]</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>popt: <code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></p>
+<blockquote>
+<div><p>list of fitted values [[amplitude, centre, width],]</p>
+</div></blockquote>
+<p>pcov: <code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></p>
+<blockquote>
+<div><p>correlation matrix</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Utils.signal_processing.deconvolution.deconvolute_region">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Utils.signal_processing.deconvolution.</span></span><span class="sig-name descname"><span class="pre">deconvolute_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromatogram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_peaks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Utils.signal_processing.deconvolution.deconvolute_region" title="Permalink to this definition">¶</a></dt>
+<dd><p>TODO: Combine the ideas in this function with fit_gaussian_peaks()</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>chromatogram: ChromProcess Chromatogram object</strong></p>
+<blockquote>
+<div><p>Chromatogram</p>
+</div></blockquote>
+<p><strong>region: list</strong></p>
+<blockquote>
+<div><p>region of chromatogram under operation [lower bound, upper bound]</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>popt: <code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></p>
+<blockquote>
+<div><p>list of fitted values [[amplitude, centre, width],]</p>
+</div></blockquote>
+<p>pcov: <code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></p>
+<blockquote>
+<div><p>correlation matrix</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Utils.signal_processing.deconvolution.fit_gaussian_peaks">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Utils.signal_processing.deconvolution.</span></span><span class="sig-name descname"><span class="pre">fit_gaussian_peaks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peaks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_guess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[10000,</span> <span class="pre">1,</span> <span class="pre">0.005]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lowerbounds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0,</span> <span class="pre">0,</span> <span class="pre">0.0]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upperbounds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[1e+100,</span> <span class="pre">1,</span> <span class="pre">0.025]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Utils.signal_processing.deconvolution.fit_gaussian_peaks" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>TODO: This kind of function could be useful, but a better adapted function</dt><dd><p>for peak deconvolution should be written. The function could take
+similar concepts to this one, but with a different concept for its
+implementation.</p>
+</dd>
+</dl>
+<p>Fitting sums of gaussian peaks to data using supplied peak indices.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>time: array</strong></p>
+<blockquote>
+<div><p>time values</p>
+</div></blockquote>
+<p><strong>sig: array</strong></p>
+<blockquote>
+<div><p>signal to be fit to</p>
+</div></blockquote>
+<p><strong>peaks: list of peak positions</strong></p>
+<blockquote>
+<div><p>list peak positions in the time</p>
+</div></blockquote>
+<p><strong>initial_guess: list</strong></p>
+<blockquote>
+<div><p>Initial guess for the peak amplitude, position and width
+e.g. see _1gaussian() function arguments.</p>
+</div></blockquote>
+<p><strong>lowerbounds: list</strong></p>
+<blockquote>
+<div><p>Lower bounds for the peak amplitude, position and width
+e.g. see _1gaussian() function arguments.</p>
+</div></blockquote>
+<p><strong>upperbounds: list</strong></p>
+<blockquote>
+<div><p>Upper bounds for the peak amplitude, position and width
+e.g. see _1gaussian() function arguments.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>popt: <code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></p>
+<blockquote>
+<div><p>list of fitted values [[amplitude, centre, width],]</p>
+</div></blockquote>
+<p>pcov: <code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></p>
+<blockquote>
+<div><p>correlation matrix</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Utils.signal_processing.signal_processing"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Utils.signal_processing.signal_processing.savitzky_golay">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Utils.signal_processing.signal_processing.</span></span><span class="sig-name descname"><span class="pre">savitzky_golay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deriv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Utils.signal_processing.signal_processing.savitzky_golay" title="Permalink to this definition">¶</a></dt>
+<dd><p>From <a class="reference external" href="https://scipy-cookbook.readthedocs.io/items/SavitzkyGolay.html">https://scipy-cookbook.readthedocs.io/items/SavitzkyGolay.html</a></p>
+<p>Smooth (and optionally differentiate) data with a Savitzky-Golay filter.
+From the Scipy Cookbook
+The Savitzky-Golay filter removes high frequency noise from data.
+It has the advantage of preserving the original shape and
+features of the signal better than other types of filtering
+approaches, such as moving averages techniques.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>y</strong> : <span class="xref std std-term">numpy:array_like</span>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">shape</span></code> (N,)</p>
+<blockquote>
+<div><p>the values of the time history of the signal.</p>
+</div></blockquote>
+<p><strong>window_size</strong> : <code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code></p>
+<blockquote>
+<div><p>the length of the window. Must be an odd integer number.</p>
+</div></blockquote>
+<p><strong>order</strong> : <code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code></p>
+<blockquote>
+<div><p>the order of the polynomial used in the filtering.
+Must be less then <cite>window_size</cite> - 1.</p>
+</div></blockquote>
+<p><strong>deriv: int</strong></p>
+<blockquote>
+<div><p>the order of the derivative to compute (default = 0 means only smoothing)</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>ys</strong> : <code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">shape</span></code> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">N</span></code>)</p>
+<blockquote>
+<div><p>the smoothed signal (or it’s n-th derivative).</p>
+</div></blockquote>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The Savitzky-Golay is a type of low-pass filter, particularly
+suited for smoothing noisy data. The main idea behind this
+approach is to make for each point a least-square fit with a
+polynomial of high order over a odd-sized window centered at
+the point.</p>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="rd75f8651b42c-1"><span class="brackets">1</span></dt>
+<dd><p>A. Savitzky, M. J. E. Golay, Smoothing and Differentiation of
+Data by Simplified Least Squares Procedures. Analytical
+Chemistry, 1964, 36 (8), pp 1627-1639.</p>
+</dd>
+<dt class="label" id="rd75f8651b42c-2"><span class="brackets">2</span></dt>
+<dd><p>Numerical Recipes 3rd Edition: The Art of Scientific Computing
+W.H. Press, S.A. Teukolsky, W.T. Vetterling, B.P. Flannery
+Cambridge University Press ISBN-13: 9780521880688</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>t = np.linspace(-4, 4, 500)
+y = np.exp( -t**2 ) + np.random.normal(0, 0.05, t.shape)
+ysg = savitzky_golay(y, window_size=31, order=4)
+import matplotlib.pyplot as plt
+plt.plot(t, y, label=’Noisy signal’)
+plt.plot(t, np.exp(-t**2), ‘k’, lw=1.5, label=’Original signal’)
+plt.plot(t, ysg, ‘r’, label=’Filtered signal’)
+plt.legend()
+plt.show()</p>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Utils.utils.clustering"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Utils.utils.clustering.cluster">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Utils.utils.clustering.</span></span><span class="sig-name descname"><span class="pre">cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Utils.utils.clustering.cluster" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use an agglomerative algorithm to find clusters in a 1D array using bound
+to determine when a point is far enough from an average value to warrant
+creating a new cluster.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>values: 1D numpy array</strong></dt><dd></dd>
+<dt><strong>bound: float</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Yields</dt>
+<dd class="field-even"><dl class="simple">
+<dt>cluster: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Utils.utils.clustering.cluster_indices">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Utils.utils.clustering.</span></span><span class="sig-name descname"><span class="pre">cluster_indices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Utils.utils.clustering.cluster_indices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use an agglomerative algorithm to find clusters in a 1D array using bound
+to determine when a point is far enough from an average value to warrant
+creating a new cluster.</p>
+<p>This function returns the indices of the clusters in values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>values: 1D numpy array</strong></dt><dd></dd>
+<dt><strong>bound: float</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Yields</dt>
+<dd class="field-even"><dl class="simple">
+<dt>cluster: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Utils.utils.error_propagation"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Utils.utils.error_propagation.mult_div_error_prop">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Utils.utils.error_propagation.</span></span><span class="sig-name descname"><span class="pre">mult_div_error_prop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">averages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Utils.utils.error_propagation.mult_div_error_prop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate error propagation for a multiplication operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>averages: list of float</strong></dt><dd></dd>
+<dt><strong>errors: list of float</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>error: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Utils.utils.error_propagation.sum_error_prop">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Utils.utils.error_propagation.</span></span><span class="sig-name descname"><span class="pre">sum_error_prop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">errors</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Utils.utils.error_propagation.sum_error_prop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate error propagation for a sum operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>errors: list of float</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>error: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Utils.utils.functions"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Utils.utils.functions.inverse_linear">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Utils.utils.functions.</span></span><span class="sig-name descname"><span class="pre">inverse_linear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gradient</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intercept</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Utils.utils.functions.inverse_linear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Solution to linear function</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>integ: float</strong></p>
+<blockquote>
+<div><p>integral value</p>
+</div></blockquote>
+<p><strong>B, C: float</strong></p>
+<blockquote>
+<div><p>(Gradient, intercept) Calibration parameters</p>
+</div></blockquote>
+<p><strong>dil: float</strong></p>
+<blockquote>
+<div><p>Dilution factor.</p>
+</div></blockquote>
+<p><strong>IS: float</strong></p>
+<blockquote>
+<div><p>Internal standard concentration.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">Operation</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">on</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">integ</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Utils.utils.functions.inverse_quadratic">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Utils.utils.functions.</span></span><span class="sig-name descname"><span class="pre">inverse_quadratic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">integ</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Utils.utils.functions.inverse_quadratic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Solution to quadratic function</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>integ: float</strong></p>
+<blockquote>
+<div><p>integral value</p>
+</div></blockquote>
+<p><strong>A, B, C: float</strong></p>
+<blockquote>
+<div><p>(second order, first order 0th order terms) Calibration parameters</p>
+</div></blockquote>
+<p><strong>dil: float</strong></p>
+<blockquote>
+<div><p>Dilution factor.</p>
+</div></blockquote>
+<p><strong>IS: float</strong></p>
+<blockquote>
+<div><p>Internal standard concentration.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">Operation</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">on</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">integ</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Utils.utils.functions.inverse_quadratic_standard_error">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Utils.utils.functions.</span></span><span class="sig-name descname"><span class="pre">inverse_quadratic_standard_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yhat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sy2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sa2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sb2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sc2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sab</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sac</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sbc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Utils.utils.functions.inverse_quadratic_standard_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>The equation for the quadratic calibration curve is:
+f = sqrt(-b + (b**2 - 4*c*(a-y)))/(2*c)</p>
+<p>Calculation of the standard error of the estimation from a quadratic
+calibration curve.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>yhat: float or numpy array</strong></p>
+<blockquote>
+<div><p>average of measurement.</p>
+</div></blockquote>
+<p><strong>sy2: float or numpy array</strong></p>
+<blockquote>
+<div><p>Variance of measurement.</p>
+</div></blockquote>
+<p><strong>a, b, c: float</strong></p>
+<blockquote>
+<div><p>(second order, first order 0th order terms) average values of calibration
+parameters.</p>
+</div></blockquote>
+<p><strong>sa2, sb2, sc2: float</strong></p>
+<blockquote>
+<div><p>(second order, first order 0th order terms) variance values of calibration
+parameters.</p>
+</div></blockquote>
+<p><strong>sab, sac, sbc: float</strong></p>
+<blockquote>
+<div><p>Covariances of calibration parameters.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>unew: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code> or <code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></p>
+<blockquote>
+<div><p>Calculated standard error of the estimation.</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Utils.utils.functions.linear">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Utils.utils.functions.</span></span><span class="sig-name descname"><span class="pre">linear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Utils.utils.functions.linear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Linear function</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>X: numpy array, float, int</strong></p>
+<blockquote>
+<div><p>independent variable</p>
+</div></blockquote>
+<p><strong>A, B: float</strong></p>
+<blockquote>
+<div><p>Quadratic function parameters.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">Operation</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">on</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">X</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Utils.utils.functions.quadratic_function">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Utils.utils.functions.</span></span><span class="sig-name descname"><span class="pre">quadratic_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Utils.utils.functions.quadratic_function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Quadratic function</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>X: numpy array, float, int</strong></p>
+<blockquote>
+<div><p>independent variable</p>
+</div></blockquote>
+<p><strong>A, B: float</strong></p>
+<blockquote>
+<div><p>Quadratic function parameters.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">Operation</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">on</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">X</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Utils.utils.functions.residual_squared_error">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Utils.utils.functions.</span></span><span class="sig-name descname"><span class="pre">residual_squared_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Utils.utils.functions.residual_squared_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculation the residual squared error between two arrays.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data: numpy array</strong></p>
+<blockquote>
+<div><p>Data</p>
+</div></blockquote>
+<p><strong>calc: numpy array</strong></p>
+<blockquote>
+<div><p>Calculated values</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Utils.utils.utils"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Utils.utils.utils.bin_dictionary">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Utils.utils.utils.</span></span><span class="sig-name descname"><span class="pre">bin_dictionary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stdev</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Utils.utils.utils.bin_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Combine dictionary values using a clustering algorithm.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value_dict: dict</strong></p>
+<blockquote>
+<div><p>Keys are floats.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>out_log: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:dict</span></code></p>
+<blockquote>
+<div><p>Binned dictionary</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Utils.utils.utils.indices_from_boundary">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Utils.utils.utils.</span></span><span class="sig-name descname"><span class="pre">indices_from_boundary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Utils.utils.utils.indices_from_boundary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the indices of elements of the data array between start and end.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data: ndarray</strong></p>
+<blockquote>
+<div><p>Array from which indice will be found</p>
+</div></blockquote>
+<p><strong>start: float</strong></p>
+<blockquote>
+<div><p>Lower boundary.</p>
+</div></blockquote>
+<p><strong>end: float</strong></p>
+<blockquote>
+<div><p>Upper boundary.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>indices: <code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></p>
+<blockquote>
+<div><p>Indices where start &lt; data &lt; end.</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Utils.utils.utils.is_float">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Utils.utils.utils.</span></span><span class="sig-name descname"><span class="pre">is_float</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">thing</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Utils.utils.utils.is_float" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if an thing (e.g. str) can be converted to a float.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>thing: any type</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><span class="xref std std-ref">bool</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Utils.utils.utils.is_int">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Utils.utils.utils.</span></span><span class="sig-name descname"><span class="pre">is_int</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Utils.utils.utils.is_int" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if variable can be converted to an integer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>x: any type</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><span class="xref std std-ref">bool</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Utils.utils.utils.peak_dict_to_spreadsheet">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Utils.utils.utils.</span></span><span class="sig-name descname"><span class="pre">peak_dict_to_spreadsheet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">peak_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">series_values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">series_unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_series_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Utils.utils.utils.peak_dict_to_spreadsheet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a dictionary of peak series to a spreadsheet-like grid and a
+header.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>peak_dict: dict</strong></p>
+<blockquote>
+<div><p>Dictionary of peak series.</p>
+</div></blockquote>
+<p><strong>series_values: list</strong></p>
+<blockquote>
+<div><p>list of series values</p>
+</div></blockquote>
+<p><strong>series_unit: str</strong></p>
+<blockquote>
+<div><p>Units for the inpendent variable.</p>
+</div></blockquote>
+<p><strong>sort_series_order: bool</strong></p>
+<blockquote>
+<div><p>Whether to sort the output according to the series or not.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">peak_header</span></code>, peak_grid_transposed: (<code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">of</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">lists</span></code>)</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Utils.utils.utils.peak_indices_to_times">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Utils.utils.utils.</span></span><span class="sig-name descname"><span class="pre">peak_indices_to_times</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">picked_peaks</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Utils.utils.utils.peak_indices_to_times" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts peak indices to times.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>time: ndarray</strong></p>
+<blockquote>
+<div><p>array of time, should match the indices.</p>
+</div></blockquote>
+<p><strong>picked_peaks: dict</strong></p>
+<blockquote>
+<div><p>dictionary containing list of indices of peak start, center, and end.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>peak_features: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code></p>
+<blockquote>
+<div><p>list of lists containing times of peak start, center, and end.</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="Writers.html"
+                          title="previous chapter">Writers</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Utils.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Writers.html" title="Writers"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ChromProcess 0.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="API.html" >API</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Utils</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, W. E. Robinson.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,316 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Processing &#8212; ChromProcess 0.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pyramid.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Writers" href="Writers.html" />
+    <link rel="prev" title="Loading" href="Loading.html" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head><body>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Writers.html" title="Writers"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Loading.html" title="Loading"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ChromProcess 0.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="API.html" accesskey="U">API</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Processing</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-ChromProcess.Processing.chromatogram.background_subtraction">
+<span id="processing"></span><h1>Processing<a class="headerlink" href="#module-ChromProcess.Processing.chromatogram.background_subtraction" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Processing.chromatogram.background_subtraction.ic_background_subtraction">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Processing.chromatogram.background_subtraction.</span></span><span class="sig-name descname"><span class="pre">ic_background_subtraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromatogram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Processing.chromatogram.background_subtraction.ic_background_subtraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the ion chromatograms of the analysis and reconstitutes the total ion
+chromatogram ommitting m/z signals which do not exceed a threshold.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>chromatogram: ChromProcess Chromatogram object.</strong></p>
+<blockquote>
+<div><p>Chromatogram to be processed.</p>
+</div></blockquote>
+<p><strong>threshold: float</strong></p>
+<blockquote>
+<div><p>Ion chromatograms which do not exceed this threshold will be removed
+before the total ion chromatogram is reconsituted.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1D <code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code> array.</p>
+<blockquote>
+<div><p>Original signal if not mass spectra information present.
+processed signal if ms info present.</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Processing.chromatogram.find_peaks"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Processing.chromatogram.find_peaks.find_peaks_in_region">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Processing.chromatogram.find_peaks.</span></span><span class="sig-name descname"><span class="pre">find_peaks_in_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromatogram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Processing.chromatogram.find_peaks.find_peaks_in_region" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find peaks within the chromatogram between start and end retention times.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>chromatogram: ChromProcess Chromatogram object</strong></dt><dd></dd>
+</dl>
+<p><strong>start: float</strong></p>
+<blockquote>
+<div><p>Start of time region (&lt; end).</p>
+</div></blockquote>
+<dl class="simple">
+<dt><strong>end: float End of time region (&gt; start).</strong></dt><dd></dd>
+</dl>
+<p><strong>threshold: float</strong></p>
+<blockquote>
+<div><p>Peaks below this fraction of the highest intensity of the chromatogram
+will not be picked.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>peaks: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">of</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">Peak</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">objects</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Processing.chromatogram.modify_chromatogram"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Processing.chromatogram.modify_chromatogram.add_peaks_to_chromatogram">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Processing.chromatogram.modify_chromatogram.</span></span><span class="sig-name descname"><span class="pre">add_peaks_to_chromatogram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">peaks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chromatogram</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Processing.chromatogram.modify_chromatogram.add_peaks_to_chromatogram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add peaks to a chromatogram (modifies the chromatogram in place).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>peaks: list of Peak objects</strong></dt><dd></dd>
+<dt><strong>chromatogram: Chromatogram object</strong></dt><dd></dd>
+<dt><strong>Returns</strong></dt><dd></dd>
+<dt><strong>—— None</strong></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Processing.chromatogram.modify_chromatogram.integrate_chromatogram_peaks">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Processing.chromatogram.modify_chromatogram.</span></span><span class="sig-name descname"><span class="pre">integrate_chromatogram_peaks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromatogram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baseline_subtract</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Processing.chromatogram.modify_chromatogram.integrate_chromatogram_peaks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Integrate all of the peaks in a chromatogram (modifies them in place).</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>chromatogram: Classes.Chromatogram object</strong></p>
+<blockquote>
+<div><p>Chromatogram containing peaks.</p>
+</div></blockquote>
+<p><strong>baseline_subtract: bool</strong></p>
+<blockquote>
+<div><p>Whether to perform a local baseline subtraction on the peak.</p>
+</div></blockquote>
+<dl class="simple">
+<dt><strong>Returns</strong></dt><dd></dd>
+<dt><strong>——</strong></dt><dd></dd>
+<dt><strong>None</strong></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Processing.chromatogram.modify_chromatogram.internal_standard_integral">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Processing.chromatogram.modify_chromatogram.</span></span><span class="sig-name descname"><span class="pre">internal_standard_integral</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromatogram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_end</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Processing.chromatogram.modify_chromatogram.internal_standard_integral" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds and adds internal standard information into a chromatogram.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>series: Chromatogram_Series object</strong></p>
+<blockquote>
+<div><p>Object containing chromatograms and associated series data which is
+modified by the function.</p>
+</div></blockquote>
+<p><strong>is_start: float</strong></p>
+<blockquote>
+<div><p>Start of the region of the chromatogram in which the internal standard
+is found.</p>
+</div></blockquote>
+<p><strong>is_end: float</strong></p>
+<blockquote>
+<div><p>End of the region of the chromatogram in which the internal standard
+is found.</p>
+</div></blockquote>
+<dl class="simple">
+<dt><strong>Returns</strong></dt><dd></dd>
+<dt><strong>——</strong></dt><dd></dd>
+<dt><strong>None</strong></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Processing.chromatogram.stack_chromatograms"></span><p>Functions for plotting a heat map of
+a chromatogram series.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Processing.chromatogram.stack_chromatograms.get_chrom_time_min_max">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Processing.chromatogram.stack_chromatograms.</span></span><span class="sig-name descname"><span class="pre">get_chrom_time_min_max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromatograms</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Processing.chromatogram.stack_chromatograms.get_chrom_time_min_max" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the highest and lowest retention times from a set of chromatograms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>chromatograms: list of Chromatogram objects.</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_time</span></code>, min_time: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Processing.chromatogram.stack_chromatograms.stack_chromatograms">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Processing.chromatogram.stack_chromatograms.</span></span><span class="sig-name descname"><span class="pre">stack_chromatograms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromatograms</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Processing.chromatogram.stack_chromatograms.stack_chromatograms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a stack of chromatogram signals in a numpy array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>chromatograms: list of Chromatogram Objects</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>time_axis: 1d <code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></dt><dd></dd>
+<dt>chrom_stack: 2d <code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">len</span></code>(<code class="xref py py-obj docutils literal notranslate"><span class="pre">time_axis</span></code>),len(<code class="xref py py-obj docutils literal notranslate"><span class="pre">chromatograms</span></code>))</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Processing.custom"></span><span class="target" id="module-ChromProcess.Processing.peak.assign_peak"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Processing.peak.assign_peak.assign_retention_time">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Processing.peak.assign_peak.</span></span><span class="sig-name descname"><span class="pre">assign_retention_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">retention_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundaries</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Processing.peak.assign_peak.assign_retention_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Possible TODO: Re-implement as decision tree. The current method works, but
+relies upon Python 3 dictionary ordering and potentially some wasted
+iteration. However, performance is not currently an issue.</p>
+<p>Takes a peak (retention times of peak) and assigns peak name based on a
+dictionary of boundaries. The assignment priority is based on the
+interation order of the dict (Python 3 dict)</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>retention_time: float</strong></p>
+<blockquote>
+<div><p>retention time of a peak</p>
+</div></blockquote>
+<p><strong>boundaries: dict</strong></p>
+<blockquote>
+<div><p>dictionary of boundaries for peak assignments</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>peak_name: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:str</span></code></p>
+<blockquote>
+<div><p>name of the peak. If the peak has no assignment, the peak retention time
+is returned</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="Loading.html"
+                          title="previous chapter">Loading</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="Writers.html"
+                          title="next chapter">Writers</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Processing.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Writers.html" title="Writers"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Loading.html" title="Loading"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ChromProcess 0.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="API.html" >API</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Processing</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, W. E. Robinson.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

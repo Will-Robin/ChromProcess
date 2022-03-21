@@ -1,0 +1,413 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Writers &#8212; ChromProcess 0.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pyramid.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Utils" href="Utils.html" />
+    <link rel="prev" title="Processing" href="Processing.html" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head><body>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Utils.html" title="Utils"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Processing.html" title="Processing"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ChromProcess 0.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="API.html" accesskey="U">API</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Writers</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-ChromProcess.Writers.chromatogram.chromatogram_to_csv">
+<span id="writers"></span><h1>Writers<a class="headerlink" href="#module-ChromProcess.Writers.chromatogram.chromatogram_to_csv" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Writers.chromatogram.chromatogram_to_csv.chromatogram_to_csv">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Writers.chromatogram.chromatogram_to_csv.</span></span><span class="sig-name descname"><span class="pre">chromatogram_to_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromatogram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Writers.chromatogram.chromatogram_to_csv.chromatogram_to_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write chromatogram to a .csv file.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>chromatogram: Classes.Chromatogram</strong></p>
+<blockquote>
+<div><p>Chromatogram to be converted.</p>
+</div></blockquote>
+<p><strong>filename: str</strong></p>
+<blockquote>
+<div><p>Name for the file.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Writers.chromatogram.chromatogram_to_csv.write_chromatogram_csv_text">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Writers.chromatogram.chromatogram_to_csv.</span></span><span class="sig-name descname"><span class="pre">write_chromatogram_csv_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromatogram</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Writers.chromatogram.chromatogram_to_csv.write_chromatogram_csv_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the text for a chromatogram in a column-wise csv format.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>chromatogram: Classes.Chromatogram</strong></p>
+<blockquote>
+<div><p>Chromatogram to be converted.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>csv_string: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:str</span></code></p>
+<blockquote>
+<div><p>Chromatogram time and signal in column-wise csv format.</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Writers.chromatogram.chromatogram_to_json"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Writers.chromatogram.chromatogram_to_json.chromatogram_to_json">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Writers.chromatogram.chromatogram_to_json.</span></span><span class="sig-name descname"><span class="pre">chromatogram_to_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromatogram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Writers.chromatogram.chromatogram_to_json.chromatogram_to_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write chromatogram to a .json file.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>chromatogram: Classes.Chromatogram</strong></p>
+<blockquote>
+<div><p>Chromatogram to be converted.</p>
+</div></blockquote>
+<p><strong>filename: str</strong></p>
+<blockquote>
+<div><p>Name for the file.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Writers.chromatogram.chromatogram_to_json.write_chromatogram_json_text">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Writers.chromatogram.chromatogram_to_json.</span></span><span class="sig-name descname"><span class="pre">write_chromatogram_json_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromatogram</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Writers.chromatogram.chromatogram_to_json.write_chromatogram_json_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the text for a chromatogram in a column-wise csv format.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>chromatogram: Classes.Chromatogram</strong></p>
+<blockquote>
+<div><p>Chromatogram to be converted.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>csv_string: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:str</span></code></p>
+<blockquote>
+<div><p>Chromatogram time and signal in column-wise csv format.</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Writers.chromatogram.chromatogram_to_peak_collection"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Writers.chromatogram.chromatogram_to_peak_collection.chromatogram_to_peak_collection">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Writers.chromatogram.chromatogram_to_peak_collection.</span></span><span class="sig-name descname"><span class="pre">chromatogram_to_peak_collection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromatogram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'peak_collection.csv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Writers.chromatogram.chromatogram_to_peak_collection.chromatogram_to_peak_collection" title="Permalink to this definition">¶</a></dt>
+<dd><p>For writing peak integrals from a chromatogram to a .csv file.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename: str or pathlib Path</strong></p>
+<blockquote>
+<div><p>Name for the file</p>
+</div></blockquote>
+<p><strong>header_text: str</strong></p>
+<blockquote>
+<div><p>Text to place at the top of the peak table.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Writers.chromatogram.chromatogram_to_peak_collection.write_peak_collection_text">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Writers.chromatogram.chromatogram_to_peak_collection.</span></span><span class="sig-name descname"><span class="pre">write_peak_collection_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromatogram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Writers.chromatogram.chromatogram_to_peak_collection.write_peak_collection_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the text for a peak collection based on the Peak objects in the
+chromatogram.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>chromatogram: Classes.Chromatogram</strong></dt><dd></dd>
+<dt><strong>header_text: string</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>peak_collection_string: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:str</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Writers.data_report.data_report_to_csv"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Writers.data_report.data_report_to_csv.data_report_to_csv">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Writers.data_report.data_report_to_csv.</span></span><span class="sig-name descname"><span class="pre">data_report_to_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_report</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Writers.data_report.data_report_to_csv.data_report_to_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write a data report to a csv file.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data_report: Classes.DataReport</strong></p>
+<blockquote>
+<div><p>DataReport to write to file.</p>
+</div></blockquote>
+<p><strong>filename: str</strong></p>
+<blockquote>
+<div><p>name for file</p>
+</div></blockquote>
+<p><strong>path: pathlib Path object</strong></p>
+<blockquote>
+<div><p>Path to folder for file storage.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Writers.data_report.data_report_to_csv.write_data_report_text">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Writers.data_report.data_report_to_csv.</span></span><span class="sig-name descname"><span class="pre">write_data_report_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_report</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Writers.data_report.data_report_to_csv.write_data_report_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write a formatted text version of the data report.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data_report: Classes.DataReport</strong></p>
+<blockquote>
+<div><p>DataReport to convert to text.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>data_report_text: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:str</span></code></p>
+<blockquote>
+<div><p>Text output for the data report.</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Writers.general.write_header"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Writers.general.write_header.write_conditions_header">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Writers.general.write_header.</span></span><span class="sig-name descname"><span class="pre">write_conditions_header</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conditions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">information</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Writers.general.write_header.write_conditions_header" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the text for a formatted file header detailing experiment
+information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>name: str</strong></dt><dd></dd>
+<dt><strong>conditions: Classes.ExperimentConditions</strong></dt><dd></dd>
+<dt><strong>information: ChromProcess AnalysisInformation object</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>header_text: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:str</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Writers.mass_spectra.mass_spectrum_to_string"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Writers.mass_spectra.mass_spectrum_to_string.mass_spectrum_to_string_cols">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Writers.mass_spectra.mass_spectrum_to_string.</span></span><span class="sig-name descname"><span class="pre">mass_spectrum_to_string_cols</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mass_spectrum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Writers.mass_spectra.mass_spectrum_to_string.mass_spectrum_to_string_cols" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write a row-wise csv for the mass spectrum.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>mass_spectrum: Classes.MassSpectrum</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>ms_string: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:str</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Writers.mass_spectra.mass_spectrum_to_string.mass_spectrum_to_string_rows">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Writers.mass_spectra.mass_spectrum_to_string.</span></span><span class="sig-name descname"><span class="pre">mass_spectrum_to_string_rows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mass_spectrum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Writers.mass_spectra.mass_spectrum_to_string.mass_spectrum_to_string_rows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write a row-wise csv for the mass spectrum.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>mass_spectrum: Classes.MassSpectrum</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>ms_string: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:str</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Writers.peak.peak_to_entry_text"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Writers.peak.peak_to_entry_text.peak_to_entry_text">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Writers.peak.peak_to_entry_text.</span></span><span class="sig-name descname"><span class="pre">peak_to_entry_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">peak</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chromatogram</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Writers.peak.peak_to_entry_text.peak_to_entry_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>For writing the peak’s row in a peak table.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>peak: Classes.Peak</strong></dt><dd></dd>
+<dt><strong>chromatogram: Classes.Chromatogram</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>entry: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:str</span></code></p>
+<blockquote>
+<div><p>Row for the peak table output</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Writers.peak_collection.peak_collection_to_csv"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Writers.peak_collection.peak_collection_to_csv.peak_collection_to_csv">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Writers.peak_collection.peak_collection_to_csv.</span></span><span class="sig-name descname"><span class="pre">peak_collection_to_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">peak_collection</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Writers.peak_collection.peak_collection_to_csv.peak_collection_to_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write a PeakCollection to a csv file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>peak_collection: Classes.PeakCollection</strong></dt><dd></dd>
+<dt><strong>directory: str or pathlib Path</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Writers.peak_collection_series.peak_collection_series_to_data_report"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Writers.peak_collection_series.peak_collection_series_to_data_report.peak_collection_series_to_data_report">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Writers.peak_collection_series.peak_collection_series_to_data_report.</span></span><span class="sig-name descname"><span class="pre">peak_collection_series_to_data_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">peak_collection_series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">information</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Writers.peak_collection_series.peak_collection_series_to_data_report.peak_collection_series_to_data_report" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write a peak collection series as a formatted data report file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>peak_collection_series: Classes.PeakCollectionSeries</strong></dt><dd></dd>
+<dt><strong>filename: name for file including path</strong></dt><dd></dd>
+<dt><strong>information: ChromProcess Analysis_Information object</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="Processing.html"
+                          title="previous chapter">Processing</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="Utils.html"
+                          title="next chapter">Utils</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Writers.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Utils.html" title="Utils"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Processing.html" title="Processing"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ChromProcess 0.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="API.html" >API</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Writers</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, W. E. Robinson.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

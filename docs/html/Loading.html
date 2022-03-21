@@ -1,0 +1,763 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Loading &#8212; ChromProcess 0.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pyramid.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Processing" href="Processing.html" />
+    <link rel="prev" title="Classes" href="Classes.html" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head><body>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Processing.html" title="Processing"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Classes.html" title="Classes"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ChromProcess 0.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="API.html" accesskey="U">API</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Loading</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-ChromProcess.Loading.analysis_info.analysis_from_csv">
+<span id="loading"></span><h1>Loading<a class="headerlink" href="#module-ChromProcess.Loading.analysis_info.analysis_from_csv" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Loading.analysis_info.analysis_from_csv.analysis_from_csv">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Loading.analysis_info.analysis_from_csv.</span></span><span class="sig-name descname"><span class="pre">analysis_from_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Loading.analysis_info.analysis_from_csv.analysis_from_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and AnalysisInformation object from a formatted csv file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>fname: str or pathlib Path</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>analysis: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Classes.AnalysisInformation</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Loading.analysis_info.analysis_from_csv_legacy"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Loading.analysis_info.analysis_from_csv_legacy.analysis_from_csv_legacy">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Loading.analysis_info.analysis_from_csv_legacy.</span></span><span class="sig-name descname"><span class="pre">analysis_from_csv_legacy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Loading.analysis_info.analysis_from_csv_legacy.analysis_from_csv_legacy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and AnalysisInformation object from a formatted csv file.
+Written for an older version of the file format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>fname: str or pathlib Path</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>analysis: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Classes.AnalysisInformation</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Loading.chromatogram.cdf.cdf_loading"></span><p>Functions for loading data from .cdf files (ANDI format).</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.cdf_loading.load_from_cdf">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Loading.chromatogram.cdf.cdf_loading.</span></span><span class="sig-name descname"><span class="pre">load_from_cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.cdf_loading.load_from_cdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts data from a .cdf file using the Dataset function
+from the netCDF4 library.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename: str</strong></p>
+<blockquote>
+<div><p>File name of the GCMS .cdf file.</p>
+</div></blockquote>
+<p><strong>keys: list of str</strong></p>
+<blockquote>
+<div><p>Key to a set of data in the .cdf file.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>data_container: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:dict</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">of</span></code> <code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">arrays</span></code></p>
+<blockquote>
+<div><p>Container for the extracted data.</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Loading.chromatogram.cdf.chrom_from_cdf"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.chrom_from_cdf.chrom_from_cdf">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Loading.chromatogram.cdf.chrom_from_cdf.</span></span><span class="sig-name descname"><span class="pre">chrom_from_cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instrument=&lt;class</span> <span class="pre">'ChromProcess.Loading.chromatogram.cdf.instruments.JEOL'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_ms=False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.chrom_from_cdf.chrom_from_cdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a chromatogram from .cdf file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>filename: str or pathlib Path</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>chrom: <code class="xref py py-obj docutils literal notranslate"><span class="pre">ChromProcess</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">Chromatogram</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Loading.chromatogram.cdf.instruments"></span><p>Keys for cdf files organised by instrument type.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.instruments.JEOL">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ChromProcess.Loading.chromatogram.cdf.instruments.</span></span><span class="sig-name descname"><span class="pre">JEOL</span></span><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.instruments.JEOL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.ACTUAL_SCAN_NUMBER">
+<span class="sig-name descname"><span class="pre">ACTUAL_SCAN_NUMBER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('actual_scan_number',)</span></em><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.ACTUAL_SCAN_NUMBER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.AD_COADDITION_FACTOR">
+<span class="sig-name descname"><span class="pre">AD_COADDITION_FACTOR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'a_d_coaddition_factor'</span></em><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.AD_COADDITION_FACTOR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.AD_SAMPLING_RATE">
+<span class="sig-name descname"><span class="pre">AD_SAMPLING_RATE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'a_d_sampling_rate'</span></em><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.AD_SAMPLING_RATE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.ERROR_LOG">
+<span class="sig-name descname"><span class="pre">ERROR_LOG</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'error_log'</span></em><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.ERROR_LOG" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.FLAG_COUNT">
+<span class="sig-name descname"><span class="pre">FLAG_COUNT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'flag_count'</span></em><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.FLAG_COUNT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.INSTRUMENT_APP_VERSION">
+<span class="sig-name descname"><span class="pre">INSTRUMENT_APP_VERSION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'instrument_app_version'</span></em><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.INSTRUMENT_APP_VERSION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.INSTRUMENT_COMMENTS">
+<span class="sig-name descname"><span class="pre">INSTRUMENT_COMMENTS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'instrument_comments'</span></em><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.INSTRUMENT_COMMENTS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.INSTRUMENT_FW_VERSION">
+<span class="sig-name descname"><span class="pre">INSTRUMENT_FW_VERSION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'instrument_fw_version'</span></em><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.INSTRUMENT_FW_VERSION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.INSTRUMENT_ID">
+<span class="sig-name descname"><span class="pre">INSTRUMENT_ID</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'instrument_id'</span></em><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.INSTRUMENT_ID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.INSTRUMENT_MFR">
+<span class="sig-name descname"><span class="pre">INSTRUMENT_MFR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'instrument_mfr'</span></em><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.INSTRUMENT_MFR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.INSTRUMENT_MODEL">
+<span class="sig-name descname"><span class="pre">INSTRUMENT_MODEL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'instrument_model'</span></em><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.INSTRUMENT_MODEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.INSTRUMENT_NAME">
+<span class="sig-name descname"><span class="pre">INSTRUMENT_NAME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'instrument_name'</span></em><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.INSTRUMENT_NAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.INSTRUMENT_OS_VERSION">
+<span class="sig-name descname"><span class="pre">INSTRUMENT_OS_VERSION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'instrument_os_version'</span></em><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.INSTRUMENT_OS_VERSION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.INSTRUMENT_SERIAL_NO">
+<span class="sig-name descname"><span class="pre">INSTRUMENT_SERIAL_NO</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'instrument_serial_no'</span></em><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.INSTRUMENT_SERIAL_NO" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.INSTRUMENT_SW_VERSI">
+<span class="sig-name descname"><span class="pre">INSTRUMENT_SW_VERSI</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'instrument_sw_versi</span> <span class="pre">on'</span></em><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.INSTRUMENT_SW_VERSI" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.INTER_SCAN_TIME">
+<span class="sig-name descname"><span class="pre">INTER_SCAN_TIME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'inter_scan_time'</span></em><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.INTER_SCAN_TIME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.MASS_RANGE_MAX">
+<span class="sig-name descname"><span class="pre">MASS_RANGE_MAX</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'mass_range_max'</span></em><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.MASS_RANGE_MAX" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.MASS_RANGE_MIN">
+<span class="sig-name descname"><span class="pre">MASS_RANGE_MIN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'mass_range_min'</span></em><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.MASS_RANGE_MIN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.MS_INTENSITY_KEY">
+<span class="sig-name descname"><span class="pre">MS_INTENSITY_KEY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'intensity_values'</span></em><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.MS_INTENSITY_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.MZ_KEY">
+<span class="sig-name descname"><span class="pre">MZ_KEY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'mass_values'</span></em><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.MZ_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.POINT_COUNT_KEY">
+<span class="sig-name descname"><span class="pre">POINT_COUNT_KEY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'point_count'</span></em><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.POINT_COUNT_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.RESOLUTION">
+<span class="sig-name descname"><span class="pre">RESOLUTION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'resolution'</span></em><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.RESOLUTION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.SCAN_DURATION">
+<span class="sig-name descname"><span class="pre">SCAN_DURATION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'scan_duration'</span></em><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.SCAN_DURATION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.SCAN_INDEX_KEY">
+<span class="sig-name descname"><span class="pre">SCAN_INDEX_KEY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'scan_index'</span></em><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.SCAN_INDEX_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.TIC_KEY">
+<span class="sig-name descname"><span class="pre">TIC_KEY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'total_intensity'</span></em><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.TIC_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.TIME_CONVERSION">
+<span class="sig-name descname"><span class="pre">TIME_CONVERSION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">60</span></em><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.TIME_CONVERSION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.TIME_KEY">
+<span class="sig-name descname"><span class="pre">TIME_KEY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'scan_acquisition_time'</span></em><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.TIME_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.TIME_RANGE_MAX">
+<span class="sig-name descname"><span class="pre">TIME_RANGE_MAX</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'time_range_max'</span></em><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.TIME_RANGE_MAX" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.TIME_RANGE_MIN">
+<span class="sig-name descname"><span class="pre">TIME_RANGE_MIN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'time_range_min'</span></em><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.TIME_RANGE_MIN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.X_UNIT">
+<span class="sig-name descname"><span class="pre">X_UNIT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'total</span> <span class="pre">ion</span> <span class="pre">counts'</span></em><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.X_UNIT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.Y_UNIT">
+<span class="sig-name descname"><span class="pre">Y_UNIT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'min.'</span></em><a class="headerlink" href="#ChromProcess.Loading.chromatogram.cdf.instruments.JEOL.Y_UNIT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Loading.chromatogram.text.chrom_from_csv"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.text.chrom_from_csv.chrom_from_csv">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Loading.chromatogram.text.chrom_from_csv.</span></span><span class="sig-name descname"><span class="pre">chrom_from_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Loading.chromatogram.text.chrom_from_csv.chrom_from_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>A specific parser for .txt files exported from Shimadzu LabSolutions
+software.</p>
+<p>Extracts data from the chromatogram file into a dictionary using string
+manipulation and regex parsing (not all information in the file is
+scraped).</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename: str or pathlib Path</strong></p>
+<blockquote>
+<div><p>Name of chromatogram file (including the path to the file).</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>data_container: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:dict</span></code></p>
+<blockquote>
+<div><p>Dictionary containing data scraper from the file.</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Loading.chromatogram.text.chrom_from_labsolutions_ascii"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.text.chrom_from_labsolutions_ascii.chrom_from_labsolutions_ascii">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Loading.chromatogram.text.chrom_from_labsolutions_ascii.</span></span><span class="sig-name descname"><span class="pre">chrom_from_labsolutions_ascii</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Detector</span> <span class="pre">A-Ch1'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Loading.chromatogram.text.chrom_from_labsolutions_ascii.chrom_from_labsolutions_ascii" title="Permalink to this definition">¶</a></dt>
+<dd><p>A specific parser for .txt files exported from Shimadzu LabSolutions
+software.</p>
+<p>Extracts data from the chromatogram file into a dictionary using string
+manipulation and regex parsing (not all information in the file is
+scraped).</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename: str or pathlib Path</strong></p>
+<blockquote>
+<div><p>Name of chromatogram file (including the path to the file).</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>data_container: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:dict</span></code></p>
+<blockquote>
+<div><p>Dictionary containing data scraper from the file.</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Loading.chromatogram.text.chrom_from_text"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.text.chrom_from_text.chrom_from_text">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Loading.chromatogram.text.chrom_from_text.</span></span><span class="sig-name descname"><span class="pre">chrom_from_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Loading.chromatogram.text.chrom_from_text.chrom_from_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a chromatogram object and insert time and signal information into
+it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>x_values: list</strong></dt><dd></dd>
+<dt><strong>y_values: list</strong></dt><dd></dd>
+<dt><strong>x_unit: str</strong></dt><dd></dd>
+<dt><strong>y_unit: str</strong></dt><dd></dd>
+<dt><strong>filename: str</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>chrom: <code class="xref py py-obj docutils literal notranslate"><span class="pre">ChromProcess</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">Chromatogram</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Loading.chromatogram.ion_chromatogram.ion_chromatogram_from_peak"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.ion_chromatogram.ion_chromatogram_from_peak.ion_chromatogram_from_peak">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Loading.chromatogram.ion_chromatogram.ion_chromatogram_from_peak.</span></span><span class="sig-name descname"><span class="pre">ion_chromatogram_from_peak</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">peak</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_chromatogram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Loading.chromatogram.ion_chromatogram.ion_chromatogram_from_peak.ion_chromatogram_from_peak" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a dictionary of ion chromatograms using information from the peak
+and its parent chromatogram.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>peak: ChromProcess Peak object</strong></p>
+<blockquote>
+<div><p>Peak containing information.</p>
+</div></blockquote>
+<p><strong>parent_chromatogram: ChromProcess Chromatogram object</strong></p>
+<blockquote>
+<div><p>Chromatogram containing information.</p>
+</div></blockquote>
+<p><strong>spectrum_filter: float</strong></p>
+<blockquote>
+<div><p>m/z intensities which do not exceed this fraction its parent
+mass spectrum will be omitted from the ion chromatogram.</p>
+</div></blockquote>
+<p><strong>threshold: float</strong></p>
+<blockquote>
+<div><p>Threshold for mass spectra extraction relative to the maximum signal
+in the region.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>ion_chromatograms: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:dict</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">mz</span></code>]:array()</p>
+<blockquote>
+<div><p>A dictionary of ion chromatograms keyed by m/z value.</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Loading.chromatogram.ion_chromatogram.ion_chromatogram_from_region"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.ion_chromatogram.ion_chromatogram_from_region.ion_chromatogram_from_region">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Loading.chromatogram.ion_chromatogram.ion_chromatogram_from_region.</span></span><span class="sig-name descname"><span class="pre">ion_chromatogram_from_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromatogram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lower</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Loading.chromatogram.ion_chromatogram.ion_chromatogram_from_region.ion_chromatogram_from_region" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the ion chromatograms for a region of a chromatogram. Requires mass
+spectra information to be present in the chromatogram.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>chromatogram: ChromProcess Chromatogram object</strong></p>
+<blockquote>
+<div><p>Chromatogram containing information</p>
+</div></blockquote>
+<p><strong>lower: float</strong></p>
+<blockquote>
+<div><p>Lower bound for retention time region in chromatogram</p>
+</div></blockquote>
+<p><strong>upper: float</strong></p>
+<blockquote>
+<div><p>Upper bound for retention time region in chromatogram</p>
+</div></blockquote>
+<p><strong>spectrum_filter: float</strong></p>
+<blockquote>
+<div><p>m/z intensities which do not exceed this fraction its parent
+mass spectrum will be omitted from the ion chromatogram.</p>
+</div></blockquote>
+<p><strong>threshold: float</strong></p>
+<blockquote>
+<div><p>Threshold for mass spectra extraction relative to the maximum signal
+in the region.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>ion_chromatograms: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:dict</span></code></p>
+<blockquote>
+<div><p>dictionary of ion chromatograms
+{m/z: intensities over time}</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Loading.custom.local_assignments_from_csv"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Loading.custom.local_assignments_from_csv.local_assignments_from_csv">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Loading.custom.local_assignments_from_csv.</span></span><span class="sig-name descname"><span class="pre">local_assignments_from_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Loading.custom.local_assignments_from_csv.local_assignments_from_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a comma-separated values file containing assignments of compounds to
+retention time boundaries.</p>
+<dl class="simple">
+<dt>File format:</dt><dd><p>compound_1_name,lower bound (float), upper bound (float),
+compound_2_name,lower bound (float), upper bound (float),
+etc.</p>
+</dd>
+</dl>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file: str</strong></p>
+<blockquote>
+<div><p>Path to file</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>modified_bounds: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:dict</span></code></p>
+<blockquote>
+<div><p>modified_bounds[‘compound_1_name’] = [lower: float, upper: float]</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Loading.custom.mass_spectra_from_csv"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Loading.custom.mass_spectra_from_csv.mass_spectra_from_csv">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Loading.custom.mass_spectra_from_csv.</span></span><span class="sig-name descname"><span class="pre">mass_spectra_from_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Loading.custom.mass_spectra_from_csv.mass_spectra_from_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read the mass spectra from a file generated by
+Classes.Chromatogram.write_peak_mass_spectra()</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file: str</strong></p>
+<blockquote>
+<div><p>path to file</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>mass_spectra: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code></p>
+<blockquote>
+<div><p>A list of ChromProcess MassSpectrum objects.</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Loading.custom.point_removals_from_csv"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Loading.custom.point_removals_from_csv.read_point_removals_file">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Loading.custom.point_removals_from_csv.</span></span><span class="sig-name descname"><span class="pre">read_point_removals_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Loading.custom.point_removals_from_csv.read_point_removals_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>For reading a file containing datasets and point indices to remove in the
+data sets.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fname: str</strong></p>
+<blockquote>
+<div><p>Path to the file</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>point_removals: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:dict</span></code></p>
+<blockquote>
+<div><p>dictionary of point removal indices. keys are experiment codes,
+list of ints are items.</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Loading.data_report.data_report_from_csv"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Loading.data_report.data_report_from_csv.data_report_from_csv">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Loading.data_report.data_report_from_csv.</span></span><span class="sig-name descname"><span class="pre">data_report_from_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Loading.data_report.data_report_from_csv.data_report_from_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a data report object from a formatted .csv file.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file: pathlib Path or str</strong></p>
+<blockquote>
+<div><p>Path to file.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>data_report: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Classes.DataReport</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Loading.experiment_conditions.conditions_from_csv"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Loading.experiment_conditions.conditions_from_csv.conditions_from_csv">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Loading.experiment_conditions.conditions_from_csv.</span></span><span class="sig-name descname"><span class="pre">conditions_from_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Loading.experiment_conditions.conditions_from_csv.conditions_from_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a ExperimentConditions object from a formatted .csv file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>filename: str or pathlib Path</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>conditions: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Classes.ExperimentConditions</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Loading.instrument_calibration.instrument_cal_from_csv"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Loading.instrument_calibration.instrument_cal_from_csv.instrument_cal_from_csv">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Loading.instrument_calibration.instrument_cal_from_csv.</span></span><span class="sig-name descname"><span class="pre">instrument_cal_from_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Loading.instrument_calibration.instrument_cal_from_csv.instrument_cal_from_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an InstrumentCalibration object from a formatted .csv file.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fname: str or pathlib Path</strong></p>
+<blockquote>
+<div><p>name for file</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>calibration: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Classes.InstrumentCalibration</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Loading.mass_spectrum.mass_spectrum_from_peak"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Loading.mass_spectrum.mass_spectrum_from_peak.mass_spectrum_from_peak">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Loading.mass_spectrum.mass_spectrum_from_peak.</span></span><span class="sig-name descname"><span class="pre">mass_spectrum_from_peak</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">peak</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chromatogram</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Loading.mass_spectrum.mass_spectrum_from_peak.mass_spectrum_from_peak" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the mass spectrum at the apex of a peak. Inserts the mass spectrum into
+the Peak object and returns the mass spectrum. If mass spectra information
+is not present in the chromatogram, an ewmpty list is returned and the
+Peak’s mass_spectra value remains unchanged (False by default).</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>peak: ChromProcess Peak object</strong></p>
+<blockquote>
+<div><p>Peak to find mass spectrum for.</p>
+</div></blockquote>
+<p><strong>chromatogram: ChromProcess Chromatogram object</strong></p>
+<blockquote>
+<div><p>Parent chromatogram for the peak</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>mass_spectrum: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Classes.MassSpectrum</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Loading.parsers.parsers"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Loading.parsers.parsers.import_file_section">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Loading.parsers.parsers.</span></span><span class="sig-name descname"><span class="pre">import_file_section</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_token</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_token</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Loading.parsers.parsers.import_file_section" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a section of lines between two tokens.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file: str or pathlib Path</strong></p>
+<blockquote>
+<div><p>Path to the file.</p>
+</div></blockquote>
+<p><strong>start_token: str</strong></p>
+<blockquote>
+<div><p>String in line to start reading file from.</p>
+</div></blockquote>
+<p><strong>end_token:</strong></p>
+<blockquote>
+<div><p>String in line to end reading file from.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>c_set: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Loading.parsers.parsers.parse_text_columns">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Loading.parsers.parsers.</span></span><span class="sig-name descname"><span class="pre">parse_text_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">point_delimiter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordinal_delimiter</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Loading.parsers.parsers.parse_text_columns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts data organised in columns in a text file and converts it to a list
+of lists [[x values],[y values]].</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>text: str</strong></p>
+<blockquote>
+<div><p>Text to be parsed.</p>
+</div></blockquote>
+<p><strong>point_delimiter: str</strong></p>
+<blockquote>
+<div><p>Delimiter for separating point coordintes.</p>
+</div></blockquote>
+<p><strong>ordinal_delimiter: str</strong></p>
+<blockquote>
+<div><p>Delimiter for separating x,y pairs</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>data: <code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Loading.peak.peak_from_chromatogram"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Loading.peak.peak_from_chromatogram.peak_from_chromatogram">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Loading.peak.peak_from_chromatogram.</span></span><span class="sig-name descname"><span class="pre">peak_from_chromatogram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chrom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Loading.peak.peak_from_chromatogram.peak_from_chromatogram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a peak using the boundaries defined within a chromatogram.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>chrom: Chromatogram object</strong></dt><dd></dd>
+</dl>
+<p><strong>start: float</strong></p>
+<blockquote>
+<div><p>Start of the peak</p>
+</div></blockquote>
+<p><strong>end: float</strong></p>
+<blockquote>
+<div><p>End of the peak</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>peak: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Peak</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code></p>
+<blockquote>
+<div><p>peak created from the bounds</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-ChromProcess.Loading.peak_collection.peak_collection_from_csv"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Loading.peak_collection.peak_collection_from_csv.peak_collection_from_csv">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Loading.peak_collection.peak_collection_from_csv.</span></span><span class="sig-name descname"><span class="pre">peak_collection_from_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">round_digits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Loading.peak_collection.peak_collection_from_csv.peak_collection_from_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a PeakCollection object from a formatted file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>filename: str or pathlib Path</strong></dt><dd></dd>
+<dt><strong>round_digits: int</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>peak_collection: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Classes.PeakCollection</span></code></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="Classes.html"
+                          title="previous chapter">Classes</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="Processing.html"
+                          title="next chapter">Processing</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Loading.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Processing.html" title="Processing"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Classes.html" title="Classes"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ChromProcess 0.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="API.html" >API</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Loading</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, W. E. Robinson.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>
