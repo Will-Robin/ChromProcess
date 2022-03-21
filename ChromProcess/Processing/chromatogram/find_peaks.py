@@ -45,6 +45,11 @@ def find_peaks_in_region(chromatogram, start, end, threshold=0.1):
         start = time[start_idx]
         end = time[end_idx]
 
-        peaks.append(Classes.Peak(retention_time, start, end, indices=[]))
+        p_inds = utils.indices_from_boundary(chromatogram.time, start, end)
+
+        new_peak = Classes.Peak(retention_time, start, end, indices=p_inds)
+        new_peak.get_height(chromatogram)
+
+        peaks.append(new_peak)
 
     return peaks

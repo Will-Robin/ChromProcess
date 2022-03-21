@@ -17,15 +17,17 @@ def peak_to_entry_text(peak, chromatogram):
     end_ind = 0
     peak_start = 0.0
     peak_end = 0.0
+    peak_height = 0.0
     if len(peak.indices) > 0:
         st_ind = peak.indices[0]
         end_ind = peak.indices[-1]
         peak_start = chromatogram.time[st_ind]
         peak_end = chromatogram.time[end_ind]
+        peak_height = peak.height
 
     rtn_time = peak.retention_time
     integral = peak.integral
 
-    entry = f"{rtn_time},{integral},{peak_start},{peak_end}\n"
+    entry = f"{rtn_time},{integral},{peak_start},{peak_end},{peak_height}\n"
 
     return entry

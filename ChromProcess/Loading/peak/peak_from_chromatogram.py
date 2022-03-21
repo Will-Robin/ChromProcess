@@ -35,5 +35,6 @@ def peak_from_chromatogram(chrom, start, end):
     start = timeseg[0]
     end = timeseg[-1]
     peak = Classes.Peak(retention_time, start, end, indices=inds)
+    peak.get_height(chrom)
 
     return peak

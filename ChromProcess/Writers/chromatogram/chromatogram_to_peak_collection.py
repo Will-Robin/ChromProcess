@@ -23,7 +23,9 @@ def write_peak_collection_text(chromatogram, header_text=""):
 
     peak_collection_string += "IS_retention_time/ min,"
     peak_collection_string += "IS_integral,IS_peak start/ min,"
-    peak_collection_string += "IS_peak end/ min\n"
+    peak_collection_string += "IS_peak end/ min,"
+    peak_collection_string += f"peak height/ {chromatogram.y_unit}"
+    peak_collection_string += "\n"
 
     i_s = chromatogram.internal_standard
     IS_entry = peak_to_entry_text(i_s, chromatogram)
@@ -32,7 +34,9 @@ def write_peak_collection_text(chromatogram, header_text=""):
 
     peak_collection_string += "Retention_time/ min,"
     peak_collection_string += "integral,peak start/ min,"
-    peak_collection_string += "peak end/ min\n"
+    peak_collection_string += "peak end/ min,"
+    peak_collection_string += f"peak height/ {chromatogram.y_unit}"
+    peak_collection_string += "\n"
 
     for p in chromatogram.peaks:
         peak = chromatogram.peaks[p]
@@ -60,5 +64,6 @@ def chromatogram_to_peak_collection(
     """
 
     output_text = write_peak_collection_text(chromatogram, header_text=header_text)
+
     with open(filename, "w") as f:
         f.write(output_text)

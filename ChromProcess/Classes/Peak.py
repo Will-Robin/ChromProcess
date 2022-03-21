@@ -16,6 +16,7 @@ class Peak:
         end,
         indices=[],
         integral=None,
+        height=None,
         parent="",
         mass_spectrum=False,
     ):
@@ -66,7 +67,10 @@ class Peak:
         else:
             self.integral = integral
 
-        self.height = 0.0
+        if height == None:
+            self.height = 0.0
+        else:
+            self.height = height
 
         self.ion_chromatograms = {}
 
@@ -129,7 +133,16 @@ class Peak:
             Height of the peak.
         """
 
-        self.height = chromatogram.signal[self.indices]
+        idx = np.where(chromatogram.time == self.retention_time)[0]
+        if len(idx) > 0:
+            self.height = chromatogram.signal[idx[0]]
+        else:
+            print("Peak.get_height(): ")
+            print(
+                f"""Could not find Peak retention time ({peak.retention_time}) 
+                    in Chromatogram ({chromatogram.filename})."""
+            )
+            print(f"Peak.height = {self.height}.")
 
         return self.height
 

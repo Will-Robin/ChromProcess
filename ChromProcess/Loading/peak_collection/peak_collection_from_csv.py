@@ -65,10 +65,11 @@ def peak_collection_from_csv(filename, round_digits=3):
                     read = read_line(line)
 
                     IS = Classes.Peak(
-                        round(read[0], round_digits),
-                        round(read[2], round_digits),
-                        round(read[3], round_digits),
+                        read[0],
+                        read[2],
+                        read[3],
                         integral=read[1],
+                        height=read[4],
                         parent=parent_filename,
                     )
 
@@ -79,10 +80,11 @@ def peak_collection_from_csv(filename, round_digits=3):
                 rd = read_line(line)
                 peaks.append(
                     Classes.Peak(
-                        round(rd[0], round_digits),
-                        round(rd[2], round_digits),
-                        round(rd[3], round_digits),
+                        rd[0],
+                        rd[2],
+                        rd[3],
                         integral=rd[1],
+                        height=rd[4],
                         parent=parent_filename,
                     )
                 )
