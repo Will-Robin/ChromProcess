@@ -22,7 +22,7 @@ def load_from_cdf(filename, keys):
         Container for the extracted data.
     """
 
-    data_container = {}
+    data_container = dict()
 
     f = Dataset(filename, "r")
     f.set_auto_mask(False)

@@ -57,7 +57,7 @@ analysis_details = {
     ],
 }
 
-local_assignments = {}
+local_assignments = dict()
 
 
 def write_dict_to_file(fname, this_dict):

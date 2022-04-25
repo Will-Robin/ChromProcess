@@ -13,12 +13,12 @@ class DataReport:
 
         self.filename = "not specified"
         self.experiment_code = "not specified"
-        self.conditions = {}
-        self.analysis_details = {}
+        self.conditions = dict()
+        self.analysis_details = dict()
         self.series_values = np.array([])
         self.errors = np.array([])
         self.series_unit = "not specified"
-        self.data = {}
+        self.data = dict()
 
     def write_to_file(self, filename=""):
         """

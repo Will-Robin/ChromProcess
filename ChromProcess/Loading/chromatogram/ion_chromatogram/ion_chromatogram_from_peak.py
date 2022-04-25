@@ -39,6 +39,6 @@ def ion_chromatogram_from_peak(peak, parent_chromatogram, threshold=0.1):
             threshold=threshold,
         )
     else:
-        ion_chromatograms = {}
+        ion_chromatograms = dict()
 
     return ion_chromatograms

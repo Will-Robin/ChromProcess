@@ -48,7 +48,8 @@ def data_report_from_csv(file):
     dataset = import_file_section(file, "start_data", "end_data")
 
     transposed_datalines = [list(i) for i in zip(*dataset)]
-    d_out = {}
+
+    d_out = dict()
     for s in transposed_datalines:
         d_out[s[0]] = np.array([0 if x == "nan" else float(x) for x in s[1:]])
 
@@ -68,7 +69,8 @@ def data_report_from_csv(file):
         }
     else:
         transposed_error_lines = [list(i) for i in zip(*errors)]
-        errors_out = {}
+
+        errors_out = dict()
         for s in transposed_error_lines:
             errors_out[s[0]] = np.array([0 if x == "nan" else float(x) for x in s[1:]])
         del errors_out[data_report.series_unit]

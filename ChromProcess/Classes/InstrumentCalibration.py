@@ -19,17 +19,17 @@ class InstrumentCalibration:
         """
 
         self.filename = "not specified"
-        self.calibration_factors = {}
-        self.boundaries = {}
+        self.calibration_factors = dict()
+        self.boundaries = dict()
         self.type = "not specified"
         self.date = "not specified"
         self.method = "not specified"
         self.derivatisation = "not specified"
         self.calibration_model = "not specified"
         self.instrument = "not specified"
-        self.calibration_factors = {}
+        self.calibration_factors = dict()
         self.internal_standard_position = 0.0
-        self.modified_bounds = {}
+        self.modified_bounds = dict()
 
     def get_info(self):
         return {
@@ -59,7 +59,7 @@ class InstrumentCalibration:
         if len(modified_bounds) == 0:
             pass
         else:
-            temp_dict = {}
+            temp_dict = dict()
             for m in modified_bounds:
                 if len(modified_bounds[m]) == 2:
                     temp_dict[m] = modified_bounds[m]
@@ -70,6 +70,6 @@ class InstrumentCalibration:
                 else:
                     temp_dict[i] = self.boundaries[i]
 
-            self.boundaries = {}
+            self.boundaries = dict()
             for t in temp_dict:
                 self.boundaries[t] = temp_dict[t]

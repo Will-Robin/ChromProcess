@@ -27,7 +27,7 @@ def conditions_from_toml(filename):
     conditions.series_values = info_dict["Series_values"]
     conditions.series_unit = info_dict["Series_unit"]
 
-    conds = {}
+    conds = dict()
     for c in info_dict["conditions"]:
         val = info_dict["conditions"][c][0]
         unit = info_dict["conditions"][c][1]

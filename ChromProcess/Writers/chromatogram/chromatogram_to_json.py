@@ -16,7 +16,7 @@ def write_chromatogram_json_text(chromatogram):
         Chromatogram time and signal in column-wise csv format.
     """
 
-    chrom_dict = {}
+    chrom_dict = dict()
 
     chrom_dict["time"] = chromatogram.time.tolist()
     chrom_dict["signal"] = chromatogram.signal.tolist()

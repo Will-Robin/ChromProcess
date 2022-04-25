@@ -49,7 +49,7 @@ class Chromatogram:
         self.time = []
         self.signal = []
 
-        self.peaks = {}
+        self.peaks = dict()
 
         self.mz_values = []
         self.mz_intensity = []
@@ -103,7 +103,7 @@ class Chromatogram:
             Dict of ion chromatograms
         """
 
-        ion_dict = {}
+        ion_dict = dict()
         if len(self.scan_indices) != 0:
             ion_dict = {np.average(c): np.zeros(len(self.time)) for c in clusters}
 

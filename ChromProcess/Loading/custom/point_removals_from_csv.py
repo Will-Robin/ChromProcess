@@ -15,7 +15,7 @@ def read_point_removals_file(fname):
         list of ints are items.
     """
 
-    point_removals = {}
+    point_removals = dict()
     with open(fname, "r") as f:
         for c, line in enumerate(f):
             if c == 0:

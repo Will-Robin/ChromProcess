@@ -113,11 +113,11 @@ class PeakCollection:
         None
         """
 
-        ms_dict = {}
+        ms_dict = dict()
         for m in ms_list:
             ms_dict[m.retention_time] = m
 
-        peak_dict = {}
+        peak_dict = dict()
         for pk in self.peaks:
             peak_dict[pk.retention_time] = pk
 

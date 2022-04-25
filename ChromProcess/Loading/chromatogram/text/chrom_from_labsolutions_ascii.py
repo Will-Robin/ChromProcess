@@ -44,7 +44,7 @@ def chrom_from_labsolutions_ascii(filename, data_key="Detector A-Ch1"):
     x_units_regex = r"Intensity\sUnits\s(.+)"
     y_units_regex = r"R.Time\s\((.+)\)"
 
-    data_container = {}
+    data_container = dict()
     for b in blocks:
         name_segment = re.findall(item_regex, b)
         data_segment = re.findall(data_regex, b)

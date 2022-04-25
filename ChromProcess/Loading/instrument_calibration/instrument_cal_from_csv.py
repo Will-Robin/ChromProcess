@@ -76,7 +76,7 @@ def instrument_cal_from_csv(filename):
 
     for v in info:
         if "None" not in v:
-            calibration.calibration_factors[v[comp_ind]] = {}
+            calibration.calibration_factors[v[comp_ind]] = dict()
             for c in calib_header:
                 idx = header.index(c)
                 calibration.calibration_factors[v[comp_ind]][c] = float(v[idx])

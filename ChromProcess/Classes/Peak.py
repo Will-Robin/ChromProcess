@@ -72,9 +72,9 @@ class Peak:
         else:
             self.height = height
 
-        self.ion_chromatograms = {}
+        self.ion_chromatograms = dict()
 
-        self.ion_integrals = {}
+        self.ion_integrals = dict()
 
         self.deconvolution = []
 

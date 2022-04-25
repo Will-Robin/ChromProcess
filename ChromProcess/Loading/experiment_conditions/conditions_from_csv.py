@@ -43,7 +43,8 @@ def conditions_from_csv(filename):
             if readstate:
                 newline = line.strip("\n")
                 condset.append([x for x in newline.split(",") if x != ""])
-    c_out = {}
+
+    c_out = dict()
     for c in condset:
         c_out[c[0]] = []
         for x in c[1:]:

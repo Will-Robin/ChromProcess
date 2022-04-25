@@ -87,7 +87,7 @@ def bin_dictionary(value_dict, stdev=0.001):
     for c in clust.cluster(sorted_values, bound=stdev):
         clusters.append(c)
 
-    out_log = {}
+    out_log = dict()
     for c in clusters:
 
         position = np.round(np.average(c), 2)

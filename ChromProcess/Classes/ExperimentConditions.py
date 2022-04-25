@@ -21,7 +21,7 @@ class ExperimentConditions:
         self.experiment_code = "not specified"
         self.series_values = []
         self.series_unit = "not specified"
-        self.conditions = {}
+        self.conditions = dict()
 
     def write_to_file(self, directory=""):
         """

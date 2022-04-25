@@ -6,7 +6,7 @@ from ChromProcess.Writers import peak_collection_series_to_data_report
 
 
 class PeakCollectionSeries:
-    def __init__(self, peak_collections, name="not specified", conditions={}):
+    def __init__(self, peak_collections, name="not specified", conditions=dict()):
         """
         An object which wraps multiple PeakCollection objects.
 
@@ -351,10 +351,10 @@ class PeakCollectionSeries:
         integral_dict: dict
         """
 
-        conc_dict = {}
-        err_dict = {}
-        integral_dict = {}
-        height_dict = {}
+        conc_dict = dict()
+        err_dict = dict()
+        integral_dict = dict()
+        height_dict = dict()
 
         if len(self.cluster_assignments) == 0:
             cluster_names = ["" for _ in self.clusters]
