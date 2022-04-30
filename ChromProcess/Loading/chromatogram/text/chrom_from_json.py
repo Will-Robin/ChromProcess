@@ -7,12 +7,25 @@ from ChromProcess import Classes
 
 def chrom_from_json(filename):
     """
-    A specific parser for .txt files exported from Shimadzu LabSolutions
-    software.
+    Load a chromatogram from a .json file:
 
-    Extracts data from the chromatogram file into a dictionary using string
-    manipulation and regex parsing (not all information in the file is
-    scraped).
+    Expected structure:
+
+    ```json
+    {
+        "time": [],
+        "signal": [],
+        "peaks": [
+                    {
+                        "retention_time": float,
+                        "start": float,
+                        "end": float,
+                        "integral": float,
+                    },
+        ]
+
+    }
+    ```
 
     Parameters
     ----------
@@ -21,8 +34,8 @@ def chrom_from_json(filename):
 
     Returns
     -------
-    data_container: dict
-        Dictionary containing data scraper from the file.
+    chrom: ChromProcess.Classes.Chromatogram
+        Chromatogram derived from information in the file.
     """
 
     if isinstance(filename, str):

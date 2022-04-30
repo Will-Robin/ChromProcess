@@ -6,12 +6,16 @@ from ChromProcess.Loading.chromatogram.text import chrom_from_text
 
 def chrom_from_csv(filename):
     """
-    A specific parser for .txt files exported from Shimadzu LabSolutions
-    software.
+    Load a chromatogram from a .csv file.
 
-    Extracts data from the chromatogram file into a dictionary using string
-    manipulation and regex parsing (not all information in the file is
-    scraped).
+    Expected format:
+
+    ```csv
+    time, signal\n
+    float,float\n
+    float,float\n
+    float,float\n
+    ```
 
     Parameters
     ----------
@@ -20,8 +24,9 @@ def chrom_from_csv(filename):
 
     Returns
     -------
-    data_container: dict
-        Dictionary containing data scraper from the file.
+    chrom: ChromProcess.Classes.Chromatogram
+        Chromatogram derived from information in the file.
+ 
     """
 
     if isinstance(filename, str):

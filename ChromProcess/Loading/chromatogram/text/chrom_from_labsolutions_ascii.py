@@ -23,8 +23,8 @@ def chrom_from_labsolutions_ascii(filename, data_key="Detector A-Ch1"):
 
     Returns
     -------
-    data_container: dict
-        Dictionary containing data scraper from the file.
+    chrom: ChromProcess.Classes.Chromatogram
+        Chromatogram derived from information in the file.
     """
 
     if isinstance(filename, str):

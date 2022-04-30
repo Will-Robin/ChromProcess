@@ -17,7 +17,9 @@ def chrom_from_text(x_values, y_values, x_unit, y_unit, filename):
 
     Returns
     -------
-    chrom: ChromProcess Chromatogram object
+    chrom: ChromProcess.Classes.Chromatogram
+        Chromatogram derived from information in the file.
+ 
     """
 
     assert isinstance(x_values, list), "x_values arg should be a list"
