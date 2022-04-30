@@ -323,6 +323,45 @@ time, signal</p>
 </dl>
 </dd></dl>
 
+<span class="target" id="module-ChromProcess.Loading.chromatogram.text.chrom_from_json"></span><dl class="py function">
+<dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.text.chrom_from_json.chrom_from_json">
+<span class="sig-prename descclassname"><span class="pre">ChromProcess.Loading.chromatogram.text.chrom_from_json.</span></span><span class="sig-name descname"><span class="pre">chrom_from_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Loading.chromatogram.text.chrom_from_json.chrom_from_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a chromatogram from a .json file:</p>
+<p>Expected structure:</p>
+<p><a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a>json
+{</p>
+<blockquote>
+<div><p>“time”: [],
+“signal”: [],
+“peaks”: [</p>
+<blockquote>
+<div><dl class="simple">
+<dt>{</dt><dd><p>“retention_time”: float,
+“start”: float,
+“end”: float,
+“integral”: float,</p>
+</dd>
+</dl>
+<p>},</p>
+</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename: str or pathlib Path</strong></p>
+<blockquote>
+<div><p>Name of chromatogram file (including the path to the file).</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>chrom: <a class="reference internal" href="Classes.html#ChromProcess.Classes.Chromatogram" title="ChromProcess.Classes.Chromatogram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ChromProcess.Classes.Chromatogram</span></code></a></p>
+<blockquote>
+<div><p>Chromatogram derived from information in the file.</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
 <span class="target" id="module-ChromProcess.Loading.chromatogram.text.chrom_from_labsolutions_ascii"></span><dl class="py function">
 <dt class="sig sig-object py" id="ChromProcess.Loading.chromatogram.text.chrom_from_labsolutions_ascii.chrom_from_labsolutions_ascii">
 <span class="sig-prename descclassname"><span class="pre">ChromProcess.Loading.chromatogram.text.chrom_from_labsolutions_ascii.</span></span><span class="sig-name descname"><span class="pre">chrom_from_labsolutions_ascii</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Detector</span> <span class="pre">A-Ch1'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChromProcess.Loading.chromatogram.text.chrom_from_labsolutions_ascii.chrom_from_labsolutions_ascii" title="Permalink to this definition">¶</a></dt>

@@ -31,6 +31,12 @@ Loading
    :undoc-members:
    :show-inheritance:
 
+.. automodule:: ChromProcess.Loading.chromatogram.text.chrom_from_json
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
 .. automodule:: ChromProcess.Loading.chromatogram.text.chrom_from_labsolutions_ascii
    :members:
    :undoc-members:
