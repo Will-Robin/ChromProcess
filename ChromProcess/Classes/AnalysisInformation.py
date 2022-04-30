@@ -1,3 +1,5 @@
+from pathlib import Path
+
 class AnalysisInformation:
     """
     Stores information about analysis procedure for chromatography data.
@@ -62,7 +64,6 @@ class AnalysisInformation:
         None
 
         """
-        from pathlib import Path
 
         exp_code = self.experiment_code
         fname = self.experiment_code
