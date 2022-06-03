@@ -8,7 +8,7 @@ def peak_from_chromatogram(chrom, start, end):
 
     Parameters
     ----------
-    chrom: Chromatogram object
+    chrom: ChromProcess.Classes.Chromatogram
     start: float
         Start of the peak
     end: float
@@ -16,7 +16,7 @@ def peak_from_chromatogram(chrom, start, end):
 
     Returns
     -------
-    peak: Peak object
+    peak: ChromProcess.Classes.Peak
         peak created from the bounds
     """
 

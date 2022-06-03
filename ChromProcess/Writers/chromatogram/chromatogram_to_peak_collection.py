@@ -8,7 +8,7 @@ def write_peak_collection_text(chromatogram, header_text=""):
 
     Parameters
     ----------
-    chromatogram: Classes.Chromatogram
+    chromatogram: ChromProcess.Classes.Chromatogram
     header_text: string
 
     Returns

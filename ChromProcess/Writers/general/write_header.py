@@ -6,8 +6,8 @@ def write_conditions_header(name, conditions, information):
     Parameters
     ----------
     name: str
-    conditions: Classes.ExperimentConditions
-    information: ChromProcess AnalysisInformation object
+    conditions: ChromProcess.Classes.ExperimentConditions
+    information: ChromProcess.Classes.AnalysisInformation
 
     Returns
     -------

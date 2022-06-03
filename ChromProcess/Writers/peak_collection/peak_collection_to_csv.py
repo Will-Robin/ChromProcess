@@ -7,7 +7,7 @@ def peak_collection_to_csv(peak_collection, directory=""):
 
     Parameters
     ----------
-    peak_collection: Classes.PeakCollection
+    peak_collection: ChromProcess.Classes.PeakCollection
     directory: str or pathlib Path
 
     Returns

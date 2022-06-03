@@ -7,7 +7,7 @@ def write_chromatogram_json_text(chromatogram):
 
     Parameters
     ----------
-    chromatogram: Classes.Chromatogram
+    chromatogram: ChromProcess.Classes.Chromatogram
         Chromatogram to be converted.
 
     Returns

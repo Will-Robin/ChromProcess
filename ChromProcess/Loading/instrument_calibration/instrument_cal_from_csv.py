@@ -13,7 +13,7 @@ def instrument_cal_from_csv(filename):
 
     Returns
     -------
-    calibration: Classes.InstrumentCalibration
+    calibration: ChromProcess.Classes.InstrumentCalibration
     """
 
     if isinstance(filename, str):

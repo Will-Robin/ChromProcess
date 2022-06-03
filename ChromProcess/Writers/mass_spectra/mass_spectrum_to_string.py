@@ -4,7 +4,7 @@ def mass_spectrum_to_string_rows(mass_spectrum):
 
     Parameters
     ----------
-    mass_spectrum: Classes.MassSpectrum
+    mass_spectrum: ChromProcess.Classes.MassSpectrum
 
     Returns
     -------

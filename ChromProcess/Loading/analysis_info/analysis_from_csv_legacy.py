@@ -12,7 +12,7 @@ def analysis_from_csv_legacy(fname):
 
     Returns
     -------
-    analysis: Classes.AnalysisInformation
+    analysis: ChromProcess.Classes.AnalysisInformation
     """
 
     analysis = Classes.AnalysisInformation()

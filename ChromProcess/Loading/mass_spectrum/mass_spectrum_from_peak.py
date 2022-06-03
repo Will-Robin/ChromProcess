@@ -11,14 +11,14 @@ def mass_spectrum_from_peak(peak, chromatogram):
 
     Parameters
     ----------
-    peak: ChromProcess Peak object
+    peak: ChromProcess.Classes.Peak
         Peak to find mass spectrum for.
-    chromatogram: ChromProcess Chromatogram object
+    chromatogram: ChromProcess.Classes.Chromatogram
         Parent chromatogram for the peak
 
     Returns
     -------
-    mass_spectrum: Classes.MassSpectrum
+    mass_spectrum: ChromProcess.Classes.MassSpectrum
     """
 
     if len(chromatogram.mz_values) > 0:

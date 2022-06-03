@@ -12,7 +12,7 @@ def analysis_from_toml(fname):
 
     Returns
     -------
-    analysis: Classes.AnalysisInformation
+    analysis: ChromProcess.Classes.AnalysisInformation
     """
 
     analysis = Classes.AnalysisInformation()

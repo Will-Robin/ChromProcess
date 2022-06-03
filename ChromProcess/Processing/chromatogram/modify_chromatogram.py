@@ -8,12 +8,13 @@ def add_peaks_to_chromatogram(peaks, chromatogram):
 
     Parameters
     ----------
-    peaks: list of Peak objects
+    peaks: list[ChromProcess.Classes.Peak]
 
-    chromatogram: Chromatogram object
+    chromatogram: ChromProcess.Classes.Chromatogram
 
     Returns
-    ------ None
+    ------
+    None
     """
 
     for peak in peaks:
@@ -31,7 +32,7 @@ def integrate_chromatogram_peaks(chromatogram, baseline_subtract=False):
 
     Parameters
     ----------
-    chromatogram: Classes.Chromatogram object
+    chromatogram: ChromProcess.Classes.Chromatogram
         Chromatogram containing peaks.
     baseline_subtract: bool
         Whether to perform a local baseline subtraction on the peak.
@@ -53,7 +54,7 @@ def internal_standard_integral(chromatogram, is_start, is_end):
 
     Parameters
     ----------
-    series: Chromatogram_Series object
+    series: ChromProcess.Classes.Chromatogram_Series
         Object containing chromatograms and associated series data which is
         modified by the function.
     is_start: float

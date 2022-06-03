@@ -1,12 +1,12 @@
 def assign_retention_time(retention_time, boundaries):
     """
-    Possible TODO: Re-implement as decision tree. The current method works, but
-    relies upon Python 3 dictionary ordering and potentially some wasted
-    iteration. However, performance is not currently an issue.
-
     Takes a peak (retention times of peak) and assigns peak name based on a
     dictionary of boundaries. The assignment priority is based on the
     interation order of the dict (Python 3 dict)
+
+    Possible TODO: Re-implement as decision tree. The current method works, but
+    relies upon Python 3 dictionary ordering and potentially some wasted
+    iteration. However, performance is not currently an issue.
 
     Parameters
     ----------

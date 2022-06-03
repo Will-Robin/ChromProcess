@@ -12,6 +12,8 @@ def chrom_from_cdf(filename, instrument=JEOL, load_ms=False):
     Parameters
     ----------
     filename: str or pathlib Path
+    instrument: ChromProcess.chromatogram.cdf.instruments
+    load_ms: bool
 
     Returns
     -------

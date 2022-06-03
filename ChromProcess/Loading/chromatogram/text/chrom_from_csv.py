@@ -26,7 +26,7 @@ def chrom_from_csv(filename):
     -------
     chrom: ChromProcess.Classes.Chromatogram
         Chromatogram derived from information in the file.
- 
+
     """
 
     if isinstance(filename, str):

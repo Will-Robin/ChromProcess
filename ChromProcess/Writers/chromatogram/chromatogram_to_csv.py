@@ -4,7 +4,7 @@ def write_chromatogram_csv_text(chromatogram):
 
     Parameters
     ----------
-    chromatogram: Classes.Chromatogram
+    chromatogram: ChromProcess.Classes.Chromatogram
         Chromatogram to be converted.
 
     Returns

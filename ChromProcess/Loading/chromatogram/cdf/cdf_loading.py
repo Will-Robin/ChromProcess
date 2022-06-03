@@ -6,14 +6,14 @@ from netCDF4 import Dataset
 
 def load_from_cdf(filename, keys):
     """
-    Extracts data from a .cdf file using the Dataset function
-    from the netCDF4 library.
+    Extracts data from a .cdf file using the Dataset function from the netCDF4
+    library.
 
     Parameters
     ----------
     filename: str
-        File name of the GCMS .cdf file.
-    keys: list of str
+        File name of a .cdf file.
+    keys: list[str]
         Key to a set of data in the .cdf file.
 
     Returns

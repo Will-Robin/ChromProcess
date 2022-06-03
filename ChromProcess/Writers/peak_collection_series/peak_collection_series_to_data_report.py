@@ -12,9 +12,9 @@ def peak_collection_series_to_data_report(
 
     Parameters
     ----------
-    peak_collection_series: Classes.PeakCollectionSeries
+    peak_collection_series: ChromProcess.Classes.PeakCollectionSeries
     filename: name for file including path
-    information: ChromProcess Analysis_Information object
+    information: ChromProces.Classes.AnalysisInformation
 
     Returns
     -------

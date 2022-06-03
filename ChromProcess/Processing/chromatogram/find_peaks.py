@@ -9,11 +9,12 @@ def find_peaks_in_region(chromatogram, start, end, threshold=0.1):
 
     Parameters
     ----------
-    chromatogram: ChromProcess Chromatogram object
+    chromatogram: ChromProcess.Classes.Chromatogram
 
     start: float
         Start of time region (< end).
-    end: float End of time region (> start).
+    end: float
+        End of time region (> start).
     threshold: float
         Peaks below this fraction of the highest intensity of the chromatogram
         will not be picked.

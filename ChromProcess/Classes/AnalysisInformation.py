@@ -1,5 +1,6 @@
 from pathlib import Path
 
+
 class AnalysisInformation:
     """
     Stores information about analysis procedure for chromatography data.

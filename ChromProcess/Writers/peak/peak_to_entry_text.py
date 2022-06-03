@@ -4,8 +4,8 @@ def peak_to_entry_text(peak, chromatogram):
 
     Parameters
     ----------
-    peak: Classes.Peak
-    chromatogram: Classes.Chromatogram
+    peak: ChromProcess.Classes.Peak
+    chromatogram: ChromProcess.Classes.Chromatogram
 
     Returns
     -------

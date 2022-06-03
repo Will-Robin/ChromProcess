@@ -8,7 +8,7 @@ def ic_background_subtraction(chromatogram, threshold=500):
 
     Parameters
     ----------
-    chromatogram: ChromProcess Chromatogram object.
+    chromatogram: ChromProcess.Classes.Chromatogram
         Chromatogram to be processed.
     threshold: float
         Ion chromatograms which do not exceed this threshold will be removed

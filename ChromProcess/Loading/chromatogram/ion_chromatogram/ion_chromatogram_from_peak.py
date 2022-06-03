@@ -12,9 +12,6 @@ def ion_chromatogram_from_peak(peak, parent_chromatogram, threshold=0.1):
         Peak containing information.
     parent_chromatogram: ChromProcess Chromatogram object
        Chromatogram containing information.
-    spectrum_filter: float
-        m/z intensities which do not exceed this fraction its parent
-        mass spectrum will be omitted from the ion chromatogram.
     threshold: float
         Threshold for mass spectra extraction relative to the maximum signal
         in the region.

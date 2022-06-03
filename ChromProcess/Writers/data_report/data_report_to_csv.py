@@ -8,7 +8,7 @@ def write_data_report_text(data_report):
 
     Parameters
     ----------
-    data_report: Classes.DataReport
+    data_report: ChromProcess.Classes.DataReport
         DataReport to convert to text.
 
     Returns

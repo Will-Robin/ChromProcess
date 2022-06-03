@@ -12,7 +12,7 @@ def conditions_from_csv(filename):
 
     Returns
     -------
-    conditions: Classes.ExperimentConditions
+    conditions: ChromProcess.Classes.ExperimentConditions
     """
 
     conditions = Classes.ExperimentConditions()

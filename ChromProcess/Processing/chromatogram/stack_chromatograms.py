@@ -12,7 +12,7 @@ def get_chrom_time_min_max(chromatograms):
 
     Parameters
     ----------
-    chromatograms: list of Chromatogram objects.
+    chromatograms: list[ChromProcess.Classes.Chromatogram]
 
     Returns
     -------
@@ -36,7 +36,7 @@ def stack_chromatograms(chromatograms):
 
     Parameters
     ----------
-    chromatograms: list of Chromatogram Objects
+    chromatograms: list[ChromProcess.Classes.Chromatogram]
 
     Returns
     -------
