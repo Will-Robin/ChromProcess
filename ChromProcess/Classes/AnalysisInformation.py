@@ -8,7 +8,7 @@ class AnalysisInformation:
 
     def __init__(self):
         """
-        Stores information about analysis procedure for chromatography data.
+        Initialisation of the AnalysisInformation object.
 
         Attributes
         ----------
@@ -16,7 +16,7 @@ class AnalysisInformation:
             Experiment code.
         self.analysis_type: str
             The type of chromatographic methods used.
-        self.regions: list of lists
+        self.regions: list[lists]
             List of upper and lower bounds describing the regions of a chromatogram.
         self.internal_standard_region: list
             Upper and lower bounds for the internal standard.
@@ -26,7 +26,7 @@ class AnalysisInformation:
             The lower threshold for inclusion of mass spectral signals.
         self.peak_pick_threshold: float
             The relative cut off for peak picking.
-        self.dilution_factor = 1.0
+        self.dilution_factor: float
             Sample dilution factor.
         self.dilution_factor_error: float
             Error on dilution factor.
@@ -55,6 +55,8 @@ class AnalysisInformation:
 
     def write_to_file(self, directory=""):
         """
+        Write the AnalysisInformation object to a .csv file.
+
         Parameters
         ----------
         directory: str or pathlib Path

@@ -6,13 +6,16 @@ from ChromProcess.Writers import peak_collection_series_to_data_report
 
 
 class PeakCollectionSeries:
+    """
+    An object which wraps multiple PeakCollection objects.
+    """
     def __init__(self, peak_collections, name="not specified", conditions=dict()):
         """
-        An object which wraps multiple PeakCollection objects.
+        Create a PeakCollectionSeries from a list of PeakCollection objects.
 
         Parameters
         ----------
-        peak_collections: List of ChromProcess PeakCollection objects
+        peak_collections: List[ChromProcess.Classes.PeakCollection]
         name: str
         conditions: dict
 
@@ -20,7 +23,7 @@ class PeakCollectionSeries:
         ----------
         self.name: str
             Name of the series.
-        self.peak_collections: list
+        self.peak_collections: List[ChromProcess.Classes.PeakCollection]
             List of peak collections.
         self.series_values:
             The values of the series (should be in the same order as the
@@ -31,15 +34,15 @@ class PeakCollectionSeries:
             Experimental conditions for the series.
         self.clusters: list
             List of peak clusters in the series.
-        self.cluster_assignments: list
+        self.cluster_assignments: list[str]
             List of names assigned to the self.clusters in a similar order.
-        self.integral_series: list
+        self.integral_series: list[]
             Peak information from the peak collections organised in a series.
-        self.concentration_series: list
+        self.concentration_series: list[]
             Peak information from the peak collections organised in a series.
-        self.conc_err_series: list
+        self.conc_err_series: list[]
             Peak information from the peak collections organised in a series.
-        self.series_assigned_compounds: list
+        self.series_assigned_compounds: list[]
             List of compounds assigned in the series.
         """
 
@@ -61,7 +64,7 @@ class PeakCollectionSeries:
 
         Parameters
         ----------
-        threshold: float (from 0.0 to 1.0)
+        threshold: float
 
         Returns
         -------
@@ -229,10 +232,10 @@ class PeakCollectionSeries:
 
         Parameters
         ----------
-        conditions: ChromProcess Analysis_Information object
+        conditions: ChromProcess.Classes.AnalysisInformation
             container for analysis information
 
-        calibrations: ChromProcess Instrument_Calibration object
+        calibrations: ChromProcess.Classes.InstrumentCalibration
             Contains calibration information.
 
         Returns
@@ -251,10 +254,10 @@ class PeakCollectionSeries:
 
         Parameters
         ----------
-        conditions: ChromProcess Analysis_Information object
+        conditions: ChromProcess.Classes.AnalysisInformation object
             container for analysis information
 
-        calibrations: ChromProcess Instrument_Calibration object
+        calibrations: ChromProcess.Classes.InstrumentCalibration
             Contains calibration information.
 
         Returns
@@ -401,8 +404,9 @@ class PeakCollectionSeries:
 
         Parameters
         ----------
-        filename: name for file including path
-        information: ChromProcess Analysis_Information object
+        filename: str
+            name for file including path
+        information: ChromProcess.Classes.AnalysisInformation
 
         Returns
         -------

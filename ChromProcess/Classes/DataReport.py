@@ -4,11 +4,31 @@ from ChromProcess.Writers import data_report_to_csv
 
 
 class DataReport:
+    """
+    A container for data extracted from a series of chromatograms.
+    """
     def __init__(self):
         """
-        Parameters
+        Initialise a DataReport object.
+
+        Attributes
         ----------
-        file: str or pathlib Path
+        filename: str
+            Name of the file associated with the DataReport
+        experiment_code: str
+            Experiment code for the DataReport
+        conditions: dict
+            Container for experimental conditions.
+        analysis_details: dict
+            Container for analysis details of the experiment.
+        series_values: numpy.ndarray[np.float64]
+            Array of the series values of the chromatograms analyses.
+        series_unit: str
+            Unit of the values in series_values
+        data: dict
+            Dictionary of arrays for traces extracted from chromatograms.
+        errors: numpy.ndarray[np.float64]
+            Array of error values for the traces.
         """
 
         self.filename = "not specified"
@@ -16,9 +36,9 @@ class DataReport:
         self.conditions = dict()
         self.analysis_details = dict()
         self.series_values = np.array([])
-        self.errors = np.array([])
         self.series_unit = "not specified"
         self.data = dict()
+        self.errors = np.array([])
 
     def write_to_file(self, filename=""):
         """

@@ -2,13 +2,15 @@ from ChromProcess.Writers import mass_spectrum_to_string_rows
 
 
 class MassSpectrum:
+    """
+    Container for mass spectral data.
+    """
     def __init__(self, mz, inten, pos=None):
         """
         Parameters
         ----------
-        fname: str or pathlib Path
-        mz: array
-        inten: array
+        mz: numpy.ndarray[np.float64]
+        inten: numpy.ndarray[np.float64]
         pos: None or float
 
         Returns

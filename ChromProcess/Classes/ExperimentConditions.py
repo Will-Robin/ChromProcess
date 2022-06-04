@@ -2,15 +2,18 @@ from pathlib import Path
 
 
 class ExperimentConditions:
+    """
+    A container for experimental information.
+    """
     def __init__(self):
         """
-        A container for experimental information.
+        Initialise an empty ExperimentConditions object.
 
         Attributes
         ----------
         self.experiment_code: str
             Code name for the experiment.
-        self.series_values: list
+        self.series_values: list[Any]
             List of series values for the experiment.
         self.series_unit: str
             Unit of the series values.

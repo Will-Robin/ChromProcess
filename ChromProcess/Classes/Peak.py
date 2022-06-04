@@ -9,6 +9,9 @@ from ChromProcess.Utils.utils.error_propagation import mult_div_error_prop
 
 
 class Peak:
+    """
+    Container for peak information.
+    """
     def __init__(
         self,
         retention_time,
@@ -139,7 +142,7 @@ class Peak:
         else:
             print("Peak.get_height(): ")
             print(
-                f"""Could not find Peak retention time ({self.retention_time}) 
+                f"""Could not find Peak retention time ({self.retention_time})
                     in Chromatogram ({chromatogram.filename})."""
             )
             print(f"Peak.height = {self.height}.")
@@ -152,7 +155,7 @@ class Peak:
 
         Parameters
         ----------
-        chromatogram: ChromProcess Chromatogram object
+        chromatogram: ChromProcess.Classes.Chromatogram
             Parent chromatogram of the peak.
 
         Return
@@ -236,9 +239,13 @@ class Peak:
         Apply a linear calibration conversion to the peak integral to obtain a
         concentration value.
 
+        $y = A*x + B$
+
         Parameters
         ----------
-        A, B, internal_standard: float
+        A: float
+        B: float
+        internal_standard: float
 
         Returns
         -------
@@ -252,6 +259,8 @@ class Peak:
         """
         Apply a quadratic calibration conversion to the peak integral to obtain
         a concentration value.
+
+        $y = A*x^2 + B*x + C$
 
         Parameters
         ----------

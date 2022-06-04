@@ -101,19 +101,19 @@
 </span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a><span class="sd">            Name of the x units (prefer &#39;unit name/ SI symbol&#39;)</span>
 </span><span id="L-25"><a href="#L-25"><span class="linenos"> 25</span></a><span class="sd">        self.y_unit: str</span>
 </span><span id="L-26"><a href="#L-26"><span class="linenos"> 26</span></a><span class="sd">            Name of the y units (prefer &#39;unit name/ SI symbol&#39;)</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos"> 27</span></a><span class="sd">        self.time: numpy array</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos"> 27</span></a><span class="sd">        self.time: numpy.ndarray[np.float64]</span>
 </span><span id="L-28"><a href="#L-28"><span class="linenos"> 28</span></a><span class="sd">            Time axis for the chromatogram.</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos"> 29</span></a><span class="sd">        self.signal: numpy array</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos"> 29</span></a><span class="sd">        self.signal: numpy.ndarray[np.float64]</span>
 </span><span id="L-30"><a href="#L-30"><span class="linenos"> 30</span></a><span class="sd">            Signal of the chromatogram.</span>
 </span><span id="L-31"><a href="#L-31"><span class="linenos"> 31</span></a><span class="sd">        self.peaks: dict</span>
 </span><span id="L-32"><a href="#L-32"><span class="linenos"> 32</span></a><span class="sd">            Container for the peaks derived from the chromatogram.</span>
-</span><span id="L-33"><a href="#L-33"><span class="linenos"> 33</span></a><span class="sd">        self.mz_values: list/numpy array</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos"> 33</span></a><span class="sd">        self.mz_values: numpy.ndarray[np.int]</span>
 </span><span id="L-34"><a href="#L-34"><span class="linenos"> 34</span></a><span class="sd">            Container for the m/z values from mass spectra.</span>
-</span><span id="L-35"><a href="#L-35"><span class="linenos"> 35</span></a><span class="sd">        self.mz_intensity: list/numpy array</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos"> 35</span></a><span class="sd">        self.mz_intensity: numpy.ndarray[np.int]</span>
 </span><span id="L-36"><a href="#L-36"><span class="linenos"> 36</span></a><span class="sd">            Container for the intensity values from mass spectra.</span>
-</span><span id="L-37"><a href="#L-37"><span class="linenos"> 37</span></a><span class="sd">        self.scan_indices: list/numpy array</span>
+</span><span id="L-37"><a href="#L-37"><span class="linenos"> 37</span></a><span class="sd">        self.scan_indices: numpy.ndarray[np.int]</span>
 </span><span id="L-38"><a href="#L-38"><span class="linenos"> 38</span></a><span class="sd">            Container for the scan indices from mass spectra.</span>
-</span><span id="L-39"><a href="#L-39"><span class="linenos"> 39</span></a><span class="sd">        self.point_counts: list/numpy array</span>
+</span><span id="L-39"><a href="#L-39"><span class="linenos"> 39</span></a><span class="sd">        self.point_counts: numpy.ndarray[np.int]</span>
 </span><span id="L-40"><a href="#L-40"><span class="linenos"> 40</span></a><span class="sd">            Container for the point counts from mass spectra.</span>
 </span><span id="L-41"><a href="#L-41"><span class="linenos"> 41</span></a><span class="sd">        self.internal_standard: ChromProcess.Classes.Peak</span>
 </span><span id="L-42"><a href="#L-42"><span class="linenos"> 42</span></a><span class="sd">            The internal standard peak.</span>
@@ -146,9 +146,9 @@
 </span><span id="L-69"><a href="#L-69"><span class="linenos"> 69</span></a>
 </span><span id="L-70"><a href="#L-70"><span class="linenos"> 70</span></a><span class="sd">        Returns</span>
 </span><span id="L-71"><a href="#L-71"><span class="linenos"> 71</span></a><span class="sd">        -------</span>
-</span><span id="L-72"><a href="#L-72"><span class="linenos"> 72</span></a><span class="sd">        m_z: 1d array</span>
+</span><span id="L-72"><a href="#L-72"><span class="linenos"> 72</span></a><span class="sd">        m_z: numpy.ndarray[np.float64]</span>
 </span><span id="L-73"><a href="#L-73"><span class="linenos"> 73</span></a><span class="sd">            m/z value</span>
-</span><span id="L-74"><a href="#L-74"><span class="linenos"> 74</span></a><span class="sd">        intensity: 1d array</span>
+</span><span id="L-74"><a href="#L-74"><span class="linenos"> 74</span></a><span class="sd">        intensity: numpy.ndarray[np.float64]</span>
 </span><span id="L-75"><a href="#L-75"><span class="linenos"> 75</span></a><span class="sd">            Ion counts.</span>
 </span><span id="L-76"><a href="#L-76"><span class="linenos"> 76</span></a><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="L-77"><a href="#L-77"><span class="linenos"> 77</span></a>
@@ -221,7 +221,7 @@
 </span><span id="L-144"><a href="#L-144"><span class="linenos">144</span></a>
 </span><span id="L-145"><a href="#L-145"><span class="linenos">145</span></a>    <span class="k">def</span> <span class="nf">write_to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
 </span><span id="L-146"><a href="#L-146"><span class="linenos">146</span></a>        <span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-147"><a href="#L-147"><span class="linenos">147</span></a><span class="sd">        Write to csv.</span>
+</span><span id="L-147"><a href="#L-147"><span class="linenos">147</span></a><span class="sd">        Write to json.</span>
 </span><span id="L-148"><a href="#L-148"><span class="linenos">148</span></a>
 </span><span id="L-149"><a href="#L-149"><span class="linenos">149</span></a><span class="sd">        Parameters</span>
 </span><span id="L-150"><a href="#L-150"><span class="linenos">150</span></a><span class="sd">        ----------</span>
@@ -287,19 +287,19 @@
 </span><span id="Chromatogram-25"><a href="#Chromatogram-25"><span class="linenos"> 25</span></a><span class="sd">            Name of the x units (prefer &#39;unit name/ SI symbol&#39;)</span>
 </span><span id="Chromatogram-26"><a href="#Chromatogram-26"><span class="linenos"> 26</span></a><span class="sd">        self.y_unit: str</span>
 </span><span id="Chromatogram-27"><a href="#Chromatogram-27"><span class="linenos"> 27</span></a><span class="sd">            Name of the y units (prefer &#39;unit name/ SI symbol&#39;)</span>
-</span><span id="Chromatogram-28"><a href="#Chromatogram-28"><span class="linenos"> 28</span></a><span class="sd">        self.time: numpy array</span>
+</span><span id="Chromatogram-28"><a href="#Chromatogram-28"><span class="linenos"> 28</span></a><span class="sd">        self.time: numpy.ndarray[np.float64]</span>
 </span><span id="Chromatogram-29"><a href="#Chromatogram-29"><span class="linenos"> 29</span></a><span class="sd">            Time axis for the chromatogram.</span>
-</span><span id="Chromatogram-30"><a href="#Chromatogram-30"><span class="linenos"> 30</span></a><span class="sd">        self.signal: numpy array</span>
+</span><span id="Chromatogram-30"><a href="#Chromatogram-30"><span class="linenos"> 30</span></a><span class="sd">        self.signal: numpy.ndarray[np.float64]</span>
 </span><span id="Chromatogram-31"><a href="#Chromatogram-31"><span class="linenos"> 31</span></a><span class="sd">            Signal of the chromatogram.</span>
 </span><span id="Chromatogram-32"><a href="#Chromatogram-32"><span class="linenos"> 32</span></a><span class="sd">        self.peaks: dict</span>
 </span><span id="Chromatogram-33"><a href="#Chromatogram-33"><span class="linenos"> 33</span></a><span class="sd">            Container for the peaks derived from the chromatogram.</span>
-</span><span id="Chromatogram-34"><a href="#Chromatogram-34"><span class="linenos"> 34</span></a><span class="sd">        self.mz_values: list/numpy array</span>
+</span><span id="Chromatogram-34"><a href="#Chromatogram-34"><span class="linenos"> 34</span></a><span class="sd">        self.mz_values: numpy.ndarray[np.int]</span>
 </span><span id="Chromatogram-35"><a href="#Chromatogram-35"><span class="linenos"> 35</span></a><span class="sd">            Container for the m/z values from mass spectra.</span>
-</span><span id="Chromatogram-36"><a href="#Chromatogram-36"><span class="linenos"> 36</span></a><span class="sd">        self.mz_intensity: list/numpy array</span>
+</span><span id="Chromatogram-36"><a href="#Chromatogram-36"><span class="linenos"> 36</span></a><span class="sd">        self.mz_intensity: numpy.ndarray[np.int]</span>
 </span><span id="Chromatogram-37"><a href="#Chromatogram-37"><span class="linenos"> 37</span></a><span class="sd">            Container for the intensity values from mass spectra.</span>
-</span><span id="Chromatogram-38"><a href="#Chromatogram-38"><span class="linenos"> 38</span></a><span class="sd">        self.scan_indices: list/numpy array</span>
+</span><span id="Chromatogram-38"><a href="#Chromatogram-38"><span class="linenos"> 38</span></a><span class="sd">        self.scan_indices: numpy.ndarray[np.int]</span>
 </span><span id="Chromatogram-39"><a href="#Chromatogram-39"><span class="linenos"> 39</span></a><span class="sd">            Container for the scan indices from mass spectra.</span>
-</span><span id="Chromatogram-40"><a href="#Chromatogram-40"><span class="linenos"> 40</span></a><span class="sd">        self.point_counts: list/numpy array</span>
+</span><span id="Chromatogram-40"><a href="#Chromatogram-40"><span class="linenos"> 40</span></a><span class="sd">        self.point_counts: numpy.ndarray[np.int]</span>
 </span><span id="Chromatogram-41"><a href="#Chromatogram-41"><span class="linenos"> 41</span></a><span class="sd">            Container for the point counts from mass spectra.</span>
 </span><span id="Chromatogram-42"><a href="#Chromatogram-42"><span class="linenos"> 42</span></a><span class="sd">        self.internal_standard: ChromProcess.Classes.Peak</span>
 </span><span id="Chromatogram-43"><a href="#Chromatogram-43"><span class="linenos"> 43</span></a><span class="sd">            The internal standard peak.</span>
@@ -332,9 +332,9 @@
 </span><span id="Chromatogram-70"><a href="#Chromatogram-70"><span class="linenos"> 70</span></a>
 </span><span id="Chromatogram-71"><a href="#Chromatogram-71"><span class="linenos"> 71</span></a><span class="sd">        Returns</span>
 </span><span id="Chromatogram-72"><a href="#Chromatogram-72"><span class="linenos"> 72</span></a><span class="sd">        -------</span>
-</span><span id="Chromatogram-73"><a href="#Chromatogram-73"><span class="linenos"> 73</span></a><span class="sd">        m_z: 1d array</span>
+</span><span id="Chromatogram-73"><a href="#Chromatogram-73"><span class="linenos"> 73</span></a><span class="sd">        m_z: numpy.ndarray[np.float64]</span>
 </span><span id="Chromatogram-74"><a href="#Chromatogram-74"><span class="linenos"> 74</span></a><span class="sd">            m/z value</span>
-</span><span id="Chromatogram-75"><a href="#Chromatogram-75"><span class="linenos"> 75</span></a><span class="sd">        intensity: 1d array</span>
+</span><span id="Chromatogram-75"><a href="#Chromatogram-75"><span class="linenos"> 75</span></a><span class="sd">        intensity: numpy.ndarray[np.float64]</span>
 </span><span id="Chromatogram-76"><a href="#Chromatogram-76"><span class="linenos"> 76</span></a><span class="sd">            Ion counts.</span>
 </span><span id="Chromatogram-77"><a href="#Chromatogram-77"><span class="linenos"> 77</span></a><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="Chromatogram-78"><a href="#Chromatogram-78"><span class="linenos"> 78</span></a>
@@ -407,7 +407,7 @@
 </span><span id="Chromatogram-145"><a href="#Chromatogram-145"><span class="linenos">145</span></a>
 </span><span id="Chromatogram-146"><a href="#Chromatogram-146"><span class="linenos">146</span></a>    <span class="k">def</span> <span class="nf">write_to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
 </span><span id="Chromatogram-147"><a href="#Chromatogram-147"><span class="linenos">147</span></a>        <span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Chromatogram-148"><a href="#Chromatogram-148"><span class="linenos">148</span></a><span class="sd">        Write to csv.</span>
+</span><span id="Chromatogram-148"><a href="#Chromatogram-148"><span class="linenos">148</span></a><span class="sd">        Write to json.</span>
 </span><span id="Chromatogram-149"><a href="#Chromatogram-149"><span class="linenos">149</span></a>
 </span><span id="Chromatogram-150"><a href="#Chromatogram-150"><span class="linenos">150</span></a><span class="sd">        Parameters</span>
 </span><span id="Chromatogram-151"><a href="#Chromatogram-151"><span class="linenos">151</span></a><span class="sd">        ----------</span>
@@ -470,19 +470,19 @@
 </span><span id="Chromatogram.__init__-25"><a href="#Chromatogram.__init__-25"><span class="linenos">25</span></a><span class="sd">            Name of the x units (prefer &#39;unit name/ SI symbol&#39;)</span>
 </span><span id="Chromatogram.__init__-26"><a href="#Chromatogram.__init__-26"><span class="linenos">26</span></a><span class="sd">        self.y_unit: str</span>
 </span><span id="Chromatogram.__init__-27"><a href="#Chromatogram.__init__-27"><span class="linenos">27</span></a><span class="sd">            Name of the y units (prefer &#39;unit name/ SI symbol&#39;)</span>
-</span><span id="Chromatogram.__init__-28"><a href="#Chromatogram.__init__-28"><span class="linenos">28</span></a><span class="sd">        self.time: numpy array</span>
+</span><span id="Chromatogram.__init__-28"><a href="#Chromatogram.__init__-28"><span class="linenos">28</span></a><span class="sd">        self.time: numpy.ndarray[np.float64]</span>
 </span><span id="Chromatogram.__init__-29"><a href="#Chromatogram.__init__-29"><span class="linenos">29</span></a><span class="sd">            Time axis for the chromatogram.</span>
-</span><span id="Chromatogram.__init__-30"><a href="#Chromatogram.__init__-30"><span class="linenos">30</span></a><span class="sd">        self.signal: numpy array</span>
+</span><span id="Chromatogram.__init__-30"><a href="#Chromatogram.__init__-30"><span class="linenos">30</span></a><span class="sd">        self.signal: numpy.ndarray[np.float64]</span>
 </span><span id="Chromatogram.__init__-31"><a href="#Chromatogram.__init__-31"><span class="linenos">31</span></a><span class="sd">            Signal of the chromatogram.</span>
 </span><span id="Chromatogram.__init__-32"><a href="#Chromatogram.__init__-32"><span class="linenos">32</span></a><span class="sd">        self.peaks: dict</span>
 </span><span id="Chromatogram.__init__-33"><a href="#Chromatogram.__init__-33"><span class="linenos">33</span></a><span class="sd">            Container for the peaks derived from the chromatogram.</span>
-</span><span id="Chromatogram.__init__-34"><a href="#Chromatogram.__init__-34"><span class="linenos">34</span></a><span class="sd">        self.mz_values: list/numpy array</span>
+</span><span id="Chromatogram.__init__-34"><a href="#Chromatogram.__init__-34"><span class="linenos">34</span></a><span class="sd">        self.mz_values: numpy.ndarray[np.int]</span>
 </span><span id="Chromatogram.__init__-35"><a href="#Chromatogram.__init__-35"><span class="linenos">35</span></a><span class="sd">            Container for the m/z values from mass spectra.</span>
-</span><span id="Chromatogram.__init__-36"><a href="#Chromatogram.__init__-36"><span class="linenos">36</span></a><span class="sd">        self.mz_intensity: list/numpy array</span>
+</span><span id="Chromatogram.__init__-36"><a href="#Chromatogram.__init__-36"><span class="linenos">36</span></a><span class="sd">        self.mz_intensity: numpy.ndarray[np.int]</span>
 </span><span id="Chromatogram.__init__-37"><a href="#Chromatogram.__init__-37"><span class="linenos">37</span></a><span class="sd">            Container for the intensity values from mass spectra.</span>
-</span><span id="Chromatogram.__init__-38"><a href="#Chromatogram.__init__-38"><span class="linenos">38</span></a><span class="sd">        self.scan_indices: list/numpy array</span>
+</span><span id="Chromatogram.__init__-38"><a href="#Chromatogram.__init__-38"><span class="linenos">38</span></a><span class="sd">        self.scan_indices: numpy.ndarray[np.int]</span>
 </span><span id="Chromatogram.__init__-39"><a href="#Chromatogram.__init__-39"><span class="linenos">39</span></a><span class="sd">            Container for the scan indices from mass spectra.</span>
-</span><span id="Chromatogram.__init__-40"><a href="#Chromatogram.__init__-40"><span class="linenos">40</span></a><span class="sd">        self.point_counts: list/numpy array</span>
+</span><span id="Chromatogram.__init__-40"><a href="#Chromatogram.__init__-40"><span class="linenos">40</span></a><span class="sd">        self.point_counts: numpy.ndarray[np.int]</span>
 </span><span id="Chromatogram.__init__-41"><a href="#Chromatogram.__init__-41"><span class="linenos">41</span></a><span class="sd">            Container for the point counts from mass spectra.</span>
 </span><span id="Chromatogram.__init__-42"><a href="#Chromatogram.__init__-42"><span class="linenos">42</span></a><span class="sd">        self.internal_standard: ChromProcess.Classes.Peak</span>
 </span><span id="Chromatogram.__init__-43"><a href="#Chromatogram.__init__-43"><span class="linenos">43</span></a><span class="sd">            The internal standard peak.</span>
@@ -517,19 +517,19 @@ Name of the file containing the source data.</li>
 Name of the x units (prefer 'unit name/ SI symbol')</li>
 <li><strong>self.y_unit</strong> (str):
 Name of the y units (prefer 'unit name/ SI symbol')</li>
-<li><strong>self.time</strong> (numpy array):
+<li><strong>self.time</strong> (numpy.ndarray[np.float64]):
 Time axis for the chromatogram.</li>
-<li><strong>self.signal</strong> (numpy array):
+<li><strong>self.signal</strong> (numpy.ndarray[np.float64]):
 Signal of the chromatogram.</li>
 <li><strong>self.peaks</strong> (dict):
 Container for the peaks derived from the chromatogram.</li>
-<li><strong>self.mz_values</strong> (list/numpy array):
+<li><strong>self.mz_values</strong> (numpy.ndarray[np.int]):
 Container for the m/z values from mass spectra.</li>
-<li><strong>self.mz_intensity</strong> (list/numpy array):
+<li><strong>self.mz_intensity</strong> (numpy.ndarray[np.int]):
 Container for the intensity values from mass spectra.</li>
-<li><strong>self.scan_indices</strong> (list/numpy array):
+<li><strong>self.scan_indices</strong> (numpy.ndarray[np.int]):
 Container for the scan indices from mass spectra.</li>
-<li><strong>self.point_counts</strong> (list/numpy array):
+<li><strong>self.point_counts</strong> (numpy.ndarray[np.int]):
 Container for the point counts from mass spectra.</li>
 <li><strong>self.internal_standard</strong> (<a href="Peak.html">ChromProcess.Classes.Peak</a>):
 The internal standard peak.</li>
@@ -560,9 +560,9 @@ The internal standard peak.</li>
 </span><span id="Chromatogram.get_mass_spectrum-70"><a href="#Chromatogram.get_mass_spectrum-70"><span class="linenos">70</span></a>
 </span><span id="Chromatogram.get_mass_spectrum-71"><a href="#Chromatogram.get_mass_spectrum-71"><span class="linenos">71</span></a><span class="sd">        Returns</span>
 </span><span id="Chromatogram.get_mass_spectrum-72"><a href="#Chromatogram.get_mass_spectrum-72"><span class="linenos">72</span></a><span class="sd">        -------</span>
-</span><span id="Chromatogram.get_mass_spectrum-73"><a href="#Chromatogram.get_mass_spectrum-73"><span class="linenos">73</span></a><span class="sd">        m_z: 1d array</span>
+</span><span id="Chromatogram.get_mass_spectrum-73"><a href="#Chromatogram.get_mass_spectrum-73"><span class="linenos">73</span></a><span class="sd">        m_z: numpy.ndarray[np.float64]</span>
 </span><span id="Chromatogram.get_mass_spectrum-74"><a href="#Chromatogram.get_mass_spectrum-74"><span class="linenos">74</span></a><span class="sd">            m/z value</span>
-</span><span id="Chromatogram.get_mass_spectrum-75"><a href="#Chromatogram.get_mass_spectrum-75"><span class="linenos">75</span></a><span class="sd">        intensity: 1d array</span>
+</span><span id="Chromatogram.get_mass_spectrum-75"><a href="#Chromatogram.get_mass_spectrum-75"><span class="linenos">75</span></a><span class="sd">        intensity: numpy.ndarray[np.float64]</span>
 </span><span id="Chromatogram.get_mass_spectrum-76"><a href="#Chromatogram.get_mass_spectrum-76"><span class="linenos">76</span></a><span class="sd">            Ion counts.</span>
 </span><span id="Chromatogram.get_mass_spectrum-77"><a href="#Chromatogram.get_mass_spectrum-77"><span class="linenos">77</span></a><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="Chromatogram.get_mass_spectrum-78"><a href="#Chromatogram.get_mass_spectrum-78"><span class="linenos">78</span></a>
@@ -590,9 +590,9 @@ Time point for the mass spectrum in the chromatogram.</li>
 <h6 id="returns">Returns</h6>
 
 <ul>
-<li><strong>m_z</strong> (1d array):
+<li><strong>m_z</strong> (numpy.ndarray[np.float64]):
 m/z value</li>
-<li><strong>intensity</strong> (1d array):
+<li><strong>intensity</strong> (numpy.ndarray[np.float64]):
 Ion counts.</li>
 </ul>
 </div>
@@ -735,7 +735,7 @@ Name for the output file</li>
     <a class="headerlink" href="#Chromatogram.write_to_json"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="Chromatogram.write_to_json-146"><a href="#Chromatogram.write_to_json-146"><span class="linenos">146</span></a>    <span class="k">def</span> <span class="nf">write_to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
 </span><span id="Chromatogram.write_to_json-147"><a href="#Chromatogram.write_to_json-147"><span class="linenos">147</span></a>        <span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Chromatogram.write_to_json-148"><a href="#Chromatogram.write_to_json-148"><span class="linenos">148</span></a><span class="sd">        Write to csv.</span>
+</span><span id="Chromatogram.write_to_json-148"><a href="#Chromatogram.write_to_json-148"><span class="linenos">148</span></a><span class="sd">        Write to json.</span>
 </span><span id="Chromatogram.write_to_json-149"><a href="#Chromatogram.write_to_json-149"><span class="linenos">149</span></a>
 </span><span id="Chromatogram.write_to_json-150"><a href="#Chromatogram.write_to_json-150"><span class="linenos">150</span></a><span class="sd">        Parameters</span>
 </span><span id="Chromatogram.write_to_json-151"><a href="#Chromatogram.write_to_json-151"><span class="linenos">151</span></a><span class="sd">        ----------</span>
@@ -751,7 +751,7 @@ Name for the output file</li>
 </span></pre></div>
 
 
-            <div class="docstring"><p>Write to csv.</p>
+            <div class="docstring"><p>Write to json.</p>
 
 <h6 id="parameters">Parameters</h6>
 

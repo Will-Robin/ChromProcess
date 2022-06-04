@@ -67,39 +67,41 @@
 </span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a>
 </span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a>
 </span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="k">class</span> <span class="nc">MassSpectrum</span><span class="p">:</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mz</span><span class="p">,</span> <span class="n">inten</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>        <span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="sd">        Parameters</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="sd">        ----------</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">        fname: str or pathlib Path</span>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="sd">        mz: array</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">        inten: array</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="sd">        pos: None or float</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="sd">        Returns</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">        -------</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="sd">        None</span>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">mz</span> <span class="o">=</span> <span class="n">mz</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">relative_abundances</span> <span class="o">=</span> <span class="n">inten</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">retention_time</span> <span class="o">=</span> <span class="n">pos</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>    <span class="k">def</span> <span class="nf">write_to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>        <span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a><span class="sd">        Write a row-wise csv for the mass spectrum.</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="sd">        Parameters</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a><span class="sd">        ----------</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a><span class="sd">        Returns</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a><span class="sd">        -------</span>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a><span class="sd">        ms_string: str</span>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>
-</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>        <span class="n">ms_string</span> <span class="o">=</span> <span class="n">mass_spectrum_to_string_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="sd">    Container for mass spectral data.</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mz</span><span class="p">,</span> <span class="n">inten</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="sd">        Parameters</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">        ----------</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="sd">        mz: numpy.ndarray[np.float64]</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="sd">        inten: numpy.ndarray[np.float64]</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="sd">        pos: None or float</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="sd">        Returns</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="sd">        -------</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="sd">        None</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>
+</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">mz</span> <span class="o">=</span> <span class="n">mz</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">relative_abundances</span> <span class="o">=</span> <span class="n">inten</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">retention_time</span> <span class="o">=</span> <span class="n">pos</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>
+</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>    <span class="k">def</span> <span class="nf">write_to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="sd">        Write a row-wise csv for the mass spectrum.</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="sd">        Parameters</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a><span class="sd">        ----------</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>
+</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a><span class="sd">        Returns</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a><span class="sd">        -------</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a><span class="sd">        ms_string: str</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>
-</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>        <span class="k">return</span> <span class="n">ms_string</span>
+</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>        <span class="n">ms_string</span> <span class="o">=</span> <span class="n">mass_spectrum_to_string_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a>
+</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a>        <span class="k">return</span> <span class="n">ms_string</span>
 </span></pre></div>
 
 
@@ -116,43 +118,47 @@
     </div>
     <a class="headerlink" href="#MassSpectrum"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="MassSpectrum-5"><a href="#MassSpectrum-5"><span class="linenos"> 5</span></a><span class="k">class</span> <span class="nc">MassSpectrum</span><span class="p">:</span>
-</span><span id="MassSpectrum-6"><a href="#MassSpectrum-6"><span class="linenos"> 6</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mz</span><span class="p">,</span> <span class="n">inten</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-</span><span id="MassSpectrum-7"><a href="#MassSpectrum-7"><span class="linenos"> 7</span></a>        <span class="sd">&quot;&quot;&quot;</span>
-</span><span id="MassSpectrum-8"><a href="#MassSpectrum-8"><span class="linenos"> 8</span></a><span class="sd">        Parameters</span>
-</span><span id="MassSpectrum-9"><a href="#MassSpectrum-9"><span class="linenos"> 9</span></a><span class="sd">        ----------</span>
-</span><span id="MassSpectrum-10"><a href="#MassSpectrum-10"><span class="linenos">10</span></a><span class="sd">        fname: str or pathlib Path</span>
-</span><span id="MassSpectrum-11"><a href="#MassSpectrum-11"><span class="linenos">11</span></a><span class="sd">        mz: array</span>
-</span><span id="MassSpectrum-12"><a href="#MassSpectrum-12"><span class="linenos">12</span></a><span class="sd">        inten: array</span>
-</span><span id="MassSpectrum-13"><a href="#MassSpectrum-13"><span class="linenos">13</span></a><span class="sd">        pos: None or float</span>
-</span><span id="MassSpectrum-14"><a href="#MassSpectrum-14"><span class="linenos">14</span></a>
-</span><span id="MassSpectrum-15"><a href="#MassSpectrum-15"><span class="linenos">15</span></a><span class="sd">        Returns</span>
-</span><span id="MassSpectrum-16"><a href="#MassSpectrum-16"><span class="linenos">16</span></a><span class="sd">        -------</span>
-</span><span id="MassSpectrum-17"><a href="#MassSpectrum-17"><span class="linenos">17</span></a><span class="sd">        None</span>
-</span><span id="MassSpectrum-18"><a href="#MassSpectrum-18"><span class="linenos">18</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="MassSpectrum-19"><a href="#MassSpectrum-19"><span class="linenos">19</span></a>
-</span><span id="MassSpectrum-20"><a href="#MassSpectrum-20"><span class="linenos">20</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">mz</span> <span class="o">=</span> <span class="n">mz</span>
-</span><span id="MassSpectrum-21"><a href="#MassSpectrum-21"><span class="linenos">21</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">relative_abundances</span> <span class="o">=</span> <span class="n">inten</span>
-</span><span id="MassSpectrum-22"><a href="#MassSpectrum-22"><span class="linenos">22</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">retention_time</span> <span class="o">=</span> <span class="n">pos</span>
-</span><span id="MassSpectrum-23"><a href="#MassSpectrum-23"><span class="linenos">23</span></a>
-</span><span id="MassSpectrum-24"><a href="#MassSpectrum-24"><span class="linenos">24</span></a>    <span class="k">def</span> <span class="nf">write_to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="MassSpectrum-25"><a href="#MassSpectrum-25"><span class="linenos">25</span></a>        <span class="sd">&quot;&quot;&quot;</span>
-</span><span id="MassSpectrum-26"><a href="#MassSpectrum-26"><span class="linenos">26</span></a><span class="sd">        Write a row-wise csv for the mass spectrum.</span>
-</span><span id="MassSpectrum-27"><a href="#MassSpectrum-27"><span class="linenos">27</span></a>
-</span><span id="MassSpectrum-28"><a href="#MassSpectrum-28"><span class="linenos">28</span></a><span class="sd">        Parameters</span>
-</span><span id="MassSpectrum-29"><a href="#MassSpectrum-29"><span class="linenos">29</span></a><span class="sd">        ----------</span>
-</span><span id="MassSpectrum-30"><a href="#MassSpectrum-30"><span class="linenos">30</span></a>
-</span><span id="MassSpectrum-31"><a href="#MassSpectrum-31"><span class="linenos">31</span></a><span class="sd">        Returns</span>
-</span><span id="MassSpectrum-32"><a href="#MassSpectrum-32"><span class="linenos">32</span></a><span class="sd">        -------</span>
-</span><span id="MassSpectrum-33"><a href="#MassSpectrum-33"><span class="linenos">33</span></a><span class="sd">        ms_string: str</span>
-</span><span id="MassSpectrum-34"><a href="#MassSpectrum-34"><span class="linenos">34</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="MassSpectrum-35"><a href="#MassSpectrum-35"><span class="linenos">35</span></a>
-</span><span id="MassSpectrum-36"><a href="#MassSpectrum-36"><span class="linenos">36</span></a>        <span class="n">ms_string</span> <span class="o">=</span> <span class="n">mass_spectrum_to_string_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</span><span id="MassSpectrum-6"><a href="#MassSpectrum-6"><span class="linenos"> 6</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="MassSpectrum-7"><a href="#MassSpectrum-7"><span class="linenos"> 7</span></a><span class="sd">    Container for mass spectral data.</span>
+</span><span id="MassSpectrum-8"><a href="#MassSpectrum-8"><span class="linenos"> 8</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="MassSpectrum-9"><a href="#MassSpectrum-9"><span class="linenos"> 9</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mz</span><span class="p">,</span> <span class="n">inten</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span><span id="MassSpectrum-10"><a href="#MassSpectrum-10"><span class="linenos">10</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="MassSpectrum-11"><a href="#MassSpectrum-11"><span class="linenos">11</span></a><span class="sd">        Parameters</span>
+</span><span id="MassSpectrum-12"><a href="#MassSpectrum-12"><span class="linenos">12</span></a><span class="sd">        ----------</span>
+</span><span id="MassSpectrum-13"><a href="#MassSpectrum-13"><span class="linenos">13</span></a><span class="sd">        mz: numpy.ndarray[np.float64]</span>
+</span><span id="MassSpectrum-14"><a href="#MassSpectrum-14"><span class="linenos">14</span></a><span class="sd">        inten: numpy.ndarray[np.float64]</span>
+</span><span id="MassSpectrum-15"><a href="#MassSpectrum-15"><span class="linenos">15</span></a><span class="sd">        pos: None or float</span>
+</span><span id="MassSpectrum-16"><a href="#MassSpectrum-16"><span class="linenos">16</span></a>
+</span><span id="MassSpectrum-17"><a href="#MassSpectrum-17"><span class="linenos">17</span></a><span class="sd">        Returns</span>
+</span><span id="MassSpectrum-18"><a href="#MassSpectrum-18"><span class="linenos">18</span></a><span class="sd">        -------</span>
+</span><span id="MassSpectrum-19"><a href="#MassSpectrum-19"><span class="linenos">19</span></a><span class="sd">        None</span>
+</span><span id="MassSpectrum-20"><a href="#MassSpectrum-20"><span class="linenos">20</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="MassSpectrum-21"><a href="#MassSpectrum-21"><span class="linenos">21</span></a>
+</span><span id="MassSpectrum-22"><a href="#MassSpectrum-22"><span class="linenos">22</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">mz</span> <span class="o">=</span> <span class="n">mz</span>
+</span><span id="MassSpectrum-23"><a href="#MassSpectrum-23"><span class="linenos">23</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">relative_abundances</span> <span class="o">=</span> <span class="n">inten</span>
+</span><span id="MassSpectrum-24"><a href="#MassSpectrum-24"><span class="linenos">24</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">retention_time</span> <span class="o">=</span> <span class="n">pos</span>
+</span><span id="MassSpectrum-25"><a href="#MassSpectrum-25"><span class="linenos">25</span></a>
+</span><span id="MassSpectrum-26"><a href="#MassSpectrum-26"><span class="linenos">26</span></a>    <span class="k">def</span> <span class="nf">write_to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="MassSpectrum-27"><a href="#MassSpectrum-27"><span class="linenos">27</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="MassSpectrum-28"><a href="#MassSpectrum-28"><span class="linenos">28</span></a><span class="sd">        Write a row-wise csv for the mass spectrum.</span>
+</span><span id="MassSpectrum-29"><a href="#MassSpectrum-29"><span class="linenos">29</span></a>
+</span><span id="MassSpectrum-30"><a href="#MassSpectrum-30"><span class="linenos">30</span></a><span class="sd">        Parameters</span>
+</span><span id="MassSpectrum-31"><a href="#MassSpectrum-31"><span class="linenos">31</span></a><span class="sd">        ----------</span>
+</span><span id="MassSpectrum-32"><a href="#MassSpectrum-32"><span class="linenos">32</span></a>
+</span><span id="MassSpectrum-33"><a href="#MassSpectrum-33"><span class="linenos">33</span></a><span class="sd">        Returns</span>
+</span><span id="MassSpectrum-34"><a href="#MassSpectrum-34"><span class="linenos">34</span></a><span class="sd">        -------</span>
+</span><span id="MassSpectrum-35"><a href="#MassSpectrum-35"><span class="linenos">35</span></a><span class="sd">        ms_string: str</span>
+</span><span id="MassSpectrum-36"><a href="#MassSpectrum-36"><span class="linenos">36</span></a><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="MassSpectrum-37"><a href="#MassSpectrum-37"><span class="linenos">37</span></a>
-</span><span id="MassSpectrum-38"><a href="#MassSpectrum-38"><span class="linenos">38</span></a>        <span class="k">return</span> <span class="n">ms_string</span>
+</span><span id="MassSpectrum-38"><a href="#MassSpectrum-38"><span class="linenos">38</span></a>        <span class="n">ms_string</span> <span class="o">=</span> <span class="n">mass_spectrum_to_string_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</span><span id="MassSpectrum-39"><a href="#MassSpectrum-39"><span class="linenos">39</span></a>
+</span><span id="MassSpectrum-40"><a href="#MassSpectrum-40"><span class="linenos">40</span></a>        <span class="k">return</span> <span class="n">ms_string</span>
 </span></pre></div>
 
 
-    
+            <div class="docstring"><p>Container for mass spectral data.</p>
+</div>
+
 
                             <div id="MassSpectrum.__init__" class="classattr">
                                         <input id="MassSpectrum.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
@@ -164,32 +170,30 @@
 
     </div>
     <a class="headerlink" href="#MassSpectrum.__init__"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="MassSpectrum.__init__-6"><a href="#MassSpectrum.__init__-6"><span class="linenos"> 6</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mz</span><span class="p">,</span> <span class="n">inten</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-</span><span id="MassSpectrum.__init__-7"><a href="#MassSpectrum.__init__-7"><span class="linenos"> 7</span></a>        <span class="sd">&quot;&quot;&quot;</span>
-</span><span id="MassSpectrum.__init__-8"><a href="#MassSpectrum.__init__-8"><span class="linenos"> 8</span></a><span class="sd">        Parameters</span>
-</span><span id="MassSpectrum.__init__-9"><a href="#MassSpectrum.__init__-9"><span class="linenos"> 9</span></a><span class="sd">        ----------</span>
-</span><span id="MassSpectrum.__init__-10"><a href="#MassSpectrum.__init__-10"><span class="linenos">10</span></a><span class="sd">        fname: str or pathlib Path</span>
-</span><span id="MassSpectrum.__init__-11"><a href="#MassSpectrum.__init__-11"><span class="linenos">11</span></a><span class="sd">        mz: array</span>
-</span><span id="MassSpectrum.__init__-12"><a href="#MassSpectrum.__init__-12"><span class="linenos">12</span></a><span class="sd">        inten: array</span>
-</span><span id="MassSpectrum.__init__-13"><a href="#MassSpectrum.__init__-13"><span class="linenos">13</span></a><span class="sd">        pos: None or float</span>
-</span><span id="MassSpectrum.__init__-14"><a href="#MassSpectrum.__init__-14"><span class="linenos">14</span></a>
-</span><span id="MassSpectrum.__init__-15"><a href="#MassSpectrum.__init__-15"><span class="linenos">15</span></a><span class="sd">        Returns</span>
-</span><span id="MassSpectrum.__init__-16"><a href="#MassSpectrum.__init__-16"><span class="linenos">16</span></a><span class="sd">        -------</span>
-</span><span id="MassSpectrum.__init__-17"><a href="#MassSpectrum.__init__-17"><span class="linenos">17</span></a><span class="sd">        None</span>
-</span><span id="MassSpectrum.__init__-18"><a href="#MassSpectrum.__init__-18"><span class="linenos">18</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="MassSpectrum.__init__-19"><a href="#MassSpectrum.__init__-19"><span class="linenos">19</span></a>
-</span><span id="MassSpectrum.__init__-20"><a href="#MassSpectrum.__init__-20"><span class="linenos">20</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">mz</span> <span class="o">=</span> <span class="n">mz</span>
-</span><span id="MassSpectrum.__init__-21"><a href="#MassSpectrum.__init__-21"><span class="linenos">21</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">relative_abundances</span> <span class="o">=</span> <span class="n">inten</span>
-</span><span id="MassSpectrum.__init__-22"><a href="#MassSpectrum.__init__-22"><span class="linenos">22</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">retention_time</span> <span class="o">=</span> <span class="n">pos</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="MassSpectrum.__init__-9"><a href="#MassSpectrum.__init__-9"><span class="linenos"> 9</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mz</span><span class="p">,</span> <span class="n">inten</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span><span id="MassSpectrum.__init__-10"><a href="#MassSpectrum.__init__-10"><span class="linenos">10</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="MassSpectrum.__init__-11"><a href="#MassSpectrum.__init__-11"><span class="linenos">11</span></a><span class="sd">        Parameters</span>
+</span><span id="MassSpectrum.__init__-12"><a href="#MassSpectrum.__init__-12"><span class="linenos">12</span></a><span class="sd">        ----------</span>
+</span><span id="MassSpectrum.__init__-13"><a href="#MassSpectrum.__init__-13"><span class="linenos">13</span></a><span class="sd">        mz: numpy.ndarray[np.float64]</span>
+</span><span id="MassSpectrum.__init__-14"><a href="#MassSpectrum.__init__-14"><span class="linenos">14</span></a><span class="sd">        inten: numpy.ndarray[np.float64]</span>
+</span><span id="MassSpectrum.__init__-15"><a href="#MassSpectrum.__init__-15"><span class="linenos">15</span></a><span class="sd">        pos: None or float</span>
+</span><span id="MassSpectrum.__init__-16"><a href="#MassSpectrum.__init__-16"><span class="linenos">16</span></a>
+</span><span id="MassSpectrum.__init__-17"><a href="#MassSpectrum.__init__-17"><span class="linenos">17</span></a><span class="sd">        Returns</span>
+</span><span id="MassSpectrum.__init__-18"><a href="#MassSpectrum.__init__-18"><span class="linenos">18</span></a><span class="sd">        -------</span>
+</span><span id="MassSpectrum.__init__-19"><a href="#MassSpectrum.__init__-19"><span class="linenos">19</span></a><span class="sd">        None</span>
+</span><span id="MassSpectrum.__init__-20"><a href="#MassSpectrum.__init__-20"><span class="linenos">20</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="MassSpectrum.__init__-21"><a href="#MassSpectrum.__init__-21"><span class="linenos">21</span></a>
+</span><span id="MassSpectrum.__init__-22"><a href="#MassSpectrum.__init__-22"><span class="linenos">22</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">mz</span> <span class="o">=</span> <span class="n">mz</span>
+</span><span id="MassSpectrum.__init__-23"><a href="#MassSpectrum.__init__-23"><span class="linenos">23</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">relative_abundances</span> <span class="o">=</span> <span class="n">inten</span>
+</span><span id="MassSpectrum.__init__-24"><a href="#MassSpectrum.__init__-24"><span class="linenos">24</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">retention_time</span> <span class="o">=</span> <span class="n">pos</span>
 </span></pre></div>
 
 
             <div class="docstring"><h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><p><strong>fname</strong> (str or pathlib Path):</p></li>
-<li><p><strong>mz</strong> (array):</p></li>
-<li><p><strong>inten</strong> (array):</p></li>
+<li><p><strong>mz</strong> (numpy.ndarray[np.float64]):</p></li>
+<li><p><strong>inten</strong> (numpy.ndarray[np.float64]):</p></li>
 <li><p><strong>pos</strong> (None or float):</p></li>
 </ul>
 
@@ -213,21 +217,21 @@
 
     </div>
     <a class="headerlink" href="#MassSpectrum.write_to_string"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="MassSpectrum.write_to_string-24"><a href="#MassSpectrum.write_to_string-24"><span class="linenos">24</span></a>    <span class="k">def</span> <span class="nf">write_to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="MassSpectrum.write_to_string-25"><a href="#MassSpectrum.write_to_string-25"><span class="linenos">25</span></a>        <span class="sd">&quot;&quot;&quot;</span>
-</span><span id="MassSpectrum.write_to_string-26"><a href="#MassSpectrum.write_to_string-26"><span class="linenos">26</span></a><span class="sd">        Write a row-wise csv for the mass spectrum.</span>
-</span><span id="MassSpectrum.write_to_string-27"><a href="#MassSpectrum.write_to_string-27"><span class="linenos">27</span></a>
-</span><span id="MassSpectrum.write_to_string-28"><a href="#MassSpectrum.write_to_string-28"><span class="linenos">28</span></a><span class="sd">        Parameters</span>
-</span><span id="MassSpectrum.write_to_string-29"><a href="#MassSpectrum.write_to_string-29"><span class="linenos">29</span></a><span class="sd">        ----------</span>
-</span><span id="MassSpectrum.write_to_string-30"><a href="#MassSpectrum.write_to_string-30"><span class="linenos">30</span></a>
-</span><span id="MassSpectrum.write_to_string-31"><a href="#MassSpectrum.write_to_string-31"><span class="linenos">31</span></a><span class="sd">        Returns</span>
-</span><span id="MassSpectrum.write_to_string-32"><a href="#MassSpectrum.write_to_string-32"><span class="linenos">32</span></a><span class="sd">        -------</span>
-</span><span id="MassSpectrum.write_to_string-33"><a href="#MassSpectrum.write_to_string-33"><span class="linenos">33</span></a><span class="sd">        ms_string: str</span>
-</span><span id="MassSpectrum.write_to_string-34"><a href="#MassSpectrum.write_to_string-34"><span class="linenos">34</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="MassSpectrum.write_to_string-35"><a href="#MassSpectrum.write_to_string-35"><span class="linenos">35</span></a>
-</span><span id="MassSpectrum.write_to_string-36"><a href="#MassSpectrum.write_to_string-36"><span class="linenos">36</span></a>        <span class="n">ms_string</span> <span class="o">=</span> <span class="n">mass_spectrum_to_string_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="MassSpectrum.write_to_string-26"><a href="#MassSpectrum.write_to_string-26"><span class="linenos">26</span></a>    <span class="k">def</span> <span class="nf">write_to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="MassSpectrum.write_to_string-27"><a href="#MassSpectrum.write_to_string-27"><span class="linenos">27</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="MassSpectrum.write_to_string-28"><a href="#MassSpectrum.write_to_string-28"><span class="linenos">28</span></a><span class="sd">        Write a row-wise csv for the mass spectrum.</span>
+</span><span id="MassSpectrum.write_to_string-29"><a href="#MassSpectrum.write_to_string-29"><span class="linenos">29</span></a>
+</span><span id="MassSpectrum.write_to_string-30"><a href="#MassSpectrum.write_to_string-30"><span class="linenos">30</span></a><span class="sd">        Parameters</span>
+</span><span id="MassSpectrum.write_to_string-31"><a href="#MassSpectrum.write_to_string-31"><span class="linenos">31</span></a><span class="sd">        ----------</span>
+</span><span id="MassSpectrum.write_to_string-32"><a href="#MassSpectrum.write_to_string-32"><span class="linenos">32</span></a>
+</span><span id="MassSpectrum.write_to_string-33"><a href="#MassSpectrum.write_to_string-33"><span class="linenos">33</span></a><span class="sd">        Returns</span>
+</span><span id="MassSpectrum.write_to_string-34"><a href="#MassSpectrum.write_to_string-34"><span class="linenos">34</span></a><span class="sd">        -------</span>
+</span><span id="MassSpectrum.write_to_string-35"><a href="#MassSpectrum.write_to_string-35"><span class="linenos">35</span></a><span class="sd">        ms_string: str</span>
+</span><span id="MassSpectrum.write_to_string-36"><a href="#MassSpectrum.write_to_string-36"><span class="linenos">36</span></a><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="MassSpectrum.write_to_string-37"><a href="#MassSpectrum.write_to_string-37"><span class="linenos">37</span></a>
-</span><span id="MassSpectrum.write_to_string-38"><a href="#MassSpectrum.write_to_string-38"><span class="linenos">38</span></a>        <span class="k">return</span> <span class="n">ms_string</span>
+</span><span id="MassSpectrum.write_to_string-38"><a href="#MassSpectrum.write_to_string-38"><span class="linenos">38</span></a>        <span class="n">ms_string</span> <span class="o">=</span> <span class="n">mass_spectrum_to_string_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</span><span id="MassSpectrum.write_to_string-39"><a href="#MassSpectrum.write_to_string-39"><span class="linenos">39</span></a>
+</span><span id="MassSpectrum.write_to_string-40"><a href="#MassSpectrum.write_to_string-40"><span class="linenos">40</span></a>        <span class="k">return</span> <span class="n">ms_string</span>
 </span></pre></div>
 
 

@@ -24,19 +24,19 @@ class Chromatogram:
             Name of the x units (prefer 'unit name/ SI symbol')
         self.y_unit: str
             Name of the y units (prefer 'unit name/ SI symbol')
-        self.time: numpy array
+        self.time: numpy.ndarray[np.float64]
             Time axis for the chromatogram.
-        self.signal: numpy array
+        self.signal: numpy.ndarray[np.float64]
             Signal of the chromatogram.
         self.peaks: dict
             Container for the peaks derived from the chromatogram.
-        self.mz_values: list/numpy array
+        self.mz_values: numpy.ndarray[np.int]
             Container for the m/z values from mass spectra.
-        self.mz_intensity: list/numpy array
+        self.mz_intensity: numpy.ndarray[np.int]
             Container for the intensity values from mass spectra.
-        self.scan_indices: list/numpy array
+        self.scan_indices: numpy.ndarray[np.int]
             Container for the scan indices from mass spectra.
-        self.point_counts: list/numpy array
+        self.point_counts: numpy.ndarray[np.int]
             Container for the point counts from mass spectra.
         self.internal_standard: ChromProcess.Classes.Peak
             The internal standard peak.
@@ -69,9 +69,9 @@ class Chromatogram:
 
         Returns
         -------
-        m_z: 1d array
+        m_z: numpy.ndarray[np.float64]
             m/z value
-        intensity: 1d array
+        intensity: numpy.ndarray[np.float64]
             Ion counts.
         """
 
@@ -144,7 +144,7 @@ class Chromatogram:
 
     def write_to_json(self, filename=""):
         """
-        Write to csv.
+        Write to json.
 
         Parameters
         ----------

@@ -4,9 +4,12 @@ from ChromProcess.Writers import peak_collection_to_csv
 
 
 class PeakCollection:
+    """
+    An object for storing and operating upon collections of peaks.
+    """
     def __init__(self):
         """
-        An object for storing and operating upon collections of peaks.
+        Initialise an empty PeakCollection.
 
         Attributes
         ----------
@@ -40,15 +43,17 @@ class PeakCollection:
 
     def remove_peaks_below_threshold(self, threshold):
         """
-        Remove peaks below a certain integral threshold (note that this
-        operates on the values held in the Peak integral attributes. If
-        they have been normalised to an internal standard, the
-        threshold value should probably be lower than for the 'raw'
-        integral data).
+        Remove peaks below a certain integral threshold.
+
+        Note that this operates on the values held in the Peak integral
+        attributes. If they have been normalised to an internal standard, the
+        threshold value should probably be lower than for the 'raw' integral
+        data.
 
         Parameters
         ----------
         threshold: float
+            Peaks below this threshold are removed.
 
         Returns
         -------
@@ -105,7 +110,7 @@ class PeakCollection:
 
         Parameters
         ----------
-        ms_list: list of ChromProcess MassSpectrum objects
+        ms_list: list[ChromProcess.Classes.MassSpectrum]
             Mass spectra to be added.
 
         Returns
@@ -134,7 +139,7 @@ class PeakCollection:
 
         Returns
         -------
-        array: 2D numpy array
+        array: numpy.ndarray[numpy.ndarray[numpy.float64]]
         """
         return np.array([p.retention_time for p in self.peaks])
 
@@ -191,11 +196,11 @@ class PeakCollection:
 
     def apply_calibrations_to_peaks(self, calibrations, IS_conc):
         """
-        Apply calibrations to peals
+        Apply calibrations to peaks
 
         Parameters
         ----------
-        calibrations: ChromProcess Instrument_Calibration object
+        calibrations: ChromProcess.Classes.Instrument_Calibration
             Container for calibration information
         IS_conc: float
             internal standard concentration
@@ -232,7 +237,7 @@ class PeakCollection:
 
         Parameters
         ----------
-        calibrations: ChromProcess Instrument_Calibration object
+        calibrations: ChromProcess.Classes.Instrument_Calibration
             Contains calibration information.
         IS_conc: float
         IS_conc_err: float
