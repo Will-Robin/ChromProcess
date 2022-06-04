@@ -11,4 +11,5 @@ setup(
         "netcdf4 >= 1.5.7",
         "tomli >= 2.0.1",
     ],
+    extras_require={"dev": ["pdoc", "black"]},
 )
