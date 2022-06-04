@@ -5,6 +5,7 @@ class MassSpectrum:
     """
     Container for mass spectral data.
     """
+
     def __init__(self, mz, inten, pos=None):
         """
         Parameters

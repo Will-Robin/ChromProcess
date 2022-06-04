@@ -12,6 +12,7 @@ class Peak:
     """
     Container for peak information.
     """
+
     def __init__(
         self,
         retention_time,

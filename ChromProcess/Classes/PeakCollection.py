@@ -7,6 +7,7 @@ class PeakCollection:
     """
     An object for storing and operating upon collections of peaks.
     """
+
     def __init__(self):
         """
         Initialise an empty PeakCollection.

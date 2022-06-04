@@ -2,6 +2,7 @@ class InstrumentCalibration:
     """
     A container for calibration information.
     """
+
     def __init__(self):
         """
         Initialise an empty InstrumentCalibration object.

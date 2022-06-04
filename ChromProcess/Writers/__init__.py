@@ -1,3 +1,10 @@
+"""
+This module contains functions for writing ChromProcess.Classes objects to
+files.
+
+The primary focus is text-based formats (.csv, .json, etc.).
+"""
+
 from .chromatogram import chromatogram_to_csv
 from .chromatogram import chromatogram_to_json
 from .chromatogram import chromatogram_to_peak_collection

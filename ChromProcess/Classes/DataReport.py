@@ -7,6 +7,7 @@ class DataReport:
     """
     A container for data extracted from a series of chromatograms.
     """
+
     def __init__(self):
         """
         Initialise a DataReport object.

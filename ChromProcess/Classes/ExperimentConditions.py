@@ -5,6 +5,7 @@ class ExperimentConditions:
     """
     A container for experimental information.
     """
+
     def __init__(self):
         """
         Initialise an empty ExperimentConditions object.

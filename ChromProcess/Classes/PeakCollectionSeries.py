@@ -9,6 +9,7 @@ class PeakCollectionSeries:
     """
     An object which wraps multiple PeakCollection objects.
     """
+
     def __init__(self, peak_collections, name="not specified", conditions=dict()):
         """
         Create a PeakCollectionSeries from a list of PeakCollection objects.
