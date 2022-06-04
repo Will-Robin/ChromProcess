@@ -1,21 +1,63 @@
-# Minimal makefile for Sphinx documentation
-#
+CHROMPROCESS=../ChromProcess
 
-# You can set these variables from the command line, and also
-# from the environment for the first two.
-SPHINXOPTS    ?=
-SPHINXBUILD   ?= sphinx-build
-SOURCEDIR     = source
-BUILDDIR      = .
+CLASSES=$(CHROMPROCESS)/Classes
+CLASSES_CONTENTS=$(CLASSES)/*.py
 
-# Put it first so that "make" without argument is like "make help".
-help:
-	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+LOADING=$(CHROMPROCESS)/Loading
+LOADING_MOD=$(CHROMPROCESS)/Loading/*.py
+LOADING_CHROM_CDF=$(LOADING)/chromatogram/cdf/*.py
+LOADING_CHROM_ION=$(LOADING)/chromatogram/ion_chromatogram/*.py
+LOADING_CHROM_TXT=$(LOADING)/chromatogram/text/*.py
+LOADING_CHROM=$(LOADING_CHROM_CDF) $(LOADING_CHROM_ION)  $(LOADING_CHROM_TXT)
+LOADING_AN_INF=$(LOADING)/analysis_info/*.py
+LOADING_CUST=$(LOADING)/custom/*.py
+LOADING_DR=$(LOADING)/data_report/*.py
+LOADING_EXP_COND=$(LOADING)/experiment_conditions/*.py
+LOADING_INST=$(LOADING)/instrument_calibration/*.py
+LOADING_MS=$(LOADING)/mass_spectrum/*.py
+LOADING_PARSE=$(LOADING)/parsers/*.py
+LOADING_PEAK=$(LOADING)/peak/*.py
+LOADING_PEAK_COLLECTION=$(LOADING)/peak_collection/*.py
 
-.PHONY: help Makefile
+LOAD=$(LOADING_CHROM) $(LOADING_AN_INF) $(LOADING_CUST) $(LOADING_DR) \
+	 $(LOADING_EXP_COND) $(LOADING_INST) $(LOADING_PARSE) $(LOADING_PEAK) \
+	 $(LOADING_PEAK_COLLECTION) $(LOADING_MOD)
 
-# Catch-all target: route all unknown targets to Sphinx using the new
-# "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
-%: Makefile
-	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+WRITERS=$(CHROMPROCESS)/Writers
+WRITERS_MOD=$(WRITERS)/*.py
+WRITERS_CHROM=$(WRITERS)/chromatogram/*.py
+WRITERS_DR=$(WRITERS)/data_report/*.py
+WRITERS_GEN=$(WRITERS)/general/*.py
+WRITERS_MS=$(WRITERS)/mass_spectra/*.py
+WRITERS_PEAK=$(WRITERS)/peak/*.py
+WRITERS_PC=$(WRITERS)/peak_collection/*.py
+WRITERS_PC_SER=$(WRITERS)/peak_collection_series/*.py
 
+WRITE=$(WRITERS_MOD) $(WRITERS_CHROM) $(WRITERS_DR) $(WRITERS_GEN) \
+	  $(WRITERS_GEN) $(WRITERS_MS) $(WRITERS_PEAK) $(WRITERS_PEAK) \
+	  $(WRITERS_PC_SER)
+
+PROCESSING=$(CHROMPROCESS)/Processing
+PROC_MOD=$(PROCESSING)/*.py
+PROC_CHROM=$(PROCESSING)/chromatogram/*.py
+#PROC_CUST=$(PROCESSING)/custom/*.py
+#PROC_MS=$(PROCESSING)/mass_spectra/*.py
+PROC_PEAK=$(PROCESSING)/peak/*.py
+
+PROC=$(PROC_MOD) $(PROC_CHROM) $(PROC_CUST) $(PROC_MS) $(PROC_PEAK)
+
+UTILS=$(CHROMPROCESS)/Utils
+UTILS_MOD=$(UTILS)/*.py
+UTILS_CUST=$(UTILS)/custom/*.py
+UTILS_PF=$(UTILS)/peak_finding/*.py
+UTILS_SIG=$(UTILS)/signal_processing/*.py
+UTILS_UT=$(UTILS)/utils/*.py
+
+UTIL=$(UTILS_MOD) $(UTILS_CUST) $(UTILS_PF) $(UTILS_SIG) $(UTILS_UT)
+
+CHROMPROCESS_PACKAGE=$(LOAD) $(WRITE) $(PROC) $(UTIL)
+
+all: index.html
+
+index.html: $(CHROMPROCESS_PACKAGE)
+	pdoc ../ChromProcess --docformat "numpy" -o ./
