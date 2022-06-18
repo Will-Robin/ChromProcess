@@ -3,7 +3,7 @@ import json
 
 def write_chromatogram_json_text(chromatogram):
     """
-    Write the text for a chromatogram in a column-wise csv format.
+    Write the text for a chromatogram in json format.
 
     Parameters
     ----------
@@ -12,8 +12,8 @@ def write_chromatogram_json_text(chromatogram):
 
     Returns
     -------
-    csv_string: str
-        Chromatogram time and signal in column-wise csv format.
+    json_string: str
+        Chromatogram time and signal in json format.
     """
 
     chrom_dict = dict()
