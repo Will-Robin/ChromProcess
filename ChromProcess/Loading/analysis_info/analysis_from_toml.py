@@ -41,15 +41,16 @@ def analysis_from_toml(fname):
     is_reg = analysis_dict["Internal_standard_region"]
     analysis.internal_standard_region = is_reg["internal_standard_1"]
 
-    ms_opts = analysis_dict["Mass_spectra_options"]
-    use_ms = ms_opts["Extract_mass_spectra"].lower()
+    if "Mass_spectra_options" in analysis_dict:
+        ms_opts = analysis_dict["Mass_spectra_options"]
+        use_ms = ms_opts["Extract_mass_spectra"].lower()
 
-    if use_ms == "true":
-        analysis.use_MS = True
-    if use_ms == "false":
-        analysis.use_MS = False
+        if use_ms == "true":
+            analysis.use_MS = True
+        if use_ms == "false":
+            analysis.use_MS = False
 
-    analysis.MS_cutoff = ms_opts["Mass_spectra_filter"]
+        analysis.MS_cutoff = ms_opts["Mass_spectra_filter"]
 
     peak_picking_options = analysis_dict["Peak_picking_options"]
     analysis.peak_pick_threshold = peak_picking_options["Peak_pick_threshold"]
