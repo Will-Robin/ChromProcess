@@ -368,6 +368,9 @@ class PeakCollectionSeries:
         for c1, pc in enumerate(self.peak_collections):
 
             for c2, clust in enumerate(self.clusters):
+                if len(clust) == 0:
+                    continue
+
                 name = cluster_names[c2]
                 average_position = round(sum(clust) / len(clust), 3)
 
