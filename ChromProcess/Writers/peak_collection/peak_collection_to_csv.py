@@ -1,5 +1,19 @@
 from pathlib import Path
 
+IS_ENTRY_HEADER = ",".join(
+    [
+        "IS_retention_time/ min,",
+        "IS_integral,",
+        "IS_peak start/ min,",
+        "IS_peak end/ min\n",
+    ]
+)
+
+PEAK_ENTRY_HEADER = ",".join(
+    ["Retention_time/ min,", "integral,", "peak start/ min,", "peak end/ min\n"]
+)
+
+
 def write_peak_collection_text(peak_collection):
     """
     Write a PeakCollection to a csv string.
@@ -21,27 +35,21 @@ def write_peak_collection_text(peak_collection):
     IS_integ = peak_collection.internal_standard.integral
     strt = peak_collection.internal_standard.start
     end = peak_collection.internal_standard.end
+    is_line = ",".join([IS_rt, IS_integ, strt, end, "\n"])
 
     peak_collection_text = f"{unit},{value}\n"
-    peak_collection_text += "IS_retention_time/ min,"
-    peak_collection_text += "IS_integral,"
-    peak_collection_text += "IS_peak start/ min,"
-    peak_collection_text += "IS_peak end/ min\n"
-    peak_collection_text += f"{IS_rt},{IS_integ},{strt},{end}\n"
-
-    peak_collection_text += "Retention_time/ min,"
-    peak_collection_text += "integral,"
-    peak_collection_text += "peak start/ min,"
-    peak_collection_text += "peak end/ min\n"
+    peak_collection_text += IS_ENTRY_HEADER
+    peak_collection_text += is_line
+    peak_collection_text += PEAK_ENTRY_HEADER
 
     for p in peak_collection.peaks:
-        rt = p.retention_time
-        integ = p.integral
-        start = p.start
-        end = p.end
-        peak_collection_text += f"{rt},{integ},{start},{end}\n"
+
+        peak_line = ",".join([p.retention_time, p.integral, p.start, p.end, "\n"])
+
+        peak_collection_text += peak_line
 
     return peak_collection_text
+
 
 def peak_collection_to_csv(peak_collection, directory=""):
     """
@@ -68,4 +76,3 @@ def peak_collection_to_csv(peak_collection, directory=""):
 
     with open(fname, "w") as f:
         f.write(text)
-

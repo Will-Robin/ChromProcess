@@ -3,6 +3,7 @@ from pathlib import Path
 from ChromProcess.Utils.utils import utils
 from ChromProcess.Writers.general import write_header
 
+
 def peak_collection_series_conc_report_text(peak_collection_series, information):
     """
     Write a peak collection series as formatted data report text.
@@ -18,7 +19,7 @@ def peak_collection_series_conc_report_text(peak_collection_series, information)
     """
 
     # create output dictionaries
-    conc_dict, err_dict, _ = peak_collection_series.series_traces_as_dict()
+    conc_dict, err_dict, _, _ = peak_collection_series.series_traces_as_dict()
 
     # create spreadsheet-like output
     conc_header, conc_grid = utils.peak_dict_to_spreadsheet(
@@ -71,8 +72,8 @@ def peak_collection_series_conc_report_text(peak_collection_series, information)
 
     return conc_report_text
 
-def peak_collection_series_integral_report_text(peak_collection_series,
-        information):
+
+def peak_collection_series_integral_report_text(peak_collection_series, information):
     """
     Write a peak collection series as formatted data report text.
 
@@ -86,7 +87,7 @@ def peak_collection_series_integral_report_text(peak_collection_series,
     integral_report_text: str
     """
 
-    _, _, integral_dict = peak_collection_series.series_traces_as_dict()
+    _, _, integral_dict, _ = peak_collection_series.series_traces_as_dict()
 
     header_text = write_header.write_conditions_header(
         peak_collection_series.name, peak_collection_series.conditions, information
@@ -115,6 +116,7 @@ def peak_collection_series_integral_report_text(peak_collection_series,
     integral_report_text += "end_data\n"
 
     return integral_report_text
+
 
 def peak_collection_series_to_data_report(
     peak_collection_series, filename, information
@@ -153,41 +155,50 @@ def peak_collection_series_to_data_report(
     ) = peak_collection_series.series_traces_as_dict()
 
     # create spreadsheet-like output
+    # Peak concentrations
     conc_header, conc_grid = utils.peak_dict_to_spreadsheet(
         conc_dict,
         peak_collection_series.series_values,
         peak_collection_series.series_unit,
     )
 
+    # Peak integrals
     peak_integral_header, integ_grid = utils.peak_dict_to_spreadsheet(
         integral_dict,
         peak_collection_series.series_values,
         peak_collection_series.series_unit,
     )
 
+    # Peak heights
     peak_height_header, height_grid = utils.peak_dict_to_spreadsheet(
         height_dict,
         peak_collection_series.series_values,
         peak_collection_series.series_unit,
     )
 
+    # Peak errors
     peak_err_header, err_grid = utils.peak_dict_to_spreadsheet(
         err_dict,
         peak_collection_series.series_values,
         peak_collection_series.series_unit,
     )
 
+    # Create a header containing experimental conditions
     header_text = write_header.write_conditions_header(
         peak_collection_series.name, peak_collection_series.conditions, information
     )
 
     # Write concentration report to file
-    conc_rep_text = peak_collection_series_conc_report_text(peak_collection_series, information)
+    conc_rep_text = peak_collection_series_conc_report_text(
+        peak_collection_series, information
+    )
     with open(conc_fname, "w") as outfile:
         outfile.write(conc_rep_text)
 
     # Write integral report to file
-    i_data_rep_text = peak_collection_series_integral_report_text(peak_collection_series, information)
+    i_data_rep_text = peak_collection_series_integral_report_text(
+        peak_collection_series, information
+    )
     with open(integral_fname, "w") as outfile:
         outfile.write(i_data_rep_text)
 
