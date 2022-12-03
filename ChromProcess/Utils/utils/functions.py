@@ -19,26 +19,26 @@ def linear(X, A, B):
     return A * X + B
 
 
-def inverse_linear(variable, gradient, intercept, factor=1.0):
+def inverse_linear(variable, gradient, intercept):
     """
     Solution to linear function
 
     Parameters
     ----------
-    integ: float
-        integral value
-    B, C: float
-        (Gradient, intercept) Calibration parameters
-    dil: float
-        Dilution factor.
-    IS: float
-        Internal standard concentration.
+    integ: variable
+    gradient, C: float
+    intercept: float
 
     Returns
     -------
-    Operation on integ
+    Operation on variable
     """
-    return factor * (variable - intercept) / gradient
+
+    if gradient == 0:
+        # variable does not depend on x, default to 0
+        return 0
+
+    return (variable - intercept) / gradient
 
 
 def quadratic_function(X, A, B, C):
@@ -56,10 +56,11 @@ def quadratic_function(X, A, B, C):
     -------
     Operation on X
     """
-    return np.nan_to_num(A * (X**2) + B * X + C)
+
+    return A * (X**2) + B * X + C
 
 
-def inverse_quadratic(integ, A, B, C, factor=1.0):
+def inverse_quadratic(integ, A, B, C):
     """
     Solution to quadratic function
 
@@ -69,16 +70,16 @@ def inverse_quadratic(integ, A, B, C, factor=1.0):
         integral value
     A, B, C: float
         (second order, first order 0th order terms) Calibration parameters
-    dil: float
-        Dilution factor.
-    IS: float
-        Internal standard concentration.
 
     Returns
     -------
     Operation on integ
     """
-    return factor * (-B + np.sqrt((B**2) - (4 * A * (C - integ)))) / (2 * A)
+
+    if A == 0:
+        return inverse_linear(integ, B, C) # y = mx + c
+
+    return (-B + np.sqrt((B**2) - (4 * A * (C - integ)))) / (2 * A)
 
 
 def inverse_quadratic_standard_error(yhat, sy2, a, b, c, sa2, sb2, sc2, sab, sac, sbc):

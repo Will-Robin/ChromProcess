@@ -1,5 +1,4 @@
 import numpy as np
-from ChromProcess.Utils.utils.functions import inverse_linear
 from ChromProcess.Utils.utils.functions import inverse_quadratic
 from ChromProcess.Utils.utils.functions import inverse_quadratic_standard_error
 from ChromProcess.Utils.utils.functions import inverse_linear
@@ -253,7 +252,7 @@ class Peak:
         None
         """
 
-        c1 = inverse_linear(self.integral, A, B, factor=1.0)
+        c1 = inverse_linear(self.integral, A, B)
         self.concentration = internal_standard * c1
 
     def apply_quadratic_calibration(self, A, B, C, internal_standard=1.0):
@@ -272,7 +271,7 @@ class Peak:
         None
         """
 
-        c1 = inverse_quadratic(self.integral, A, B, C, factor=1.0)
+        c1 = inverse_quadratic(self.integral, A, B, C)
 
         self.concentration = internal_standard * c1
 
@@ -322,7 +321,7 @@ class Peak:
                 yhat, sy2, a, b, c, sa2, sb2, sc2, sab, sac, sbc
             )
             err = np.nan_to_num(err)
-            val = inverse_quadratic(yhat, a, b, c, factor=1.0)
+            val = inverse_quadratic(yhat, a, b, c)
             err = (
                 IS_conc * val * mult_div_error_prop([val, IS_conc], [err, IS_conc_err])
             )
