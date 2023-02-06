@@ -9,6 +9,9 @@ def deconvolute_region(chromatogram, region, num_peaks=1):
     """
     Deconvolute a region of a chromatogram.
 
+    The fitting procedure assumes that the baselinne in the selected region of
+    the chromatogram is constant.
+
     Parameters
     ----------
     chromatogram: Chromatogram
@@ -83,7 +86,9 @@ def deconvolute_region(chromatogram, region, num_peaks=1):
         baseline,
     )
 
-    result = np.reshape(popt,(4,-1))
+    # Format output
+    # -> [[magnitude, position, width, baseline],]
+    result = np.vstack((np.reshape(popt[:-1], (3, -1)), np.full(len(peaks), popt[-1])))
 
     return result.T
 
@@ -118,31 +123,23 @@ def fit_pdf(time, signal, peaks, expected_heights, expected_widths, baseline):
     # Create a time axis for each peak
     rep_time = np.tile(time, (len(peaks), 1)).T
 
-    guess = np.hstack(
-        [
-            expected_heights,
-            peaks,
-            expected_widths,
-            np.full(len(peaks), baseline),
-        ]
-    )
+    guess = np.hstack([expected_heights, peaks, expected_widths, [baseline]])
 
     bounds = (
         np.hstack(
-                [
-                    np.full(len(peaks), x)
-                    for x in [signal.min(), time.min(), expected_widths.min() / 2, 0.0]
-                ]
+            [
+                np.full(len(peaks), signal.min()),
+                np.full(len(peaks), time.min()),
+                np.full(len(peaks), expected_widths.min()),
+                0.0,
+            ]
         ),
         np.hstack(
             [
-                np.full(len(peaks), x)
-                for x in [
-                    signal.max(),
-                    time.max(),
-                    expected_widths.max(),
-                    np.std(time, ddof=1),
-                ]
+                np.full(len(peaks), signal.max()),
+                np.full(len(peaks), time.max()),
+                np.full(len(peaks), expected_widths.max()),
+                np.std(time, ddof=1),
             ]
         ),
     )
@@ -164,11 +161,11 @@ def pdf_wrapper(time, *params):
         Should be divisible into 4xn rows.
     """
 
-    unpack_params = np.reshape(params, (4, -1))
+    baseline = params[-1]
 
-    return pdf(
-        time, unpack_params[0], unpack_params[1], unpack_params[2], unpack_params[3]
-    )
+    unpack_params = np.reshape(params[:-1], (3, -1))
+
+    return pdf(time, unpack_params[0], unpack_params[1], unpack_params[2], baseline)
 
 
 def pdf(time, magnitude, positions, stdev, baseline):
