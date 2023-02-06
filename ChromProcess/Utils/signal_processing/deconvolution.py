@@ -1,205 +1,199 @@
 import numpy as np
+from scipy.stats import norm
 from scipy.optimize import curve_fit
-from ChromProcess.Utils.signal_processing import deconvolution as d_c
+
+from ChromProcess.Classes import Chromatogram
 
 
-def _1gaussian(x, amp1, cen1, sigma1):
+def deconvolute_region(chromatogram, region, num_peaks=1):
     """
-    A single gaussian function
+    Deconvolute a region of a chromatogram.
 
     Parameters
     ----------
-    x: array
-        x axis data
-    amp1: float
-        amplitude of the function
-    cen1: float
-        centre of the function (mean)
-    sigma1: float
-        width of the function (standard deviation)
+    chromatogram: Chromatogram
+        Chromatogram
+    region: list
+        region of chromatogram under operation [lower bound, upper bound]
+    num_peaks: int
+        Number of peaks expected in the region.
 
     Returns
     -------
-    function: numpy array
-        y values for the function
+    result: ndarray
+        Array of fitted values for each peak:
+        [[magnitude, positions, widths, baseline],]
     """
-    return (
-        amp1
-        * (1 / (sigma1 * (np.sqrt(2 * np.pi))))
-        * (np.exp(-((x - cen1) ** 2) / ((2 * sigma1) ** 2)))
+
+    lower, upper = (region[0], region[1])
+
+    # Cut out portion of signal
+    idx = np.where((chromatogram.time > lower) & (chromatogram.time < upper))[0]
+
+    time = chromatogram.time[idx]
+    signal = chromatogram.signal[idx]
+
+    # Find any peaks that have already been picked in the region.
+    relevant_peaks = [
+        chromatogram.peaks[p] for p in chromatogram.peaks if lower <= p <= upper
+    ]
+    peaks = [p.retention_time for p in relevant_peaks]
+
+    # Create default values if no peaks have been found in the region.
+    if len(peaks) > num_peaks:
+        print("Deconvolution warning: deconvoluting more peaks than specified.")
+
+    height_init = np.array([p.height for p in relevant_peaks])
+
+    width_init = np.array(
+        [np.std(chromatogram.time[p.indices], ddof=1) for p in relevant_peaks]
     )
 
+    # Pad out any extra peaks
+    if len(peaks) < num_peaks:
+        pad_len = num_peaks - len(peaks)
 
-def _2gaussian(x, amp1, cen1, sigma1, amp2, cen2, sigma2):
-    """
-    A double gaussian function
+        peaks = np.hstack((peaks, np.linspace(time.min(), time.max(), pad_len)))
 
-    Parameters
-    ----------
-    x: array
-        x axis data
-    ampn: float
-        amplitude of a component gaussian function
-    cenn: float
-        centre of a component gaussian function (mean)
-    sigman: float
-        width of a component gaussian function (standard deviation)
+        width_init = np.pad(
+            width_init,
+            (0, pad_len),
+            mode="constant",
+            constant_values=(0.0, time.std(ddof=1)),
+        )
 
-    Returns
-    -------
-    function: numpy array
-        y values for the function
-    """
-    return d_c._1gaussian(x, amp1, cen1, sigma1) + d_c._1gaussian(x, amp2, cen2, sigma2)
+        height_init = np.pad(
+            height_init,
+            (0, pad_len),
+            mode="constant",
+            constant_values=(0.0, signal.mean()),
+        )
 
+    # Scale heights
+    height_init /= len(height_init)
 
-def _3gaussian(x, amp1, cen1, sigma1, amp2, cen2, sigma2, amp3, cen3, sigma3):
-    return d_c._1gaussian(x, amp1, cen1, sigma1) + d_c._2gaussian(
-        x, amp2, cen2, sigma2, amp3, cen3, sigma3
+    baseline = signal.min()
+
+    popt, pcov = fit_pdf(
+        time,
+        signal,
+        peaks,
+        height_init,
+        width_init,
+        baseline,
     )
 
+    result = np.reshape(popt,(4,-1))
 
-def fit_gaussian_peaks(
-    time,
-    sig,
-    peaks,
-    initial_guess=[10000, 1, 0.005],
-    lowerbounds=[0, 0, 0.0],
-    upperbounds=[1e100, 1, 0.025],
-):
+    return result.T
+
+
+def fit_pdf(time, signal, peaks, expected_heights, expected_widths, baseline):
     """
-    TODO: This kind of function could be useful, but a better adapted function
-        for peak deconvolution should be written. The function could take
-        similar concepts to this one, but with a different concept for its
-        implementation.
-
     Fitting sums of gaussian peaks to data using supplied peak indices.
 
     Parameters
     ----------
-    time: array
+    time: np.ndarray
         time values
-    sig: array
+    signal: np.ndarray
         signal to be fit to
     peaks: list of peak positions
-        list peak positions in the time
-
-    initial_guess: list
-        Initial guess for the peak amplitude, position and width
-        e.g. see _1gaussian() function arguments.
-
-    lowerbounds: list
-        Lower bounds for the peak amplitude, position and width
-        e.g. see _1gaussian() function arguments.
-    upperbounds: list
-        Upper bounds for the peak amplitude, position and width
-        e.g. see _1gaussian() function arguments.
+        list peak positions
+    expected_heights: list | None
+        Initial guess for peak magnitude.
+    expected_widths: list | None
+        Initial guess for peak widths (standard deviation).
+    baseline: float
+        Initial guess for the baseline.
 
     Returns
     -------
-    popt: ndarray
-        list of fitted values [[amplitude, centre, width],]
-    pcov: array
+    popt:
+        list of fitted values [[magnitude, positions, widths, baseline],]
+    pcov:
         correlation matrix
     """
 
-    guess = []  # amp, cen, sig
-    lbds = []
-    ubds = []
+    # Create a time axis for each peak
+    rep_time = np.tile(time, (len(peaks), 1)).T
 
-    for p in range(0, len(peaks)):  # extend the boundary
-        initial_guess[0] = np.amax(sig)
-        initial_guess[1] = peaks[p]
-        lowerbounds[1] = time[0]
-        upperbounds[1] = time[-1]
-        guess.extend(initial_guess)
-        lbds.extend(lowerbounds)
-        ubds.extend(upperbounds)
+    guess = np.hstack(
+        [
+            expected_heights,
+            peaks,
+            expected_widths,
+            np.full(len(peaks), baseline),
+        ]
+    )
 
-    boundarr = [lbds, ubds]
-    if len(peaks) == 1:
-        popt, pcov = curve_fit(d_c._1gaussian, time, sig, p0=guess, bounds=boundarr)
-    elif len(peaks) == 2:
-        popt, pcov = curve_fit(d_c._2gaussian, time, sig, p0=guess, bounds=boundarr)
-    elif len(peaks) == 3:
-        popt, pcov = curve_fit(d_c._3gaussian, time, sig, p0=guess, bounds=boundarr)
-    else:
-        print("Error fitting peaks")
-        popt, pcov = [0, 0, 0], 0
+    bounds = (
+        np.hstack(
+                [
+                    np.full(len(peaks), x)
+                    for x in [signal.min(), time.min(), expected_widths.min() / 2, 0.0]
+                ]
+        ),
+        np.hstack(
+            [
+                np.full(len(peaks), x)
+                for x in [
+                    signal.max(),
+                    time.max(),
+                    expected_widths.max(),
+                    np.std(time, ddof=1),
+                ]
+            ]
+        ),
+    )
+
+    popt, pcov = curve_fit(
+        pdf_wrapper, rep_time, signal, p0=guess, bounds=bounds, method="trf"
+    )
 
     return popt, pcov
 
 
-def deconvolute_region(chromatogram, region, num_peaks=1):
-
+def pdf_wrapper(time, *params):
     """
-    TODO: Combine the ideas in this function with fit_gaussian_peaks()
+    Wrapper for `pdf` to unpack the parameter array for compatibility.
+
+    time: np.ndarray
+    *params:
+        This will take the form of a tuple.
+        Should be divisible into 4xn rows.
+    """
+
+    unpack_params = np.reshape(params, (4, -1))
+
+    return pdf(
+        time, unpack_params[0], unpack_params[1], unpack_params[2], unpack_params[3]
+    )
+
+
+def pdf(time, magnitude, positions, stdev, baseline):
+    """
+    Creates a summed, weighted multi-modal gaussian.
+
+    Make sure time, stdevs, scale, magnitude, baseline are all the same
+    dimension.
 
     Parameters
     ----------
-    chromatogram: ChromProcess Chromatogram object
-        Chromatogram
-    region: list
-        region of chromatogram under operation [lower bound, upper bound]
+    time: np.ndarray
+    magnitude: np.ndarray
+    positions: np.ndarray
+    stdev: np.ndarray
+    baseline: float
 
     Returns
     -------
-    popt: ndarray
-        list of fitted values [[amplitude, centre, width],]
-    pcov: array
-        correlation matrix
+    np.ndarray
     """
 
-    upper = region[1]
-    lower = region[0]
+    res = np.sum(
+        magnitude * norm.pdf(time, loc=positions, scale=stdev) + baseline,
+        axis=1,
+    )
 
-    inds = np.where((chromatogram.time > lower) & (chromatogram.time < upper))[0]
-
-    time = chromatogram.time[inds]
-    signal = chromatogram.signal[inds]
-
-    signal = signal - np.average(signal[-5:-1])
-
-    peak_list = np.array([*chromatogram.peaks])
-    peak_inds = np.where((peak_list > lower) & (peak_list < upper))[0]
-
-    peaks = peak_list[peak_inds]
-
-    while len(peaks) < num_peaks:
-        peaks = np.append(peaks, np.average(peaks))
-
-    if len(peaks) > num_peaks:
-        peaks = peaks[:num_peaks]
-
-    return d_c.fit_gaussian_peaks(time, signal, peaks)
-
-
-def deconvolute_peak(peak, chromatogram, num_peaks=2):
-
-    """
-    TODO: this function is quite similar in scope to deconvolute_region().
-    Refactor with the other two deconvolution macros.
-
-    Parameters
-    ----------
-    chromatogram: ChromProcess Chromatogram object
-        Chromatogram
-    region: list
-        region of chromatogram under operation [lower bound, upper bound]
-
-    Returns
-    -------
-    popt: ndarray
-        list of fitted values [[amplitude, centre, width],]
-    pcov: array
-        correlation matrix
-    """
-
-    peaks = [peak.retention_time for _ in range(num_peaks)]
-    time = chromatogram.time[peak.indices]
-    signal = chromatogram.signal[peak.indices]
-    baseline = np.interp(time, [time[0], time[-1]], [signal[0], signal[-1]])
-
-    signal = signal - baseline
-
-    return d_c.fit_gaussian_peaks(time, signal, peaks)
+    return res
