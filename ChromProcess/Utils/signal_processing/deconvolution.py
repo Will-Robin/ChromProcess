@@ -178,6 +178,8 @@ def pdf(time, magnitude, positions, stdev, baseline):
     Make sure time, stdevs, scale, magnitude, baseline are all the same
     dimension.
 
+    Suggestion courtesy of Mathieu G. Baltussen.
+
     Parameters
     ----------
     time: np.ndarray
