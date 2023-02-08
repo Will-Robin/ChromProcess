@@ -1,8 +1,5 @@
 import numpy as np
 
-from ChromProcess.Writers import data_report_to_csv
-
-
 class DataReport:
     """
     A container for data extracted from a series of chromatograms.
@@ -40,24 +37,6 @@ class DataReport:
         self.series_unit = "not specified"
         self.data = dict()
         self.errors = np.array([])
-
-    def write_to_file(self, filename=""):
-        """
-        Write the data report to a csv file.
-
-        Parameters
-        ----------
-        filename: str
-            name for file
-        path: pathlib Path object
-            Path to folder for file storage.
-
-        Returns
-        -------
-        None
-        """
-
-        data_report_to_csv(self, filename=filename)
 
     def find_repeat_data_entries(self):
         """

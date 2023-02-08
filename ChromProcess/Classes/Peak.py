@@ -1,10 +1,4 @@
 import numpy as np
-from ChromProcess.Utils.utils.functions import inverse_quadratic
-from ChromProcess.Utils.utils.functions import inverse_quadratic_standard_error
-from ChromProcess.Utils.utils.functions import inverse_linear
-
-from ChromProcess.Processing.peak.assign_peak import assign_retention_time
-from ChromProcess.Utils.utils.error_propagation import mult_div_error_prop
 
 
 class Peak:
@@ -14,14 +8,14 @@ class Peak:
 
     def __init__(
         self,
-        retention_time,
-        start,
-        end,
-        indices=[],
-        integral=None,
-        height=None,
-        parent="",
-        mass_spectrum=False,
+        retention_time: float,
+        start: float,
+        end: float,
+        indices: list[int] = [],
+        integral: float = None,
+        height: float = None,
+        parent: str = "",
+        mass_spectrum: list[np.ndarray] = None,
     ):
         """
         Creates a Peak object using a retention time
@@ -81,276 +75,89 @@ class Peak:
 
         self.deconvolution = []
 
-        self.assignment = "Unknown"
+        self.assignment: str = None
 
-        self.concentration = False
+        self.concentration: float = None
 
-        self.conc_error = False
+        self.conc_error: float = None
 
-        self.mass_spectrum = mass_spectrum
+        self.mass_spectrum: list[np.ndarray] = mass_spectrum
 
-        self.parent_peak_collection = parent
+        self.parent_peak_collection: str = parent
 
-    def get_integral(self, chromatogram, baseline_subtract=False):
+    def set_retention_time(self, retention_time: float):
         """
-        Get the integral of the peak using a chromatogram. Note that an
-        arbitray chromatogram can be passed to this method, meaning it is not
-        secure. The baseline substraction substracts a baseliner interpolated
-        linearly between the start and the end of the peak.
+        Set the peak retention time.
 
         Parameters
         ----------
-        chromatogram: ChromProcess Chromatogram object
-        baseline_subtract: bool
+        retention_time: float
+        """
+        self.retention_time = retention_time
+
+    def set_integral(self, integral: float):
+        """
+        Set Integral.
+
+        Parameters
+        ----------
+        integral: float
+        """
+
+        self.integral = integral
+
+    def set_height(self, height: float):
+        """
+        Set the height of the peak.
+
+        Parameters
+        ----------
+        height: float
 
         Returns
         -------
-        self.integral: float
-            Integral of the peak.
+
         """
+        self.height = height
 
-        time = chromatogram.time[self.indices]
-        signal = chromatogram.signal[self.indices]
-
-        if baseline_subtract:
-            time_bound = [time[0], time[-1]]
-            signal_bound = [signal[0], signal[-1]]
-            linterp = np.interp(time, time_bound, signal_bound)
-            self.integral = np.trapz(signal - linterp, x=time)
-        else:
-            self.integral = np.trapz(signal, x=time)
-
-        return self.integral
-
-    def get_height(self, chromatogram):
+    def set_concentration(self, concentration: float):
         """
-        Get the height of the peak.
+        Set the peak concentration.
 
         Parameters
         ----------
-        chromatogram: ChromProcess Chromatogram object
+        concentration: float
 
         Returns
         -------
-        self.height: float
-            Height of the peak.
+
         """
+        self.concentration = concentration
 
-        idx = np.where(chromatogram.time == self.retention_time)[0]
-        if len(idx) > 0:
-            self.height = chromatogram.signal[idx[0]]
-        else:
-            print("Peak.get_height(): ")
-            print(
-                f"""Could not find Peak retention time ({self.retention_time})
-                    in Chromatogram ({chromatogram.filename})."""
-            )
-            print(f"Peak.height = {self.height}.")
-
-        return self.height
-
-    def get_mass_spectrum(self, chromatogram):
+    def set_conc_error(self, error: float):
         """
-        Get the mass spectrum at the apex of the peak.
+        Set the concentration error of the peak.
 
         Parameters
         ----------
-        chromatogram: ChromProcess.Classes.Chromatogram
-            Parent chromatogram of the peak.
+        error: float
 
-        Return
-        ------
-        self.mass_spectrum
-            Mass spectrum.
+        Returns
+        -------
+
         """
+        self.conc_error = error
 
-        if len(chromatogram.scan_indices) == 0:
-            # no mass spectral information in the chromatogram
-            pass
-        else:
-            time = chromatogram.time
-
-            ind = np.where(time == self.retention_time)[0]
-
-            start = chromatogram.scan_indices[ind][0]
-            end = start + chromatogram.point_counts[ind][0]
-
-            self.mass_spectrum = [
-                np.round(chromatogram.mass_values[start:end], 2),
-                chromatogram.mass_intensity[start:end],
-            ]
-
-        return self.mass_spectrum
-
-    def reference_integral_to_IS(self, IS_integral):
+    def set_assignment(self, assignment: str):
         """
-        Divide the peak integral by IS_integral.
+        Get the assignment of a peak.
 
         Parameters
         ----------
-        IS_integral: float
+        assignment: str
 
         Returns
         -------
         None
         """
-
-        if IS_integral > 0.0:
-            self.integral = self.integral / IS_integral
-        else:
-            pass
-
-    def reference_height_to_IS(self, IS_height):
-        """
-        Divide the peak integral by IS_height.
-
-        Parameters
-        ----------
-        IS_height: float
-
-        Returns
-        -------
-        None
-        """
-
-        if IS_height > 0.0:
-            self.height = self.height / IS_height
-        else:
-            pass
-
-    def assign_peak(self, boundaries):
-        """
-        Assign a name to the peak using boundaries.
-
-        Parameters
-        ----------
-        boundaries: dict
-            {'compound name': [lower bound, upper bound]}
-
-        Returns
-        -------
-        None
-        """
-
-        self.assignment = assign_retention_time(self.retention_time, boundaries)
-
-    def apply_linear_calibration(self, A, B, internal_standard=1.0):
-        """
-        Apply a linear calibration conversion to the peak integral to obtain a
-        concentration value.
-
-        $y = A*x + B$
-
-        Parameters
-        ----------
-        A: float
-        B: float
-        internal_standard: float
-
-        Returns
-        -------
-        None
-        """
-
-        c1 = inverse_linear(self.integral, A, B)
-        self.concentration = internal_standard * c1
-
-    def apply_quadratic_calibration(self, A, B, C, internal_standard=1.0):
-        """
-        Apply a quadratic calibration conversion to the peak integral to obtain
-        a concentration value.
-
-        $y = A*x^2 + B*x + C$
-
-        Parameters
-        ----------
-        A, B, C, internal_standard: float
-
-        Returns
-        -------
-        None
-        """
-
-        c1 = inverse_quadratic(self.integral, A, B, C)
-
-        self.concentration = internal_standard * c1
-
-        if np.isnan(self.concentration):
-            self.apply_linear_calibration(B, C, internal_standard=internal_standard)
-
-    def calculate_error(self, calibrations, IS_conc, IS_conc_err):
-        """
-        Calculation of the standard error on a concentration estimation from
-        the calibration.
-
-        Modifies Peak object attributes.
-
-        Parameters
-        ----------
-        calibrations: ChromProcess Instrument_Calibration object
-            Contains calibration information.
-        IS_conc: float
-            Concentration of the internal standard.
-        IS_conc_err: float
-            Concentration error for the internal standard.
-
-        Returns
-        -------
-        None
-        """
-
-        assign = self.assignment
-        yhat = self.integral
-        sy2 = 1e-10
-
-        if assign in calibrations.calibration_factors:
-
-            a = calibrations.calibration_factors[assign]["A"]
-            b = calibrations.calibration_factors[assign]["B"]
-            c = calibrations.calibration_factors[assign]["C"]
-
-            sa2 = calibrations.calibration_factors[assign]["A_variance"]
-            sb2 = calibrations.calibration_factors[assign]["B_variance"]
-            sc2 = calibrations.calibration_factors[assign]["C_variance"]
-
-            sab = calibrations.calibration_factors[assign]["AB_covariance"]
-            sac = calibrations.calibration_factors[assign]["AC_covariance"]
-            sbc = calibrations.calibration_factors[assign]["BC_covariance"]
-
-            err = inverse_quadratic_standard_error(
-                yhat, sy2, a, b, c, sa2, sb2, sc2, sab, sac, sbc
-            )
-            err = np.nan_to_num(err)
-            val = inverse_quadratic(yhat, a, b, c)
-            err = (
-                IS_conc * val * mult_div_error_prop([val, IS_conc], [err, IS_conc_err])
-            )
-
-            self.conc_error = np.nan_to_num(err)
-
-    def dilution_correction(self, factor, factor_error):
-        """
-        Apply a correction to obtain the sample concentration considering its
-        dilution before analysis.
-
-        Parameters
-        ----------
-        factor: float
-            Factor by which the concentration value must be multiplied to
-            obtain the sample concentration before dilution.
-        factor_error: float
-            Error for the dilution factor.
-
-        Returns
-        -------
-        None
-        """
-
-        err = mult_div_error_prop(
-            [self.concentration, factor], [self.conc_error, factor_error]
-        )
-
-        corr_conc = self.concentration * factor
-        err *= corr_conc
-        self.concentration = corr_conc
-        self.conc_error = err
+        self.assignment = assignment

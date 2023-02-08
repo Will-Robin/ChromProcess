@@ -1,11 +1,6 @@
 import numpy as np
 
-from ChromProcess.Classes import Peak
-
-from ChromProcess.Writers import chromatogram_to_csv
-from ChromProcess.Writers import chromatogram_to_json
-from ChromProcess.Writers import chromatogram_to_peak_collection
-
+from .peak import Peak
 
 class Chromatogram:
     """
@@ -42,21 +37,21 @@ class Chromatogram:
             The internal standard peak.
         """
 
-        self.filename = ""
-        self.x_unit = ""
-        self.y_unit = ""
+        self.filename: str = ""
+        self.x_unit: str = ""
+        self.y_unit: str = ""
 
-        self.time = []
-        self.signal = []
+        self.time: np.ndarray = []
+        self.signal: np.ndarray = []
 
-        self.peaks = dict()
+        self.peaks: dict[float, Peak] = dict()
 
-        self.mz_values = []
-        self.mz_intensity = []
-        self.scan_indices = []
-        self.point_counts = []
+        self.mz_values: np.ndarray = []
+        self.mz_intensity: np.ndarray = []
+        self.scan_indices: np.ndarray = []
+        self.point_counts: np.ndarray = []
 
-        self.internal_standard = Peak(0.0, 0.0, 0.0)
+        self.internal_standard: Peak = Peak(0.0, 0.0, 0.0)
 
     def add_peaks(self, peaks):
         """
@@ -77,22 +72,20 @@ class Chromatogram:
             peak.indices = indices
             self.peaks[rt] = peak
 
-    def integrate_peaks(self, baseline_subtract=False):
+    def set_internal_standard(self, peak: Peak):
         """
-        Integrate all of the peaks in a chromatogram.
+        Set the internal standard of the chromatogram.
 
         Parameters
         ----------
-        baseline_subtract: bool
-            Whether to perform a local baseline subtraction on the peak.
+        peak: Peak
 
         Returns
-        ------
-        None
-        """
+        -------
 
-        for p in self.peaks:
-            self.peaks[p].get_integral(self, baseline_subtract=baseline_subtract)
+        """
+        self.internal_standard = peak
+
 
     def get_mass_spectrum(self, time):
         """
@@ -121,7 +114,7 @@ class Chromatogram:
 
         return m_z, intensity
 
-    def ion_chromatogram(self, clusters):
+    def get_ion_chromatogram(self, clusters):
         """
         Get all ion chromatograms from the Chromatogram using
         pre-defined clusters of m/z values to bin signals.
@@ -161,56 +154,3 @@ class Chromatogram:
                             break
 
         return ion_dict
-
-    def write_to_csv(self, filename=""):
-        """
-        Write to csv.
-
-        Parameters
-        ----------
-        filename: str
-            Name for the output file
-
-        Returns
-        -------
-        None
-        """
-
-        chromatogram_to_csv(self, filename=filename)
-
-    def write_to_json(self, filename=""):
-        """
-        Write to json.
-
-        Parameters
-        ----------
-        filename: str
-            Name for the output file
-
-        Returns
-        -------
-        None
-        """
-
-        chromatogram_to_json(self, filename=filename)
-
-    def write_peak_collection(self, filename="", header_text=""):
-        """
-        Write the peaks in a chromatogram file to a formatted peak collection
-        file.
-
-        Parameters
-        ----------
-        filename: str
-            Name for the output file.
-        header_text: str
-            Extra text to add at the top of the file
-
-        Returns
-        -------
-        None
-        """
-
-        chromatogram_to_peak_collection(
-            self, filename=filename, header_text=header_text
-        )

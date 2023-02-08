@@ -1,6 +1,7 @@
 import numpy as np
-from ChromProcess import Classes
-from ChromProcess.Writers import peak_collection_to_csv
+from .peak import Peak
+from .mass_spectrum import MassSpectrum
+from .instrument_calibration import InstrumentCalibration
 
 
 class PeakCollection:
@@ -20,7 +21,7 @@ class PeakCollection:
             Value of the point in the series at which the peaks were measured.
         self.series_unit: str
             Unit for the series values.
-        self.internal_standard: Classes.Peak
+        self.internal_standard: Peak
             The internal standard Peak
         self.peaks: list
             List of peaks.
@@ -36,8 +37,8 @@ class PeakCollection:
         self.filename = "not specified"
         self.series_value = 0.0
         self.series_unit = "not specified"
-        self.internal_standard = Classes.Peak(0.0, 0.0, 0.0)
-        self.peaks = [Classes.Peak(0.0, 0.0, 0.0)]
+        self.internal_standard = Peak(0.0, 0.0, 0.0)
+        self.peaks = [Peak(0.0, 0.0, 0.0)]
         self.mass_spectra = []
         self.initial_IS_pos = 0.0
         self.assigned_compounds = []
@@ -111,7 +112,7 @@ class PeakCollection:
 
         Parameters
         ----------
-        ms_list: list[ChromProcess.Classes.MassSpectrum]
+        ms_list: list[MassSpectrum]
             Mass spectra to be added.
 
         Returns
@@ -201,7 +202,7 @@ class PeakCollection:
 
         Parameters
         ----------
-        calibrations: ChromProcess.Classes.Instrument_Calibration
+        calibrations: InstrumentCalibration
             Container for calibration information
         IS_conc: float
             internal standard concentration
@@ -238,7 +239,7 @@ class PeakCollection:
 
         Parameters
         ----------
-        calibrations: ChromProcess.Classes.Instrument_Calibration
+        calibrations: InstrumentCalibration
             Contains calibration information.
         IS_conc: float
         IS_conc_err: float
@@ -293,18 +294,3 @@ class PeakCollection:
         self.assigned_compounds = sorted(assigns, key=lambda x: x.count("C"))
 
         return self.assigned_compounds[:]
-
-    def write_to_file(self, directory=""):
-        """
-        Write the object to a structured file.
-
-        Parameters
-        ----------
-        directory: str or pathlib Path
-
-        Returns
-        -------
-        None
-        """
-
-        peak_collection_to_csv(self, directory=directory)

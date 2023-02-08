@@ -8,15 +8,13 @@ getting data. Often, they call code from another submodule of ChromProcess, and
 can be considered as shorthand for common operations.
 """
 
-from ChromProcess.Classes.Peak import Peak
-from ChromProcess.Classes.Chromatogram import Chromatogram
-from ChromProcess.Classes.MassSpectrum import MassSpectrum
+from .peak import Peak
+from .peak_collection import PeakCollection
+from .chromatogram import Chromatogram
+from .mass_spectrum import MassSpectrum
 
-from ChromProcess.Classes.PeakCollection import PeakCollection
-from ChromProcess.Classes.PeakCollectionSeries import PeakCollectionSeries
+from .instrument_calibration import InstrumentCalibration
+from .analysis_information import AnalysisInformation
+from .experiment_conditions import ExperimentConditions
 
-from ChromProcess.Classes.InstrumentCalibration import InstrumentCalibration
-from ChromProcess.Classes.AnalysisInformation import AnalysisInformation
-from ChromProcess.Classes.ExperimentConditions import ExperimentConditions
-
-from ChromProcess.Classes.DataReport import DataReport
+from .data_report import DataReport
