@@ -1,17 +1,81 @@
 from pathlib import Path
+from ChromProcess.Classes import PeakCollection
+from ChromProcess.Classes import AnalysisInformation
 
 from ChromProcess.Utils.utils import utils
 from ChromProcess.Writers.general import write_header
 
 
-def peak_collection_series_conc_report_text(peak_collection_series, information):
+def series_traces_as_dict(peak_collections: list[PeakCollection]):
+    """
+    Create dictionaries of peak series values derived using the
+    self.clusters.
+
+    Parameters
+    ----------
+
+    Returns
+    -------
+    conc_dict: dict
+    err_dict: dict
+    integral_dict: dict
+    """
+
+    conc_dict = dict()
+    err_dict = dict()
+    integral_dict = dict()
+    height_dict = dict()
+
+    if len(self.cluster_assignments) == 0:
+        cluster_names = ["" for _ in self.clusters]
+    else:
+        cluster_names = [n.split(" ")[0] for n in self.cluster_assignments]
+
+    for c1, pc in enumerate(self.peak_collections):
+
+        for c2, clust in enumerate(self.clusters):
+            if len(clust) == 0:
+                continue
+
+            name = cluster_names[c2]
+            average_position = round(sum(clust) / len(clust), 3)
+
+            for pk in pc.peaks:
+                if pk.retention_time in clust:
+                    if pk.integral:
+                        token = name + f" [{average_position}]"
+                        if token not in integral_dict:
+                            integral_dict[token] = [0.0 for _ in self.series_values]
+                        integral_dict[token][c1] += pk.integral
+
+                    if pk.height:
+                        token = name + f" [{average_position}]"
+                        if token not in height_dict:
+                            height_dict[token] = [0.0 for _ in self.series_values]
+                        height_dict[token][c1] += pk.height
+
+                    if pk.concentration:
+                        token = name + "/ M"
+                        if token not in conc_dict:
+                            conc_dict[token] = [0.0 for _ in self.series_values]
+                        conc_dict[token][c1] += pk.concentration
+
+                    if pk.conc_error:
+                        token = name + "/ M"
+                        if token not in err_dict:
+                            err_dict[token] = [0.0 for _ in self.series_values]
+                        err_dict[token][c1] += pk.conc_error
+
+    return conc_dict, err_dict, integral_dict, height_dict
+
+def peak_collection_series_conc_report_text(peak_collection: list[PeakCollection], information: AnalysisInformation) -> str:
     """
     Write a peak collection series as formatted data report text.
 
     Parameters
     ----------
-    peak_collection_series: Classes.PeakCollectionSeries
-    information: ChromProcess Analysis_Information object
+    peak_collection_series: list[PeakCollection]
+    information: AnalysisInformation
 
     Returns
     -------
@@ -19,7 +83,7 @@ def peak_collection_series_conc_report_text(peak_collection_series, information)
     """
 
     # create output dictionaries
-    conc_dict, err_dict, _, _ = peak_collection_series.series_traces_as_dict()
+    conc_dict, err_dict, _, _ = series_traces_as_dict()
 
     # create spreadsheet-like output
     conc_header, conc_grid = utils.peak_dict_to_spreadsheet(

@@ -1,10 +1,13 @@
-def write_chromatogram_csv_text(chromatogram):
+from ChromProcess.Classes import Chromatogram
+
+
+def write_chromatogram_csv_text(chromatogram: Chromatogram) -> str:
     """
     Write the text for a chromatogram in a column-wise csv format.
 
     Parameters
     ----------
-    chromatogram: ChromProcess.Classes.Chromatogram
+    chromatogram: Chromatogram
         Chromatogram to be converted.
 
     Returns
@@ -27,13 +30,13 @@ def write_chromatogram_csv_text(chromatogram):
     return csv_string
 
 
-def chromatogram_to_csv(chromatogram, filename=""):
+def chromatogram_to_csv(chromatogram: Chromatogram, filename: str = "") -> None:
     """
     Write chromatogram to a .csv file.
 
     Parameters
     ----------
-    chromatogram: Classes.Chromatogram
+    chromatogram: Chromatogram
         Chromatogram to be converted.
     filename: str
         Name for the file.

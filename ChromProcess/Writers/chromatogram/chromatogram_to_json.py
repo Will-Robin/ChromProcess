@@ -1,13 +1,14 @@
 import json
+from ChromProcess.Classes import Chromatogram
 
 
-def write_chromatogram_json_text(chromatogram):
+def write_chromatogram_json_text(chromatogram: Chromatogram) -> str:
     """
     Write the text for a chromatogram in json format.
 
     Parameters
     ----------
-    chromatogram: ChromProcess.Classes.Chromatogram
+    chromatogram: Chromatogram
         Chromatogram to be converted.
 
     Returns
@@ -40,13 +41,13 @@ def write_chromatogram_json_text(chromatogram):
     return json_string
 
 
-def chromatogram_to_json(chromatogram, filename=""):
+def chromatogram_to_json(chromatogram: Chromatogram, filename: str = "") -> None:
     """
     Write chromatogram to a .json file.
 
     Parameters
     ----------
-    chromatogram: Classes.Chromatogram
+    chromatogram: Chromatogram
         Chromatogram to be converted.
     filename: str
         Name for the file.

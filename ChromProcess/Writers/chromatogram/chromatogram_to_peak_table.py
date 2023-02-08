@@ -1,15 +1,18 @@
+from ChromProcess.Classes import Chromatogram
 from ChromProcess.Writers.peak.peak_to_entry_text import peak_to_entry_text
 
 
-def write_peak_collection_text(chromatogram, header_text=""):
+def write_peak_collection_text(
+    chromatogram: Chromatogram, header_text: str = ""
+) -> str:
     """
     Create the text for a peak collection based on the Peak objects in the
     chromatogram.
 
     Parameters
     ----------
-    chromatogram: ChromProcess.Classes.Chromatogram
-    header_text: string
+    chromatogram: Chromatogram
+    header_text: str
 
     Returns
     -------
@@ -45,9 +48,11 @@ def write_peak_collection_text(chromatogram, header_text=""):
     return peak_collection_string
 
 
-def chromatogram_to_peak_collection(
-    chromatogram, filename="peak_collection.csv", header_text=""
-):
+def chromatogram_to_peak_table(
+    chromatogram: Chromatogram,
+    filename: str = "peak_collection.csv",
+    header_text: str = "",
+) -> None:
     """
     For writing peak integrals from a chromatogram to a .csv file.
 

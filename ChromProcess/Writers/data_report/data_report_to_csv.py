@@ -1,14 +1,15 @@
+from ChromProcess.Classes import DataReport
 from ChromProcess.Utils.utils import utils
 from ChromProcess.Writers.general import write_header
 
 
-def write_data_report_text(data_report):
+def write_data_report_text(data_report: DataReport) -> str:
     """
     Write a formatted text version of the data report.
 
     Parameters
     ----------
-    data_report: ChromProcess.Classes.DataReport
+    data_report: DataReport
         DataReport to convert to text.
 
     Returns
@@ -66,13 +67,13 @@ def write_data_report_text(data_report):
     return data_report_text
 
 
-def data_report_to_csv(data_report, filename=""):
+def data_report_to_csv(data_report: DataReport, filename: str = "") -> None:
     """
     Write a data report to a csv file.
 
     Parameters
     ----------
-    data_report: Classes.DataReport
+    data_report: DataReport
         DataReport to write to file.
     filename: str
         name for file

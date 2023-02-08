@@ -1,10 +1,13 @@
-def mass_spectrum_to_string_rows(mass_spectrum):
+from ChromProcess.Classes import MassSpectrum
+
+
+def mass_spectrum_to_string_rows(mass_spectrum: MassSpectrum) -> str:
     """
     Write a row-wise csv for the mass spectrum.
 
     Parameters
     ----------
-    mass_spectrum: ChromProcess.Classes.MassSpectrum
+    mass_spectrum: MassSpectrum
 
     Returns
     -------
@@ -25,13 +28,13 @@ def mass_spectrum_to_string_rows(mass_spectrum):
     return ms_string
 
 
-def mass_spectrum_to_string_cols(mass_spectrum):
+def mass_spectrum_to_string_cols(mass_spectrum: MassSpectrum) -> str:
     """
     Write a row-wise csv for the mass spectrum.
 
     Parameters
     ----------
-    mass_spectrum: Classes.MassSpectrum
+    mass_spectrum: MassSpectrum
 
     Returns
     -------

@@ -1,4 +1,10 @@
-def write_conditions_header(name, conditions, information):
+from ChromProcess.Classes import ExperimentConditions
+from ChromProcess.Classes import AnalysisInformation
+
+
+def write_conditions_header(
+    name: str, conditions: ExperimentConditions, information: AnalysisInformation
+) -> str:
     """
     Write the text for a formatted file header detailing experiment
     information.
@@ -6,8 +12,8 @@ def write_conditions_header(name, conditions, information):
     Parameters
     ----------
     name: str
-    conditions: ChromProcess.Classes.ExperimentConditions
-    information: ChromProcess.Classes.AnalysisInformation
+    conditions: ExperimentConditions
+    information: AnalysisInformation
 
     Returns
     -------
