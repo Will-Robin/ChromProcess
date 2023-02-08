@@ -1,6 +1,6 @@
 import numpy as np
 
-from ChromProcess import Classes
+from ChromProcess.Classes import Peak
 
 from ChromProcess.Writers import chromatogram_to_csv
 from ChromProcess.Writers import chromatogram_to_json
@@ -38,7 +38,7 @@ class Chromatogram:
             Container for the scan indices from mass spectra.
         self.point_counts: numpy.ndarray[np.int]
             Container for the point counts from mass spectra.
-        self.internal_standard: ChromProcess.Classes.Peak
+        self.internal_standard: Peak
             The internal standard peak.
         """
 
@@ -56,7 +56,43 @@ class Chromatogram:
         self.scan_indices = []
         self.point_counts = []
 
-        self.internal_standard = Classes.Peak(0.0, 0.0, 0.0)
+        self.internal_standard = Peak(0.0, 0.0, 0.0)
+
+    def add_peaks(self, peaks):
+        """
+        Add peaks to a chromatogram.
+
+        Parameters
+        ----------
+        peaks: list[Peak]
+
+        Returns
+        ------
+        None
+        """
+
+        for peak in peaks:
+            rt = peak.retention_time
+            indices = np.where((self.time >= peak.start) & (self.time <= peak.end))[0]
+            peak.indices = indices
+            self.peaks[rt] = peak
+
+    def integrate_peaks(self, baseline_subtract=False):
+        """
+        Integrate all of the peaks in a chromatogram.
+
+        Parameters
+        ----------
+        baseline_subtract: bool
+            Whether to perform a local baseline subtraction on the peak.
+
+        Returns
+        ------
+        None
+        """
+
+        for p in self.peaks:
+            self.peaks[p].get_integral(self, baseline_subtract=baseline_subtract)
 
     def get_mass_spectrum(self, time):
         """
