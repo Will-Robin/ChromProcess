@@ -1,5 +1,6 @@
-from ChromProcess import Classes
+from ChromProcess.Classes import Peak
 from ChromProcess.Utils.utils import utils
+from ChromProcess.Processing.peak import operations
 from ChromProcess.Utils.peak_finding import pick_peaks as pfind
 
 
@@ -48,8 +49,9 @@ def find_peaks_in_region(chromatogram, start, end, threshold=0.1):
 
         p_inds = utils.indices_from_boundary(chromatogram.time, start, end)
 
-        new_peak = Classes.Peak(retention_time, start, end, indices=p_inds)
-        new_peak.get_height(chromatogram)
+        new_peak = Peak(retention_time, start, end, indices=p_inds)
+        new_peak.set_height(operations.get_peak_height(new_peak, chromatogram))
+        new_peak.set_integral(operations.get_peak_integral(new_peak, chromatogram))
 
         peaks.append(new_peak)
 
