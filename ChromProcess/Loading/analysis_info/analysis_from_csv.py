@@ -1,20 +1,20 @@
-from ChromProcess import Classes
+from ChromProcess.Classes import AnalysisInformation
 
 
-def analysis_from_csv(fname):
+def analysis_from_csv(fname: str) -> AnalysisInformation:
     """
     Create and AnalysisInformation object from a formatted csv file.
 
     Parameters
     ----------
-    fname: str or pathlib Path
+    fname: str
 
     Returns
     -------
-    analysis: ChromProcess.Classes.AnalysisInformation
+    analysis: AnalysisInformation
     """
 
-    analysis = Classes.AnalysisInformation()
+    analysis = AnalysisInformation()
 
     rdlin = lambda x: [e for e in x.strip("\n").split(",") if e != ""]
 

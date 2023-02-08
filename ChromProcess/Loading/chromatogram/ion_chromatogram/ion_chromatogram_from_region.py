@@ -1,15 +1,18 @@
 import numpy as np
 from ChromProcess.Utils.utils import utils
+from ChromProcess.Classes import Chromatogram
 
 
-def ion_chromatogram_from_region(chromatogram, lower, upper, threshold=0.1):
+def ion_chromatogram_from_region(
+    chromatogram: Chromatogram, lower: float, upper: float, threshold: float = 0.1
+) -> dict[float, np.ndarray]:
     """
     Get the ion chromatograms for a region of a chromatogram. Requires mass
     spectra information to be present in the chromatogram.
 
     Parameters
     ----------
-    chromatogram: ChromProcess Chromatogram object
+    chromatogram: Chromatogram
         Chromatogram containing information
     lower: float
         Lower bound for retention time region in chromatogram
@@ -21,7 +24,7 @@ def ion_chromatogram_from_region(chromatogram, lower, upper, threshold=0.1):
 
     Returns
     -------
-    ion_chromatograms: dict
+    ion_chromatograms: dict[float, np.ndarray]
         dictionary of ion chromatograms
         {m/z: intensities over time}
     """

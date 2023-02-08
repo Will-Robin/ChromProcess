@@ -1,11 +1,11 @@
 from pathlib import Path
-from ChromProcess import Classes
+from ChromProcess.Classes import Chromatogram
 
 from ChromProcess.Loading.chromatogram.cdf.instruments import JEOL
 from ChromProcess.Loading.chromatogram.cdf.cdf_loading import load_from_cdf
 
 
-def chrom_from_cdf(filename, instrument=JEOL, load_ms=False):
+def chrom_from_cdf(filename: str, instrument: JEOL =JEOL, load_ms: bool=False)-> Chromatogram:
     """
     Load a chromatogram from .cdf file.
 
@@ -17,7 +17,7 @@ def chrom_from_cdf(filename, instrument=JEOL, load_ms=False):
 
     Returns
     -------
-    chrom: ChromProcess Chromatogram
+    chrom: Chromatogram
     """
 
     if isinstance(filename, str):
@@ -40,7 +40,7 @@ def chrom_from_cdf(filename, instrument=JEOL, load_ms=False):
 
     data_container = load_from_cdf(fname, data_keys)
 
-    chrom = Classes.Chromatogram()
+    chrom = Chromatogram()
 
     chrom.time = data_container[instrument.TIME_KEY] / instrument.TIME_CONVERSION
     chrom.signal = data_container[instrument.TIC_KEY]

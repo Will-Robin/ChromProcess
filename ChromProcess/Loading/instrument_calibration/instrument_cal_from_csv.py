@@ -1,8 +1,8 @@
 from pathlib import Path
-from ChromProcess import Classes
+from ChromProcess.Classes import InstrumentCalibration
 
 
-def instrument_cal_from_csv(filename):
+def instrument_cal_from_csv(filename: str) -> InstrumentCalibration:
     """
     Create an InstrumentCalibration object from a formatted .csv file.
 
@@ -13,7 +13,7 @@ def instrument_cal_from_csv(filename):
 
     Returns
     -------
-    calibration: ChromProcess.Classes.InstrumentCalibration
+    calibration: InstrumentCalibration
     """
 
     if isinstance(filename, str):
@@ -21,7 +21,7 @@ def instrument_cal_from_csv(filename):
     else:
         file = filename
 
-    calibration = Classes.InstrumentCalibration()
+    calibration = InstrumentCalibration()
     calibration.filename = file.name
 
     rdlin = lambda x: [e for e in x.strip("\n").split(",") if e != ""]

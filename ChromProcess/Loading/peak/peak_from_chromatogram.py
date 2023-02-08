@@ -1,14 +1,15 @@
 import numpy as np
-from ChromProcess import Classes
+from ChromProcess.Classes import Peak
+from ChromProcess.Classes import Chromatogram
 
 
-def peak_from_chromatogram(chrom, start, end):
+def peak_from_chromatogram(chrom: Chromatogram, start: float, end: float) -> Peak:
     """
     Create a peak using the boundaries defined within a chromatogram.
 
     Parameters
     ----------
-    chrom: ChromProcess.Classes.Chromatogram
+    chrom: Chromatogram
     start: float
         Start of the peak
     end: float
@@ -16,7 +17,7 @@ def peak_from_chromatogram(chrom, start, end):
 
     Returns
     -------
-    peak: ChromProcess.Classes.Peak
+    peak: Peak
         peak created from the bounds
     """
 
@@ -34,7 +35,7 @@ def peak_from_chromatogram(chrom, start, end):
 
     start = timeseg[0]
     end = timeseg[-1]
-    peak = Classes.Peak(retention_time, start, end, indices=inds)
+    peak = Peak(retention_time, start, end, indices=inds)
     peak.get_height(chrom)
 
     return peak

@@ -1,8 +1,14 @@
 import numpy as np
-from ChromProcess import Classes
+from ChromProcess.Classes import Chromatogram
 
 
-def chrom_from_text(x_values, y_values, x_unit, y_unit, filename):
+def chrom_from_text(
+    x_values: list[float],
+    y_values: list[float],
+    x_unit: str,
+    y_unit: str,
+    filename: str,
+) -> Chromatogram:
     """
     Create a chromatogram object and insert time and signal information into
     it.
@@ -17,7 +23,7 @@ def chrom_from_text(x_values, y_values, x_unit, y_unit, filename):
 
     Returns
     -------
-    chrom: ChromProcess.Classes.Chromatogram
+    chrom: Chromatogram
         Chromatogram derived from information in the file.
 
     """
@@ -27,7 +33,7 @@ def chrom_from_text(x_values, y_values, x_unit, y_unit, filename):
     assert isinstance(x_unit, str), "x_unit arg should be str"
     assert isinstance(y_unit, str), "y_unit arg should be str"
 
-    chrom = Classes.Chromatogram()
+    chrom = Chromatogram()
     chrom.filename = filename
 
     chrom.x_unit = x_unit

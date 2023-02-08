@@ -2,10 +2,11 @@ import json
 import numpy as np
 from pathlib import Path
 
-from ChromProcess import Classes
+from ChromProcess.Classes import Peak
+from ChromProcess.Classes import Chromatogram
 
 
-def chrom_from_json(filename):
+def chrom_from_json(filename: str) -> Chromatogram:
     """
     Load a chromatogram from a .json file:
 
@@ -34,7 +35,7 @@ def chrom_from_json(filename):
 
     Returns
     -------
-    chrom: ChromProcess.Classes.Chromatogram
+    chrom: Chromatogram
         Chromatogram derived from information in the file.
     """
 
@@ -50,7 +51,7 @@ def chrom_from_json(filename):
 
     chrom_dict = json.loads(text)
 
-    chrom = Classes.Chromatogram()
+    chrom = Chromatogram()
 
     chrom.time = np.array(chrom_dict["time"])
     chrom.signal = np.array(chrom_dict["signal"])
@@ -62,7 +63,7 @@ def chrom_from_json(filename):
         end = peak["end"]
 
         inds = np.where((chrom.time >= start) & (chrom.time <= end))[0]
-        chrom.peaks[retention_time] = Classes.Peak(
+        chrom.peaks[retention_time] = Peak(
             retention_time, start, end, indices=inds, integral=peak["integral"]
         )
 

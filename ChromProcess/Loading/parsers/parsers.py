@@ -1,4 +1,6 @@
-def parse_text_columns(text, point_delimiter, ordinal_delimiter):
+def parse_text_columns(
+    text: str, point_delimiter: str, ordinal_delimiter: str
+) -> list[str]:
     """
     Converts data organised in columns in a text file and converts it to a list
     of lists [[x values],[y values]].
@@ -29,7 +31,7 @@ def parse_text_columns(text, point_delimiter, ordinal_delimiter):
     return data
 
 
-def import_file_section(file, start_token, end_token):
+def import_file_section(file: str, start_token: str, end_token: str) -> str:
     """
     Load a section of lines between two tokens.
 

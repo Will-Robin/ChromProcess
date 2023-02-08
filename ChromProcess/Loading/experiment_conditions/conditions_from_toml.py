@@ -1,8 +1,8 @@
 import tomli
-from ChromProcess import Classes
+from ChromProcess.Classes import ExperimentConditions
 
 
-def conditions_from_toml(filename):
+def conditions_from_toml(filename: str) -> ExperimentConditions:
     """
     Create a ExperimentConditions object from a .toml file.
 
@@ -13,10 +13,10 @@ def conditions_from_toml(filename):
 
     Returns
     -------
-    conditions: ChromProcess.Classes.ExperimentConditions
+    conditions: ExperimentConditions
     """
 
-    conditions = Classes.ExperimentConditions()
+    conditions = ExperimentConditions()
 
     with open(filename, "r") as f:
         text = f.read()

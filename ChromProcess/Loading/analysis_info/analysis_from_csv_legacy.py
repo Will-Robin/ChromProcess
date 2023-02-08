@@ -1,7 +1,7 @@
-from ChromProcess import Classes
+from ChromProcess.Classes import AnalysisInformation
 
 
-def analysis_from_csv_legacy(fname):
+def analysis_from_csv_legacy(fname: str) -> AnalysisInformation:
     """
     Create and AnalysisInformation object from a formatted csv file.
     Written for an older version of the file format.
@@ -12,10 +12,10 @@ def analysis_from_csv_legacy(fname):
 
     Returns
     -------
-    analysis: ChromProcess.Classes.AnalysisInformation
+    analysis: AnalysisInformation
     """
 
-    analysis = Classes.AnalysisInformation()
+    analysis = AnalysisInformation()
 
     rdlin = lambda x: [e for e in x.strip("\n").split(",") if e != ""]
 

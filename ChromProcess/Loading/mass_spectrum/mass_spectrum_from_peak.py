@@ -1,8 +1,10 @@
 import numpy as np
-from ChromProcess import Classes
+from ChromProcess.Classes import Peak
+from ChromProcess.Classes import Chromatogram
+from ChromProcess.Classes import MassSpectrum
 
 
-def mass_spectrum_from_peak(peak, chromatogram):
+def mass_spectrum_from_peak(peak: Peak, chromatogram: Chromatogram) -> MassSpectrum:
     """
     Get the mass spectrum at the apex of a peak. Inserts the mass spectrum into
     the Peak object and returns the mass spectrum. If mass spectra information
@@ -11,14 +13,14 @@ def mass_spectrum_from_peak(peak, chromatogram):
 
     Parameters
     ----------
-    peak: ChromProcess.Classes.Peak
+    peak: Peak
         Peak to find mass spectrum for.
-    chromatogram: ChromProcess.Classes.Chromatogram
+    chromatogram: Chromatogram
         Parent chromatogram for the peak
 
     Returns
     -------
-    mass_spectrum: ChromProcess.Classes.MassSpectrum
+    mass_spectrum: MassSpectrum
     """
 
     if len(chromatogram.mz_values) > 0:
@@ -31,9 +33,9 @@ def mass_spectrum_from_peak(peak, chromatogram):
         intensities = chromatogram.mz_intensity[start:end]
         v_idx = np.where(intensities > 0.0)[0]
 
-        return Classes.MassSpectrum(
+        return MassSpectrum(
             mz_values[v_idx], intensities[v_idx], pos=peak.retention_time
         )
 
     else:
-        return Classes.MassSpectrum([], [])
+        return MassSpectrum([], [])

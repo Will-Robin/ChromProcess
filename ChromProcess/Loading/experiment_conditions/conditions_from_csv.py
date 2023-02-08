@@ -1,8 +1,8 @@
-from ChromProcess import Classes
+from ChromProcess.Classes import ExperimentConditions
 from ChromProcess.Utils.utils import utils
 
 
-def conditions_from_csv(filename):
+def conditions_from_csv(filename: str) -> ExperimentConditions:
     """
     Create a ExperimentConditions object from a formatted .csv file.
 
@@ -12,10 +12,10 @@ def conditions_from_csv(filename):
 
     Returns
     -------
-    conditions: ChromProcess.Classes.ExperimentConditions
+    conditions: ExperimentConditions
     """
 
-    conditions = Classes.ExperimentConditions()
+    conditions = ExperimentConditions()
 
     with open(filename, "r", encoding="latin-1") as f:
         for line in f:

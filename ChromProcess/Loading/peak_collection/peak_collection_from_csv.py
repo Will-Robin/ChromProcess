@@ -1,9 +1,11 @@
 import sys
 from pathlib import Path
-from ChromProcess import Classes
+
+from ChromProcess.Classes import Peak
+from ChromProcess.Classes import PeakCollection
 
 
-def peak_collection_from_csv(filename, round_digits=3):
+def peak_collection_from_csv(filename: str, round_digits: int=3):
     """
     Create a PeakCollection object from a formatted file.
 
@@ -14,10 +16,10 @@ def peak_collection_from_csv(filename, round_digits=3):
 
     Returns
     -------
-    peak_collection: Classes.PeakCollection
+    peak_collection: PeakCollection
     """
 
-    peak_collection = Classes.PeakCollection()
+    peak_collection = PeakCollection()
 
     fname = Path("")
     if isinstance(filename, str):
@@ -37,7 +39,7 @@ def peak_collection_from_csv(filename, round_digits=3):
 
     IS_line_num = -1
 
-    IS = Classes.Peak(0.0, 0.0, 0.0, integral=1.0)
+    IS = Peak(0.0, 0.0, 0.0, integral=1.0)
 
     value = 0.0
     variable = ""
@@ -64,7 +66,7 @@ def peak_collection_from_csv(filename, round_digits=3):
                 else:
                     read = read_line(line)
 
-                    IS = Classes.Peak(
+                    IS = Peak(
                         read[0],
                         read[2],
                         read[3],
@@ -79,7 +81,7 @@ def peak_collection_from_csv(filename, round_digits=3):
             else:
                 rd = read_line(line)
                 peaks.append(
-                    Classes.Peak(
+                    Peak(
                         rd[0],
                         rd[2],
                         rd[3],

@@ -1,10 +1,11 @@
 from pathlib import Path
+from ChromProcess.Classes import Chromatogram
 
 from ChromProcess.Loading.parsers import parsers
 from ChromProcess.Loading.chromatogram.text import chrom_from_text
 
 
-def chrom_from_csv(filename):
+def chrom_from_csv(filename: str) -> Chromatogram:
     """
     Load a chromatogram from a .csv file.
 
@@ -24,7 +25,7 @@ def chrom_from_csv(filename):
 
     Returns
     -------
-    chrom: ChromProcess.Classes.Chromatogram
+    chrom: Chromatogram
         Chromatogram derived from information in the file.
 
     """

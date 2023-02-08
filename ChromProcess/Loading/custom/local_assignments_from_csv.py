@@ -1,7 +1,7 @@
 import os
 
 
-def local_assignments_from_csv(file):
+def local_assignments_from_csv(file: str) -> dict[str, list[float]]:
     """
     Read a comma-separated values file containing assignments of compounds to
     retention time boundaries.

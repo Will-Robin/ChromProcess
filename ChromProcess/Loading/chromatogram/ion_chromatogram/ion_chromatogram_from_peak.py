@@ -1,16 +1,21 @@
+import numpy as np
 from .ion_chromatogram_from_region import ion_chromatogram_from_region
+from ChromProcess.Classes import Peak
+from ChromProcess.Classes import Chromatogram
 
 
-def ion_chromatogram_from_peak(peak, parent_chromatogram, threshold=0.1):
+def ion_chromatogram_from_peak(
+    peak: Peak, parent_chromatogram: Chromatogram, threshold: float = 0.1
+) -> dict[float, np.ndarray]:
     """
     Create a dictionary of ion chromatograms using information from the peak
     and its parent chromatogram.
 
     Parameters
     ----------
-    peak: ChromProcess Peak object
+    peak: Peak
         Peak containing information.
-    parent_chromatogram: ChromProcess Chromatogram object
+    parent_chromatogram: Chromatogram
        Chromatogram containing information.
     threshold: float
         Threshold for mass spectra extraction relative to the maximum signal
@@ -18,7 +23,7 @@ def ion_chromatogram_from_peak(peak, parent_chromatogram, threshold=0.1):
 
     Returns
     -------
-    ion_chromatograms: dict[mz]:array()
+    ion_chromatograms: dict[mz, np.ndarray]
         A dictionary of ion chromatograms keyed by m/z value.
     """
 

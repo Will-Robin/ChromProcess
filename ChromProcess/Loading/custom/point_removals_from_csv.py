@@ -1,4 +1,4 @@
-def read_point_removals_file(fname):
+def read_point_removals_file(fname: str) -> dict[str, list[int]]:
     """
     For reading a file containing datasets and point indices to remove in the
     data sets.
@@ -10,7 +10,7 @@ def read_point_removals_file(fname):
 
     Returns
     -------
-    point_removals: dict
+    point_removals: dict[str,list[int]]
         dictionary of point removal indices. keys are experiment codes,
         list of ints are items.
     """

@@ -1,11 +1,11 @@
 import numpy as np
 from pathlib import Path
 
-from ChromProcess import Classes
+from ChromProcess.Classes import DataReport
 from ChromProcess.Loading.parsers import import_file_section
 
 
-def data_report_from_csv(file):
+def data_report_from_csv(file: str) -> DataReport:
     """
     Load a data report object from a formatted .csv file.
 
@@ -16,10 +16,10 @@ def data_report_from_csv(file):
 
     Returns
     -------
-    data_report: Classes.DataReport
+    data_report: DataReport
     """
 
-    data_report = Classes.DataReport()
+    data_report = DataReport()
 
     spl_lin = lambda x: [e for e in x.strip("\n").split(",") if e != ""]
 
