@@ -31,7 +31,7 @@
         <h2>API Documentation</h2>
             <ul class="memberlist">
             <li>
-                    <a class="function" href="#savitzky_golay">savitzky_golay</a>
+                    <a class="function" href="#adjacent_average">adjacent_average</a>
             </li>
     </ul>
 
@@ -54,249 +54,38 @@
 
                         <label class="view-source-button" for="signal_processing-view-source"><span>View Source</span></label>
 
-                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="k">def</span> <span class="nf">savitzky_golay</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">window_size</span><span class="p">,</span> <span class="n">order</span><span class="p">,</span> <span class="n">deriv</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-</span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a>    <span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="sd">    From https://scipy-cookbook.readthedocs.io/items/SavitzkyGolay.html</span>
-</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="sd">    Smooth (and optionally differentiate) data with a Savitzky-Golay filter.</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="sd">    From the Scipy Cookbook</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="sd">    The Savitzky-Golay filter removes high frequency noise from data.</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="sd">    It has the advantage of preserving the original shape and</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">    features of the signal better than other types of filtering</span>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="sd">    approaches, such as moving averages techniques.</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="sd">    Parameters</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="sd">    ----------</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="sd">    y : array_like, shape (N,)</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">        the values of the time history of the signal.</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="sd">    window_size : int</span>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="sd">        the length of the window. Must be an odd integer number.</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="sd">    order : int</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="sd">        the order of the polynomial used in the filtering.</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="sd">        Must be less then `window_size` - 1.</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a><span class="sd">    deriv: int</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="sd">        the order of the derivative to compute (default = 0 means only smoothing)</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="sd">    Returns</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a><span class="sd">    -------</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a><span class="sd">    ys : ndarray, shape (N)</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="sd">        the smoothed signal (or it&#39;s n-th derivative).</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="sd">    Notes</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a><span class="sd">    -----</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a><span class="sd">    The Savitzky-Golay is a type of low-pass filter, particularly</span>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a><span class="sd">    suited for smoothing noisy data. The main idea behind this</span>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a><span class="sd">    approach is to make for each point a least-square fit with a</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a><span class="sd">    polynomial of high order over a odd-sized window centered at</span>
-</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a><span class="sd">    the point.</span>
-</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>
-</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a><span class="sd">    Examples</span>
-</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a><span class="sd">    --------</span>
-</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a><span class="sd">    t = np.linspace(-4, 4, 500)</span>
-</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a><span class="sd">    y = np.exp( -t**2 ) + np.random.normal(0, 0.05, t.shape)</span>
-</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a><span class="sd">    ysg = savitzky_golay(y, window_size=31, order=4)</span>
-</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a><span class="sd">    import matplotlib.pyplot as plt</span>
-</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a><span class="sd">    plt.plot(t, y, label=&#39;Noisy signal&#39;)</span>
-</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a><span class="sd">    plt.plot(t, np.exp(-t**2), &#39;k&#39;, lw=1.5, label=&#39;Original signal&#39;)</span>
-</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a><span class="sd">    plt.plot(t, ysg, &#39;r&#39;, label=&#39;Filtered signal&#39;)</span>
-</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a><span class="sd">    plt.legend()</span>
-</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a><span class="sd">    plt.show()</span>
-</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a>
-</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a><span class="sd">    References</span>
-</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a><span class="sd">    ----------</span>
-</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a><span class="sd">    .. [1] A. Savitzky, M. J. E. Golay, Smoothing and Differentiation of</span>
-</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a><span class="sd">       Data by Simplified Least Squares Procedures. Analytical</span>
-</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a><span class="sd">       Chemistry, 1964, 36 (8), pp 1627-1639.</span>
-</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a><span class="sd">    .. [2] Numerical Recipes 3rd Edition: The Art of Scientific Computing</span>
-</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a><span class="sd">       W.H. Press, S.A. Teukolsky, W.T. Vetterling, B.P. Flannery</span>
-</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a><span class="sd">       Cambridge University Press ISBN-13: 9780521880688</span>
-</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a>    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a>    <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">factorial</span>
-</span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a>
-</span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a>    <span class="k">try</span><span class="p">:</span>
-</span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a>        <span class="n">window_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">(</span><span class="n">window_size</span><span class="p">))</span>
-</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a>        <span class="n">order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">(</span><span class="n">order</span><span class="p">))</span>
-</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a>    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-</span><span id="L-65"><a href="#L-65"><span class="linenos">65</span></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;window_size and order have to be of type int&quot;</span><span class="p">)</span>
-</span><span id="L-66"><a href="#L-66"><span class="linenos">66</span></a>    <span class="k">if</span> <span class="n">window_size</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">window_size</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
-</span><span id="L-67"><a href="#L-67"><span class="linenos">67</span></a>        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;window_size size must be a positive odd number&quot;</span><span class="p">)</span>
-</span><span id="L-68"><a href="#L-68"><span class="linenos">68</span></a>    <span class="k">if</span> <span class="n">window_size</span> <span class="o">&lt;</span> <span class="n">order</span> <span class="o">+</span> <span class="mi">2</span><span class="p">:</span>
-</span><span id="L-69"><a href="#L-69"><span class="linenos">69</span></a>        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;window_size is too small for the polynomials order&quot;</span><span class="p">)</span>
-</span><span id="L-70"><a href="#L-70"><span class="linenos">70</span></a>    <span class="n">order_range</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">order</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-</span><span id="L-71"><a href="#L-71"><span class="linenos">71</span></a>    <span class="n">half_window</span> <span class="o">=</span> <span class="p">(</span><span class="n">window_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
-</span><span id="L-72"><a href="#L-72"><span class="linenos">72</span></a>    <span class="c1"># precompute coefficients</span>
-</span><span id="L-73"><a href="#L-73"><span class="linenos">73</span></a>    <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mat</span><span class="p">(</span>
-</span><span id="L-74"><a href="#L-74"><span class="linenos">74</span></a>        <span class="p">[[</span><span class="n">k</span><span class="o">**</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">order_range</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">half_window</span><span class="p">,</span> <span class="n">half_window</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
-</span><span id="L-75"><a href="#L-75"><span class="linenos">75</span></a>    <span class="p">)</span>
-</span><span id="L-76"><a href="#L-76"><span class="linenos">76</span></a>    <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">pinv</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">A</span><span class="p">[</span><span class="n">deriv</span><span class="p">]</span> <span class="o">*</span> <span class="n">rate</span><span class="o">**</span><span class="n">deriv</span> <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">deriv</span><span class="p">)</span>
-</span><span id="L-77"><a href="#L-77"><span class="linenos">77</span></a>    <span class="c1"># pad the signal at the extremes with</span>
-</span><span id="L-78"><a href="#L-78"><span class="linenos">78</span></a>    <span class="c1"># values taken from the signal itself</span>
-</span><span id="L-79"><a href="#L-79"><span class="linenos">79</span></a>    <span class="n">firstvals</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span> <span class="p">:</span> <span class="n">half_window</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</span><span id="L-80"><a href="#L-80"><span class="linenos">80</span></a>    <span class="n">lastvals</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="o">-</span><span class="n">half_window</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">][::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">y</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-</span><span id="L-81"><a href="#L-81"><span class="linenos">81</span></a>    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">firstvals</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">lastvals</span><span class="p">))</span>
-</span><span id="L-82"><a href="#L-82"><span class="linenos">82</span></a>
-</span><span id="L-83"><a href="#L-83"><span class="linenos">83</span></a>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">m</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;valid&quot;</span><span class="p">)</span>
+                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#-1"><span class="linenos">1</span></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span><span id="L-2"><a href="#-2"><span class="linenos">2</span></a>
+</span><span id="L-3"><a href="#-3"><span class="linenos">3</span></a>
+</span><span id="L-4"><a href="#-4"><span class="linenos">4</span></a><span class="k">def</span> <span class="nf">adjacent_average</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">window</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+</span><span id="L-5"><a href="#-5"><span class="linenos">5</span></a>    <span class="n">kernel_size</span> <span class="o">=</span> <span class="n">window</span>
+</span><span id="L-6"><a href="#-6"><span class="linenos">6</span></a>    <span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span> <span class="o">/</span> <span class="n">kernel_size</span>
+</span><span id="L-7"><a href="#-7"><span class="linenos">7</span></a>    <span class="n">data_convolved</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">)</span>
+</span><span id="L-8"><a href="#-8"><span class="linenos">8</span></a>    <span class="k">return</span> <span class="n">data_convolved</span>
 </span></pre></div>
 
 
             </section>
-                <section id="savitzky_golay">
-                            <input id="savitzky_golay-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+                <section id="adjacent_average">
+                            <input id="adjacent_average-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">savitzky_golay</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">y</span>, </span><span class="param"><span class="n">window_size</span>, </span><span class="param"><span class="n">order</span>, </span><span class="param"><span class="n">deriv</span><span class="o">=</span><span class="mi">0</span>, </span><span class="param"><span class="n">rate</span><span class="o">=</span><span class="mi">1</span></span>)</span>
+        <span class="name">adjacent_average</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">data</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span>, </span><span class="param"><span class="n">window</span><span class="p">:</span> <span class="nb">int</span></span><span class="return-annotation">) -> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span>:</span></span>
 
-                <label class="view-source-button" for="savitzky_golay-view-source"><span>View Source</span></label>
+                <label class="view-source-button" for="adjacent_average-view-source"><span>View Source</span></label>
 
     </div>
-    <a class="headerlink" href="#savitzky_golay"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="savitzky_golay-2"><a href="#savitzky_golay-2"><span class="linenos"> 2</span></a><span class="k">def</span> <span class="nf">savitzky_golay</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">window_size</span><span class="p">,</span> <span class="n">order</span><span class="p">,</span> <span class="n">deriv</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-</span><span id="savitzky_golay-3"><a href="#savitzky_golay-3"><span class="linenos"> 3</span></a>    <span class="sd">&quot;&quot;&quot;</span>
-</span><span id="savitzky_golay-4"><a href="#savitzky_golay-4"><span class="linenos"> 4</span></a><span class="sd">    From https://scipy-cookbook.readthedocs.io/items/SavitzkyGolay.html</span>
-</span><span id="savitzky_golay-5"><a href="#savitzky_golay-5"><span class="linenos"> 5</span></a>
-</span><span id="savitzky_golay-6"><a href="#savitzky_golay-6"><span class="linenos"> 6</span></a><span class="sd">    Smooth (and optionally differentiate) data with a Savitzky-Golay filter.</span>
-</span><span id="savitzky_golay-7"><a href="#savitzky_golay-7"><span class="linenos"> 7</span></a><span class="sd">    From the Scipy Cookbook</span>
-</span><span id="savitzky_golay-8"><a href="#savitzky_golay-8"><span class="linenos"> 8</span></a><span class="sd">    The Savitzky-Golay filter removes high frequency noise from data.</span>
-</span><span id="savitzky_golay-9"><a href="#savitzky_golay-9"><span class="linenos"> 9</span></a><span class="sd">    It has the advantage of preserving the original shape and</span>
-</span><span id="savitzky_golay-10"><a href="#savitzky_golay-10"><span class="linenos">10</span></a><span class="sd">    features of the signal better than other types of filtering</span>
-</span><span id="savitzky_golay-11"><a href="#savitzky_golay-11"><span class="linenos">11</span></a><span class="sd">    approaches, such as moving averages techniques.</span>
-</span><span id="savitzky_golay-12"><a href="#savitzky_golay-12"><span class="linenos">12</span></a>
-</span><span id="savitzky_golay-13"><a href="#savitzky_golay-13"><span class="linenos">13</span></a><span class="sd">    Parameters</span>
-</span><span id="savitzky_golay-14"><a href="#savitzky_golay-14"><span class="linenos">14</span></a><span class="sd">    ----------</span>
-</span><span id="savitzky_golay-15"><a href="#savitzky_golay-15"><span class="linenos">15</span></a><span class="sd">    y : array_like, shape (N,)</span>
-</span><span id="savitzky_golay-16"><a href="#savitzky_golay-16"><span class="linenos">16</span></a><span class="sd">        the values of the time history of the signal.</span>
-</span><span id="savitzky_golay-17"><a href="#savitzky_golay-17"><span class="linenos">17</span></a><span class="sd">    window_size : int</span>
-</span><span id="savitzky_golay-18"><a href="#savitzky_golay-18"><span class="linenos">18</span></a><span class="sd">        the length of the window. Must be an odd integer number.</span>
-</span><span id="savitzky_golay-19"><a href="#savitzky_golay-19"><span class="linenos">19</span></a><span class="sd">    order : int</span>
-</span><span id="savitzky_golay-20"><a href="#savitzky_golay-20"><span class="linenos">20</span></a><span class="sd">        the order of the polynomial used in the filtering.</span>
-</span><span id="savitzky_golay-21"><a href="#savitzky_golay-21"><span class="linenos">21</span></a><span class="sd">        Must be less then `window_size` - 1.</span>
-</span><span id="savitzky_golay-22"><a href="#savitzky_golay-22"><span class="linenos">22</span></a><span class="sd">    deriv: int</span>
-</span><span id="savitzky_golay-23"><a href="#savitzky_golay-23"><span class="linenos">23</span></a><span class="sd">        the order of the derivative to compute (default = 0 means only smoothing)</span>
-</span><span id="savitzky_golay-24"><a href="#savitzky_golay-24"><span class="linenos">24</span></a>
-</span><span id="savitzky_golay-25"><a href="#savitzky_golay-25"><span class="linenos">25</span></a><span class="sd">    Returns</span>
-</span><span id="savitzky_golay-26"><a href="#savitzky_golay-26"><span class="linenos">26</span></a><span class="sd">    -------</span>
-</span><span id="savitzky_golay-27"><a href="#savitzky_golay-27"><span class="linenos">27</span></a><span class="sd">    ys : ndarray, shape (N)</span>
-</span><span id="savitzky_golay-28"><a href="#savitzky_golay-28"><span class="linenos">28</span></a><span class="sd">        the smoothed signal (or it&#39;s n-th derivative).</span>
-</span><span id="savitzky_golay-29"><a href="#savitzky_golay-29"><span class="linenos">29</span></a>
-</span><span id="savitzky_golay-30"><a href="#savitzky_golay-30"><span class="linenos">30</span></a><span class="sd">    Notes</span>
-</span><span id="savitzky_golay-31"><a href="#savitzky_golay-31"><span class="linenos">31</span></a><span class="sd">    -----</span>
-</span><span id="savitzky_golay-32"><a href="#savitzky_golay-32"><span class="linenos">32</span></a><span class="sd">    The Savitzky-Golay is a type of low-pass filter, particularly</span>
-</span><span id="savitzky_golay-33"><a href="#savitzky_golay-33"><span class="linenos">33</span></a><span class="sd">    suited for smoothing noisy data. The main idea behind this</span>
-</span><span id="savitzky_golay-34"><a href="#savitzky_golay-34"><span class="linenos">34</span></a><span class="sd">    approach is to make for each point a least-square fit with a</span>
-</span><span id="savitzky_golay-35"><a href="#savitzky_golay-35"><span class="linenos">35</span></a><span class="sd">    polynomial of high order over a odd-sized window centered at</span>
-</span><span id="savitzky_golay-36"><a href="#savitzky_golay-36"><span class="linenos">36</span></a><span class="sd">    the point.</span>
-</span><span id="savitzky_golay-37"><a href="#savitzky_golay-37"><span class="linenos">37</span></a>
-</span><span id="savitzky_golay-38"><a href="#savitzky_golay-38"><span class="linenos">38</span></a><span class="sd">    Examples</span>
-</span><span id="savitzky_golay-39"><a href="#savitzky_golay-39"><span class="linenos">39</span></a><span class="sd">    --------</span>
-</span><span id="savitzky_golay-40"><a href="#savitzky_golay-40"><span class="linenos">40</span></a><span class="sd">    t = np.linspace(-4, 4, 500)</span>
-</span><span id="savitzky_golay-41"><a href="#savitzky_golay-41"><span class="linenos">41</span></a><span class="sd">    y = np.exp( -t**2 ) + np.random.normal(0, 0.05, t.shape)</span>
-</span><span id="savitzky_golay-42"><a href="#savitzky_golay-42"><span class="linenos">42</span></a><span class="sd">    ysg = savitzky_golay(y, window_size=31, order=4)</span>
-</span><span id="savitzky_golay-43"><a href="#savitzky_golay-43"><span class="linenos">43</span></a><span class="sd">    import matplotlib.pyplot as plt</span>
-</span><span id="savitzky_golay-44"><a href="#savitzky_golay-44"><span class="linenos">44</span></a><span class="sd">    plt.plot(t, y, label=&#39;Noisy signal&#39;)</span>
-</span><span id="savitzky_golay-45"><a href="#savitzky_golay-45"><span class="linenos">45</span></a><span class="sd">    plt.plot(t, np.exp(-t**2), &#39;k&#39;, lw=1.5, label=&#39;Original signal&#39;)</span>
-</span><span id="savitzky_golay-46"><a href="#savitzky_golay-46"><span class="linenos">46</span></a><span class="sd">    plt.plot(t, ysg, &#39;r&#39;, label=&#39;Filtered signal&#39;)</span>
-</span><span id="savitzky_golay-47"><a href="#savitzky_golay-47"><span class="linenos">47</span></a><span class="sd">    plt.legend()</span>
-</span><span id="savitzky_golay-48"><a href="#savitzky_golay-48"><span class="linenos">48</span></a><span class="sd">    plt.show()</span>
-</span><span id="savitzky_golay-49"><a href="#savitzky_golay-49"><span class="linenos">49</span></a>
-</span><span id="savitzky_golay-50"><a href="#savitzky_golay-50"><span class="linenos">50</span></a><span class="sd">    References</span>
-</span><span id="savitzky_golay-51"><a href="#savitzky_golay-51"><span class="linenos">51</span></a><span class="sd">    ----------</span>
-</span><span id="savitzky_golay-52"><a href="#savitzky_golay-52"><span class="linenos">52</span></a><span class="sd">    .. [1] A. Savitzky, M. J. E. Golay, Smoothing and Differentiation of</span>
-</span><span id="savitzky_golay-53"><a href="#savitzky_golay-53"><span class="linenos">53</span></a><span class="sd">       Data by Simplified Least Squares Procedures. Analytical</span>
-</span><span id="savitzky_golay-54"><a href="#savitzky_golay-54"><span class="linenos">54</span></a><span class="sd">       Chemistry, 1964, 36 (8), pp 1627-1639.</span>
-</span><span id="savitzky_golay-55"><a href="#savitzky_golay-55"><span class="linenos">55</span></a><span class="sd">    .. [2] Numerical Recipes 3rd Edition: The Art of Scientific Computing</span>
-</span><span id="savitzky_golay-56"><a href="#savitzky_golay-56"><span class="linenos">56</span></a><span class="sd">       W.H. Press, S.A. Teukolsky, W.T. Vetterling, B.P. Flannery</span>
-</span><span id="savitzky_golay-57"><a href="#savitzky_golay-57"><span class="linenos">57</span></a><span class="sd">       Cambridge University Press ISBN-13: 9780521880688</span>
-</span><span id="savitzky_golay-58"><a href="#savitzky_golay-58"><span class="linenos">58</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="savitzky_golay-59"><a href="#savitzky_golay-59"><span class="linenos">59</span></a>    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-</span><span id="savitzky_golay-60"><a href="#savitzky_golay-60"><span class="linenos">60</span></a>    <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">factorial</span>
-</span><span id="savitzky_golay-61"><a href="#savitzky_golay-61"><span class="linenos">61</span></a>
-</span><span id="savitzky_golay-62"><a href="#savitzky_golay-62"><span class="linenos">62</span></a>    <span class="k">try</span><span class="p">:</span>
-</span><span id="savitzky_golay-63"><a href="#savitzky_golay-63"><span class="linenos">63</span></a>        <span class="n">window_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">(</span><span class="n">window_size</span><span class="p">))</span>
-</span><span id="savitzky_golay-64"><a href="#savitzky_golay-64"><span class="linenos">64</span></a>        <span class="n">order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">(</span><span class="n">order</span><span class="p">))</span>
-</span><span id="savitzky_golay-65"><a href="#savitzky_golay-65"><span class="linenos">65</span></a>    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-</span><span id="savitzky_golay-66"><a href="#savitzky_golay-66"><span class="linenos">66</span></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;window_size and order have to be of type int&quot;</span><span class="p">)</span>
-</span><span id="savitzky_golay-67"><a href="#savitzky_golay-67"><span class="linenos">67</span></a>    <span class="k">if</span> <span class="n">window_size</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">window_size</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
-</span><span id="savitzky_golay-68"><a href="#savitzky_golay-68"><span class="linenos">68</span></a>        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;window_size size must be a positive odd number&quot;</span><span class="p">)</span>
-</span><span id="savitzky_golay-69"><a href="#savitzky_golay-69"><span class="linenos">69</span></a>    <span class="k">if</span> <span class="n">window_size</span> <span class="o">&lt;</span> <span class="n">order</span> <span class="o">+</span> <span class="mi">2</span><span class="p">:</span>
-</span><span id="savitzky_golay-70"><a href="#savitzky_golay-70"><span class="linenos">70</span></a>        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;window_size is too small for the polynomials order&quot;</span><span class="p">)</span>
-</span><span id="savitzky_golay-71"><a href="#savitzky_golay-71"><span class="linenos">71</span></a>    <span class="n">order_range</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">order</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-</span><span id="savitzky_golay-72"><a href="#savitzky_golay-72"><span class="linenos">72</span></a>    <span class="n">half_window</span> <span class="o">=</span> <span class="p">(</span><span class="n">window_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
-</span><span id="savitzky_golay-73"><a href="#savitzky_golay-73"><span class="linenos">73</span></a>    <span class="c1"># precompute coefficients</span>
-</span><span id="savitzky_golay-74"><a href="#savitzky_golay-74"><span class="linenos">74</span></a>    <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mat</span><span class="p">(</span>
-</span><span id="savitzky_golay-75"><a href="#savitzky_golay-75"><span class="linenos">75</span></a>        <span class="p">[[</span><span class="n">k</span><span class="o">**</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">order_range</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">half_window</span><span class="p">,</span> <span class="n">half_window</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
-</span><span id="savitzky_golay-76"><a href="#savitzky_golay-76"><span class="linenos">76</span></a>    <span class="p">)</span>
-</span><span id="savitzky_golay-77"><a href="#savitzky_golay-77"><span class="linenos">77</span></a>    <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">pinv</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">A</span><span class="p">[</span><span class="n">deriv</span><span class="p">]</span> <span class="o">*</span> <span class="n">rate</span><span class="o">**</span><span class="n">deriv</span> <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">deriv</span><span class="p">)</span>
-</span><span id="savitzky_golay-78"><a href="#savitzky_golay-78"><span class="linenos">78</span></a>    <span class="c1"># pad the signal at the extremes with</span>
-</span><span id="savitzky_golay-79"><a href="#savitzky_golay-79"><span class="linenos">79</span></a>    <span class="c1"># values taken from the signal itself</span>
-</span><span id="savitzky_golay-80"><a href="#savitzky_golay-80"><span class="linenos">80</span></a>    <span class="n">firstvals</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span> <span class="p">:</span> <span class="n">half_window</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</span><span id="savitzky_golay-81"><a href="#savitzky_golay-81"><span class="linenos">81</span></a>    <span class="n">lastvals</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="o">-</span><span class="n">half_window</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">][::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">y</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-</span><span id="savitzky_golay-82"><a href="#savitzky_golay-82"><span class="linenos">82</span></a>    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">firstvals</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">lastvals</span><span class="p">))</span>
-</span><span id="savitzky_golay-83"><a href="#savitzky_golay-83"><span class="linenos">83</span></a>
-</span><span id="savitzky_golay-84"><a href="#savitzky_golay-84"><span class="linenos">84</span></a>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">m</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;valid&quot;</span><span class="p">)</span>
+    <a class="headerlink" href="#adjacent_average"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="adjacent_average-5"><a href="#-5"><span class="linenos">5</span></a><span class="k">def</span> <span class="nf">adjacent_average</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">window</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+</span><span id="adjacent_average-6"><a href="#-6"><span class="linenos">6</span></a>    <span class="n">kernel_size</span> <span class="o">=</span> <span class="n">window</span>
+</span><span id="adjacent_average-7"><a href="#-7"><span class="linenos">7</span></a>    <span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span> <span class="o">/</span> <span class="n">kernel_size</span>
+</span><span id="adjacent_average-8"><a href="#-8"><span class="linenos">8</span></a>    <span class="n">data_convolved</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">)</span>
+</span><span id="adjacent_average-9"><a href="#-9"><span class="linenos">9</span></a>    <span class="k">return</span> <span class="n">data_convolved</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>From https://scipy-cookbook.readthedocs.io/items/SavitzkyGolay.html</p>
-
-<p>Smooth (and optionally differentiate) data with a Savitzky-Golay filter.
-From the Scipy Cookbook
-The Savitzky-Golay filter removes high frequency noise from data.
-It has the advantage of preserving the original shape and
-features of the signal better than other types of filtering
-approaches, such as moving averages techniques.</p>
-
-<h6 id="parameters">Parameters</h6>
-
-<ul>
-<li><strong>y</strong> (array_like, shape (N,)):
-the values of the time history of the signal.</li>
-<li><strong>window_size</strong> (int):
-the length of the window. Must be an odd integer number.</li>
-<li><strong>order</strong> (int):
-the order of the polynomial used in the filtering.
-Must be less then <code>window_size</code> - 1.</li>
-<li><strong>deriv</strong> (int):
-the order of the derivative to compute (default = 0 means only smoothing)</li>
-</ul>
-
-<h6 id="returns">Returns</h6>
-
-<ul>
-<li><strong>ys</strong> (ndarray, shape (N)):
-the smoothed signal (or it's n-th derivative).</li>
-</ul>
-
-<h6 id="notes">Notes</h6>
-
-<p>The Savitzky-Golay is a type of low-pass filter, particularly
-suited for smoothing noisy data. The main idea behind this
-approach is to make for each point a least-square fit with a
-polynomial of high order over a odd-sized window centered at
-the point.</p>
-
-<h6 id="examples">Examples</h6>
-
-<p>t = np.linspace(-4, 4, 500)
-y = np.exp( -t<strong>2 ) + np.random.normal(0, 0.05, t.shape)
-ysg = savitzky_golay(y, window_size=31, order=4)
-import matplotlib.pyplot as plt
-plt.plot(t, y, label='Noisy signal')
-plt.plot(t, np.exp(-t</strong>2), 'k', lw=1.5, label='Original signal')
-plt.plot(t, ysg, 'r', label='Filtered signal')
-plt.legend()
-plt.show()</p>
-
-<h6 id="references">References</h6>
-
-<div class="footnotes">
-<hr />
-<ol>
-</ol>
-</div>
-</div>
-
+    
 
                 </section>
     </main>

@@ -54,45 +54,47 @@
 
                         <label class="view-source-button" for="mass_spectrum_from_peak-view-source"><span>View Source</span></label>
 
-                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-</span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a><span class="kn">from</span> <span class="nn">ChromProcess</span> <span class="kn">import</span> <span class="n">Classes</span>
-</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a>
-</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="k">def</span> <span class="nf">mass_spectrum_from_peak</span><span class="p">(</span><span class="n">peak</span><span class="p">,</span> <span class="n">chromatogram</span><span class="p">):</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>    <span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="sd">    Get the mass spectrum at the apex of a peak. Inserts the mass spectrum into</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="sd">    the Peak object and returns the mass spectrum. If mass spectra information</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">    is not present in the chromatogram, an ewmpty list is returned and the</span>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="sd">    Peak&#39;s mass_spectra value remains unchanged (False by default).</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="sd">    Parameters</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="sd">    ----------</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="sd">    peak: ChromProcess.Classes.Peak</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">        Peak to find mass spectrum for.</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="sd">    chromatogram: ChromProcess.Classes.Chromatogram</span>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="sd">        Parent chromatogram for the peak</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="sd">    Returns</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="sd">    -------</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a><span class="sd">    mass_spectrum: ChromProcess.Classes.MassSpectrum</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">chromatogram</span><span class="o">.</span><span class="n">mz_values</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>        <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">chromatogram</span><span class="o">.</span><span class="n">time</span> <span class="o">==</span> <span class="n">peak</span><span class="o">.</span><span class="n">retention_time</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>        <span class="n">start</span> <span class="o">=</span> <span class="n">chromatogram</span><span class="o">.</span><span class="n">scan_indices</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>        <span class="n">end</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">chromatogram</span><span class="o">.</span><span class="n">point_counts</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>        <span class="n">mz_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">chromatogram</span><span class="o">.</span><span class="n">mz_values</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>        <span class="n">intensities</span> <span class="o">=</span> <span class="n">chromatogram</span><span class="o">.</span><span class="n">mz_intensity</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>        <span class="n">v_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">intensities</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>
-</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>        <span class="k">return</span> <span class="n">Classes</span><span class="o">.</span><span class="n">MassSpectrum</span><span class="p">(</span>
-</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>            <span class="n">mz_values</span><span class="p">[</span><span class="n">v_idx</span><span class="p">],</span> <span class="n">intensities</span><span class="p">[</span><span class="n">v_idx</span><span class="p">],</span> <span class="n">pos</span><span class="o">=</span><span class="n">peak</span><span class="o">.</span><span class="n">retention_time</span>
-</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>        <span class="p">)</span>
-</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>
-</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a>    <span class="k">else</span><span class="p">:</span>
-</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a>        <span class="k">return</span> <span class="n">Classes</span><span class="o">.</span><span class="n">MassSpectrum</span><span class="p">([],</span> <span class="p">[])</span>
+                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#-1"><span class="linenos"> 1</span></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span><span id="L-2"><a href="#-2"><span class="linenos"> 2</span></a><span class="kn">from</span> <span class="nn">ChromProcess.Classes</span> <span class="kn">import</span> <span class="n">Peak</span>
+</span><span id="L-3"><a href="#-3"><span class="linenos"> 3</span></a><span class="kn">from</span> <span class="nn">ChromProcess.Classes</span> <span class="kn">import</span> <span class="n">Chromatogram</span>
+</span><span id="L-4"><a href="#-4"><span class="linenos"> 4</span></a><span class="kn">from</span> <span class="nn">ChromProcess.Classes</span> <span class="kn">import</span> <span class="n">MassSpectrum</span>
+</span><span id="L-5"><a href="#-5"><span class="linenos"> 5</span></a>
+</span><span id="L-6"><a href="#-6"><span class="linenos"> 6</span></a>
+</span><span id="L-7"><a href="#-7"><span class="linenos"> 7</span></a><span class="k">def</span> <span class="nf">mass_spectrum_from_peak</span><span class="p">(</span><span class="n">peak</span><span class="p">:</span> <span class="n">Peak</span><span class="p">,</span> <span class="n">chromatogram</span><span class="p">:</span> <span class="n">Chromatogram</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MassSpectrum</span><span class="p">:</span>
+</span><span id="L-8"><a href="#-8"><span class="linenos"> 8</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-9"><a href="#-9"><span class="linenos"> 9</span></a><span class="sd">    Get the mass spectrum at the apex of a peak. Inserts the mass spectrum into</span>
+</span><span id="L-10"><a href="#-10"><span class="linenos">10</span></a><span class="sd">    the Peak object and returns the mass spectrum. If mass spectra information</span>
+</span><span id="L-11"><a href="#-11"><span class="linenos">11</span></a><span class="sd">    is not present in the chromatogram, an ewmpty list is returned and the</span>
+</span><span id="L-12"><a href="#-12"><span class="linenos">12</span></a><span class="sd">    Peak&#39;s mass_spectra value remains unchanged (False by default).</span>
+</span><span id="L-13"><a href="#-13"><span class="linenos">13</span></a>
+</span><span id="L-14"><a href="#-14"><span class="linenos">14</span></a><span class="sd">    Parameters</span>
+</span><span id="L-15"><a href="#-15"><span class="linenos">15</span></a><span class="sd">    ----------</span>
+</span><span id="L-16"><a href="#-16"><span class="linenos">16</span></a><span class="sd">    peak: Peak</span>
+</span><span id="L-17"><a href="#-17"><span class="linenos">17</span></a><span class="sd">        Peak to find mass spectrum for.</span>
+</span><span id="L-18"><a href="#-18"><span class="linenos">18</span></a><span class="sd">    chromatogram: Chromatogram</span>
+</span><span id="L-19"><a href="#-19"><span class="linenos">19</span></a><span class="sd">        Parent chromatogram for the peak</span>
+</span><span id="L-20"><a href="#-20"><span class="linenos">20</span></a>
+</span><span id="L-21"><a href="#-21"><span class="linenos">21</span></a><span class="sd">    Returns</span>
+</span><span id="L-22"><a href="#-22"><span class="linenos">22</span></a><span class="sd">    -------</span>
+</span><span id="L-23"><a href="#-23"><span class="linenos">23</span></a><span class="sd">    mass_spectrum: MassSpectrum</span>
+</span><span id="L-24"><a href="#-24"><span class="linenos">24</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-25"><a href="#-25"><span class="linenos">25</span></a>
+</span><span id="L-26"><a href="#-26"><span class="linenos">26</span></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">chromatogram</span><span class="o">.</span><span class="n">mz_values</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="L-27"><a href="#-27"><span class="linenos">27</span></a>        <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">chromatogram</span><span class="o">.</span><span class="n">time</span> <span class="o">==</span> <span class="n">peak</span><span class="o">.</span><span class="n">retention_time</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="L-28"><a href="#-28"><span class="linenos">28</span></a>
+</span><span id="L-29"><a href="#-29"><span class="linenos">29</span></a>        <span class="n">start</span> <span class="o">=</span> <span class="n">chromatogram</span><span class="o">.</span><span class="n">scan_indices</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="L-30"><a href="#-30"><span class="linenos">30</span></a>        <span class="n">end</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">chromatogram</span><span class="o">.</span><span class="n">point_counts</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="L-31"><a href="#-31"><span class="linenos">31</span></a>
+</span><span id="L-32"><a href="#-32"><span class="linenos">32</span></a>        <span class="n">mz_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">chromatogram</span><span class="o">.</span><span class="n">mz_values</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+</span><span id="L-33"><a href="#-33"><span class="linenos">33</span></a>        <span class="n">intensities</span> <span class="o">=</span> <span class="n">chromatogram</span><span class="o">.</span><span class="n">mz_intensity</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>
+</span><span id="L-34"><a href="#-34"><span class="linenos">34</span></a>        <span class="n">v_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">intensities</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="L-35"><a href="#-35"><span class="linenos">35</span></a>
+</span><span id="L-36"><a href="#-36"><span class="linenos">36</span></a>        <span class="k">return</span> <span class="n">MassSpectrum</span><span class="p">(</span>
+</span><span id="L-37"><a href="#-37"><span class="linenos">37</span></a>            <span class="n">mz_values</span><span class="p">[</span><span class="n">v_idx</span><span class="p">],</span> <span class="n">intensities</span><span class="p">[</span><span class="n">v_idx</span><span class="p">],</span> <span class="n">pos</span><span class="o">=</span><span class="n">peak</span><span class="o">.</span><span class="n">retention_time</span>
+</span><span id="L-38"><a href="#-38"><span class="linenos">38</span></a>        <span class="p">)</span>
+</span><span id="L-39"><a href="#-39"><span class="linenos">39</span></a>
+</span><span id="L-40"><a href="#-40"><span class="linenos">40</span></a>    <span class="k">else</span><span class="p">:</span>
+</span><span id="L-41"><a href="#-41"><span class="linenos">41</span></a>        <span class="k">return</span> <span class="n">MassSpectrum</span><span class="p">([],</span> <span class="p">[])</span>
 </span></pre></div>
 
 
@@ -102,47 +104,47 @@
 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">mass_spectrum_from_peak</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">peak</span>, </span><span class="param"><span class="n">chromatogram</span></span>)</span>
+        <span class="name">mass_spectrum_from_peak</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">peak</span><span class="p">:</span> <span class="n"><a href="../../Classes/peak.html#Peak">ChromProcess</span><span class="o">.</span><span class="n">Classes</span><span class="o">.</span><span class="n">peak</span><span class="o">.</span><span class="n">Peak</a></span>,</span><span class="param">	<span class="n">chromatogram</span><span class="p">:</span> <span class="n"><a href="../../Classes/chromatogram.html#Chromatogram">ChromProcess</span><span class="o">.</span><span class="n">Classes</span><span class="o">.</span><span class="n">chromatogram</span><span class="o">.</span><span class="n">Chromatogram</a></span></span><span class="return-annotation">) -> <span class="n"><a href="../../Classes/mass_spectrum.html#MassSpectrum">ChromProcess</span><span class="o">.</span><span class="n">Classes</span><span class="o">.</span><span class="n">mass_spectrum</span><span class="o">.</span><span class="n">MassSpectrum</a></span>:</span></span>
 
                 <label class="view-source-button" for="mass_spectrum_from_peak-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#mass_spectrum_from_peak"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="mass_spectrum_from_peak-6"><a href="#mass_spectrum_from_peak-6"><span class="linenos"> 6</span></a><span class="k">def</span> <span class="nf">mass_spectrum_from_peak</span><span class="p">(</span><span class="n">peak</span><span class="p">,</span> <span class="n">chromatogram</span><span class="p">):</span>
-</span><span id="mass_spectrum_from_peak-7"><a href="#mass_spectrum_from_peak-7"><span class="linenos"> 7</span></a>    <span class="sd">&quot;&quot;&quot;</span>
-</span><span id="mass_spectrum_from_peak-8"><a href="#mass_spectrum_from_peak-8"><span class="linenos"> 8</span></a><span class="sd">    Get the mass spectrum at the apex of a peak. Inserts the mass spectrum into</span>
-</span><span id="mass_spectrum_from_peak-9"><a href="#mass_spectrum_from_peak-9"><span class="linenos"> 9</span></a><span class="sd">    the Peak object and returns the mass spectrum. If mass spectra information</span>
-</span><span id="mass_spectrum_from_peak-10"><a href="#mass_spectrum_from_peak-10"><span class="linenos">10</span></a><span class="sd">    is not present in the chromatogram, an ewmpty list is returned and the</span>
-</span><span id="mass_spectrum_from_peak-11"><a href="#mass_spectrum_from_peak-11"><span class="linenos">11</span></a><span class="sd">    Peak&#39;s mass_spectra value remains unchanged (False by default).</span>
-</span><span id="mass_spectrum_from_peak-12"><a href="#mass_spectrum_from_peak-12"><span class="linenos">12</span></a>
-</span><span id="mass_spectrum_from_peak-13"><a href="#mass_spectrum_from_peak-13"><span class="linenos">13</span></a><span class="sd">    Parameters</span>
-</span><span id="mass_spectrum_from_peak-14"><a href="#mass_spectrum_from_peak-14"><span class="linenos">14</span></a><span class="sd">    ----------</span>
-</span><span id="mass_spectrum_from_peak-15"><a href="#mass_spectrum_from_peak-15"><span class="linenos">15</span></a><span class="sd">    peak: ChromProcess.Classes.Peak</span>
-</span><span id="mass_spectrum_from_peak-16"><a href="#mass_spectrum_from_peak-16"><span class="linenos">16</span></a><span class="sd">        Peak to find mass spectrum for.</span>
-</span><span id="mass_spectrum_from_peak-17"><a href="#mass_spectrum_from_peak-17"><span class="linenos">17</span></a><span class="sd">    chromatogram: ChromProcess.Classes.Chromatogram</span>
-</span><span id="mass_spectrum_from_peak-18"><a href="#mass_spectrum_from_peak-18"><span class="linenos">18</span></a><span class="sd">        Parent chromatogram for the peak</span>
-</span><span id="mass_spectrum_from_peak-19"><a href="#mass_spectrum_from_peak-19"><span class="linenos">19</span></a>
-</span><span id="mass_spectrum_from_peak-20"><a href="#mass_spectrum_from_peak-20"><span class="linenos">20</span></a><span class="sd">    Returns</span>
-</span><span id="mass_spectrum_from_peak-21"><a href="#mass_spectrum_from_peak-21"><span class="linenos">21</span></a><span class="sd">    -------</span>
-</span><span id="mass_spectrum_from_peak-22"><a href="#mass_spectrum_from_peak-22"><span class="linenos">22</span></a><span class="sd">    mass_spectrum: ChromProcess.Classes.MassSpectrum</span>
-</span><span id="mass_spectrum_from_peak-23"><a href="#mass_spectrum_from_peak-23"><span class="linenos">23</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="mass_spectrum_from_peak-24"><a href="#mass_spectrum_from_peak-24"><span class="linenos">24</span></a>
-</span><span id="mass_spectrum_from_peak-25"><a href="#mass_spectrum_from_peak-25"><span class="linenos">25</span></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">chromatogram</span><span class="o">.</span><span class="n">mz_values</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-</span><span id="mass_spectrum_from_peak-26"><a href="#mass_spectrum_from_peak-26"><span class="linenos">26</span></a>        <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">chromatogram</span><span class="o">.</span><span class="n">time</span> <span class="o">==</span> <span class="n">peak</span><span class="o">.</span><span class="n">retention_time</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="mass_spectrum_from_peak-27"><a href="#mass_spectrum_from_peak-27"><span class="linenos">27</span></a>
-</span><span id="mass_spectrum_from_peak-28"><a href="#mass_spectrum_from_peak-28"><span class="linenos">28</span></a>        <span class="n">start</span> <span class="o">=</span> <span class="n">chromatogram</span><span class="o">.</span><span class="n">scan_indices</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="mass_spectrum_from_peak-29"><a href="#mass_spectrum_from_peak-29"><span class="linenos">29</span></a>        <span class="n">end</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">chromatogram</span><span class="o">.</span><span class="n">point_counts</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="mass_spectrum_from_peak-30"><a href="#mass_spectrum_from_peak-30"><span class="linenos">30</span></a>
-</span><span id="mass_spectrum_from_peak-31"><a href="#mass_spectrum_from_peak-31"><span class="linenos">31</span></a>        <span class="n">mz_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">chromatogram</span><span class="o">.</span><span class="n">mz_values</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
-</span><span id="mass_spectrum_from_peak-32"><a href="#mass_spectrum_from_peak-32"><span class="linenos">32</span></a>        <span class="n">intensities</span> <span class="o">=</span> <span class="n">chromatogram</span><span class="o">.</span><span class="n">mz_intensity</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>
-</span><span id="mass_spectrum_from_peak-33"><a href="#mass_spectrum_from_peak-33"><span class="linenos">33</span></a>        <span class="n">v_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">intensities</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="mass_spectrum_from_peak-34"><a href="#mass_spectrum_from_peak-34"><span class="linenos">34</span></a>
-</span><span id="mass_spectrum_from_peak-35"><a href="#mass_spectrum_from_peak-35"><span class="linenos">35</span></a>        <span class="k">return</span> <span class="n">Classes</span><span class="o">.</span><span class="n">MassSpectrum</span><span class="p">(</span>
-</span><span id="mass_spectrum_from_peak-36"><a href="#mass_spectrum_from_peak-36"><span class="linenos">36</span></a>            <span class="n">mz_values</span><span class="p">[</span><span class="n">v_idx</span><span class="p">],</span> <span class="n">intensities</span><span class="p">[</span><span class="n">v_idx</span><span class="p">],</span> <span class="n">pos</span><span class="o">=</span><span class="n">peak</span><span class="o">.</span><span class="n">retention_time</span>
-</span><span id="mass_spectrum_from_peak-37"><a href="#mass_spectrum_from_peak-37"><span class="linenos">37</span></a>        <span class="p">)</span>
-</span><span id="mass_spectrum_from_peak-38"><a href="#mass_spectrum_from_peak-38"><span class="linenos">38</span></a>
-</span><span id="mass_spectrum_from_peak-39"><a href="#mass_spectrum_from_peak-39"><span class="linenos">39</span></a>    <span class="k">else</span><span class="p">:</span>
-</span><span id="mass_spectrum_from_peak-40"><a href="#mass_spectrum_from_peak-40"><span class="linenos">40</span></a>        <span class="k">return</span> <span class="n">Classes</span><span class="o">.</span><span class="n">MassSpectrum</span><span class="p">([],</span> <span class="p">[])</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="mass_spectrum_from_peak-8"><a href="#-8"><span class="linenos"> 8</span></a><span class="k">def</span> <span class="nf">mass_spectrum_from_peak</span><span class="p">(</span><span class="n">peak</span><span class="p">:</span> <span class="n">Peak</span><span class="p">,</span> <span class="n">chromatogram</span><span class="p">:</span> <span class="n">Chromatogram</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MassSpectrum</span><span class="p">:</span>
+</span><span id="mass_spectrum_from_peak-9"><a href="#-9"><span class="linenos"> 9</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="mass_spectrum_from_peak-10"><a href="#-10"><span class="linenos">10</span></a><span class="sd">    Get the mass spectrum at the apex of a peak. Inserts the mass spectrum into</span>
+</span><span id="mass_spectrum_from_peak-11"><a href="#-11"><span class="linenos">11</span></a><span class="sd">    the Peak object and returns the mass spectrum. If mass spectra information</span>
+</span><span id="mass_spectrum_from_peak-12"><a href="#-12"><span class="linenos">12</span></a><span class="sd">    is not present in the chromatogram, an ewmpty list is returned and the</span>
+</span><span id="mass_spectrum_from_peak-13"><a href="#-13"><span class="linenos">13</span></a><span class="sd">    Peak&#39;s mass_spectra value remains unchanged (False by default).</span>
+</span><span id="mass_spectrum_from_peak-14"><a href="#-14"><span class="linenos">14</span></a>
+</span><span id="mass_spectrum_from_peak-15"><a href="#-15"><span class="linenos">15</span></a><span class="sd">    Parameters</span>
+</span><span id="mass_spectrum_from_peak-16"><a href="#-16"><span class="linenos">16</span></a><span class="sd">    ----------</span>
+</span><span id="mass_spectrum_from_peak-17"><a href="#-17"><span class="linenos">17</span></a><span class="sd">    peak: Peak</span>
+</span><span id="mass_spectrum_from_peak-18"><a href="#-18"><span class="linenos">18</span></a><span class="sd">        Peak to find mass spectrum for.</span>
+</span><span id="mass_spectrum_from_peak-19"><a href="#-19"><span class="linenos">19</span></a><span class="sd">    chromatogram: Chromatogram</span>
+</span><span id="mass_spectrum_from_peak-20"><a href="#-20"><span class="linenos">20</span></a><span class="sd">        Parent chromatogram for the peak</span>
+</span><span id="mass_spectrum_from_peak-21"><a href="#-21"><span class="linenos">21</span></a>
+</span><span id="mass_spectrum_from_peak-22"><a href="#-22"><span class="linenos">22</span></a><span class="sd">    Returns</span>
+</span><span id="mass_spectrum_from_peak-23"><a href="#-23"><span class="linenos">23</span></a><span class="sd">    -------</span>
+</span><span id="mass_spectrum_from_peak-24"><a href="#-24"><span class="linenos">24</span></a><span class="sd">    mass_spectrum: MassSpectrum</span>
+</span><span id="mass_spectrum_from_peak-25"><a href="#-25"><span class="linenos">25</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="mass_spectrum_from_peak-26"><a href="#-26"><span class="linenos">26</span></a>
+</span><span id="mass_spectrum_from_peak-27"><a href="#-27"><span class="linenos">27</span></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">chromatogram</span><span class="o">.</span><span class="n">mz_values</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="mass_spectrum_from_peak-28"><a href="#-28"><span class="linenos">28</span></a>        <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">chromatogram</span><span class="o">.</span><span class="n">time</span> <span class="o">==</span> <span class="n">peak</span><span class="o">.</span><span class="n">retention_time</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="mass_spectrum_from_peak-29"><a href="#-29"><span class="linenos">29</span></a>
+</span><span id="mass_spectrum_from_peak-30"><a href="#-30"><span class="linenos">30</span></a>        <span class="n">start</span> <span class="o">=</span> <span class="n">chromatogram</span><span class="o">.</span><span class="n">scan_indices</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="mass_spectrum_from_peak-31"><a href="#-31"><span class="linenos">31</span></a>        <span class="n">end</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">chromatogram</span><span class="o">.</span><span class="n">point_counts</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="mass_spectrum_from_peak-32"><a href="#-32"><span class="linenos">32</span></a>
+</span><span id="mass_spectrum_from_peak-33"><a href="#-33"><span class="linenos">33</span></a>        <span class="n">mz_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">chromatogram</span><span class="o">.</span><span class="n">mz_values</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+</span><span id="mass_spectrum_from_peak-34"><a href="#-34"><span class="linenos">34</span></a>        <span class="n">intensities</span> <span class="o">=</span> <span class="n">chromatogram</span><span class="o">.</span><span class="n">mz_intensity</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>
+</span><span id="mass_spectrum_from_peak-35"><a href="#-35"><span class="linenos">35</span></a>        <span class="n">v_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">intensities</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="mass_spectrum_from_peak-36"><a href="#-36"><span class="linenos">36</span></a>
+</span><span id="mass_spectrum_from_peak-37"><a href="#-37"><span class="linenos">37</span></a>        <span class="k">return</span> <span class="n">MassSpectrum</span><span class="p">(</span>
+</span><span id="mass_spectrum_from_peak-38"><a href="#-38"><span class="linenos">38</span></a>            <span class="n">mz_values</span><span class="p">[</span><span class="n">v_idx</span><span class="p">],</span> <span class="n">intensities</span><span class="p">[</span><span class="n">v_idx</span><span class="p">],</span> <span class="n">pos</span><span class="o">=</span><span class="n">peak</span><span class="o">.</span><span class="n">retention_time</span>
+</span><span id="mass_spectrum_from_peak-39"><a href="#-39"><span class="linenos">39</span></a>        <span class="p">)</span>
+</span><span id="mass_spectrum_from_peak-40"><a href="#-40"><span class="linenos">40</span></a>
+</span><span id="mass_spectrum_from_peak-41"><a href="#-41"><span class="linenos">41</span></a>    <span class="k">else</span><span class="p">:</span>
+</span><span id="mass_spectrum_from_peak-42"><a href="#-42"><span class="linenos">42</span></a>        <span class="k">return</span> <span class="n">MassSpectrum</span><span class="p">([],</span> <span class="p">[])</span>
 </span></pre></div>
 
 
@@ -154,16 +156,16 @@ Peak's mass_spectra value remains unchanged (False by default).</p>
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><strong>peak</strong> (<a href="../../Classes/Peak.html">ChromProcess.Classes.Peak</a>):
+<li><strong>peak</strong> (Peak):
 Peak to find mass spectrum for.</li>
-<li><strong>chromatogram</strong> (<a href="../../Classes/Chromatogram.html">ChromProcess.Classes.Chromatogram</a>):
+<li><strong>chromatogram</strong> (Chromatogram):
 Parent chromatogram for the peak</li>
 </ul>
 
 <h6 id="returns">Returns</h6>
 
 <ul>
-<li><strong>mass_spectrum</strong> (<a href="../../Classes/MassSpectrum.html">ChromProcess.Classes.MassSpectrum</a>):</li>
+<li><strong>mass_spectrum</strong> (MassSpectrum):</li>
 </ul>
 </div>
 

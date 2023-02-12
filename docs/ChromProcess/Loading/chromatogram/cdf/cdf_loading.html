@@ -56,39 +56,40 @@
 
                         <label class="view-source-button" for="cdf_loading-view-source"><span>View Source</span></label>
 
-                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a><span class="sd">Functions for loading data from .cdf files (ANDI format).</span>
-</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="kn">from</span> <span class="nn">netCDF4</span> <span class="kn">import</span> <span class="n">Dataset</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="k">def</span> <span class="nf">load_from_cdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">keys</span><span class="p">):</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>    <span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">    Extracts data from a .cdf file using the Dataset function from the netCDF4</span>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="sd">    library.</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="sd">    Parameters</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="sd">    ----------</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="sd">    filename: str</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">        File name of a .cdf file.</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="sd">    keys: list[str]</span>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="sd">        Key to a set of data in the .cdf file.</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="sd">    Returns</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="sd">    -------</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a><span class="sd">    data_container: dict of numpy arrays</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="sd">        Container for the extracted data.</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>    <span class="n">data_container</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>    <span class="n">f</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>    <span class="n">f</span><span class="o">.</span><span class="n">set_auto_mask</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>        <span class="n">data_container</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">key</span><span class="p">][:]</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>    <span class="k">return</span> <span class="n">data_container</span>
+                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#-1"><span class="linenos"> 1</span></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-2"><a href="#-2"><span class="linenos"> 2</span></a><span class="sd">Functions for loading data from .cdf files (ANDI format).</span>
+</span><span id="L-3"><a href="#-3"><span class="linenos"> 3</span></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-4"><a href="#-4"><span class="linenos"> 4</span></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span><span id="L-5"><a href="#-5"><span class="linenos"> 5</span></a><span class="kn">from</span> <span class="nn">netCDF4</span> <span class="kn">import</span> <span class="n">Dataset</span>
+</span><span id="L-6"><a href="#-6"><span class="linenos"> 6</span></a>
+</span><span id="L-7"><a href="#-7"><span class="linenos"> 7</span></a>
+</span><span id="L-8"><a href="#-8"><span class="linenos"> 8</span></a><span class="k">def</span> <span class="nf">load_from_cdf</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">keys</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+</span><span id="L-9"><a href="#-9"><span class="linenos"> 9</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-10"><a href="#-10"><span class="linenos">10</span></a><span class="sd">    Extracts data from a .cdf file using the Dataset function from the netCDF4</span>
+</span><span id="L-11"><a href="#-11"><span class="linenos">11</span></a><span class="sd">    library.</span>
+</span><span id="L-12"><a href="#-12"><span class="linenos">12</span></a>
+</span><span id="L-13"><a href="#-13"><span class="linenos">13</span></a><span class="sd">    Parameters</span>
+</span><span id="L-14"><a href="#-14"><span class="linenos">14</span></a><span class="sd">    ----------</span>
+</span><span id="L-15"><a href="#-15"><span class="linenos">15</span></a><span class="sd">    filename: str</span>
+</span><span id="L-16"><a href="#-16"><span class="linenos">16</span></a><span class="sd">        File name of a .cdf file.</span>
+</span><span id="L-17"><a href="#-17"><span class="linenos">17</span></a><span class="sd">    keys: list[str]</span>
+</span><span id="L-18"><a href="#-18"><span class="linenos">18</span></a><span class="sd">        Key to a set of data in the .cdf file.</span>
+</span><span id="L-19"><a href="#-19"><span class="linenos">19</span></a>
+</span><span id="L-20"><a href="#-20"><span class="linenos">20</span></a><span class="sd">    Returns</span>
+</span><span id="L-21"><a href="#-21"><span class="linenos">21</span></a><span class="sd">    -------</span>
+</span><span id="L-22"><a href="#-22"><span class="linenos">22</span></a><span class="sd">    data_container: dict of numpy arrays</span>
+</span><span id="L-23"><a href="#-23"><span class="linenos">23</span></a><span class="sd">        Container for the extracted data.</span>
+</span><span id="L-24"><a href="#-24"><span class="linenos">24</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-25"><a href="#-25"><span class="linenos">25</span></a>
+</span><span id="L-26"><a href="#-26"><span class="linenos">26</span></a>    <span class="n">data_container</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+</span><span id="L-27"><a href="#-27"><span class="linenos">27</span></a>
+</span><span id="L-28"><a href="#-28"><span class="linenos">28</span></a>    <span class="n">f</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+</span><span id="L-29"><a href="#-29"><span class="linenos">29</span></a>    <span class="n">f</span><span class="o">.</span><span class="n">set_auto_mask</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="L-30"><a href="#-30"><span class="linenos">30</span></a>    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+</span><span id="L-31"><a href="#-31"><span class="linenos">31</span></a>        <span class="n">data_container</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">key</span><span class="p">][:]</span>
+</span><span id="L-32"><a href="#-32"><span class="linenos">32</span></a>    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span id="L-33"><a href="#-33"><span class="linenos">33</span></a>
+</span><span id="L-34"><a href="#-34"><span class="linenos">34</span></a>    <span class="k">return</span> <span class="n">data_container</span>
 </span></pre></div>
 
 
@@ -98,39 +99,39 @@
 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">load_from_cdf</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">filename</span>, </span><span class="param"><span class="n">keys</span></span>)</span>
+        <span class="name">load_from_cdf</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span>, </span><span class="param"><span class="n">keys</span><span class="p">:</span> <span class="nb">list</span></span><span class="return-annotation">) -> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span>:</span></span>
 
                 <label class="view-source-button" for="load_from_cdf-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#load_from_cdf"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="load_from_cdf-8"><a href="#load_from_cdf-8"><span class="linenos"> 8</span></a><span class="k">def</span> <span class="nf">load_from_cdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">keys</span><span class="p">):</span>
-</span><span id="load_from_cdf-9"><a href="#load_from_cdf-9"><span class="linenos"> 9</span></a>    <span class="sd">&quot;&quot;&quot;</span>
-</span><span id="load_from_cdf-10"><a href="#load_from_cdf-10"><span class="linenos">10</span></a><span class="sd">    Extracts data from a .cdf file using the Dataset function from the netCDF4</span>
-</span><span id="load_from_cdf-11"><a href="#load_from_cdf-11"><span class="linenos">11</span></a><span class="sd">    library.</span>
-</span><span id="load_from_cdf-12"><a href="#load_from_cdf-12"><span class="linenos">12</span></a>
-</span><span id="load_from_cdf-13"><a href="#load_from_cdf-13"><span class="linenos">13</span></a><span class="sd">    Parameters</span>
-</span><span id="load_from_cdf-14"><a href="#load_from_cdf-14"><span class="linenos">14</span></a><span class="sd">    ----------</span>
-</span><span id="load_from_cdf-15"><a href="#load_from_cdf-15"><span class="linenos">15</span></a><span class="sd">    filename: str</span>
-</span><span id="load_from_cdf-16"><a href="#load_from_cdf-16"><span class="linenos">16</span></a><span class="sd">        File name of a .cdf file.</span>
-</span><span id="load_from_cdf-17"><a href="#load_from_cdf-17"><span class="linenos">17</span></a><span class="sd">    keys: list[str]</span>
-</span><span id="load_from_cdf-18"><a href="#load_from_cdf-18"><span class="linenos">18</span></a><span class="sd">        Key to a set of data in the .cdf file.</span>
-</span><span id="load_from_cdf-19"><a href="#load_from_cdf-19"><span class="linenos">19</span></a>
-</span><span id="load_from_cdf-20"><a href="#load_from_cdf-20"><span class="linenos">20</span></a><span class="sd">    Returns</span>
-</span><span id="load_from_cdf-21"><a href="#load_from_cdf-21"><span class="linenos">21</span></a><span class="sd">    -------</span>
-</span><span id="load_from_cdf-22"><a href="#load_from_cdf-22"><span class="linenos">22</span></a><span class="sd">    data_container: dict of numpy arrays</span>
-</span><span id="load_from_cdf-23"><a href="#load_from_cdf-23"><span class="linenos">23</span></a><span class="sd">        Container for the extracted data.</span>
-</span><span id="load_from_cdf-24"><a href="#load_from_cdf-24"><span class="linenos">24</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="load_from_cdf-25"><a href="#load_from_cdf-25"><span class="linenos">25</span></a>
-</span><span id="load_from_cdf-26"><a href="#load_from_cdf-26"><span class="linenos">26</span></a>    <span class="n">data_container</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-</span><span id="load_from_cdf-27"><a href="#load_from_cdf-27"><span class="linenos">27</span></a>
-</span><span id="load_from_cdf-28"><a href="#load_from_cdf-28"><span class="linenos">28</span></a>    <span class="n">f</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
-</span><span id="load_from_cdf-29"><a href="#load_from_cdf-29"><span class="linenos">29</span></a>    <span class="n">f</span><span class="o">.</span><span class="n">set_auto_mask</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-</span><span id="load_from_cdf-30"><a href="#load_from_cdf-30"><span class="linenos">30</span></a>    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
-</span><span id="load_from_cdf-31"><a href="#load_from_cdf-31"><span class="linenos">31</span></a>        <span class="n">data_container</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">key</span><span class="p">][:]</span>
-</span><span id="load_from_cdf-32"><a href="#load_from_cdf-32"><span class="linenos">32</span></a>    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</span><span id="load_from_cdf-33"><a href="#load_from_cdf-33"><span class="linenos">33</span></a>
-</span><span id="load_from_cdf-34"><a href="#load_from_cdf-34"><span class="linenos">34</span></a>    <span class="k">return</span> <span class="n">data_container</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="load_from_cdf-9"><a href="#-9"><span class="linenos"> 9</span></a><span class="k">def</span> <span class="nf">load_from_cdf</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">keys</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+</span><span id="load_from_cdf-10"><a href="#-10"><span class="linenos">10</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="load_from_cdf-11"><a href="#-11"><span class="linenos">11</span></a><span class="sd">    Extracts data from a .cdf file using the Dataset function from the netCDF4</span>
+</span><span id="load_from_cdf-12"><a href="#-12"><span class="linenos">12</span></a><span class="sd">    library.</span>
+</span><span id="load_from_cdf-13"><a href="#-13"><span class="linenos">13</span></a>
+</span><span id="load_from_cdf-14"><a href="#-14"><span class="linenos">14</span></a><span class="sd">    Parameters</span>
+</span><span id="load_from_cdf-15"><a href="#-15"><span class="linenos">15</span></a><span class="sd">    ----------</span>
+</span><span id="load_from_cdf-16"><a href="#-16"><span class="linenos">16</span></a><span class="sd">    filename: str</span>
+</span><span id="load_from_cdf-17"><a href="#-17"><span class="linenos">17</span></a><span class="sd">        File name of a .cdf file.</span>
+</span><span id="load_from_cdf-18"><a href="#-18"><span class="linenos">18</span></a><span class="sd">    keys: list[str]</span>
+</span><span id="load_from_cdf-19"><a href="#-19"><span class="linenos">19</span></a><span class="sd">        Key to a set of data in the .cdf file.</span>
+</span><span id="load_from_cdf-20"><a href="#-20"><span class="linenos">20</span></a>
+</span><span id="load_from_cdf-21"><a href="#-21"><span class="linenos">21</span></a><span class="sd">    Returns</span>
+</span><span id="load_from_cdf-22"><a href="#-22"><span class="linenos">22</span></a><span class="sd">    -------</span>
+</span><span id="load_from_cdf-23"><a href="#-23"><span class="linenos">23</span></a><span class="sd">    data_container: dict of numpy arrays</span>
+</span><span id="load_from_cdf-24"><a href="#-24"><span class="linenos">24</span></a><span class="sd">        Container for the extracted data.</span>
+</span><span id="load_from_cdf-25"><a href="#-25"><span class="linenos">25</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="load_from_cdf-26"><a href="#-26"><span class="linenos">26</span></a>
+</span><span id="load_from_cdf-27"><a href="#-27"><span class="linenos">27</span></a>    <span class="n">data_container</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+</span><span id="load_from_cdf-28"><a href="#-28"><span class="linenos">28</span></a>
+</span><span id="load_from_cdf-29"><a href="#-29"><span class="linenos">29</span></a>    <span class="n">f</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+</span><span id="load_from_cdf-30"><a href="#-30"><span class="linenos">30</span></a>    <span class="n">f</span><span class="o">.</span><span class="n">set_auto_mask</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="load_from_cdf-31"><a href="#-31"><span class="linenos">31</span></a>    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+</span><span id="load_from_cdf-32"><a href="#-32"><span class="linenos">32</span></a>        <span class="n">data_container</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">key</span><span class="p">][:]</span>
+</span><span id="load_from_cdf-33"><a href="#-33"><span class="linenos">33</span></a>    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span id="load_from_cdf-34"><a href="#-34"><span class="linenos">34</span></a>
+</span><span id="load_from_cdf-35"><a href="#-35"><span class="linenos">35</span></a>    <span class="k">return</span> <span class="n">data_container</span>
 </span></pre></div>
 
 

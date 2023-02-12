@@ -60,65 +60,66 @@ a chromatogram series.</p>
 
                         <label class="view-source-button" for="stack_chromatograms-view-source"><span>View Source</span></label>
 
-                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a><span class="sd">Functions for plotting a heat map of</span>
-</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="sd">a chromatogram series.</span>
-</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">interpolate</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="k">def</span> <span class="nf">get_chrom_time_min_max</span><span class="p">(</span><span class="n">chromatograms</span><span class="p">):</span>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>    <span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">    Get the highest and lowest retention times from a set of chromatograms.</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="sd">    Parameters</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="sd">    ----------</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">    chromatograms: list[ChromProcess.Classes.Chromatogram]</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="sd">    Returns</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="sd">    -------</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="sd">    max_time, min_time: float</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>    <span class="n">max_time</span> <span class="o">=</span> <span class="mf">1e100</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>    <span class="n">min_time</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">chromatograms</span><span class="p">:</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>        <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">min_time</span><span class="p">:</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>            <span class="n">min_time</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>        <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">max_time</span><span class="p">:</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>            <span class="n">max_time</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>    <span class="k">return</span> <span class="n">min_time</span><span class="p">,</span> <span class="n">max_time</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a><span class="k">def</span> <span class="nf">stack_chromatograms</span><span class="p">(</span><span class="n">chromatograms</span><span class="p">):</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>    <span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a><span class="sd">    Create a stack of chromatogram signals in a numpy array.</span>
-</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>
-</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a><span class="sd">    Parameters</span>
-</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a><span class="sd">    ----------</span>
-</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a><span class="sd">    chromatograms: list[ChromProcess.Classes.Chromatogram]</span>
-</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>
-</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a><span class="sd">    Returns</span>
-</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a><span class="sd">    -------</span>
-</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a><span class="sd">    time_axis: 1d numpy array</span>
-</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a><span class="sd">    chrom_stack: 2d numpy array (len(time_axis),len(chromatograms))</span>
-</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a>
-</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a>    <span class="n">min_time</span><span class="p">,</span> <span class="n">max_time</span> <span class="o">=</span> <span class="n">get_chrom_time_min_max</span><span class="p">(</span><span class="n">chromatograms</span><span class="p">)</span>
-</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a>
-</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a>    <span class="n">interpolation_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">chromatograms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
-</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a>
-</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a>    <span class="n">chrom_stack</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">chromatograms</span><span class="p">),</span> <span class="n">interpolation_length</span><span class="p">))</span>
-</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a>    <span class="n">time_axis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">min_time</span><span class="p">,</span> <span class="n">max_time</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="n">interpolation_length</span><span class="p">)</span>
-</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a>
-</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a>    <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">chrom</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">chromatograms</span><span class="p">):</span>
-</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a>        <span class="n">interp_function</span> <span class="o">=</span> <span class="n">interpolate</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span><span class="n">chrom</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">chrom</span><span class="o">.</span><span class="n">signal</span><span class="p">)</span>
-</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a>        <span class="n">interpolated_signal</span> <span class="o">=</span> <span class="n">interp_function</span><span class="p">(</span><span class="n">time_axis</span><span class="p">)</span>
-</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a>        <span class="n">chrom_stack</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">interpolated_signal</span>
-</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a>
-</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a>    <span class="k">return</span> <span class="n">time_axis</span><span class="p">,</span> <span class="n">chrom_stack</span>
+                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#-1"><span class="linenos"> 1</span></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-2"><a href="#-2"><span class="linenos"> 2</span></a><span class="sd">Functions for plotting a heat map of</span>
+</span><span id="L-3"><a href="#-3"><span class="linenos"> 3</span></a><span class="sd">a chromatogram series.</span>
+</span><span id="L-4"><a href="#-4"><span class="linenos"> 4</span></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-5"><a href="#-5"><span class="linenos"> 5</span></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span><span id="L-6"><a href="#-6"><span class="linenos"> 6</span></a><span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">interpolate</span>
+</span><span id="L-7"><a href="#-7"><span class="linenos"> 7</span></a><span class="kn">from</span> <span class="nn">ChromProcess.Classes</span> <span class="kn">import</span> <span class="n">Chromatogram</span>
+</span><span id="L-8"><a href="#-8"><span class="linenos"> 8</span></a>
+</span><span id="L-9"><a href="#-9"><span class="linenos"> 9</span></a>
+</span><span id="L-10"><a href="#-10"><span class="linenos">10</span></a><span class="k">def</span> <span class="nf">get_chrom_time_min_max</span><span class="p">(</span><span class="n">chromatograms</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Chromatogram</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+</span><span id="L-11"><a href="#-11"><span class="linenos">11</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-12"><a href="#-12"><span class="linenos">12</span></a><span class="sd">    Get the highest and lowest retention times from a set of chromatograms.</span>
+</span><span id="L-13"><a href="#-13"><span class="linenos">13</span></a>
+</span><span id="L-14"><a href="#-14"><span class="linenos">14</span></a><span class="sd">    Parameters</span>
+</span><span id="L-15"><a href="#-15"><span class="linenos">15</span></a><span class="sd">    ----------</span>
+</span><span id="L-16"><a href="#-16"><span class="linenos">16</span></a><span class="sd">    chromatograms: list[ChromProcess.Classes.Chromatogram]</span>
+</span><span id="L-17"><a href="#-17"><span class="linenos">17</span></a>
+</span><span id="L-18"><a href="#-18"><span class="linenos">18</span></a><span class="sd">    Returns</span>
+</span><span id="L-19"><a href="#-19"><span class="linenos">19</span></a><span class="sd">    -------</span>
+</span><span id="L-20"><a href="#-20"><span class="linenos">20</span></a><span class="sd">    max_time, min_time: float</span>
+</span><span id="L-21"><a href="#-21"><span class="linenos">21</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-22"><a href="#-22"><span class="linenos">22</span></a>    <span class="n">max_time</span> <span class="o">=</span> <span class="mf">1e100</span>
+</span><span id="L-23"><a href="#-23"><span class="linenos">23</span></a>    <span class="n">min_time</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="L-24"><a href="#-24"><span class="linenos">24</span></a>
+</span><span id="L-25"><a href="#-25"><span class="linenos">25</span></a>    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">chromatograms</span><span class="p">:</span>
+</span><span id="L-26"><a href="#-26"><span class="linenos">26</span></a>        <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">min_time</span><span class="p">:</span>
+</span><span id="L-27"><a href="#-27"><span class="linenos">27</span></a>            <span class="n">min_time</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+</span><span id="L-28"><a href="#-28"><span class="linenos">28</span></a>        <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">max_time</span><span class="p">:</span>
+</span><span id="L-29"><a href="#-29"><span class="linenos">29</span></a>            <span class="n">max_time</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+</span><span id="L-30"><a href="#-30"><span class="linenos">30</span></a>
+</span><span id="L-31"><a href="#-31"><span class="linenos">31</span></a>    <span class="k">return</span> <span class="n">min_time</span><span class="p">,</span> <span class="n">max_time</span>
+</span><span id="L-32"><a href="#-32"><span class="linenos">32</span></a>
+</span><span id="L-33"><a href="#-33"><span class="linenos">33</span></a>
+</span><span id="L-34"><a href="#-34"><span class="linenos">34</span></a><span class="k">def</span> <span class="nf">stack_chromatograms</span><span class="p">(</span><span class="n">chromatograms</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Chromatogram</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+</span><span id="L-35"><a href="#-35"><span class="linenos">35</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-36"><a href="#-36"><span class="linenos">36</span></a><span class="sd">    Create a stack of chromatogram signals in a numpy array.</span>
+</span><span id="L-37"><a href="#-37"><span class="linenos">37</span></a>
+</span><span id="L-38"><a href="#-38"><span class="linenos">38</span></a><span class="sd">    Parameters</span>
+</span><span id="L-39"><a href="#-39"><span class="linenos">39</span></a><span class="sd">    ----------</span>
+</span><span id="L-40"><a href="#-40"><span class="linenos">40</span></a><span class="sd">    chromatograms: list[Chromatogram]</span>
+</span><span id="L-41"><a href="#-41"><span class="linenos">41</span></a>
+</span><span id="L-42"><a href="#-42"><span class="linenos">42</span></a><span class="sd">    Returns</span>
+</span><span id="L-43"><a href="#-43"><span class="linenos">43</span></a><span class="sd">    -------</span>
+</span><span id="L-44"><a href="#-44"><span class="linenos">44</span></a><span class="sd">    time_axis: np.ndnumpy</span>
+</span><span id="L-45"><a href="#-45"><span class="linenos">45</span></a><span class="sd">    chrom_stack: 2d numpy array (len(time_axis),len(chromatograms))</span>
+</span><span id="L-46"><a href="#-46"><span class="linenos">46</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-47"><a href="#-47"><span class="linenos">47</span></a>
+</span><span id="L-48"><a href="#-48"><span class="linenos">48</span></a>    <span class="n">min_time</span><span class="p">,</span> <span class="n">max_time</span> <span class="o">=</span> <span class="n">get_chrom_time_min_max</span><span class="p">(</span><span class="n">chromatograms</span><span class="p">)</span>
+</span><span id="L-49"><a href="#-49"><span class="linenos">49</span></a>
+</span><span id="L-50"><a href="#-50"><span class="linenos">50</span></a>    <span class="n">interpolation_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">chromatograms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
+</span><span id="L-51"><a href="#-51"><span class="linenos">51</span></a>
+</span><span id="L-52"><a href="#-52"><span class="linenos">52</span></a>    <span class="n">chrom_stack</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">chromatograms</span><span class="p">),</span> <span class="n">interpolation_length</span><span class="p">))</span>
+</span><span id="L-53"><a href="#-53"><span class="linenos">53</span></a>    <span class="n">time_axis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">min_time</span><span class="p">,</span> <span class="n">max_time</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="n">interpolation_length</span><span class="p">)</span>
+</span><span id="L-54"><a href="#-54"><span class="linenos">54</span></a>
+</span><span id="L-55"><a href="#-55"><span class="linenos">55</span></a>    <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">chrom</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">chromatograms</span><span class="p">):</span>
+</span><span id="L-56"><a href="#-56"><span class="linenos">56</span></a>        <span class="n">interp_function</span> <span class="o">=</span> <span class="n">interpolate</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span><span class="n">chrom</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">chrom</span><span class="o">.</span><span class="n">signal</span><span class="p">)</span>
+</span><span id="L-57"><a href="#-57"><span class="linenos">57</span></a>        <span class="n">interpolated_signal</span> <span class="o">=</span> <span class="n">interp_function</span><span class="p">(</span><span class="n">time_axis</span><span class="p">)</span>
+</span><span id="L-58"><a href="#-58"><span class="linenos">58</span></a>        <span class="n">chrom_stack</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">interpolated_signal</span>
+</span><span id="L-59"><a href="#-59"><span class="linenos">59</span></a>
+</span><span id="L-60"><a href="#-60"><span class="linenos">60</span></a>    <span class="k">return</span> <span class="n">time_axis</span><span class="p">,</span> <span class="n">chrom_stack</span>
 </span></pre></div>
 
 
@@ -128,34 +129,34 @@ a chromatogram series.</p>
 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">get_chrom_time_min_max</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">chromatograms</span></span>)</span>
+        <span class="name">get_chrom_time_min_max</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">chromatograms</span><span class="p">:</span> <span class="nb">list</span></span><span class="return-annotation">) -> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>:</span></span>
 
                 <label class="view-source-button" for="get_chrom_time_min_max-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#get_chrom_time_min_max"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="get_chrom_time_min_max-10"><a href="#get_chrom_time_min_max-10"><span class="linenos">10</span></a><span class="k">def</span> <span class="nf">get_chrom_time_min_max</span><span class="p">(</span><span class="n">chromatograms</span><span class="p">):</span>
-</span><span id="get_chrom_time_min_max-11"><a href="#get_chrom_time_min_max-11"><span class="linenos">11</span></a>    <span class="sd">&quot;&quot;&quot;</span>
-</span><span id="get_chrom_time_min_max-12"><a href="#get_chrom_time_min_max-12"><span class="linenos">12</span></a><span class="sd">    Get the highest and lowest retention times from a set of chromatograms.</span>
-</span><span id="get_chrom_time_min_max-13"><a href="#get_chrom_time_min_max-13"><span class="linenos">13</span></a>
-</span><span id="get_chrom_time_min_max-14"><a href="#get_chrom_time_min_max-14"><span class="linenos">14</span></a><span class="sd">    Parameters</span>
-</span><span id="get_chrom_time_min_max-15"><a href="#get_chrom_time_min_max-15"><span class="linenos">15</span></a><span class="sd">    ----------</span>
-</span><span id="get_chrom_time_min_max-16"><a href="#get_chrom_time_min_max-16"><span class="linenos">16</span></a><span class="sd">    chromatograms: list[ChromProcess.Classes.Chromatogram]</span>
-</span><span id="get_chrom_time_min_max-17"><a href="#get_chrom_time_min_max-17"><span class="linenos">17</span></a>
-</span><span id="get_chrom_time_min_max-18"><a href="#get_chrom_time_min_max-18"><span class="linenos">18</span></a><span class="sd">    Returns</span>
-</span><span id="get_chrom_time_min_max-19"><a href="#get_chrom_time_min_max-19"><span class="linenos">19</span></a><span class="sd">    -------</span>
-</span><span id="get_chrom_time_min_max-20"><a href="#get_chrom_time_min_max-20"><span class="linenos">20</span></a><span class="sd">    max_time, min_time: float</span>
-</span><span id="get_chrom_time_min_max-21"><a href="#get_chrom_time_min_max-21"><span class="linenos">21</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="get_chrom_time_min_max-22"><a href="#get_chrom_time_min_max-22"><span class="linenos">22</span></a>    <span class="n">max_time</span> <span class="o">=</span> <span class="mf">1e100</span>
-</span><span id="get_chrom_time_min_max-23"><a href="#get_chrom_time_min_max-23"><span class="linenos">23</span></a>    <span class="n">min_time</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="get_chrom_time_min_max-24"><a href="#get_chrom_time_min_max-24"><span class="linenos">24</span></a>
-</span><span id="get_chrom_time_min_max-25"><a href="#get_chrom_time_min_max-25"><span class="linenos">25</span></a>    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">chromatograms</span><span class="p">:</span>
-</span><span id="get_chrom_time_min_max-26"><a href="#get_chrom_time_min_max-26"><span class="linenos">26</span></a>        <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">min_time</span><span class="p">:</span>
-</span><span id="get_chrom_time_min_max-27"><a href="#get_chrom_time_min_max-27"><span class="linenos">27</span></a>            <span class="n">min_time</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
-</span><span id="get_chrom_time_min_max-28"><a href="#get_chrom_time_min_max-28"><span class="linenos">28</span></a>        <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">max_time</span><span class="p">:</span>
-</span><span id="get_chrom_time_min_max-29"><a href="#get_chrom_time_min_max-29"><span class="linenos">29</span></a>            <span class="n">max_time</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-</span><span id="get_chrom_time_min_max-30"><a href="#get_chrom_time_min_max-30"><span class="linenos">30</span></a>
-</span><span id="get_chrom_time_min_max-31"><a href="#get_chrom_time_min_max-31"><span class="linenos">31</span></a>    <span class="k">return</span> <span class="n">min_time</span><span class="p">,</span> <span class="n">max_time</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="get_chrom_time_min_max-11"><a href="#-11"><span class="linenos">11</span></a><span class="k">def</span> <span class="nf">get_chrom_time_min_max</span><span class="p">(</span><span class="n">chromatograms</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Chromatogram</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+</span><span id="get_chrom_time_min_max-12"><a href="#-12"><span class="linenos">12</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="get_chrom_time_min_max-13"><a href="#-13"><span class="linenos">13</span></a><span class="sd">    Get the highest and lowest retention times from a set of chromatograms.</span>
+</span><span id="get_chrom_time_min_max-14"><a href="#-14"><span class="linenos">14</span></a>
+</span><span id="get_chrom_time_min_max-15"><a href="#-15"><span class="linenos">15</span></a><span class="sd">    Parameters</span>
+</span><span id="get_chrom_time_min_max-16"><a href="#-16"><span class="linenos">16</span></a><span class="sd">    ----------</span>
+</span><span id="get_chrom_time_min_max-17"><a href="#-17"><span class="linenos">17</span></a><span class="sd">    chromatograms: list[ChromProcess.Classes.Chromatogram]</span>
+</span><span id="get_chrom_time_min_max-18"><a href="#-18"><span class="linenos">18</span></a>
+</span><span id="get_chrom_time_min_max-19"><a href="#-19"><span class="linenos">19</span></a><span class="sd">    Returns</span>
+</span><span id="get_chrom_time_min_max-20"><a href="#-20"><span class="linenos">20</span></a><span class="sd">    -------</span>
+</span><span id="get_chrom_time_min_max-21"><a href="#-21"><span class="linenos">21</span></a><span class="sd">    max_time, min_time: float</span>
+</span><span id="get_chrom_time_min_max-22"><a href="#-22"><span class="linenos">22</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="get_chrom_time_min_max-23"><a href="#-23"><span class="linenos">23</span></a>    <span class="n">max_time</span> <span class="o">=</span> <span class="mf">1e100</span>
+</span><span id="get_chrom_time_min_max-24"><a href="#-24"><span class="linenos">24</span></a>    <span class="n">min_time</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="get_chrom_time_min_max-25"><a href="#-25"><span class="linenos">25</span></a>
+</span><span id="get_chrom_time_min_max-26"><a href="#-26"><span class="linenos">26</span></a>    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">chromatograms</span><span class="p">:</span>
+</span><span id="get_chrom_time_min_max-27"><a href="#-27"><span class="linenos">27</span></a>        <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">min_time</span><span class="p">:</span>
+</span><span id="get_chrom_time_min_max-28"><a href="#-28"><span class="linenos">28</span></a>            <span class="n">min_time</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+</span><span id="get_chrom_time_min_max-29"><a href="#-29"><span class="linenos">29</span></a>        <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">max_time</span><span class="p">:</span>
+</span><span id="get_chrom_time_min_max-30"><a href="#-30"><span class="linenos">30</span></a>            <span class="n">max_time</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+</span><span id="get_chrom_time_min_max-31"><a href="#-31"><span class="linenos">31</span></a>
+</span><span id="get_chrom_time_min_max-32"><a href="#-32"><span class="linenos">32</span></a>    <span class="k">return</span> <span class="n">min_time</span><span class="p">,</span> <span class="n">max_time</span>
 </span></pre></div>
 
 
@@ -164,7 +165,7 @@ a chromatogram series.</p>
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><strong>chromatograms</strong> (list[<a href="../../Classes/Chromatogram.html">ChromProcess.Classes.Chromatogram</a>]):</li>
+<li><strong>chromatograms</strong> (list[ChromProcess.Classes.Chromatogram]):</li>
 </ul>
 
 <h6 id="returns">Returns</h6>
@@ -181,39 +182,39 @@ a chromatogram series.</p>
 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">stack_chromatograms</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">chromatograms</span></span>)</span>
+        <span class="name">stack_chromatograms</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">chromatograms</span><span class="p">:</span> <span class="nb">list</span></span><span class="return-annotation">) -> <span class="nb">tuple</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span>:</span></span>
 
                 <label class="view-source-button" for="stack_chromatograms-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#stack_chromatograms"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="stack_chromatograms-34"><a href="#stack_chromatograms-34"><span class="linenos">34</span></a><span class="k">def</span> <span class="nf">stack_chromatograms</span><span class="p">(</span><span class="n">chromatograms</span><span class="p">):</span>
-</span><span id="stack_chromatograms-35"><a href="#stack_chromatograms-35"><span class="linenos">35</span></a>    <span class="sd">&quot;&quot;&quot;</span>
-</span><span id="stack_chromatograms-36"><a href="#stack_chromatograms-36"><span class="linenos">36</span></a><span class="sd">    Create a stack of chromatogram signals in a numpy array.</span>
-</span><span id="stack_chromatograms-37"><a href="#stack_chromatograms-37"><span class="linenos">37</span></a>
-</span><span id="stack_chromatograms-38"><a href="#stack_chromatograms-38"><span class="linenos">38</span></a><span class="sd">    Parameters</span>
-</span><span id="stack_chromatograms-39"><a href="#stack_chromatograms-39"><span class="linenos">39</span></a><span class="sd">    ----------</span>
-</span><span id="stack_chromatograms-40"><a href="#stack_chromatograms-40"><span class="linenos">40</span></a><span class="sd">    chromatograms: list[ChromProcess.Classes.Chromatogram]</span>
-</span><span id="stack_chromatograms-41"><a href="#stack_chromatograms-41"><span class="linenos">41</span></a>
-</span><span id="stack_chromatograms-42"><a href="#stack_chromatograms-42"><span class="linenos">42</span></a><span class="sd">    Returns</span>
-</span><span id="stack_chromatograms-43"><a href="#stack_chromatograms-43"><span class="linenos">43</span></a><span class="sd">    -------</span>
-</span><span id="stack_chromatograms-44"><a href="#stack_chromatograms-44"><span class="linenos">44</span></a><span class="sd">    time_axis: 1d numpy array</span>
-</span><span id="stack_chromatograms-45"><a href="#stack_chromatograms-45"><span class="linenos">45</span></a><span class="sd">    chrom_stack: 2d numpy array (len(time_axis),len(chromatograms))</span>
-</span><span id="stack_chromatograms-46"><a href="#stack_chromatograms-46"><span class="linenos">46</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="stack_chromatograms-47"><a href="#stack_chromatograms-47"><span class="linenos">47</span></a>
-</span><span id="stack_chromatograms-48"><a href="#stack_chromatograms-48"><span class="linenos">48</span></a>    <span class="n">min_time</span><span class="p">,</span> <span class="n">max_time</span> <span class="o">=</span> <span class="n">get_chrom_time_min_max</span><span class="p">(</span><span class="n">chromatograms</span><span class="p">)</span>
-</span><span id="stack_chromatograms-49"><a href="#stack_chromatograms-49"><span class="linenos">49</span></a>
-</span><span id="stack_chromatograms-50"><a href="#stack_chromatograms-50"><span class="linenos">50</span></a>    <span class="n">interpolation_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">chromatograms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
-</span><span id="stack_chromatograms-51"><a href="#stack_chromatograms-51"><span class="linenos">51</span></a>
-</span><span id="stack_chromatograms-52"><a href="#stack_chromatograms-52"><span class="linenos">52</span></a>    <span class="n">chrom_stack</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">chromatograms</span><span class="p">),</span> <span class="n">interpolation_length</span><span class="p">))</span>
-</span><span id="stack_chromatograms-53"><a href="#stack_chromatograms-53"><span class="linenos">53</span></a>    <span class="n">time_axis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">min_time</span><span class="p">,</span> <span class="n">max_time</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="n">interpolation_length</span><span class="p">)</span>
-</span><span id="stack_chromatograms-54"><a href="#stack_chromatograms-54"><span class="linenos">54</span></a>
-</span><span id="stack_chromatograms-55"><a href="#stack_chromatograms-55"><span class="linenos">55</span></a>    <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">chrom</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">chromatograms</span><span class="p">):</span>
-</span><span id="stack_chromatograms-56"><a href="#stack_chromatograms-56"><span class="linenos">56</span></a>        <span class="n">interp_function</span> <span class="o">=</span> <span class="n">interpolate</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span><span class="n">chrom</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">chrom</span><span class="o">.</span><span class="n">signal</span><span class="p">)</span>
-</span><span id="stack_chromatograms-57"><a href="#stack_chromatograms-57"><span class="linenos">57</span></a>        <span class="n">interpolated_signal</span> <span class="o">=</span> <span class="n">interp_function</span><span class="p">(</span><span class="n">time_axis</span><span class="p">)</span>
-</span><span id="stack_chromatograms-58"><a href="#stack_chromatograms-58"><span class="linenos">58</span></a>        <span class="n">chrom_stack</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">interpolated_signal</span>
-</span><span id="stack_chromatograms-59"><a href="#stack_chromatograms-59"><span class="linenos">59</span></a>
-</span><span id="stack_chromatograms-60"><a href="#stack_chromatograms-60"><span class="linenos">60</span></a>    <span class="k">return</span> <span class="n">time_axis</span><span class="p">,</span> <span class="n">chrom_stack</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="stack_chromatograms-35"><a href="#-35"><span class="linenos">35</span></a><span class="k">def</span> <span class="nf">stack_chromatograms</span><span class="p">(</span><span class="n">chromatograms</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Chromatogram</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+</span><span id="stack_chromatograms-36"><a href="#-36"><span class="linenos">36</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="stack_chromatograms-37"><a href="#-37"><span class="linenos">37</span></a><span class="sd">    Create a stack of chromatogram signals in a numpy array.</span>
+</span><span id="stack_chromatograms-38"><a href="#-38"><span class="linenos">38</span></a>
+</span><span id="stack_chromatograms-39"><a href="#-39"><span class="linenos">39</span></a><span class="sd">    Parameters</span>
+</span><span id="stack_chromatograms-40"><a href="#-40"><span class="linenos">40</span></a><span class="sd">    ----------</span>
+</span><span id="stack_chromatograms-41"><a href="#-41"><span class="linenos">41</span></a><span class="sd">    chromatograms: list[Chromatogram]</span>
+</span><span id="stack_chromatograms-42"><a href="#-42"><span class="linenos">42</span></a>
+</span><span id="stack_chromatograms-43"><a href="#-43"><span class="linenos">43</span></a><span class="sd">    Returns</span>
+</span><span id="stack_chromatograms-44"><a href="#-44"><span class="linenos">44</span></a><span class="sd">    -------</span>
+</span><span id="stack_chromatograms-45"><a href="#-45"><span class="linenos">45</span></a><span class="sd">    time_axis: np.ndnumpy</span>
+</span><span id="stack_chromatograms-46"><a href="#-46"><span class="linenos">46</span></a><span class="sd">    chrom_stack: 2d numpy array (len(time_axis),len(chromatograms))</span>
+</span><span id="stack_chromatograms-47"><a href="#-47"><span class="linenos">47</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="stack_chromatograms-48"><a href="#-48"><span class="linenos">48</span></a>
+</span><span id="stack_chromatograms-49"><a href="#-49"><span class="linenos">49</span></a>    <span class="n">min_time</span><span class="p">,</span> <span class="n">max_time</span> <span class="o">=</span> <span class="n">get_chrom_time_min_max</span><span class="p">(</span><span class="n">chromatograms</span><span class="p">)</span>
+</span><span id="stack_chromatograms-50"><a href="#-50"><span class="linenos">50</span></a>
+</span><span id="stack_chromatograms-51"><a href="#-51"><span class="linenos">51</span></a>    <span class="n">interpolation_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">chromatograms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
+</span><span id="stack_chromatograms-52"><a href="#-52"><span class="linenos">52</span></a>
+</span><span id="stack_chromatograms-53"><a href="#-53"><span class="linenos">53</span></a>    <span class="n">chrom_stack</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">chromatograms</span><span class="p">),</span> <span class="n">interpolation_length</span><span class="p">))</span>
+</span><span id="stack_chromatograms-54"><a href="#-54"><span class="linenos">54</span></a>    <span class="n">time_axis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">min_time</span><span class="p">,</span> <span class="n">max_time</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="n">interpolation_length</span><span class="p">)</span>
+</span><span id="stack_chromatograms-55"><a href="#-55"><span class="linenos">55</span></a>
+</span><span id="stack_chromatograms-56"><a href="#-56"><span class="linenos">56</span></a>    <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">chrom</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">chromatograms</span><span class="p">):</span>
+</span><span id="stack_chromatograms-57"><a href="#-57"><span class="linenos">57</span></a>        <span class="n">interp_function</span> <span class="o">=</span> <span class="n">interpolate</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span><span class="n">chrom</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">chrom</span><span class="o">.</span><span class="n">signal</span><span class="p">)</span>
+</span><span id="stack_chromatograms-58"><a href="#-58"><span class="linenos">58</span></a>        <span class="n">interpolated_signal</span> <span class="o">=</span> <span class="n">interp_function</span><span class="p">(</span><span class="n">time_axis</span><span class="p">)</span>
+</span><span id="stack_chromatograms-59"><a href="#-59"><span class="linenos">59</span></a>        <span class="n">chrom_stack</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">interpolated_signal</span>
+</span><span id="stack_chromatograms-60"><a href="#-60"><span class="linenos">60</span></a>
+</span><span id="stack_chromatograms-61"><a href="#-61"><span class="linenos">61</span></a>    <span class="k">return</span> <span class="n">time_axis</span><span class="p">,</span> <span class="n">chrom_stack</span>
 </span></pre></div>
 
 
@@ -222,13 +223,13 @@ a chromatogram series.</p>
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><strong>chromatograms</strong> (list[<a href="../../Classes/Chromatogram.html">ChromProcess.Classes.Chromatogram</a>]):</li>
+<li><strong>chromatograms</strong> (list[Chromatogram]):</li>
 </ul>
 
 <h6 id="returns">Returns</h6>
 
 <ul>
-<li><p><strong>time_axis</strong> (1d numpy array):</p></li>
+<li><p><strong>time_axis</strong> (np.ndnumpy):</p></li>
 <li><p><strong>chrom_stack</strong> (2d numpy array (len(time_axis),len(chromatograms))):</p></li>
 </ul>
 </div>

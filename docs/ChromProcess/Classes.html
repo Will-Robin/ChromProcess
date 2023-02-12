@@ -29,15 +29,14 @@
 
         <h2>Submodules</h2>
         <ul>
-                <li><a href="Classes/AnalysisInformation.html">AnalysisInformation</a></li>
-                <li><a href="Classes/Chromatogram.html">Chromatogram</a></li>
-                <li><a href="Classes/DataReport.html">DataReport</a></li>
-                <li><a href="Classes/ExperimentConditions.html">ExperimentConditions</a></li>
-                <li><a href="Classes/InstrumentCalibration.html">InstrumentCalibration</a></li>
-                <li><a href="Classes/MassSpectrum.html">MassSpectrum</a></li>
-                <li><a href="Classes/Peak.html">Peak</a></li>
-                <li><a href="Classes/PeakCollection.html">PeakCollection</a></li>
-                <li><a href="Classes/PeakCollectionSeries.html">PeakCollectionSeries</a></li>
+                <li><a href="Classes/analysis_information.html">analysis_information</a></li>
+                <li><a href="Classes/chromatogram.html">chromatogram</a></li>
+                <li><a href="Classes/data_report.html">data_report</a></li>
+                <li><a href="Classes/experiment_conditions.html">experiment_conditions</a></li>
+                <li><a href="Classes/instrument_calibration.html">instrument_calibration</a></li>
+                <li><a href="Classes/mass_spectrum.html">mass_spectrum</a></li>
+                <li><a href="Classes/peak.html">peak</a></li>
+                <li><a href="Classes/peak_collection.html">peak_collection</a></li>
         </ul>
 
 
@@ -67,28 +66,26 @@ can be considered as shorthand for common operations.</p>
 
                         <label class="view-source-button" for="Classes-view-source"><span>View Source</span></label>
 
-                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a><span class="sd">These Classes are Python objects designed to encapsulate data. They provide an</span>
-</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="sd">intuitive wrapper around pure Python and numpy code for interaction with the</span>
-</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="sd">various kinds of information required for data analysis.</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="sd">The objects also have some methods for writing to files, conversions and</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="sd">getting data. Often, they call code from another submodule of ChromProcess, and</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="sd">can be considered as shorthand for common operations.</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="kn">from</span> <span class="nn">ChromProcess.Classes.Peak</span> <span class="kn">import</span> <span class="n">Peak</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="kn">from</span> <span class="nn">ChromProcess.Classes.Chromatogram</span> <span class="kn">import</span> <span class="n">Chromatogram</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="kn">from</span> <span class="nn">ChromProcess.Classes.MassSpectrum</span> <span class="kn">import</span> <span class="n">MassSpectrum</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="kn">from</span> <span class="nn">ChromProcess.Classes.PeakCollection</span> <span class="kn">import</span> <span class="n">PeakCollection</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="kn">from</span> <span class="nn">ChromProcess.Classes.PeakCollectionSeries</span> <span class="kn">import</span> <span class="n">PeakCollectionSeries</span>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="kn">from</span> <span class="nn">ChromProcess.Classes.InstrumentCalibration</span> <span class="kn">import</span> <span class="n">InstrumentCalibration</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="kn">from</span> <span class="nn">ChromProcess.Classes.AnalysisInformation</span> <span class="kn">import</span> <span class="n">AnalysisInformation</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="kn">from</span> <span class="nn">ChromProcess.Classes.ExperimentConditions</span> <span class="kn">import</span> <span class="n">ExperimentConditions</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="kn">from</span> <span class="nn">ChromProcess.Classes.DataReport</span> <span class="kn">import</span> <span class="n">DataReport</span>
+                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#-1"><span class="linenos"> 1</span></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-2"><a href="#-2"><span class="linenos"> 2</span></a><span class="sd">These Classes are Python objects designed to encapsulate data. They provide an</span>
+</span><span id="L-3"><a href="#-3"><span class="linenos"> 3</span></a><span class="sd">intuitive wrapper around pure Python and numpy code for interaction with the</span>
+</span><span id="L-4"><a href="#-4"><span class="linenos"> 4</span></a><span class="sd">various kinds of information required for data analysis.</span>
+</span><span id="L-5"><a href="#-5"><span class="linenos"> 5</span></a>
+</span><span id="L-6"><a href="#-6"><span class="linenos"> 6</span></a><span class="sd">The objects also have some methods for writing to files, conversions and</span>
+</span><span id="L-7"><a href="#-7"><span class="linenos"> 7</span></a><span class="sd">getting data. Often, they call code from another submodule of ChromProcess, and</span>
+</span><span id="L-8"><a href="#-8"><span class="linenos"> 8</span></a><span class="sd">can be considered as shorthand for common operations.</span>
+</span><span id="L-9"><a href="#-9"><span class="linenos"> 9</span></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-10"><a href="#-10"><span class="linenos">10</span></a>
+</span><span id="L-11"><a href="#-11"><span class="linenos">11</span></a><span class="kn">from</span> <span class="nn">.peak</span> <span class="kn">import</span> <span class="n">Peak</span>
+</span><span id="L-12"><a href="#-12"><span class="linenos">12</span></a><span class="kn">from</span> <span class="nn">.peak_collection</span> <span class="kn">import</span> <span class="n">PeakCollection</span>
+</span><span id="L-13"><a href="#-13"><span class="linenos">13</span></a><span class="kn">from</span> <span class="nn">.chromatogram</span> <span class="kn">import</span> <span class="n">Chromatogram</span>
+</span><span id="L-14"><a href="#-14"><span class="linenos">14</span></a><span class="kn">from</span> <span class="nn">.mass_spectrum</span> <span class="kn">import</span> <span class="n">MassSpectrum</span>
+</span><span id="L-15"><a href="#-15"><span class="linenos">15</span></a>
+</span><span id="L-16"><a href="#-16"><span class="linenos">16</span></a><span class="kn">from</span> <span class="nn">.instrument_calibration</span> <span class="kn">import</span> <span class="n">InstrumentCalibration</span>
+</span><span id="L-17"><a href="#-17"><span class="linenos">17</span></a><span class="kn">from</span> <span class="nn">.analysis_information</span> <span class="kn">import</span> <span class="n">AnalysisInformation</span>
+</span><span id="L-18"><a href="#-18"><span class="linenos">18</span></a><span class="kn">from</span> <span class="nn">.experiment_conditions</span> <span class="kn">import</span> <span class="n">ExperimentConditions</span>
+</span><span id="L-19"><a href="#-19"><span class="linenos">19</span></a>
+</span><span id="L-20"><a href="#-20"><span class="linenos">20</span></a><span class="kn">from</span> <span class="nn">.data_report</span> <span class="kn">import</span> <span class="n">DataReport</span>
 </span></pre></div>
 
 

@@ -54,46 +54,47 @@
 
                         <label class="view-source-button" for="peak_from_chromatogram-view-source"><span>View Source</span></label>
 
-                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-</span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a><span class="kn">from</span> <span class="nn">ChromProcess</span> <span class="kn">import</span> <span class="n">Classes</span>
-</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a>
-</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="k">def</span> <span class="nf">peak_from_chromatogram</span><span class="p">(</span><span class="n">chrom</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>    <span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="sd">    Create a peak using the boundaries defined within a chromatogram.</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">    Parameters</span>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="sd">    ----------</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">    chrom: ChromProcess.Classes.Chromatogram</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="sd">    start: float</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="sd">        Start of the peak</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="sd">    end: float</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">        End of the peak</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="sd">    Returns</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="sd">    -------</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="sd">    peak: ChromProcess.Classes.Peak</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="sd">        peak created from the bounds</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>    <span class="k">if</span> <span class="n">start</span> <span class="o">&gt;</span> <span class="n">end</span><span class="p">:</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;peak start (</span><span class="si">{</span><span class="n">start</span><span class="si">}</span><span class="s2">) &gt; peak end, (</span><span class="si">{</span><span class="n">end</span><span class="si">}</span><span class="s2">) returning None&quot;</span><span class="p">)</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>        <span class="k">return</span> <span class="kc">None</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>    <span class="n">inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">chrom</span><span class="o">.</span><span class="n">time</span> <span class="o">&gt;</span> <span class="n">start</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">chrom</span><span class="o">.</span><span class="n">time</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>    <span class="n">timeseg</span> <span class="o">=</span> <span class="n">chrom</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">inds</span><span class="p">]</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>    <span class="n">sigseg</span> <span class="o">=</span> <span class="n">chrom</span><span class="o">.</span><span class="n">signal</span><span class="p">[</span><span class="n">inds</span><span class="p">]</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>    <span class="n">peak_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">sigseg</span><span class="p">)</span>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>    <span class="n">retention_time</span> <span class="o">=</span> <span class="n">timeseg</span><span class="p">[</span><span class="n">peak_idx</span><span class="p">]</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>
-</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>    <span class="n">start</span> <span class="o">=</span> <span class="n">timeseg</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>    <span class="n">end</span> <span class="o">=</span> <span class="n">timeseg</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>    <span class="n">peak</span> <span class="o">=</span> <span class="n">Classes</span><span class="o">.</span><span class="n">Peak</span><span class="p">(</span><span class="n">retention_time</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="n">inds</span><span class="p">)</span>
-</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a>    <span class="n">peak</span><span class="o">.</span><span class="n">get_height</span><span class="p">(</span><span class="n">chrom</span><span class="p">)</span>
-</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a>
-</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>    <span class="k">return</span> <span class="n">peak</span>
+                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#-1"><span class="linenos"> 1</span></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span><span id="L-2"><a href="#-2"><span class="linenos"> 2</span></a><span class="kn">from</span> <span class="nn">ChromProcess.Classes</span> <span class="kn">import</span> <span class="n">Peak</span>
+</span><span id="L-3"><a href="#-3"><span class="linenos"> 3</span></a><span class="kn">from</span> <span class="nn">ChromProcess.Classes</span> <span class="kn">import</span> <span class="n">Chromatogram</span>
+</span><span id="L-4"><a href="#-4"><span class="linenos"> 4</span></a>
+</span><span id="L-5"><a href="#-5"><span class="linenos"> 5</span></a>
+</span><span id="L-6"><a href="#-6"><span class="linenos"> 6</span></a><span class="k">def</span> <span class="nf">peak_from_chromatogram</span><span class="p">(</span><span class="n">chrom</span><span class="p">:</span> <span class="n">Chromatogram</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">end</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Peak</span><span class="p">:</span>
+</span><span id="L-7"><a href="#-7"><span class="linenos"> 7</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-8"><a href="#-8"><span class="linenos"> 8</span></a><span class="sd">    Create a peak using the boundaries defined within a chromatogram.</span>
+</span><span id="L-9"><a href="#-9"><span class="linenos"> 9</span></a>
+</span><span id="L-10"><a href="#-10"><span class="linenos">10</span></a><span class="sd">    Parameters</span>
+</span><span id="L-11"><a href="#-11"><span class="linenos">11</span></a><span class="sd">    ----------</span>
+</span><span id="L-12"><a href="#-12"><span class="linenos">12</span></a><span class="sd">    chrom: Chromatogram</span>
+</span><span id="L-13"><a href="#-13"><span class="linenos">13</span></a><span class="sd">    start: float</span>
+</span><span id="L-14"><a href="#-14"><span class="linenos">14</span></a><span class="sd">        Start of the peak</span>
+</span><span id="L-15"><a href="#-15"><span class="linenos">15</span></a><span class="sd">    end: float</span>
+</span><span id="L-16"><a href="#-16"><span class="linenos">16</span></a><span class="sd">        End of the peak</span>
+</span><span id="L-17"><a href="#-17"><span class="linenos">17</span></a>
+</span><span id="L-18"><a href="#-18"><span class="linenos">18</span></a><span class="sd">    Returns</span>
+</span><span id="L-19"><a href="#-19"><span class="linenos">19</span></a><span class="sd">    -------</span>
+</span><span id="L-20"><a href="#-20"><span class="linenos">20</span></a><span class="sd">    peak: Peak</span>
+</span><span id="L-21"><a href="#-21"><span class="linenos">21</span></a><span class="sd">        peak created from the bounds</span>
+</span><span id="L-22"><a href="#-22"><span class="linenos">22</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-23"><a href="#-23"><span class="linenos">23</span></a>
+</span><span id="L-24"><a href="#-24"><span class="linenos">24</span></a>    <span class="k">if</span> <span class="n">start</span> <span class="o">&gt;</span> <span class="n">end</span><span class="p">:</span>
+</span><span id="L-25"><a href="#-25"><span class="linenos">25</span></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;peak start (</span><span class="si">{</span><span class="n">start</span><span class="si">}</span><span class="s2">) &gt; peak end, (</span><span class="si">{</span><span class="n">end</span><span class="si">}</span><span class="s2">) returning None&quot;</span><span class="p">)</span>
+</span><span id="L-26"><a href="#-26"><span class="linenos">26</span></a>        <span class="k">return</span> <span class="kc">None</span>
+</span><span id="L-27"><a href="#-27"><span class="linenos">27</span></a>
+</span><span id="L-28"><a href="#-28"><span class="linenos">28</span></a>    <span class="n">inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">chrom</span><span class="o">.</span><span class="n">time</span> <span class="o">&gt;</span> <span class="n">start</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">chrom</span><span class="o">.</span><span class="n">time</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="L-29"><a href="#-29"><span class="linenos">29</span></a>
+</span><span id="L-30"><a href="#-30"><span class="linenos">30</span></a>    <span class="n">timeseg</span> <span class="o">=</span> <span class="n">chrom</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">inds</span><span class="p">]</span>
+</span><span id="L-31"><a href="#-31"><span class="linenos">31</span></a>    <span class="n">sigseg</span> <span class="o">=</span> <span class="n">chrom</span><span class="o">.</span><span class="n">signal</span><span class="p">[</span><span class="n">inds</span><span class="p">]</span>
+</span><span id="L-32"><a href="#-32"><span class="linenos">32</span></a>
+</span><span id="L-33"><a href="#-33"><span class="linenos">33</span></a>    <span class="n">peak_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">sigseg</span><span class="p">)</span>
+</span><span id="L-34"><a href="#-34"><span class="linenos">34</span></a>    <span class="n">retention_time</span> <span class="o">=</span> <span class="n">timeseg</span><span class="p">[</span><span class="n">peak_idx</span><span class="p">]</span>
+</span><span id="L-35"><a href="#-35"><span class="linenos">35</span></a>
+</span><span id="L-36"><a href="#-36"><span class="linenos">36</span></a>    <span class="n">start</span> <span class="o">=</span> <span class="n">timeseg</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="L-37"><a href="#-37"><span class="linenos">37</span></a>    <span class="n">end</span> <span class="o">=</span> <span class="n">timeseg</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</span><span id="L-38"><a href="#-38"><span class="linenos">38</span></a>    <span class="n">peak</span> <span class="o">=</span> <span class="n">Peak</span><span class="p">(</span><span class="n">retention_time</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="n">inds</span><span class="p">)</span>
+</span><span id="L-39"><a href="#-39"><span class="linenos">39</span></a>    <span class="n">peak</span><span class="o">.</span><span class="n">get_height</span><span class="p">(</span><span class="n">chrom</span><span class="p">)</span>
+</span><span id="L-40"><a href="#-40"><span class="linenos">40</span></a>
+</span><span id="L-41"><a href="#-41"><span class="linenos">41</span></a>    <span class="k">return</span> <span class="n">peak</span>
 </span></pre></div>
 
 
@@ -103,48 +104,48 @@
 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">peak_from_chromatogram</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">chrom</span>, </span><span class="param"><span class="n">start</span>, </span><span class="param"><span class="n">end</span></span>)</span>
+        <span class="name">peak_from_chromatogram</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">chrom</span><span class="p">:</span> <span class="n"><a href="../../Classes/chromatogram.html#Chromatogram">ChromProcess</span><span class="o">.</span><span class="n">Classes</span><span class="o">.</span><span class="n">chromatogram</span><span class="o">.</span><span class="n">Chromatogram</a></span>,</span><span class="param">	<span class="n">start</span><span class="p">:</span> <span class="nb">float</span>,</span><span class="param">	<span class="n">end</span><span class="p">:</span> <span class="nb">float</span></span><span class="return-annotation">) -> <span class="n"><a href="../../Classes/peak.html#Peak">ChromProcess</span><span class="o">.</span><span class="n">Classes</span><span class="o">.</span><span class="n">peak</span><span class="o">.</span><span class="n">Peak</a></span>:</span></span>
 
                 <label class="view-source-button" for="peak_from_chromatogram-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#peak_from_chromatogram"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="peak_from_chromatogram-6"><a href="#peak_from_chromatogram-6"><span class="linenos"> 6</span></a><span class="k">def</span> <span class="nf">peak_from_chromatogram</span><span class="p">(</span><span class="n">chrom</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
-</span><span id="peak_from_chromatogram-7"><a href="#peak_from_chromatogram-7"><span class="linenos"> 7</span></a>    <span class="sd">&quot;&quot;&quot;</span>
-</span><span id="peak_from_chromatogram-8"><a href="#peak_from_chromatogram-8"><span class="linenos"> 8</span></a><span class="sd">    Create a peak using the boundaries defined within a chromatogram.</span>
-</span><span id="peak_from_chromatogram-9"><a href="#peak_from_chromatogram-9"><span class="linenos"> 9</span></a>
-</span><span id="peak_from_chromatogram-10"><a href="#peak_from_chromatogram-10"><span class="linenos">10</span></a><span class="sd">    Parameters</span>
-</span><span id="peak_from_chromatogram-11"><a href="#peak_from_chromatogram-11"><span class="linenos">11</span></a><span class="sd">    ----------</span>
-</span><span id="peak_from_chromatogram-12"><a href="#peak_from_chromatogram-12"><span class="linenos">12</span></a><span class="sd">    chrom: ChromProcess.Classes.Chromatogram</span>
-</span><span id="peak_from_chromatogram-13"><a href="#peak_from_chromatogram-13"><span class="linenos">13</span></a><span class="sd">    start: float</span>
-</span><span id="peak_from_chromatogram-14"><a href="#peak_from_chromatogram-14"><span class="linenos">14</span></a><span class="sd">        Start of the peak</span>
-</span><span id="peak_from_chromatogram-15"><a href="#peak_from_chromatogram-15"><span class="linenos">15</span></a><span class="sd">    end: float</span>
-</span><span id="peak_from_chromatogram-16"><a href="#peak_from_chromatogram-16"><span class="linenos">16</span></a><span class="sd">        End of the peak</span>
-</span><span id="peak_from_chromatogram-17"><a href="#peak_from_chromatogram-17"><span class="linenos">17</span></a>
-</span><span id="peak_from_chromatogram-18"><a href="#peak_from_chromatogram-18"><span class="linenos">18</span></a><span class="sd">    Returns</span>
-</span><span id="peak_from_chromatogram-19"><a href="#peak_from_chromatogram-19"><span class="linenos">19</span></a><span class="sd">    -------</span>
-</span><span id="peak_from_chromatogram-20"><a href="#peak_from_chromatogram-20"><span class="linenos">20</span></a><span class="sd">    peak: ChromProcess.Classes.Peak</span>
-</span><span id="peak_from_chromatogram-21"><a href="#peak_from_chromatogram-21"><span class="linenos">21</span></a><span class="sd">        peak created from the bounds</span>
-</span><span id="peak_from_chromatogram-22"><a href="#peak_from_chromatogram-22"><span class="linenos">22</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="peak_from_chromatogram-23"><a href="#peak_from_chromatogram-23"><span class="linenos">23</span></a>
-</span><span id="peak_from_chromatogram-24"><a href="#peak_from_chromatogram-24"><span class="linenos">24</span></a>    <span class="k">if</span> <span class="n">start</span> <span class="o">&gt;</span> <span class="n">end</span><span class="p">:</span>
-</span><span id="peak_from_chromatogram-25"><a href="#peak_from_chromatogram-25"><span class="linenos">25</span></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;peak start (</span><span class="si">{</span><span class="n">start</span><span class="si">}</span><span class="s2">) &gt; peak end, (</span><span class="si">{</span><span class="n">end</span><span class="si">}</span><span class="s2">) returning None&quot;</span><span class="p">)</span>
-</span><span id="peak_from_chromatogram-26"><a href="#peak_from_chromatogram-26"><span class="linenos">26</span></a>        <span class="k">return</span> <span class="kc">None</span>
-</span><span id="peak_from_chromatogram-27"><a href="#peak_from_chromatogram-27"><span class="linenos">27</span></a>
-</span><span id="peak_from_chromatogram-28"><a href="#peak_from_chromatogram-28"><span class="linenos">28</span></a>    <span class="n">inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">chrom</span><span class="o">.</span><span class="n">time</span> <span class="o">&gt;</span> <span class="n">start</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">chrom</span><span class="o">.</span><span class="n">time</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="peak_from_chromatogram-29"><a href="#peak_from_chromatogram-29"><span class="linenos">29</span></a>
-</span><span id="peak_from_chromatogram-30"><a href="#peak_from_chromatogram-30"><span class="linenos">30</span></a>    <span class="n">timeseg</span> <span class="o">=</span> <span class="n">chrom</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">inds</span><span class="p">]</span>
-</span><span id="peak_from_chromatogram-31"><a href="#peak_from_chromatogram-31"><span class="linenos">31</span></a>    <span class="n">sigseg</span> <span class="o">=</span> <span class="n">chrom</span><span class="o">.</span><span class="n">signal</span><span class="p">[</span><span class="n">inds</span><span class="p">]</span>
-</span><span id="peak_from_chromatogram-32"><a href="#peak_from_chromatogram-32"><span class="linenos">32</span></a>
-</span><span id="peak_from_chromatogram-33"><a href="#peak_from_chromatogram-33"><span class="linenos">33</span></a>    <span class="n">peak_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">sigseg</span><span class="p">)</span>
-</span><span id="peak_from_chromatogram-34"><a href="#peak_from_chromatogram-34"><span class="linenos">34</span></a>    <span class="n">retention_time</span> <span class="o">=</span> <span class="n">timeseg</span><span class="p">[</span><span class="n">peak_idx</span><span class="p">]</span>
-</span><span id="peak_from_chromatogram-35"><a href="#peak_from_chromatogram-35"><span class="linenos">35</span></a>
-</span><span id="peak_from_chromatogram-36"><a href="#peak_from_chromatogram-36"><span class="linenos">36</span></a>    <span class="n">start</span> <span class="o">=</span> <span class="n">timeseg</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="peak_from_chromatogram-37"><a href="#peak_from_chromatogram-37"><span class="linenos">37</span></a>    <span class="n">end</span> <span class="o">=</span> <span class="n">timeseg</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-</span><span id="peak_from_chromatogram-38"><a href="#peak_from_chromatogram-38"><span class="linenos">38</span></a>    <span class="n">peak</span> <span class="o">=</span> <span class="n">Classes</span><span class="o">.</span><span class="n">Peak</span><span class="p">(</span><span class="n">retention_time</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="n">inds</span><span class="p">)</span>
-</span><span id="peak_from_chromatogram-39"><a href="#peak_from_chromatogram-39"><span class="linenos">39</span></a>    <span class="n">peak</span><span class="o">.</span><span class="n">get_height</span><span class="p">(</span><span class="n">chrom</span><span class="p">)</span>
-</span><span id="peak_from_chromatogram-40"><a href="#peak_from_chromatogram-40"><span class="linenos">40</span></a>
-</span><span id="peak_from_chromatogram-41"><a href="#peak_from_chromatogram-41"><span class="linenos">41</span></a>    <span class="k">return</span> <span class="n">peak</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="peak_from_chromatogram-7"><a href="#-7"><span class="linenos"> 7</span></a><span class="k">def</span> <span class="nf">peak_from_chromatogram</span><span class="p">(</span><span class="n">chrom</span><span class="p">:</span> <span class="n">Chromatogram</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">end</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Peak</span><span class="p">:</span>
+</span><span id="peak_from_chromatogram-8"><a href="#-8"><span class="linenos"> 8</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="peak_from_chromatogram-9"><a href="#-9"><span class="linenos"> 9</span></a><span class="sd">    Create a peak using the boundaries defined within a chromatogram.</span>
+</span><span id="peak_from_chromatogram-10"><a href="#-10"><span class="linenos">10</span></a>
+</span><span id="peak_from_chromatogram-11"><a href="#-11"><span class="linenos">11</span></a><span class="sd">    Parameters</span>
+</span><span id="peak_from_chromatogram-12"><a href="#-12"><span class="linenos">12</span></a><span class="sd">    ----------</span>
+</span><span id="peak_from_chromatogram-13"><a href="#-13"><span class="linenos">13</span></a><span class="sd">    chrom: Chromatogram</span>
+</span><span id="peak_from_chromatogram-14"><a href="#-14"><span class="linenos">14</span></a><span class="sd">    start: float</span>
+</span><span id="peak_from_chromatogram-15"><a href="#-15"><span class="linenos">15</span></a><span class="sd">        Start of the peak</span>
+</span><span id="peak_from_chromatogram-16"><a href="#-16"><span class="linenos">16</span></a><span class="sd">    end: float</span>
+</span><span id="peak_from_chromatogram-17"><a href="#-17"><span class="linenos">17</span></a><span class="sd">        End of the peak</span>
+</span><span id="peak_from_chromatogram-18"><a href="#-18"><span class="linenos">18</span></a>
+</span><span id="peak_from_chromatogram-19"><a href="#-19"><span class="linenos">19</span></a><span class="sd">    Returns</span>
+</span><span id="peak_from_chromatogram-20"><a href="#-20"><span class="linenos">20</span></a><span class="sd">    -------</span>
+</span><span id="peak_from_chromatogram-21"><a href="#-21"><span class="linenos">21</span></a><span class="sd">    peak: Peak</span>
+</span><span id="peak_from_chromatogram-22"><a href="#-22"><span class="linenos">22</span></a><span class="sd">        peak created from the bounds</span>
+</span><span id="peak_from_chromatogram-23"><a href="#-23"><span class="linenos">23</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="peak_from_chromatogram-24"><a href="#-24"><span class="linenos">24</span></a>
+</span><span id="peak_from_chromatogram-25"><a href="#-25"><span class="linenos">25</span></a>    <span class="k">if</span> <span class="n">start</span> <span class="o">&gt;</span> <span class="n">end</span><span class="p">:</span>
+</span><span id="peak_from_chromatogram-26"><a href="#-26"><span class="linenos">26</span></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;peak start (</span><span class="si">{</span><span class="n">start</span><span class="si">}</span><span class="s2">) &gt; peak end, (</span><span class="si">{</span><span class="n">end</span><span class="si">}</span><span class="s2">) returning None&quot;</span><span class="p">)</span>
+</span><span id="peak_from_chromatogram-27"><a href="#-27"><span class="linenos">27</span></a>        <span class="k">return</span> <span class="kc">None</span>
+</span><span id="peak_from_chromatogram-28"><a href="#-28"><span class="linenos">28</span></a>
+</span><span id="peak_from_chromatogram-29"><a href="#-29"><span class="linenos">29</span></a>    <span class="n">inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">chrom</span><span class="o">.</span><span class="n">time</span> <span class="o">&gt;</span> <span class="n">start</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">chrom</span><span class="o">.</span><span class="n">time</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="peak_from_chromatogram-30"><a href="#-30"><span class="linenos">30</span></a>
+</span><span id="peak_from_chromatogram-31"><a href="#-31"><span class="linenos">31</span></a>    <span class="n">timeseg</span> <span class="o">=</span> <span class="n">chrom</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">inds</span><span class="p">]</span>
+</span><span id="peak_from_chromatogram-32"><a href="#-32"><span class="linenos">32</span></a>    <span class="n">sigseg</span> <span class="o">=</span> <span class="n">chrom</span><span class="o">.</span><span class="n">signal</span><span class="p">[</span><span class="n">inds</span><span class="p">]</span>
+</span><span id="peak_from_chromatogram-33"><a href="#-33"><span class="linenos">33</span></a>
+</span><span id="peak_from_chromatogram-34"><a href="#-34"><span class="linenos">34</span></a>    <span class="n">peak_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">sigseg</span><span class="p">)</span>
+</span><span id="peak_from_chromatogram-35"><a href="#-35"><span class="linenos">35</span></a>    <span class="n">retention_time</span> <span class="o">=</span> <span class="n">timeseg</span><span class="p">[</span><span class="n">peak_idx</span><span class="p">]</span>
+</span><span id="peak_from_chromatogram-36"><a href="#-36"><span class="linenos">36</span></a>
+</span><span id="peak_from_chromatogram-37"><a href="#-37"><span class="linenos">37</span></a>    <span class="n">start</span> <span class="o">=</span> <span class="n">timeseg</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="peak_from_chromatogram-38"><a href="#-38"><span class="linenos">38</span></a>    <span class="n">end</span> <span class="o">=</span> <span class="n">timeseg</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</span><span id="peak_from_chromatogram-39"><a href="#-39"><span class="linenos">39</span></a>    <span class="n">peak</span> <span class="o">=</span> <span class="n">Peak</span><span class="p">(</span><span class="n">retention_time</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="n">inds</span><span class="p">)</span>
+</span><span id="peak_from_chromatogram-40"><a href="#-40"><span class="linenos">40</span></a>    <span class="n">peak</span><span class="o">.</span><span class="n">get_height</span><span class="p">(</span><span class="n">chrom</span><span class="p">)</span>
+</span><span id="peak_from_chromatogram-41"><a href="#-41"><span class="linenos">41</span></a>
+</span><span id="peak_from_chromatogram-42"><a href="#-42"><span class="linenos">42</span></a>    <span class="k">return</span> <span class="n">peak</span>
 </span></pre></div>
 
 
@@ -153,7 +154,7 @@
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><p><strong>chrom</strong> (<a href="../../Classes/Chromatogram.html">ChromProcess.Classes.Chromatogram</a>):</p></li>
+<li><p><strong>chrom</strong> (Chromatogram):</p></li>
 <li><p><strong>start</strong> (float):
 Start of the peak</p></li>
 <li><strong>end</strong> (float):
@@ -163,7 +164,7 @@ End of the peak</li>
 <h6 id="returns">Returns</h6>
 
 <ul>
-<li><strong>peak</strong> (<a href="../../Classes/Peak.html">ChromProcess.Classes.Peak</a>):
+<li><strong>peak</strong> (Peak):
 peak created from the bounds</li>
 </ul>
 </div>
