@@ -1,10 +1,12 @@
 from ChromProcess.Classes import Peak
 from ChromProcess.Utils.utils import utils
 from ChromProcess.Processing.peak import operations
-from ChromProcess.Utils.peak_finding import pick_peaks as pfind
+from ChromProcess.Utils.peak_finding import pick_peaks
 
 
-def find_peaks_in_region(chromatogram, start, end, threshold=0.1):
+def find_peaks_in_region(
+    chromatogram, start, end, threshold=0.1, wlen=50, distance=1, prominence=0.1
+):
     """
     Find peaks within the chromatogram between start and end retention times.
 
@@ -19,6 +21,8 @@ def find_peaks_in_region(chromatogram, start, end, threshold=0.1):
     threshold: float
         Peaks below this fraction of the highest intensity of the chromatogram
         will not be picked.
+    wlen: int
+        Size of peak picking window in indices.
 
     Returns
     -------
@@ -34,7 +38,9 @@ def find_peaks_in_region(chromatogram, start, end, threshold=0.1):
     time = chromatogram.time[inds]
     signal = chromatogram.signal[inds]
 
-    picked_peaks = pfind.find_peaks(signal, thres=threshold)
+    picked_peaks = pick_peaks(
+        signal, distance=distance, threshold=threshold, prominence=prominence, wlen=wlen
+    )
 
     peaks = []
     for x in range(0, len(picked_peaks["Peak_indices"])):

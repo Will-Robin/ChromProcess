@@ -77,7 +77,7 @@ def inverse_quadratic(integ, A, B, C):
     """
 
     if A == 0:
-        return inverse_linear(integ, B, C) # y = mx + c
+        return inverse_linear(integ, B, C)  # y = mx + c
 
     return (-B + np.sqrt((B**2) - (4 * A * (C - integ)))) / (2 * A)
 
