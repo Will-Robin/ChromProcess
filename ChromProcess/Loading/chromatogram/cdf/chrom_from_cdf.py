@@ -5,7 +5,9 @@ from ChromProcess.Loading.chromatogram.cdf.instruments import JEOL
 from ChromProcess.Loading.chromatogram.cdf.cdf_loading import load_from_cdf
 
 
-def chrom_from_cdf(filename: str, instrument: JEOL =JEOL, load_ms: bool=False)-> Chromatogram:
+def chrom_from_cdf(
+    filename: str, instrument: JEOL = JEOL, load_ms: bool = False
+) -> Chromatogram:
     """
     Load a chromatogram from .cdf file.
 

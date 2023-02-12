@@ -19,4 +19,3 @@ class MassSpectrum:
         self.mz = mz
         self.relative_abundances = inten
         self.retention_time = pos
-

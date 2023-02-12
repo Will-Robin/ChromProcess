@@ -5,7 +5,7 @@ from ChromProcess.Classes import Peak
 from ChromProcess.Classes import PeakCollection
 
 
-def peak_collection_from_csv(filename: str, round_digits: int=3):
+def peak_collection_from_csv(filename: str, round_digits: int = 3):
     """
     Create a PeakCollection object from a formatted file.
 

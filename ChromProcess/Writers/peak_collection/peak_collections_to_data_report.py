@@ -68,7 +68,10 @@ def series_traces_as_dict(peak_collections: list[PeakCollection]):
 
     return conc_dict, err_dict, integral_dict, height_dict
 
-def peak_collection_series_conc_report_text(peak_collection: list[PeakCollection], information: AnalysisInformation) -> str:
+
+def peak_collection_series_conc_report_text(
+    peak_collection: list[PeakCollection], information: AnalysisInformation
+) -> str:
     """
     Write a peak collection series as formatted data report text.
 

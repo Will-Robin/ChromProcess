@@ -1,5 +1,6 @@
 import numpy as np
 
+
 class DataReport:
     """
     A container for data extracted from a series of chromatograms.

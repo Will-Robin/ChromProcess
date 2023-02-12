@@ -2,6 +2,7 @@ import numpy as np
 
 from .peak import Peak
 
+
 class Chromatogram:
     """
     A class for storing chromatographic data.
@@ -85,7 +86,6 @@ class Chromatogram:
 
         """
         self.internal_standard = peak
-
 
     def get_mass_spectrum(self, time):
         """
