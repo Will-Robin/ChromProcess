@@ -1,19 +1,25 @@
 from ChromProcess.Classes import Peak
+from ChromProcess.Classes import Chromatogram
 from ChromProcess.Utils.utils import utils
 from ChromProcess.Processing.peak import operations
 from ChromProcess.Utils.peak_finding import pick_peaks
 
 
 def find_peaks_in_region(
-    chromatogram, start, end, threshold=0.1, wlen=50, distance=1, prominence=0.1
-):
+    chromatogram: Chromatogram,
+    start: float,
+    end: float,
+    threshold: float = 0.1,
+    wlen: int = 50,
+    distance: int = 1,
+    prominence: float = 0.1,
+) -> list[Peak]:
     """
     Find peaks within the chromatogram between start and end retention times.
 
     Parameters
     ----------
-    chromatogram: ChromProcess.Classes.Chromatogram
-
+    chromatogram: Chromatogram
     start: float
         Start of time region (< end).
     end: float
@@ -23,10 +29,13 @@ def find_peaks_in_region(
         will not be picked.
     wlen: int
         Size of peak picking window in indices.
+    distance: int
+    prominence: float
 
     Returns
     -------
-    peaks: list of Peak objects
+    peaks: list[Peak]
+        list of Peak objects
     """
 
     if start > end:

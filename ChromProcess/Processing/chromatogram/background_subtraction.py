@@ -1,7 +1,10 @@
 import numpy as np
+from ChromProcess.Classes import Chromatogram
 
 
-def ic_background_subtraction(chromatogram, threshold=500):
+def ic_background_subtraction(
+    chromatogram: Chromatogram, threshold: int = 500
+) -> np.ndarray:
     """
     Gets the ion chromatograms of the analysis and reconstitutes the total ion
     chromatogram ommitting m/z signals which do not exceed a threshold.

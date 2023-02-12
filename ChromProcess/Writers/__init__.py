@@ -9,8 +9,6 @@ from .chromatogram import chromatogram_to_csv
 from .chromatogram import chromatogram_to_json
 from .chromatogram import chromatogram_to_peak_table
 
-from .peak import peak_to_entry_text
-
 from .mass_spectra import mass_spectrum_to_string_cols
 from .mass_spectra import mass_spectrum_to_string_rows
 
