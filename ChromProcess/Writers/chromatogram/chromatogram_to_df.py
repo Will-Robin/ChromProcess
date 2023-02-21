@@ -15,7 +15,14 @@ def chromatogram_to_df(chromatogram: Chromatogram) -> pd.DataFrame:
     df: pd.DataFrame
     """
 
-    peaks = {"retention_time": [], "integral": [], "start": [], "end": []}
+    peaks = {
+        "retention_time": [],
+        "integral": [],
+        "start": [],
+        "end": [],
+        "is_retention_time": [],
+        "is_integral": [],
+    }
     for peak in chromatogram.peaks.values():
         integral = peak.integral
         rt = peak.retention_time
@@ -25,6 +32,13 @@ def chromatogram_to_df(chromatogram: Chromatogram) -> pd.DataFrame:
         peaks["integral"].append(integral)
         peaks["start"].append(start)
         peaks["end"].append(end)
+
+    peaks["is_retention_time"] = [
+        chromatogram.internal_standard.retention_time for p in chromatogram.peaks
+    ]
+    peaks["is_integral"] = [
+        chromatogram.internal_standard.integral for p in chromatogram.peaks
+    ]
 
     df = pd.DataFrame(peaks)
 
