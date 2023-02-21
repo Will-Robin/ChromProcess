@@ -25,7 +25,7 @@ def conditions_from_csv(filename: str) -> ExperimentConditions:
             if "Series_values" in line:
                 ins = line.strip("\n")
                 spl = ins.split(",")
-                conditions.series_values = [float(x) for x in spl[1:] if x != ""]
+                conditions.series_values = [x for x in spl[1:] if x != ""]
             if "Series_unit" in line:
                 ins = line.strip("\n")
                 conditions.series_unit = ins.split(",")[1]
