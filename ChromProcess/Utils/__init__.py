@@ -6,4 +6,4 @@ data analysis and processing operations.
 from .peak_finding import pick_peaks
 from .signal_processing import deconvolution
 
-from .utils.utils import *
+from .utils import *

@@ -41,7 +41,7 @@ def inverse_linear(variable, gradient, intercept):
     return (variable - intercept) / gradient
 
 
-def quadratic_function(X, A, B, C):
+def quadratic(X, A, B, C):
     """
     Quadratic function
 
