@@ -69,7 +69,7 @@ def cluster_indices(values, bound=0.1):
     yield cluster
 
 
-def create_bins(time_array: np.ndarray, width: float) -> tuple[np.ndarray]:
+def create_bins(time_array: np.ndarray, width: float) -> list[tuple[float, float]]:
     """
     Create bins using a mean-shift agglomeration algorithm.
 
@@ -85,16 +85,12 @@ def create_bins(time_array: np.ndarray, width: float) -> tuple[np.ndarray]:
     clusters = [c for c in cluster(time_array, bound=width)]
     bin_borders = []
     for c in clusters:
-        mean = np.mean(c)
         if len(c) == 1:
-            bin_borders.append((mean - width / 2, mean + width / 2))
+            bin_borders.append((c[0] - width / 2, c[0] + width / 2))
         else:
-            std = np.std(c, ddof=1)
-            if std < width or np.isnan(std):
-                mean = np.mean(c)
-                bin_borders.append((mean - width / 2, mean + width / 2))
-            else:
-                bin_borders.append((min(c), max(c)))
+            lower = np.min(c)
+            upper = np.max(c)
+            bin_borders.append((lower, upper))
 
     bin_borders.sort(key=lambda x: x[0])
 
