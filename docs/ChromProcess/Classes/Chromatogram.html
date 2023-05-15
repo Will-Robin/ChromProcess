@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="pdoc 13.0.0"/>
+    <meta name="generator" content="pdoc 13.1.1"/>
     <title>ChromProcess.Classes.chromatogram API documentation</title>
 
     <style>/*! * Bootstrap Reboot v5.0.0 (https://getbootstrap.com/) * Copyright 2011-2021 The Bootstrap Authors * Copyright 2011-2021 Twitter, Inc. * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE) * Forked from Normalize.css, licensed MIT (https://github.com/necolas/normalize.css/blob/master/LICENSE.md) */*,::after,::before{box-sizing:border-box}@media (prefers-reduced-motion:no-preference){:root{scroll-behavior:smooth}}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";font-size:1rem;font-weight:400;line-height:1.5;color:#212529;background-color:#fff;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}hr{margin:1rem 0;color:inherit;background-color:currentColor;border:0;opacity:.25}hr:not([size]){height:1px}h1,h2,h3,h4,h5,h6{margin-top:0;margin-bottom:.5rem;font-weight:500;line-height:1.2}h1{font-size:calc(1.375rem + 1.5vw)}@media (min-width:1200px){h1{font-size:2.5rem}}h2{font-size:calc(1.325rem + .9vw)}@media (min-width:1200px){h2{font-size:2rem}}h3{font-size:calc(1.3rem + .6vw)}@media (min-width:1200px){h3{font-size:1.75rem}}h4{font-size:calc(1.275rem + .3vw)}@media (min-width:1200px){h4{font-size:1.5rem}}h5{font-size:1.25rem}h6{font-size:1rem}p{margin-top:0;margin-bottom:1rem}abbr[data-bs-original-title],abbr[title]{-webkit-text-decoration:underline dotted;text-decoration:underline dotted;cursor:help;-webkit-text-decoration-skip-ink:none;text-decoration-skip-ink:none}address{margin-bottom:1rem;font-style:normal;line-height:inherit}ol,ul{padding-left:2rem}dl,ol,ul{margin-top:0;margin-bottom:1rem}ol ol,ol ul,ul ol,ul ul{margin-bottom:0}dt{font-weight:700}dd{margin-bottom:.5rem;margin-left:0}blockquote{margin:0 0 1rem}b,strong{font-weight:bolder}small{font-size:.875em}mark{padding:.2em;background-color:#fcf8e3}sub,sup{position:relative;font-size:.75em;line-height:0;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}a{color:#0d6efd;text-decoration:underline}a:hover{color:#0a58ca}a:not([href]):not([class]),a:not([href]):not([class]):hover{color:inherit;text-decoration:none}code,kbd,pre,samp{font-family:SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:1em;direction:ltr;unicode-bidi:bidi-override}pre{display:block;margin-top:0;margin-bottom:1rem;overflow:auto;font-size:.875em}pre code{font-size:inherit;color:inherit;word-break:normal}code{font-size:.875em;color:#d63384;word-wrap:break-word}a>code{color:inherit}kbd{padding:.2rem .4rem;font-size:.875em;color:#fff;background-color:#212529;border-radius:.2rem}kbd kbd{padding:0;font-size:1em;font-weight:700}figure{margin:0 0 1rem}img,svg{vertical-align:middle}table{caption-side:bottom;border-collapse:collapse}caption{padding-top:.5rem;padding-bottom:.5rem;color:#6c757d;text-align:left}th{text-align:inherit;text-align:-webkit-match-parent}tbody,td,tfoot,th,thead,tr{border-color:inherit;border-style:solid;border-width:0}label{display:inline-block}button{border-radius:0}button:focus:not(:focus-visible){outline:0}button,input,optgroup,select,textarea{margin:0;font-family:inherit;font-size:inherit;line-height:inherit}button,select{text-transform:none}[role=button]{cursor:pointer}select{word-wrap:normal}select:disabled{opacity:1}[list]::-webkit-calendar-picker-indicator{display:none}[type=button],[type=reset],[type=submit],button{-webkit-appearance:button}[type=button]:not(:disabled),[type=reset]:not(:disabled),[type=submit]:not(:disabled),button:not(:disabled){cursor:pointer}::-moz-focus-inner{padding:0;border-style:none}textarea{resize:vertical}fieldset{min-width:0;padding:0;margin:0;border:0}legend{float:left;width:100%;padding:0;margin-bottom:.5rem;font-size:calc(1.275rem + .3vw);line-height:inherit}@media (min-width:1200px){legend{font-size:1.5rem}}legend+*{clear:left}::-webkit-datetime-edit-day-field,::-webkit-datetime-edit-fields-wrapper,::-webkit-datetime-edit-hour-field,::-webkit-datetime-edit-minute,::-webkit-datetime-edit-month-field,::-webkit-datetime-edit-text,::-webkit-datetime-edit-year-field{padding:0}::-webkit-inner-spin-button{height:auto}[type=search]{outline-offset:-2px;-webkit-appearance:textfield}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-color-swatch-wrapper{padding:0}::file-selector-button{font:inherit}::-webkit-file-upload-button{font:inherit;-webkit-appearance:button}output{display:inline-block}iframe{border:0}summary{display:list-item;cursor:pointer}progress{vertical-align:baseline}[hidden]{display:none!important}</style>
@@ -28,8 +28,8 @@
 
 
 
-        <h2>API Documentation</h2>
-            <ul class="memberlist">
+            <h2>API Documentation</h2>
+                <ul class="memberlist">
             <li>
                     <a class="class" href="#Chromatogram">Chromatogram</a>
                             <ul class="memberlist">
@@ -128,7 +128,7 @@
 </span><span id="L-54"><a href="#L-54"><span class="linenos"> 54</span></a>
 </span><span id="L-55"><a href="#L-55"><span class="linenos"> 55</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">internal_standard</span><span class="p">:</span> <span class="n">Peak</span> <span class="o">=</span> <span class="n">Peak</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
 </span><span id="L-56"><a href="#L-56"><span class="linenos"> 56</span></a>
-</span><span id="L-57"><a href="#L-57"><span class="linenos"> 57</span></a>    <span class="k">def</span> <span class="nf">add_peaks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">peaks</span><span class="p">):</span>
+</span><span id="L-57"><a href="#L-57"><span class="linenos"> 57</span></a>    <span class="k">def</span> <span class="nf">add_peaks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">peaks</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Peak</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="L-58"><a href="#L-58"><span class="linenos"> 58</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-59"><a href="#L-59"><span class="linenos"> 59</span></a><span class="sd">        Add peaks to a chromatogram.</span>
 </span><span id="L-60"><a href="#L-60"><span class="linenos"> 60</span></a>
@@ -147,7 +147,7 @@
 </span><span id="L-73"><a href="#L-73"><span class="linenos"> 73</span></a>            <span class="n">peak</span><span class="o">.</span><span class="n">indices</span> <span class="o">=</span> <span class="n">indices</span>
 </span><span id="L-74"><a href="#L-74"><span class="linenos"> 74</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">peaks</span><span class="p">[</span><span class="n">rt</span><span class="p">]</span> <span class="o">=</span> <span class="n">peak</span>
 </span><span id="L-75"><a href="#L-75"><span class="linenos"> 75</span></a>
-</span><span id="L-76"><a href="#L-76"><span class="linenos"> 76</span></a>    <span class="k">def</span> <span class="nf">set_internal_standard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">peak</span><span class="p">:</span> <span class="n">Peak</span><span class="p">):</span>
+</span><span id="L-76"><a href="#L-76"><span class="linenos"> 76</span></a>    <span class="k">def</span> <span class="nf">set_internal_standard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">peak</span><span class="p">:</span> <span class="n">Peak</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="L-77"><a href="#L-77"><span class="linenos"> 77</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-78"><a href="#L-78"><span class="linenos"> 78</span></a><span class="sd">        Set the internal standard of the chromatogram.</span>
 </span><span id="L-79"><a href="#L-79"><span class="linenos"> 79</span></a>
@@ -161,7 +161,7 @@
 </span><span id="L-87"><a href="#L-87"><span class="linenos"> 87</span></a><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="L-88"><a href="#L-88"><span class="linenos"> 88</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">internal_standard</span> <span class="o">=</span> <span class="n">peak</span>
 </span><span id="L-89"><a href="#L-89"><span class="linenos"> 89</span></a>
-</span><span id="L-90"><a href="#L-90"><span class="linenos"> 90</span></a>    <span class="k">def</span> <span class="nf">get_mass_spectrum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+</span><span id="L-90"><a href="#L-90"><span class="linenos"> 90</span></a>    <span class="k">def</span> <span class="nf">get_mass_spectrum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
 </span><span id="L-91"><a href="#L-91"><span class="linenos"> 91</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-92"><a href="#L-92"><span class="linenos"> 92</span></a><span class="sd">        Get the mass spectrum at a given time point in the chromatogram.</span>
 </span><span id="L-93"><a href="#L-93"><span class="linenos"> 93</span></a>
@@ -188,28 +188,28 @@
 </span><span id="L-114"><a href="#L-114"><span class="linenos">114</span></a>
 </span><span id="L-115"><a href="#L-115"><span class="linenos">115</span></a>        <span class="k">return</span> <span class="n">m_z</span><span class="p">,</span> <span class="n">intensity</span>
 </span><span id="L-116"><a href="#L-116"><span class="linenos">116</span></a>
-</span><span id="L-117"><a href="#L-117"><span class="linenos">117</span></a>    <span class="k">def</span> <span class="nf">get_ion_chromatogram</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clusters</span><span class="p">):</span>
-</span><span id="L-118"><a href="#L-118"><span class="linenos">118</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-119"><a href="#L-119"><span class="linenos">119</span></a><span class="sd">        Get all ion chromatograms from the Chromatogram using</span>
-</span><span id="L-120"><a href="#L-120"><span class="linenos">120</span></a><span class="sd">        pre-defined clusters of m/z values to bin signals.</span>
-</span><span id="L-121"><a href="#L-121"><span class="linenos">121</span></a>
-</span><span id="L-122"><a href="#L-122"><span class="linenos">122</span></a><span class="sd">        Parameters</span>
-</span><span id="L-123"><a href="#L-123"><span class="linenos">123</span></a><span class="sd">        ----------</span>
-</span><span id="L-124"><a href="#L-124"><span class="linenos">124</span></a><span class="sd">        clusters: list</span>
-</span><span id="L-125"><a href="#L-125"><span class="linenos">125</span></a><span class="sd">            Clusters of m/z values. Mass values which are</span>
-</span><span id="L-126"><a href="#L-126"><span class="linenos">126</span></a><span class="sd">            together in the list values will be combined in</span>
-</span><span id="L-127"><a href="#L-127"><span class="linenos">127</span></a><span class="sd">            the output.</span>
-</span><span id="L-128"><a href="#L-128"><span class="linenos">128</span></a>
-</span><span id="L-129"><a href="#L-129"><span class="linenos">129</span></a><span class="sd">        Returns</span>
-</span><span id="L-130"><a href="#L-130"><span class="linenos">130</span></a><span class="sd">        -------</span>
-</span><span id="L-131"><a href="#L-131"><span class="linenos">131</span></a><span class="sd">        ion_chromatograms: dict</span>
-</span><span id="L-132"><a href="#L-132"><span class="linenos">132</span></a><span class="sd">            Dict of ion chromatograms</span>
-</span><span id="L-133"><a href="#L-133"><span class="linenos">133</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="L-134"><a href="#L-134"><span class="linenos">134</span></a>
-</span><span id="L-135"><a href="#L-135"><span class="linenos">135</span></a>        <span class="n">ion_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-</span><span id="L-136"><a href="#L-136"><span class="linenos">136</span></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scan_indices</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-</span><span id="L-137"><a href="#L-137"><span class="linenos">137</span></a>            <span class="n">ion_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">c</span><span class="p">):</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">))</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">clusters</span><span class="p">}</span>
-</span><span id="L-138"><a href="#L-138"><span class="linenos">138</span></a>
+</span><span id="L-117"><a href="#L-117"><span class="linenos">117</span></a>    <span class="k">def</span> <span class="nf">get_ion_chromatogram</span><span class="p">(</span>
+</span><span id="L-118"><a href="#L-118"><span class="linenos">118</span></a>        <span class="bp">self</span><span class="p">,</span> <span class="n">clusters</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span>
+</span><span id="L-119"><a href="#L-119"><span class="linenos">119</span></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+</span><span id="L-120"><a href="#L-120"><span class="linenos">120</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-121"><a href="#L-121"><span class="linenos">121</span></a><span class="sd">        Get all ion chromatograms from the Chromatogram using</span>
+</span><span id="L-122"><a href="#L-122"><span class="linenos">122</span></a><span class="sd">        pre-defined clusters of m/z values to bin signals.</span>
+</span><span id="L-123"><a href="#L-123"><span class="linenos">123</span></a>
+</span><span id="L-124"><a href="#L-124"><span class="linenos">124</span></a><span class="sd">        Parameters</span>
+</span><span id="L-125"><a href="#L-125"><span class="linenos">125</span></a><span class="sd">        ----------</span>
+</span><span id="L-126"><a href="#L-126"><span class="linenos">126</span></a><span class="sd">        clusters: list</span>
+</span><span id="L-127"><a href="#L-127"><span class="linenos">127</span></a><span class="sd">            Clusters of m/z values. Mass values which are</span>
+</span><span id="L-128"><a href="#L-128"><span class="linenos">128</span></a><span class="sd">            together in the list values will be combined in</span>
+</span><span id="L-129"><a href="#L-129"><span class="linenos">129</span></a><span class="sd">            the output.</span>
+</span><span id="L-130"><a href="#L-130"><span class="linenos">130</span></a>
+</span><span id="L-131"><a href="#L-131"><span class="linenos">131</span></a><span class="sd">        Returns</span>
+</span><span id="L-132"><a href="#L-132"><span class="linenos">132</span></a><span class="sd">        -------</span>
+</span><span id="L-133"><a href="#L-133"><span class="linenos">133</span></a><span class="sd">        ion_dict: dict</span>
+</span><span id="L-134"><a href="#L-134"><span class="linenos">134</span></a><span class="sd">            Dict of ion chromatograms</span>
+</span><span id="L-135"><a href="#L-135"><span class="linenos">135</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-136"><a href="#L-136"><span class="linenos">136</span></a>
+</span><span id="L-137"><a href="#L-137"><span class="linenos">137</span></a>        <span class="n">ion_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">c</span><span class="p">):</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">))</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">clusters</span><span class="p">}</span>
+</span><span id="L-138"><a href="#L-138"><span class="linenos">138</span></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scan_indices</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
 </span><span id="L-139"><a href="#L-139"><span class="linenos">139</span></a>            <span class="n">scan_brackets</span> <span class="o">=</span> <span class="p">[]</span>
 </span><span id="L-140"><a href="#L-140"><span class="linenos">140</span></a>
 </span><span id="L-141"><a href="#L-141"><span class="linenos">141</span></a>            <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scan_indices</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
@@ -294,7 +294,7 @@
 </span><span id="Chromatogram-55"><a href="#Chromatogram-55"><span class="linenos"> 55</span></a>
 </span><span id="Chromatogram-56"><a href="#Chromatogram-56"><span class="linenos"> 56</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">internal_standard</span><span class="p">:</span> <span class="n">Peak</span> <span class="o">=</span> <span class="n">Peak</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
 </span><span id="Chromatogram-57"><a href="#Chromatogram-57"><span class="linenos"> 57</span></a>
-</span><span id="Chromatogram-58"><a href="#Chromatogram-58"><span class="linenos"> 58</span></a>    <span class="k">def</span> <span class="nf">add_peaks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">peaks</span><span class="p">):</span>
+</span><span id="Chromatogram-58"><a href="#Chromatogram-58"><span class="linenos"> 58</span></a>    <span class="k">def</span> <span class="nf">add_peaks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">peaks</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Peak</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="Chromatogram-59"><a href="#Chromatogram-59"><span class="linenos"> 59</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="Chromatogram-60"><a href="#Chromatogram-60"><span class="linenos"> 60</span></a><span class="sd">        Add peaks to a chromatogram.</span>
 </span><span id="Chromatogram-61"><a href="#Chromatogram-61"><span class="linenos"> 61</span></a>
@@ -313,7 +313,7 @@
 </span><span id="Chromatogram-74"><a href="#Chromatogram-74"><span class="linenos"> 74</span></a>            <span class="n">peak</span><span class="o">.</span><span class="n">indices</span> <span class="o">=</span> <span class="n">indices</span>
 </span><span id="Chromatogram-75"><a href="#Chromatogram-75"><span class="linenos"> 75</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">peaks</span><span class="p">[</span><span class="n">rt</span><span class="p">]</span> <span class="o">=</span> <span class="n">peak</span>
 </span><span id="Chromatogram-76"><a href="#Chromatogram-76"><span class="linenos"> 76</span></a>
-</span><span id="Chromatogram-77"><a href="#Chromatogram-77"><span class="linenos"> 77</span></a>    <span class="k">def</span> <span class="nf">set_internal_standard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">peak</span><span class="p">:</span> <span class="n">Peak</span><span class="p">):</span>
+</span><span id="Chromatogram-77"><a href="#Chromatogram-77"><span class="linenos"> 77</span></a>    <span class="k">def</span> <span class="nf">set_internal_standard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">peak</span><span class="p">:</span> <span class="n">Peak</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="Chromatogram-78"><a href="#Chromatogram-78"><span class="linenos"> 78</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="Chromatogram-79"><a href="#Chromatogram-79"><span class="linenos"> 79</span></a><span class="sd">        Set the internal standard of the chromatogram.</span>
 </span><span id="Chromatogram-80"><a href="#Chromatogram-80"><span class="linenos"> 80</span></a>
@@ -327,7 +327,7 @@
 </span><span id="Chromatogram-88"><a href="#Chromatogram-88"><span class="linenos"> 88</span></a><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="Chromatogram-89"><a href="#Chromatogram-89"><span class="linenos"> 89</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">internal_standard</span> <span class="o">=</span> <span class="n">peak</span>
 </span><span id="Chromatogram-90"><a href="#Chromatogram-90"><span class="linenos"> 90</span></a>
-</span><span id="Chromatogram-91"><a href="#Chromatogram-91"><span class="linenos"> 91</span></a>    <span class="k">def</span> <span class="nf">get_mass_spectrum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+</span><span id="Chromatogram-91"><a href="#Chromatogram-91"><span class="linenos"> 91</span></a>    <span class="k">def</span> <span class="nf">get_mass_spectrum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
 </span><span id="Chromatogram-92"><a href="#Chromatogram-92"><span class="linenos"> 92</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="Chromatogram-93"><a href="#Chromatogram-93"><span class="linenos"> 93</span></a><span class="sd">        Get the mass spectrum at a given time point in the chromatogram.</span>
 </span><span id="Chromatogram-94"><a href="#Chromatogram-94"><span class="linenos"> 94</span></a>
@@ -354,28 +354,28 @@
 </span><span id="Chromatogram-115"><a href="#Chromatogram-115"><span class="linenos">115</span></a>
 </span><span id="Chromatogram-116"><a href="#Chromatogram-116"><span class="linenos">116</span></a>        <span class="k">return</span> <span class="n">m_z</span><span class="p">,</span> <span class="n">intensity</span>
 </span><span id="Chromatogram-117"><a href="#Chromatogram-117"><span class="linenos">117</span></a>
-</span><span id="Chromatogram-118"><a href="#Chromatogram-118"><span class="linenos">118</span></a>    <span class="k">def</span> <span class="nf">get_ion_chromatogram</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clusters</span><span class="p">):</span>
-</span><span id="Chromatogram-119"><a href="#Chromatogram-119"><span class="linenos">119</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Chromatogram-120"><a href="#Chromatogram-120"><span class="linenos">120</span></a><span class="sd">        Get all ion chromatograms from the Chromatogram using</span>
-</span><span id="Chromatogram-121"><a href="#Chromatogram-121"><span class="linenos">121</span></a><span class="sd">        pre-defined clusters of m/z values to bin signals.</span>
-</span><span id="Chromatogram-122"><a href="#Chromatogram-122"><span class="linenos">122</span></a>
-</span><span id="Chromatogram-123"><a href="#Chromatogram-123"><span class="linenos">123</span></a><span class="sd">        Parameters</span>
-</span><span id="Chromatogram-124"><a href="#Chromatogram-124"><span class="linenos">124</span></a><span class="sd">        ----------</span>
-</span><span id="Chromatogram-125"><a href="#Chromatogram-125"><span class="linenos">125</span></a><span class="sd">        clusters: list</span>
-</span><span id="Chromatogram-126"><a href="#Chromatogram-126"><span class="linenos">126</span></a><span class="sd">            Clusters of m/z values. Mass values which are</span>
-</span><span id="Chromatogram-127"><a href="#Chromatogram-127"><span class="linenos">127</span></a><span class="sd">            together in the list values will be combined in</span>
-</span><span id="Chromatogram-128"><a href="#Chromatogram-128"><span class="linenos">128</span></a><span class="sd">            the output.</span>
-</span><span id="Chromatogram-129"><a href="#Chromatogram-129"><span class="linenos">129</span></a>
-</span><span id="Chromatogram-130"><a href="#Chromatogram-130"><span class="linenos">130</span></a><span class="sd">        Returns</span>
-</span><span id="Chromatogram-131"><a href="#Chromatogram-131"><span class="linenos">131</span></a><span class="sd">        -------</span>
-</span><span id="Chromatogram-132"><a href="#Chromatogram-132"><span class="linenos">132</span></a><span class="sd">        ion_chromatograms: dict</span>
-</span><span id="Chromatogram-133"><a href="#Chromatogram-133"><span class="linenos">133</span></a><span class="sd">            Dict of ion chromatograms</span>
-</span><span id="Chromatogram-134"><a href="#Chromatogram-134"><span class="linenos">134</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Chromatogram-135"><a href="#Chromatogram-135"><span class="linenos">135</span></a>
-</span><span id="Chromatogram-136"><a href="#Chromatogram-136"><span class="linenos">136</span></a>        <span class="n">ion_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-</span><span id="Chromatogram-137"><a href="#Chromatogram-137"><span class="linenos">137</span></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scan_indices</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-</span><span id="Chromatogram-138"><a href="#Chromatogram-138"><span class="linenos">138</span></a>            <span class="n">ion_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">c</span><span class="p">):</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">))</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">clusters</span><span class="p">}</span>
-</span><span id="Chromatogram-139"><a href="#Chromatogram-139"><span class="linenos">139</span></a>
+</span><span id="Chromatogram-118"><a href="#Chromatogram-118"><span class="linenos">118</span></a>    <span class="k">def</span> <span class="nf">get_ion_chromatogram</span><span class="p">(</span>
+</span><span id="Chromatogram-119"><a href="#Chromatogram-119"><span class="linenos">119</span></a>        <span class="bp">self</span><span class="p">,</span> <span class="n">clusters</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span>
+</span><span id="Chromatogram-120"><a href="#Chromatogram-120"><span class="linenos">120</span></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+</span><span id="Chromatogram-121"><a href="#Chromatogram-121"><span class="linenos">121</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Chromatogram-122"><a href="#Chromatogram-122"><span class="linenos">122</span></a><span class="sd">        Get all ion chromatograms from the Chromatogram using</span>
+</span><span id="Chromatogram-123"><a href="#Chromatogram-123"><span class="linenos">123</span></a><span class="sd">        pre-defined clusters of m/z values to bin signals.</span>
+</span><span id="Chromatogram-124"><a href="#Chromatogram-124"><span class="linenos">124</span></a>
+</span><span id="Chromatogram-125"><a href="#Chromatogram-125"><span class="linenos">125</span></a><span class="sd">        Parameters</span>
+</span><span id="Chromatogram-126"><a href="#Chromatogram-126"><span class="linenos">126</span></a><span class="sd">        ----------</span>
+</span><span id="Chromatogram-127"><a href="#Chromatogram-127"><span class="linenos">127</span></a><span class="sd">        clusters: list</span>
+</span><span id="Chromatogram-128"><a href="#Chromatogram-128"><span class="linenos">128</span></a><span class="sd">            Clusters of m/z values. Mass values which are</span>
+</span><span id="Chromatogram-129"><a href="#Chromatogram-129"><span class="linenos">129</span></a><span class="sd">            together in the list values will be combined in</span>
+</span><span id="Chromatogram-130"><a href="#Chromatogram-130"><span class="linenos">130</span></a><span class="sd">            the output.</span>
+</span><span id="Chromatogram-131"><a href="#Chromatogram-131"><span class="linenos">131</span></a>
+</span><span id="Chromatogram-132"><a href="#Chromatogram-132"><span class="linenos">132</span></a><span class="sd">        Returns</span>
+</span><span id="Chromatogram-133"><a href="#Chromatogram-133"><span class="linenos">133</span></a><span class="sd">        -------</span>
+</span><span id="Chromatogram-134"><a href="#Chromatogram-134"><span class="linenos">134</span></a><span class="sd">        ion_dict: dict</span>
+</span><span id="Chromatogram-135"><a href="#Chromatogram-135"><span class="linenos">135</span></a><span class="sd">            Dict of ion chromatograms</span>
+</span><span id="Chromatogram-136"><a href="#Chromatogram-136"><span class="linenos">136</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Chromatogram-137"><a href="#Chromatogram-137"><span class="linenos">137</span></a>
+</span><span id="Chromatogram-138"><a href="#Chromatogram-138"><span class="linenos">138</span></a>        <span class="n">ion_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">c</span><span class="p">):</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">))</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">clusters</span><span class="p">}</span>
+</span><span id="Chromatogram-139"><a href="#Chromatogram-139"><span class="linenos">139</span></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scan_indices</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
 </span><span id="Chromatogram-140"><a href="#Chromatogram-140"><span class="linenos">140</span></a>            <span class="n">scan_brackets</span> <span class="o">=</span> <span class="p">[]</span>
 </span><span id="Chromatogram-141"><a href="#Chromatogram-141"><span class="linenos">141</span></a>
 </span><span id="Chromatogram-142"><a href="#Chromatogram-142"><span class="linenos">142</span></a>            <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scan_indices</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
@@ -496,13 +496,13 @@ The internal standard peak.</li>
 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">add_peaks</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">peaks</span></span><span class="return-annotation">):</span></span>
+        <span class="name">add_peaks</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">peaks</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n"><a href="peak.html#Peak">ChromProcess.Classes.peak.Peak</a></span><span class="p">]</span></span><span class="return-annotation">) -> <span class="kc">None</span>:</span></span>
 
                 <label class="view-source-button" for="Chromatogram.add_peaks-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#Chromatogram.add_peaks"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Chromatogram.add_peaks-58"><a href="#Chromatogram.add_peaks-58"><span class="linenos">58</span></a>    <span class="k">def</span> <span class="nf">add_peaks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">peaks</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Chromatogram.add_peaks-58"><a href="#Chromatogram.add_peaks-58"><span class="linenos">58</span></a>    <span class="k">def</span> <span class="nf">add_peaks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">peaks</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Peak</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="Chromatogram.add_peaks-59"><a href="#Chromatogram.add_peaks-59"><span class="linenos">59</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="Chromatogram.add_peaks-60"><a href="#Chromatogram.add_peaks-60"><span class="linenos">60</span></a><span class="sd">        Add peaks to a chromatogram.</span>
 </span><span id="Chromatogram.add_peaks-61"><a href="#Chromatogram.add_peaks-61"><span class="linenos">61</span></a>
@@ -545,13 +545,13 @@ The internal standard peak.</li>
 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">set_internal_standard</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">peak</span><span class="p">:</span> <span class="n"><a href="peak.html#Peak">ChromProcess.Classes.peak.Peak</a></span></span><span class="return-annotation">):</span></span>
+        <span class="name">set_internal_standard</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">peak</span><span class="p">:</span> <span class="n"><a href="peak.html#Peak">ChromProcess.Classes.peak.Peak</a></span></span><span class="return-annotation">) -> <span class="kc">None</span>:</span></span>
 
                 <label class="view-source-button" for="Chromatogram.set_internal_standard-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#Chromatogram.set_internal_standard"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Chromatogram.set_internal_standard-77"><a href="#Chromatogram.set_internal_standard-77"><span class="linenos">77</span></a>    <span class="k">def</span> <span class="nf">set_internal_standard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">peak</span><span class="p">:</span> <span class="n">Peak</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Chromatogram.set_internal_standard-77"><a href="#Chromatogram.set_internal_standard-77"><span class="linenos">77</span></a>    <span class="k">def</span> <span class="nf">set_internal_standard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">peak</span><span class="p">:</span> <span class="n">Peak</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="Chromatogram.set_internal_standard-78"><a href="#Chromatogram.set_internal_standard-78"><span class="linenos">78</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="Chromatogram.set_internal_standard-79"><a href="#Chromatogram.set_internal_standard-79"><span class="linenos">79</span></a><span class="sd">        Set the internal standard of the chromatogram.</span>
 </span><span id="Chromatogram.set_internal_standard-80"><a href="#Chromatogram.set_internal_standard-80"><span class="linenos">80</span></a>
@@ -585,13 +585,13 @@ The internal standard peak.</li>
 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">get_mass_spectrum</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">time</span></span><span class="return-annotation">):</span></span>
+        <span class="name">get_mass_spectrum</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">time</span><span class="p">:</span> <span class="nb">float</span></span><span class="return-annotation">) -> <span class="nb">tuple</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span>:</span></span>
 
                 <label class="view-source-button" for="Chromatogram.get_mass_spectrum-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#Chromatogram.get_mass_spectrum"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Chromatogram.get_mass_spectrum-91"><a href="#Chromatogram.get_mass_spectrum-91"><span class="linenos"> 91</span></a>    <span class="k">def</span> <span class="nf">get_mass_spectrum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Chromatogram.get_mass_spectrum-91"><a href="#Chromatogram.get_mass_spectrum-91"><span class="linenos"> 91</span></a>    <span class="k">def</span> <span class="nf">get_mass_spectrum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
 </span><span id="Chromatogram.get_mass_spectrum-92"><a href="#Chromatogram.get_mass_spectrum-92"><span class="linenos"> 92</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="Chromatogram.get_mass_spectrum-93"><a href="#Chromatogram.get_mass_spectrum-93"><span class="linenos"> 93</span></a><span class="sd">        Get the mass spectrum at a given time point in the chromatogram.</span>
 </span><span id="Chromatogram.get_mass_spectrum-94"><a href="#Chromatogram.get_mass_spectrum-94"><span class="linenos"> 94</span></a>
@@ -646,34 +646,34 @@ Ion counts.</li>
 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">get_ion_chromatogram</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">clusters</span></span><span class="return-annotation">):</span></span>
+        <span class="name">get_ion_chromatogram</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">clusters</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span></span><span class="return-annotation">) -> <span class="nb">dict</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span>:</span></span>
 
                 <label class="view-source-button" for="Chromatogram.get_ion_chromatogram-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#Chromatogram.get_ion_chromatogram"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Chromatogram.get_ion_chromatogram-118"><a href="#Chromatogram.get_ion_chromatogram-118"><span class="linenos">118</span></a>    <span class="k">def</span> <span class="nf">get_ion_chromatogram</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clusters</span><span class="p">):</span>
-</span><span id="Chromatogram.get_ion_chromatogram-119"><a href="#Chromatogram.get_ion_chromatogram-119"><span class="linenos">119</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Chromatogram.get_ion_chromatogram-120"><a href="#Chromatogram.get_ion_chromatogram-120"><span class="linenos">120</span></a><span class="sd">        Get all ion chromatograms from the Chromatogram using</span>
-</span><span id="Chromatogram.get_ion_chromatogram-121"><a href="#Chromatogram.get_ion_chromatogram-121"><span class="linenos">121</span></a><span class="sd">        pre-defined clusters of m/z values to bin signals.</span>
-</span><span id="Chromatogram.get_ion_chromatogram-122"><a href="#Chromatogram.get_ion_chromatogram-122"><span class="linenos">122</span></a>
-</span><span id="Chromatogram.get_ion_chromatogram-123"><a href="#Chromatogram.get_ion_chromatogram-123"><span class="linenos">123</span></a><span class="sd">        Parameters</span>
-</span><span id="Chromatogram.get_ion_chromatogram-124"><a href="#Chromatogram.get_ion_chromatogram-124"><span class="linenos">124</span></a><span class="sd">        ----------</span>
-</span><span id="Chromatogram.get_ion_chromatogram-125"><a href="#Chromatogram.get_ion_chromatogram-125"><span class="linenos">125</span></a><span class="sd">        clusters: list</span>
-</span><span id="Chromatogram.get_ion_chromatogram-126"><a href="#Chromatogram.get_ion_chromatogram-126"><span class="linenos">126</span></a><span class="sd">            Clusters of m/z values. Mass values which are</span>
-</span><span id="Chromatogram.get_ion_chromatogram-127"><a href="#Chromatogram.get_ion_chromatogram-127"><span class="linenos">127</span></a><span class="sd">            together in the list values will be combined in</span>
-</span><span id="Chromatogram.get_ion_chromatogram-128"><a href="#Chromatogram.get_ion_chromatogram-128"><span class="linenos">128</span></a><span class="sd">            the output.</span>
-</span><span id="Chromatogram.get_ion_chromatogram-129"><a href="#Chromatogram.get_ion_chromatogram-129"><span class="linenos">129</span></a>
-</span><span id="Chromatogram.get_ion_chromatogram-130"><a href="#Chromatogram.get_ion_chromatogram-130"><span class="linenos">130</span></a><span class="sd">        Returns</span>
-</span><span id="Chromatogram.get_ion_chromatogram-131"><a href="#Chromatogram.get_ion_chromatogram-131"><span class="linenos">131</span></a><span class="sd">        -------</span>
-</span><span id="Chromatogram.get_ion_chromatogram-132"><a href="#Chromatogram.get_ion_chromatogram-132"><span class="linenos">132</span></a><span class="sd">        ion_chromatograms: dict</span>
-</span><span id="Chromatogram.get_ion_chromatogram-133"><a href="#Chromatogram.get_ion_chromatogram-133"><span class="linenos">133</span></a><span class="sd">            Dict of ion chromatograms</span>
-</span><span id="Chromatogram.get_ion_chromatogram-134"><a href="#Chromatogram.get_ion_chromatogram-134"><span class="linenos">134</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Chromatogram.get_ion_chromatogram-135"><a href="#Chromatogram.get_ion_chromatogram-135"><span class="linenos">135</span></a>
-</span><span id="Chromatogram.get_ion_chromatogram-136"><a href="#Chromatogram.get_ion_chromatogram-136"><span class="linenos">136</span></a>        <span class="n">ion_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-</span><span id="Chromatogram.get_ion_chromatogram-137"><a href="#Chromatogram.get_ion_chromatogram-137"><span class="linenos">137</span></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scan_indices</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-</span><span id="Chromatogram.get_ion_chromatogram-138"><a href="#Chromatogram.get_ion_chromatogram-138"><span class="linenos">138</span></a>            <span class="n">ion_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">c</span><span class="p">):</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">))</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">clusters</span><span class="p">}</span>
-</span><span id="Chromatogram.get_ion_chromatogram-139"><a href="#Chromatogram.get_ion_chromatogram-139"><span class="linenos">139</span></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Chromatogram.get_ion_chromatogram-118"><a href="#Chromatogram.get_ion_chromatogram-118"><span class="linenos">118</span></a>    <span class="k">def</span> <span class="nf">get_ion_chromatogram</span><span class="p">(</span>
+</span><span id="Chromatogram.get_ion_chromatogram-119"><a href="#Chromatogram.get_ion_chromatogram-119"><span class="linenos">119</span></a>        <span class="bp">self</span><span class="p">,</span> <span class="n">clusters</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span>
+</span><span id="Chromatogram.get_ion_chromatogram-120"><a href="#Chromatogram.get_ion_chromatogram-120"><span class="linenos">120</span></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+</span><span id="Chromatogram.get_ion_chromatogram-121"><a href="#Chromatogram.get_ion_chromatogram-121"><span class="linenos">121</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Chromatogram.get_ion_chromatogram-122"><a href="#Chromatogram.get_ion_chromatogram-122"><span class="linenos">122</span></a><span class="sd">        Get all ion chromatograms from the Chromatogram using</span>
+</span><span id="Chromatogram.get_ion_chromatogram-123"><a href="#Chromatogram.get_ion_chromatogram-123"><span class="linenos">123</span></a><span class="sd">        pre-defined clusters of m/z values to bin signals.</span>
+</span><span id="Chromatogram.get_ion_chromatogram-124"><a href="#Chromatogram.get_ion_chromatogram-124"><span class="linenos">124</span></a>
+</span><span id="Chromatogram.get_ion_chromatogram-125"><a href="#Chromatogram.get_ion_chromatogram-125"><span class="linenos">125</span></a><span class="sd">        Parameters</span>
+</span><span id="Chromatogram.get_ion_chromatogram-126"><a href="#Chromatogram.get_ion_chromatogram-126"><span class="linenos">126</span></a><span class="sd">        ----------</span>
+</span><span id="Chromatogram.get_ion_chromatogram-127"><a href="#Chromatogram.get_ion_chromatogram-127"><span class="linenos">127</span></a><span class="sd">        clusters: list</span>
+</span><span id="Chromatogram.get_ion_chromatogram-128"><a href="#Chromatogram.get_ion_chromatogram-128"><span class="linenos">128</span></a><span class="sd">            Clusters of m/z values. Mass values which are</span>
+</span><span id="Chromatogram.get_ion_chromatogram-129"><a href="#Chromatogram.get_ion_chromatogram-129"><span class="linenos">129</span></a><span class="sd">            together in the list values will be combined in</span>
+</span><span id="Chromatogram.get_ion_chromatogram-130"><a href="#Chromatogram.get_ion_chromatogram-130"><span class="linenos">130</span></a><span class="sd">            the output.</span>
+</span><span id="Chromatogram.get_ion_chromatogram-131"><a href="#Chromatogram.get_ion_chromatogram-131"><span class="linenos">131</span></a>
+</span><span id="Chromatogram.get_ion_chromatogram-132"><a href="#Chromatogram.get_ion_chromatogram-132"><span class="linenos">132</span></a><span class="sd">        Returns</span>
+</span><span id="Chromatogram.get_ion_chromatogram-133"><a href="#Chromatogram.get_ion_chromatogram-133"><span class="linenos">133</span></a><span class="sd">        -------</span>
+</span><span id="Chromatogram.get_ion_chromatogram-134"><a href="#Chromatogram.get_ion_chromatogram-134"><span class="linenos">134</span></a><span class="sd">        ion_dict: dict</span>
+</span><span id="Chromatogram.get_ion_chromatogram-135"><a href="#Chromatogram.get_ion_chromatogram-135"><span class="linenos">135</span></a><span class="sd">            Dict of ion chromatograms</span>
+</span><span id="Chromatogram.get_ion_chromatogram-136"><a href="#Chromatogram.get_ion_chromatogram-136"><span class="linenos">136</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Chromatogram.get_ion_chromatogram-137"><a href="#Chromatogram.get_ion_chromatogram-137"><span class="linenos">137</span></a>
+</span><span id="Chromatogram.get_ion_chromatogram-138"><a href="#Chromatogram.get_ion_chromatogram-138"><span class="linenos">138</span></a>        <span class="n">ion_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">c</span><span class="p">):</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">))</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">clusters</span><span class="p">}</span>
+</span><span id="Chromatogram.get_ion_chromatogram-139"><a href="#Chromatogram.get_ion_chromatogram-139"><span class="linenos">139</span></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scan_indices</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
 </span><span id="Chromatogram.get_ion_chromatogram-140"><a href="#Chromatogram.get_ion_chromatogram-140"><span class="linenos">140</span></a>            <span class="n">scan_brackets</span> <span class="o">=</span> <span class="p">[]</span>
 </span><span id="Chromatogram.get_ion_chromatogram-141"><a href="#Chromatogram.get_ion_chromatogram-141"><span class="linenos">141</span></a>
 </span><span id="Chromatogram.get_ion_chromatogram-142"><a href="#Chromatogram.get_ion_chromatogram-142"><span class="linenos">142</span></a>            <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scan_indices</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
@@ -710,7 +710,7 @@ the output.</li>
 <h6 id="returns">Returns</h6>
 
 <ul>
-<li><strong>ion_chromatograms</strong> (dict):
+<li><strong>ion_dict</strong> (dict):
 Dict of ion chromatograms</li>
 </ul>
 </div>
