@@ -15,7 +15,7 @@ def chromatogram_to_df(chromatogram: Chromatogram) -> pd.DataFrame:
     df: pd.DataFrame
     """
 
-    peaks = {
+    peaks: dict[str, list[float]] = {
         "retention_time": [],
         "integral": [],
         "start": [],

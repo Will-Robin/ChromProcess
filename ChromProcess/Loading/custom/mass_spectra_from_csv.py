@@ -33,19 +33,19 @@ def mass_spectra_from_csv(file: str) -> list[MassSpectrum]:
         make_ms = False
         for line in f:
             if "Peak retention time" in line:
-                read = line.strip("\n").split(",")
-                rt = float(read[1])
+                read_a = line.strip("\n").split(",")
+                rt = float(read_a[1])
             if "m/z" in line:
                 if utils.is_float(line.split(",")[1]):
-                    read = fltln(line)
-                    mz = np.array(read)
+                    read_b = fltln(line)
+                    mz = np.array(read_b)
                 else:
                     mz = np.array([0.0])
 
             if "relative abundance" in line:
                 if utils.is_float(line.split(",")[1]):
-                    read = fltln(line)
-                    r_a = np.array(read)
+                    read_c = fltln(line)
+                    r_a = np.array(read_c)
                 else:
                     r_a = np.array([0.0])
 

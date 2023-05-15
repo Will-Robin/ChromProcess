@@ -7,7 +7,7 @@ from scipy import interpolate
 from ChromProcess.Classes import Chromatogram
 
 
-def get_chrom_time_min_max(chromatograms: list[Chromatogram]) -> tuple[float]:
+def get_chrom_time_min_max(chromatograms: list[Chromatogram]) -> tuple[float, float]:
     """
     Get the highest and lowest retention times from a set of chromatograms.
 
@@ -31,7 +31,9 @@ def get_chrom_time_min_max(chromatograms: list[Chromatogram]) -> tuple[float]:
     return min_time, max_time
 
 
-def stack_chromatograms(chromatograms: list[Chromatogram]) -> tuple[np.ndarray]:
+def stack_chromatograms(
+    chromatograms: list[Chromatogram],
+) -> tuple[np.ndarray, np.ndarray]:
     """
     Create a stack of chromatogram signals in a numpy array.
 

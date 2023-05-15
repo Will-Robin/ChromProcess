@@ -1,4 +1,5 @@
 import numpy as np
+from .mass_spectrum import MassSpectrum
 
 
 class Peak:
@@ -12,10 +13,10 @@ class Peak:
         start: float,
         end: float,
         indices: list[int] = [],
-        integral: float = None,
-        height: float = None,
+        integral: float = 0.0,
+        height: float = 0.0,
         parent: str = "",
-        mass_spectrum: list[np.ndarray] = None,
+        mass_spectrum: MassSpectrum = None,
     ):
         """
         Creates a Peak object using a retention time
@@ -75,17 +76,17 @@ class Peak:
 
         self.deconvolution = []
 
-        self.assignment: str = None
+        self.assignment: str = ""
 
-        self.concentration: float = None
+        self.concentration: float = 0.0
 
-        self.conc_error: float = None
+        self.conc_error: float = 0.0
 
-        self.mass_spectrum: list[np.ndarray] = mass_spectrum
+        self.mass_spectrum: MassSpectrum = mass_spectrum
 
         self.parent_peak_collection: str = parent
 
-    def set_retention_time(self, retention_time: float):
+    def set_retention_time(self, retention_time: float) -> None:
         """
         Set the peak retention time.
 
@@ -95,7 +96,7 @@ class Peak:
         """
         self.retention_time = retention_time
 
-    def set_integral(self, integral: float):
+    def set_integral(self, integral: float) -> None:
         """
         Set Integral.
 
@@ -106,7 +107,7 @@ class Peak:
 
         self.integral = integral
 
-    def set_height(self, height: float):
+    def set_height(self, height: float) -> None:
         """
         Set the height of the peak.
 
@@ -120,7 +121,7 @@ class Peak:
         """
         self.height = height
 
-    def set_concentration(self, concentration: float):
+    def set_concentration(self, concentration: float) -> None:
         """
         Set the peak concentration.
 
@@ -134,7 +135,7 @@ class Peak:
         """
         self.concentration = concentration
 
-    def set_conc_error(self, error: float):
+    def set_conc_error(self, error: float) -> None:
         """
         Set the concentration error of the peak.
 
@@ -148,7 +149,7 @@ class Peak:
         """
         self.conc_error = error
 
-    def set_assignment(self, assignment: str):
+    def set_assignment(self, assignment: str) -> None:
         """
         Get the assignment of a peak.
 

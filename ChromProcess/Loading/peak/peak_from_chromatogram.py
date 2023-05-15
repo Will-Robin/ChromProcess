@@ -3,7 +3,9 @@ from ChromProcess.Classes import Peak
 from ChromProcess.Classes import Chromatogram
 
 
-def peak_from_chromatogram(chrom: Chromatogram, start: float, end: float) -> Peak:
+def peak_from_chromatogram(
+    chrom: Chromatogram, start: float, end: float
+) -> Peak | None:
     """
     Create a peak using the boundaries defined within a chromatogram.
 
@@ -36,6 +38,6 @@ def peak_from_chromatogram(chrom: Chromatogram, start: float, end: float) -> Pea
     start = timeseg[0]
     end = timeseg[-1]
     peak = Peak(retention_time, start, end, indices=inds)
-    peak.get_height(chrom)
+    peak.set_height(chrom.signal[peak_idx])
 
     return peak

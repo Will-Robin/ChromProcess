@@ -22,7 +22,7 @@ def local_assignments_from_csv(file: str) -> dict[str, list[float]]:
         modified_bounds['compound_1_name'] = [lower: float, upper: float]
     """
 
-    modified_bounds = dict()
+    modified_bounds: dict[str, list[float]] = dict()
 
     if not os.path.exists(file):
         print(

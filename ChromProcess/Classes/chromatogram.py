@@ -54,7 +54,7 @@ class Chromatogram:
 
         self.internal_standard: Peak = Peak(0.0, 0.0, 0.0)
 
-    def add_peaks(self, peaks):
+    def add_peaks(self, peaks: list[Peak]) -> None:
         """
         Add peaks to a chromatogram.
 
@@ -73,7 +73,7 @@ class Chromatogram:
             peak.indices = indices
             self.peaks[rt] = peak
 
-    def set_internal_standard(self, peak: Peak):
+    def set_internal_standard(self, peak: Peak) -> None:
         """
         Set the internal standard of the chromatogram.
 
@@ -87,7 +87,7 @@ class Chromatogram:
         """
         self.internal_standard = peak
 
-    def get_mass_spectrum(self, time):
+    def get_mass_spectrum(self, time: float) -> tuple[np.ndarray, np.ndarray]:
         """
         Get the mass spectrum at a given time point in the chromatogram.
 
@@ -114,7 +114,9 @@ class Chromatogram:
 
         return m_z, intensity
 
-    def get_ion_chromatogram(self, clusters):
+    def get_ion_chromatogram(
+        self, clusters: list[list[float]]
+    ) -> dict[float, np.ndarray]:
         """
         Get all ion chromatograms from the Chromatogram using
         pre-defined clusters of m/z values to bin signals.
@@ -128,14 +130,12 @@ class Chromatogram:
 
         Returns
         -------
-        ion_chromatograms: dict
+        ion_dict: dict
             Dict of ion chromatograms
         """
 
-        ion_dict = dict()
+        ion_dict = {np.average(c): np.zeros(len(self.time)) for c in clusters}
         if len(self.scan_indices) != 0:
-            ion_dict = {np.average(c): np.zeros(len(self.time)) for c in clusters}
-
             scan_brackets = []
 
             for s in range(0, len(self.scan_indices) - 1):

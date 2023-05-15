@@ -29,7 +29,7 @@ def ion_chromatogram_from_region(
         {m/z: intensities over time}
     """
 
-    mz_regions = dict()
+    mz_regions: dict[float, np.ndarray] = dict()
     if len(chromatogram.mz_values) > 0:
         inds = utils.indices_from_boundary(chromatogram.time, lower, upper)
 

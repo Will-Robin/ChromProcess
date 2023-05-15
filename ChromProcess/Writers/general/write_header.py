@@ -24,14 +24,14 @@ def write_conditions_header(
 
     header_text += f"Dataset,{name}\n"
     header_text += "start_conditions\n"
-    for c in conditions:
+    for c in conditions.conditions:
         header_text += f"{c},"
 
-        if type(conditions[c]) == list:
-            for x in conditions[c]:
+        if type(conditions.conditions[c]) == list:
+            for x in conditions.conditions[c]:
                 header_text += f"{x},"
         else:
-            header_text += f"{conditions[c]},"
+            header_text += f"{conditions.conditions[c]},"
 
         header_text += "\n"
 

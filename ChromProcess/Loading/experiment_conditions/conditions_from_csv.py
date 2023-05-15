@@ -44,14 +44,15 @@ def conditions_from_csv(filename: str) -> ExperimentConditions:
                 newline = line.strip("\n")
                 condset.append([x for x in newline.split(",") if x != ""])
 
-    c_out = dict()
-    for c in condset:
-        c_out[c[0]] = []
-        for x in c[1:]:
+    c_out: dict[str, list[float | str]] = dict()
+    for cndtn in condset:
+        cndtn_name = cndtn[0]
+        c_out[cndtn_name] = []
+        for x in cndtn[1:]:
             if utils.is_float(x):
-                c_out[c[0]].append(float(x))
+                c_out[cndtn_name].append(float(x))
             else:
-                c_out[c[0]].append(x)
+                c_out[cndtn_name].append(x)
 
     conditions.conditions = c_out
 

@@ -40,7 +40,7 @@ def find_peaks_in_region(
 
     if start > end:
         print(f"peak start ({start}) > peak end, ({end}) returning None")
-        return None
+        return []
 
     inds = utils.indices_from_boundary(chromatogram.time, start, end)
 

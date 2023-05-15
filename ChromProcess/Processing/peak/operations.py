@@ -38,8 +38,8 @@ def get_peak_mass_spectrum(peak: Peak, chromatogram: Chromatogram):
         end = start + chromatogram.point_counts[ind][0]
 
         mass_spectrum = [
-            np.round(chromatogram.mass_values[start:end], 2),
-            chromatogram.mass_intensity[start:end],
+            np.round(chromatogram.mz_values[start:end], 2),
+            chromatogram.mz_intensity[start:end],
         ]
 
     return mass_spectrum
@@ -223,7 +223,9 @@ def calculate_concentration_error(
     return error
 
 
-def dilution_correction(peak: Peak, factor: float, factor_error: float) -> tuple[float]:
+def dilution_correction(
+    peak: Peak, factor: float, factor_error: float
+) -> tuple[float, float]:
     """
     Apply a correction to obtain the sample concentration considering its
     dilution before analysis.
@@ -242,12 +244,12 @@ def dilution_correction(peak: Peak, factor: float, factor_error: float) -> tuple
     (corr_conc, err) : (float, float)
     """
 
-    err = mult_div_error_prop(
+    err_prop = mult_div_error_prop(
         [peak.concentration, factor], [peak.conc_error, factor_error]
     )
 
     corr_conc: float = peak.concentration * factor
-    err: float = err * corr_conc
+    err: float = err_prop * corr_conc
 
     return (corr_conc, err)
 

@@ -1,6 +1,7 @@
 from ChromProcess.Classes import Peak
 from ChromProcess.Classes import Chromatogram
 
+
 def peak_to_entry_text(peak: Peak, chromatogram: Chromatogram) -> str:
     """
     For writing the peak's row in a peak table.
@@ -39,6 +40,7 @@ def peak_to_entry_text(peak: Peak, chromatogram: Chromatogram) -> str:
     entry = ",".join([str(x) for x in entry_list])
 
     return entry
+
 
 def write_peak_collection_text(
     chromatogram: Chromatogram, header_text: str = ""

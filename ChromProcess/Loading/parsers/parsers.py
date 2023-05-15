@@ -1,6 +1,6 @@
 def parse_text_columns(
     text: str, point_delimiter: str, ordinal_delimiter: str
-) -> list[str]:
+) -> list[list[str]]:
     """
     Converts data organised in columns in a text file and converts it to a list
     of lists [[x values],[y values]].
@@ -23,15 +23,15 @@ def parse_text_columns(
     assert isinstance(point_delimiter, str), "point_delimiter arg should be str"
     assert isinstance(ordinal_delimiter, str), "ordinal_delimiter arg should be str"
 
-    lines = text.split(point_delimiter)
-    scrub_lines = [x for x in lines if x != ""]
-    points = [list(x.split(ordinal_delimiter)) for x in scrub_lines]
-    data = list(map(list, zip(*points)))
+    lines: list[str] = text.split(point_delimiter)
+    scrub_lines: list[str] = [x for x in lines if x != ""]
+    points: list[list[str]] = [list(x.split(ordinal_delimiter)) for x in scrub_lines]
+    data: list[list[str]] = list(map(list, zip(*points)))
 
     return data
 
 
-def import_file_section(file: str, start_token: str, end_token: str) -> str:
+def import_file_section(file: str, start_token: str, end_token: str) -> list[list[str]]:
     """
     Load a section of lines between two tokens.
 
