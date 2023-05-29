@@ -1,5 +1,4 @@
-mod find_peaks;
-mod utils;
 mod filters;
+mod utils;
 
-pub use find_peaks::find_peaks;
+pub use utils::find_peaks;

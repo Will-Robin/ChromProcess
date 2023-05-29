@@ -1,5 +1,5 @@
 import time
-from chromate import find_peaks_wrapper
+from chromate import find_peaks
 from ChromProcess.Loading import chrom_from_csv
 from ChromProcess.Utils.signal_processing import signal_processing as sig
 import matplotlib.pyplot as plt
@@ -8,11 +8,10 @@ file = "Tutorials/example_data/Example/ExperimentalData/ChromatogramCSV/chrom_00
 
 chrom = chrom_from_csv(file)
 
-smoothed = sig.adjacent_average(chrom.signal, 5)
 smoothed = sig.adjacent_average(chrom.signal, 10)
 
 start = time.time()
-peaks, starts, ends = find_peaks_wrapper(smoothed, chrom.signal.max()*0.1)
+peaks, starts, ends = find_peaks(smoothed, chrom.signal.max()*0.1)
 end = time.time()
 print(f"Took {(end-start)*1000} ms")
 
