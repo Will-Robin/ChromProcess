@@ -10,6 +10,7 @@ from ChromProcess.Utils.utils.functions import inverse_linear
 
 from ChromProcess.Processing.peak.assign_peak import assign_retention_time
 from ChromProcess.Utils.utils.error_propagation import mult_div_error_prop
+from chromate import trapz
 
 
 def get_peak_mass_spectrum(peak: Peak, chromatogram: Chromatogram):
@@ -73,9 +74,9 @@ def get_peak_integral(
         time_bound = [time[0], time[-1]]
         signal_bound = [signal[0], signal[-1]]
         linterp = np.interp(time, time_bound, signal_bound)
-        integral = np.trapz(signal - linterp, x=time)
+        integral = trapz(signal - linterp, time)
     else:
-        integral = np.trapz(signal, x=time)
+        integral = trapz(signal, time)
 
     return integral
 
