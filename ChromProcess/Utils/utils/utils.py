@@ -1,5 +1,5 @@
+import chromate
 import numpy as np
-from ChromProcess.Utils.utils import clustering as clust
 
 
 def is_float(thing):
@@ -83,9 +83,7 @@ def bin_dictionary(value_dict, stdev=0.001):
     # create clusters of values for sorting
     sorted_values = sorted([*value_dict])
 
-    clusters = []
-    for c in clust.cluster(sorted_values, bound=stdev):
-        clusters.append(c)
+    clusters = chromate.cluster(sorted_values, stdev)
 
     out_log = dict()
     for c in clusters:

@@ -1,7 +1,7 @@
 from .error_propagation import sum_error_prop
 from .error_propagation import mult_div_error_prop
 
-from .clustering import cluster, create_bins
+from .clustering import create_bins
 
 from .functions import linear, inverse_linear
 from .functions import quadratic, inverse_quadratic

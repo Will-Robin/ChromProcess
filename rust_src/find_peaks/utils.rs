@@ -1,16 +1,5 @@
 use super::filters;
-use super::utils;
-
-pub fn take<T: Copy>(data: &[T], indices: &[usize]) -> Vec<T> {
-    let result = data
-        .iter()
-        .enumerate()
-        .filter(|(c, _)| indices.contains(c))
-        .map(|(_, &x)| x)
-        .collect();
-
-    result
-}
+use super::super::utils;
 
 pub fn find_peak_indices(data: &[f64]) -> (Vec<usize>, Vec<usize>, Vec<usize>) {
     // Find transition points
@@ -65,7 +54,7 @@ pub fn find_peak_indices(data: &[f64]) -> (Vec<usize>, Vec<usize>, Vec<usize>) {
 
 pub fn find_peaks(data: &[f64], height: Option<f64>) -> (Vec<usize>, Vec<usize>, Vec<usize>) {
     // Find peaks indices
-    let (mut peaks, mut left_edges, mut right_edges) = utils::find_peak_indices(data);
+    let (mut peaks, mut left_edges, mut right_edges) = find_peak_indices(data);
 
     // Filter down the picked peaks based on height
     if let Some(h) = height {
