@@ -1,5 +1,4 @@
 import numpy as np
-from scipy.signal import find_peaks
 from ChromProcess.Utils.signal_processing import signal_processing as sig
 from chromate import find_peaks
 
