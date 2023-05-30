@@ -10,6 +10,7 @@ setup(
         "scipy >= 1.9.3",
         "netcdf4 >= 1.6.0",
         "tomli >= 2.0.1",
+        "maturin >= 1.0.1"
     ],
     extras_require={"dev": ["pdoc", "black"]},
 )
