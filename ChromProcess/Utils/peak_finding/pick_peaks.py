@@ -1,6 +1,6 @@
 import numpy as np
 from ChromProcess.Utils.signal_processing import signal_processing as sig
-from chromate import find_peaks
+from ChromProcess.chromate import find_peaks
 
 
 def pick_peaks(signal, distance=1, threshold=0.1, prominence=0.1, wlen=1001):

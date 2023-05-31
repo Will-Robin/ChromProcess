@@ -10,7 +10,7 @@ from ChromProcess.Utils.utils.functions import inverse_linear
 
 from ChromProcess.Processing.peak.assign_peak import assign_retention_time
 from ChromProcess.Utils.utils.error_propagation import mult_div_error_prop
-from chromate import trapz
+from ChromProcess.chromate import trapz
 
 
 def get_peak_mass_spectrum(peak: Peak, chromatogram: Chromatogram):

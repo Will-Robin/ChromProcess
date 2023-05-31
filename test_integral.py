@@ -1,6 +1,6 @@
 import time
-import chromate
-from chromate import find_peaks
+from ChromProcess import chromate
+from ChromProcess.chromate import find_peaks
 import numpy as np
 from ChromProcess.Loading import chrom_from_csv
 from ChromProcess.Utils.signal_processing import signal_processing as sig

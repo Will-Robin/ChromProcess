@@ -21,3 +21,4 @@ data. Keep primary data well organised and unmodified!
 This documentation was generated from the ChromProcess source files using
 [pdoc](https://pdoc.dev).
 """
+from ChromProcess import chromate

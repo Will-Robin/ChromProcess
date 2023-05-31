@@ -13,4 +13,7 @@ classifiers = [
 
 
 [tool.maturin]
+python-source = "."
+module-name = "ChromProcess.chromate"
 features = ["pyo3/extension-module"]
+

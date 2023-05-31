@@ -1,4 +1,4 @@
-import chromate
+from ChromProcess import chromate
 import numpy as np
 
 
