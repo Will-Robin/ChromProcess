@@ -3,9 +3,9 @@
 **Experimental branch!**
 
 > This branch contains code written in Rust (via `pyo3`) to replace some
-> dependencies. The code here requires Rust and Cargo to be installed, as well
-> as maturin.
-> To build during development: `maturin develop`/`maturin develop --release`
+> dependencies, giving `ChromProcess` a partner, `chromate`. The code here
+> requires Rust and Cargo to be installed, as well as maturin. To build during
+> development: `maturin develop`/`maturin develop --release`
 
 Python tools to deal with sets of chromatography data.
 
