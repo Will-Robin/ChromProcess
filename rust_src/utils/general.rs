@@ -8,4 +8,3 @@ pub fn take<T: Copy>(data: &[T], indices: &[usize]) -> Vec<T> {
 
     result
 }
-

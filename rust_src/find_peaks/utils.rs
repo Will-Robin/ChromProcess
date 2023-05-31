@@ -1,5 +1,5 @@
-use super::filters;
 use super::super::utils;
+use super::filters;
 
 pub fn find_peak_indices(data: &[f64]) -> (Vec<usize>, Vec<usize>, Vec<usize>) {
     // Find transition points
