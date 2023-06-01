@@ -31,6 +31,12 @@
             <h2>API Documentation</h2>
                 <ul class="memberlist">
             <li>
+                    <a class="class" href="#Instrument">Instrument</a>
+                            <ul class="memberlist">
+                </ul>
+
+            </li>
+            <li>
                     <a class="class" href="#JEOL">JEOL</a>
                             <ul class="memberlist">
                 </ul>
@@ -64,85 +70,172 @@
 </span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a>
 </span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="k">class</span> <span class="nc">JEOL</span><span class="p">:</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>    <span class="n">X_UNIT</span> <span class="o">=</span> <span class="s2">&quot;total ion counts&quot;</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>    <span class="n">Y_UNIT</span> <span class="o">=</span> <span class="s2">&quot;min.&quot;</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>    <span class="n">TIME_CONVERSION</span> <span class="o">=</span> <span class="mi">60</span>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>    <span class="n">ERROR_LOG</span> <span class="o">=</span> <span class="s2">&quot;error_log&quot;</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>    <span class="n">AD_SAMPLING_RATE</span> <span class="o">=</span> <span class="s2">&quot;a_d_sampling_rate&quot;</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>    <span class="n">AD_COADDITION_FACTOR</span> <span class="o">=</span> <span class="s2">&quot;a_d_coaddition_factor&quot;</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>    <span class="n">TIME_KEY</span> <span class="o">=</span> <span class="s2">&quot;scan_acquisition_time&quot;</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>    <span class="n">SCAN_DURATION</span> <span class="o">=</span> <span class="s2">&quot;scan_duration&quot;</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>    <span class="n">INTER_SCAN_TIME</span> <span class="o">=</span> <span class="s2">&quot;inter_scan_time&quot;</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>    <span class="n">RESOLUTION</span> <span class="o">=</span> <span class="s2">&quot;resolution&quot;</span>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>    <span class="n">ACTUAL_SCAN_NUMBER</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;actual_scan_number&quot;</span><span class="p">,)</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>    <span class="n">TIC_KEY</span> <span class="o">=</span> <span class="s2">&quot;total_intensity&quot;</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>    <span class="n">MASS_RANGE_MIN</span> <span class="o">=</span> <span class="s2">&quot;mass_range_min&quot;</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>    <span class="n">MASS_RANGE_MAX</span> <span class="o">=</span> <span class="s2">&quot;mass_range_max&quot;</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>    <span class="n">TIME_RANGE_MIN</span> <span class="o">=</span> <span class="s2">&quot;time_range_min&quot;</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>    <span class="n">TIME_RANGE_MAX</span> <span class="o">=</span> <span class="s2">&quot;time_range_max&quot;</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>    <span class="n">SCAN_INDEX_KEY</span> <span class="o">=</span> <span class="s2">&quot;scan_index&quot;</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>    <span class="n">POINT_COUNT_KEY</span> <span class="o">=</span> <span class="s2">&quot;point_count&quot;</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>    <span class="n">FLAG_COUNT</span> <span class="o">=</span> <span class="s2">&quot;flag_count&quot;</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>    <span class="n">MZ_KEY</span> <span class="o">=</span> <span class="s2">&quot;mass_values&quot;</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>    <span class="n">MS_INTENSITY_KEY</span> <span class="o">=</span> <span class="s2">&quot;intensity_values&quot;</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>    <span class="n">INSTRUMENT_NAME</span> <span class="o">=</span> <span class="s2">&quot;instrument_name&quot;</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>    <span class="n">INSTRUMENT_ID</span> <span class="o">=</span> <span class="s2">&quot;instrument_id&quot;</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>    <span class="n">INSTRUMENT_MFR</span> <span class="o">=</span> <span class="s2">&quot;instrument_mfr&quot;</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>    <span class="n">INSTRUMENT_MODEL</span> <span class="o">=</span> <span class="s2">&quot;instrument_model&quot;</span>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>    <span class="n">INSTRUMENT_SERIAL_NO</span> <span class="o">=</span> <span class="s2">&quot;instrument_serial_no&quot;</span>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>    <span class="n">INSTRUMENT_SW_VERSI</span> <span class="o">=</span> <span class="s2">&quot;instrument_sw_versi on&quot;</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>    <span class="n">INSTRUMENT_FW_VERSION</span> <span class="o">=</span> <span class="s2">&quot;instrument_fw_version&quot;</span>
-</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>    <span class="n">INSTRUMENT_OS_VERSION</span> <span class="o">=</span> <span class="s2">&quot;instrument_os_version&quot;</span>
-</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>    <span class="n">INSTRUMENT_APP_VERSION</span> <span class="o">=</span> <span class="s2">&quot;instrument_app_version&quot;</span>
-</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>    <span class="n">INSTRUMENT_COMMENTS</span> <span class="o">=</span> <span class="s2">&quot;instrument_comments&quot;</span>
+</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="k">class</span> <span class="nc">Instrument</span><span class="p">:</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">X_UNIT</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Y_UNIT</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">TIME_CONVERSION</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">ERROR_LOG</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">AD_SAMPLING_RATE</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">AD_COADDITION_FACTOR</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">TIME_KEY</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">SCAN_DURATION</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INTER_SCAN_TIME</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">RESOLUTION</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">ACTUAL_SCAN_NUMBER</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,)</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">TIC_KEY</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">MASS_RANGE_MIN</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">MASS_RANGE_MAX</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">TIME_RANGE_MIN</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">TIME_RANGE_MAX</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">SCAN_INDEX_KEY</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">POINT_COUNT_KEY</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">FLAG_COUNT</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">MZ_KEY</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">MS_INTENSITY_KEY</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_NAME</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_ID</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_MFR</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_MODEL</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_SERIAL_NO</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_SW_VERSI</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_FW_VERSION</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_OS_VERSION</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_APP_VERSION</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_COMMENTS</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a>
+</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>
+</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a><span class="k">class</span> <span class="nc">JEOL</span><span class="p">(</span><span class="n">Instrument</span><span class="p">):</span>
+</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">X_UNIT</span> <span class="o">=</span> <span class="s2">&quot;total ion counts&quot;</span>
+</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Y_UNIT</span> <span class="o">=</span> <span class="s2">&quot;min.&quot;</span>
+</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">TIME_CONVERSION</span> <span class="o">=</span> <span class="mi">60</span>
+</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">ERROR_LOG</span> <span class="o">=</span> <span class="s2">&quot;error_log&quot;</span>
+</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">AD_SAMPLING_RATE</span> <span class="o">=</span> <span class="s2">&quot;a_d_sampling_rate&quot;</span>
+</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">AD_COADDITION_FACTOR</span> <span class="o">=</span> <span class="s2">&quot;a_d_coaddition_factor&quot;</span>
+</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">TIME_KEY</span> <span class="o">=</span> <span class="s2">&quot;scan_acquisition_time&quot;</span>
+</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">SCAN_DURATION</span> <span class="o">=</span> <span class="s2">&quot;scan_duration&quot;</span>
+</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INTER_SCAN_TIME</span> <span class="o">=</span> <span class="s2">&quot;inter_scan_time&quot;</span>
+</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">RESOLUTION</span> <span class="o">=</span> <span class="s2">&quot;resolution&quot;</span>
+</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">ACTUAL_SCAN_NUMBER</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;actual_scan_number&quot;</span><span class="p">,)</span>
+</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">TIC_KEY</span> <span class="o">=</span> <span class="s2">&quot;total_intensity&quot;</span>
+</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">MASS_RANGE_MIN</span> <span class="o">=</span> <span class="s2">&quot;mass_range_min&quot;</span>
+</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">MASS_RANGE_MAX</span> <span class="o">=</span> <span class="s2">&quot;mass_range_max&quot;</span>
+</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">TIME_RANGE_MIN</span> <span class="o">=</span> <span class="s2">&quot;time_range_min&quot;</span>
+</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">TIME_RANGE_MAX</span> <span class="o">=</span> <span class="s2">&quot;time_range_max&quot;</span>
+</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">SCAN_INDEX_KEY</span> <span class="o">=</span> <span class="s2">&quot;scan_index&quot;</span>
+</span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">POINT_COUNT_KEY</span> <span class="o">=</span> <span class="s2">&quot;point_count&quot;</span>
+</span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">FLAG_COUNT</span> <span class="o">=</span> <span class="s2">&quot;flag_count&quot;</span>
+</span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">MZ_KEY</span> <span class="o">=</span> <span class="s2">&quot;mass_values&quot;</span>
+</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">MS_INTENSITY_KEY</span> <span class="o">=</span> <span class="s2">&quot;intensity_values&quot;</span>
+</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_NAME</span> <span class="o">=</span> <span class="s2">&quot;instrument_name&quot;</span>
+</span><span id="L-65"><a href="#L-65"><span class="linenos">65</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_ID</span> <span class="o">=</span> <span class="s2">&quot;instrument_id&quot;</span>
+</span><span id="L-66"><a href="#L-66"><span class="linenos">66</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_MFR</span> <span class="o">=</span> <span class="s2">&quot;instrument_mfr&quot;</span>
+</span><span id="L-67"><a href="#L-67"><span class="linenos">67</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_MODEL</span> <span class="o">=</span> <span class="s2">&quot;instrument_model&quot;</span>
+</span><span id="L-68"><a href="#L-68"><span class="linenos">68</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_SERIAL_NO</span> <span class="o">=</span> <span class="s2">&quot;instrument_serial_no&quot;</span>
+</span><span id="L-69"><a href="#L-69"><span class="linenos">69</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_SW_VERSI</span> <span class="o">=</span> <span class="s2">&quot;instrument_sw_versi on&quot;</span>
+</span><span id="L-70"><a href="#L-70"><span class="linenos">70</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_FW_VERSION</span> <span class="o">=</span> <span class="s2">&quot;instrument_fw_version&quot;</span>
+</span><span id="L-71"><a href="#L-71"><span class="linenos">71</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_OS_VERSION</span> <span class="o">=</span> <span class="s2">&quot;instrument_os_version&quot;</span>
+</span><span id="L-72"><a href="#L-72"><span class="linenos">72</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_APP_VERSION</span> <span class="o">=</span> <span class="s2">&quot;instrument_app_version&quot;</span>
+</span><span id="L-73"><a href="#L-73"><span class="linenos">73</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_COMMENTS</span> <span class="o">=</span> <span class="s2">&quot;instrument_comments&quot;</span>
 </span></pre></div>
 
 
             </section>
+                <section id="Instrument">
+                            <input id="Instrument-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">Instrument</span>:
+
+                <label class="view-source-button" for="Instrument-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Instrument"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Instrument-7"><a href="#Instrument-7"><span class="linenos"> 7</span></a><span class="k">class</span> <span class="nc">Instrument</span><span class="p">:</span>
+</span><span id="Instrument-8"><a href="#Instrument-8"><span class="linenos"> 8</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="Instrument-9"><a href="#Instrument-9"><span class="linenos"> 9</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">X_UNIT</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="Instrument-10"><a href="#Instrument-10"><span class="linenos">10</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Y_UNIT</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="Instrument-11"><a href="#Instrument-11"><span class="linenos">11</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">TIME_CONVERSION</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span id="Instrument-12"><a href="#Instrument-12"><span class="linenos">12</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">ERROR_LOG</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="Instrument-13"><a href="#Instrument-13"><span class="linenos">13</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">AD_SAMPLING_RATE</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="Instrument-14"><a href="#Instrument-14"><span class="linenos">14</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">AD_COADDITION_FACTOR</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="Instrument-15"><a href="#Instrument-15"><span class="linenos">15</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">TIME_KEY</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="Instrument-16"><a href="#Instrument-16"><span class="linenos">16</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">SCAN_DURATION</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="Instrument-17"><a href="#Instrument-17"><span class="linenos">17</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INTER_SCAN_TIME</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="Instrument-18"><a href="#Instrument-18"><span class="linenos">18</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">RESOLUTION</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="Instrument-19"><a href="#Instrument-19"><span class="linenos">19</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">ACTUAL_SCAN_NUMBER</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,)</span>
+</span><span id="Instrument-20"><a href="#Instrument-20"><span class="linenos">20</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">TIC_KEY</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="Instrument-21"><a href="#Instrument-21"><span class="linenos">21</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">MASS_RANGE_MIN</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="Instrument-22"><a href="#Instrument-22"><span class="linenos">22</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">MASS_RANGE_MAX</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="Instrument-23"><a href="#Instrument-23"><span class="linenos">23</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">TIME_RANGE_MIN</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="Instrument-24"><a href="#Instrument-24"><span class="linenos">24</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">TIME_RANGE_MAX</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="Instrument-25"><a href="#Instrument-25"><span class="linenos">25</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">SCAN_INDEX_KEY</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="Instrument-26"><a href="#Instrument-26"><span class="linenos">26</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">POINT_COUNT_KEY</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="Instrument-27"><a href="#Instrument-27"><span class="linenos">27</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">FLAG_COUNT</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="Instrument-28"><a href="#Instrument-28"><span class="linenos">28</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">MZ_KEY</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="Instrument-29"><a href="#Instrument-29"><span class="linenos">29</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">MS_INTENSITY_KEY</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="Instrument-30"><a href="#Instrument-30"><span class="linenos">30</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_NAME</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="Instrument-31"><a href="#Instrument-31"><span class="linenos">31</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_ID</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="Instrument-32"><a href="#Instrument-32"><span class="linenos">32</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_MFR</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="Instrument-33"><a href="#Instrument-33"><span class="linenos">33</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_MODEL</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="Instrument-34"><a href="#Instrument-34"><span class="linenos">34</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_SERIAL_NO</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="Instrument-35"><a href="#Instrument-35"><span class="linenos">35</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_SW_VERSI</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="Instrument-36"><a href="#Instrument-36"><span class="linenos">36</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_FW_VERSION</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="Instrument-37"><a href="#Instrument-37"><span class="linenos">37</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_OS_VERSION</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="Instrument-38"><a href="#Instrument-38"><span class="linenos">38</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_APP_VERSION</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="Instrument-39"><a href="#Instrument-39"><span class="linenos">39</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_COMMENTS</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span></pre></div>
+
+
+    
+
+                </section>
                 <section id="JEOL">
                             <input id="JEOL-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr class">
             
     <span class="def">class</span>
-    <span class="name">JEOL</span>:
+    <span class="name">JEOL</span><wbr>(<span class="base"><a href="#Instrument">Instrument</a></span>):
 
                 <label class="view-source-button" for="JEOL-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#JEOL"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="JEOL-7"><a href="#JEOL-7"><span class="linenos"> 7</span></a><span class="k">class</span> <span class="nc">JEOL</span><span class="p">:</span>
-</span><span id="JEOL-8"><a href="#JEOL-8"><span class="linenos"> 8</span></a>    <span class="n">X_UNIT</span> <span class="o">=</span> <span class="s2">&quot;total ion counts&quot;</span>
-</span><span id="JEOL-9"><a href="#JEOL-9"><span class="linenos"> 9</span></a>    <span class="n">Y_UNIT</span> <span class="o">=</span> <span class="s2">&quot;min.&quot;</span>
-</span><span id="JEOL-10"><a href="#JEOL-10"><span class="linenos">10</span></a>    <span class="n">TIME_CONVERSION</span> <span class="o">=</span> <span class="mi">60</span>
-</span><span id="JEOL-11"><a href="#JEOL-11"><span class="linenos">11</span></a>    <span class="n">ERROR_LOG</span> <span class="o">=</span> <span class="s2">&quot;error_log&quot;</span>
-</span><span id="JEOL-12"><a href="#JEOL-12"><span class="linenos">12</span></a>    <span class="n">AD_SAMPLING_RATE</span> <span class="o">=</span> <span class="s2">&quot;a_d_sampling_rate&quot;</span>
-</span><span id="JEOL-13"><a href="#JEOL-13"><span class="linenos">13</span></a>    <span class="n">AD_COADDITION_FACTOR</span> <span class="o">=</span> <span class="s2">&quot;a_d_coaddition_factor&quot;</span>
-</span><span id="JEOL-14"><a href="#JEOL-14"><span class="linenos">14</span></a>    <span class="n">TIME_KEY</span> <span class="o">=</span> <span class="s2">&quot;scan_acquisition_time&quot;</span>
-</span><span id="JEOL-15"><a href="#JEOL-15"><span class="linenos">15</span></a>    <span class="n">SCAN_DURATION</span> <span class="o">=</span> <span class="s2">&quot;scan_duration&quot;</span>
-</span><span id="JEOL-16"><a href="#JEOL-16"><span class="linenos">16</span></a>    <span class="n">INTER_SCAN_TIME</span> <span class="o">=</span> <span class="s2">&quot;inter_scan_time&quot;</span>
-</span><span id="JEOL-17"><a href="#JEOL-17"><span class="linenos">17</span></a>    <span class="n">RESOLUTION</span> <span class="o">=</span> <span class="s2">&quot;resolution&quot;</span>
-</span><span id="JEOL-18"><a href="#JEOL-18"><span class="linenos">18</span></a>    <span class="n">ACTUAL_SCAN_NUMBER</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;actual_scan_number&quot;</span><span class="p">,)</span>
-</span><span id="JEOL-19"><a href="#JEOL-19"><span class="linenos">19</span></a>    <span class="n">TIC_KEY</span> <span class="o">=</span> <span class="s2">&quot;total_intensity&quot;</span>
-</span><span id="JEOL-20"><a href="#JEOL-20"><span class="linenos">20</span></a>    <span class="n">MASS_RANGE_MIN</span> <span class="o">=</span> <span class="s2">&quot;mass_range_min&quot;</span>
-</span><span id="JEOL-21"><a href="#JEOL-21"><span class="linenos">21</span></a>    <span class="n">MASS_RANGE_MAX</span> <span class="o">=</span> <span class="s2">&quot;mass_range_max&quot;</span>
-</span><span id="JEOL-22"><a href="#JEOL-22"><span class="linenos">22</span></a>    <span class="n">TIME_RANGE_MIN</span> <span class="o">=</span> <span class="s2">&quot;time_range_min&quot;</span>
-</span><span id="JEOL-23"><a href="#JEOL-23"><span class="linenos">23</span></a>    <span class="n">TIME_RANGE_MAX</span> <span class="o">=</span> <span class="s2">&quot;time_range_max&quot;</span>
-</span><span id="JEOL-24"><a href="#JEOL-24"><span class="linenos">24</span></a>    <span class="n">SCAN_INDEX_KEY</span> <span class="o">=</span> <span class="s2">&quot;scan_index&quot;</span>
-</span><span id="JEOL-25"><a href="#JEOL-25"><span class="linenos">25</span></a>    <span class="n">POINT_COUNT_KEY</span> <span class="o">=</span> <span class="s2">&quot;point_count&quot;</span>
-</span><span id="JEOL-26"><a href="#JEOL-26"><span class="linenos">26</span></a>    <span class="n">FLAG_COUNT</span> <span class="o">=</span> <span class="s2">&quot;flag_count&quot;</span>
-</span><span id="JEOL-27"><a href="#JEOL-27"><span class="linenos">27</span></a>    <span class="n">MZ_KEY</span> <span class="o">=</span> <span class="s2">&quot;mass_values&quot;</span>
-</span><span id="JEOL-28"><a href="#JEOL-28"><span class="linenos">28</span></a>    <span class="n">MS_INTENSITY_KEY</span> <span class="o">=</span> <span class="s2">&quot;intensity_values&quot;</span>
-</span><span id="JEOL-29"><a href="#JEOL-29"><span class="linenos">29</span></a>    <span class="n">INSTRUMENT_NAME</span> <span class="o">=</span> <span class="s2">&quot;instrument_name&quot;</span>
-</span><span id="JEOL-30"><a href="#JEOL-30"><span class="linenos">30</span></a>    <span class="n">INSTRUMENT_ID</span> <span class="o">=</span> <span class="s2">&quot;instrument_id&quot;</span>
-</span><span id="JEOL-31"><a href="#JEOL-31"><span class="linenos">31</span></a>    <span class="n">INSTRUMENT_MFR</span> <span class="o">=</span> <span class="s2">&quot;instrument_mfr&quot;</span>
-</span><span id="JEOL-32"><a href="#JEOL-32"><span class="linenos">32</span></a>    <span class="n">INSTRUMENT_MODEL</span> <span class="o">=</span> <span class="s2">&quot;instrument_model&quot;</span>
-</span><span id="JEOL-33"><a href="#JEOL-33"><span class="linenos">33</span></a>    <span class="n">INSTRUMENT_SERIAL_NO</span> <span class="o">=</span> <span class="s2">&quot;instrument_serial_no&quot;</span>
-</span><span id="JEOL-34"><a href="#JEOL-34"><span class="linenos">34</span></a>    <span class="n">INSTRUMENT_SW_VERSI</span> <span class="o">=</span> <span class="s2">&quot;instrument_sw_versi on&quot;</span>
-</span><span id="JEOL-35"><a href="#JEOL-35"><span class="linenos">35</span></a>    <span class="n">INSTRUMENT_FW_VERSION</span> <span class="o">=</span> <span class="s2">&quot;instrument_fw_version&quot;</span>
-</span><span id="JEOL-36"><a href="#JEOL-36"><span class="linenos">36</span></a>    <span class="n">INSTRUMENT_OS_VERSION</span> <span class="o">=</span> <span class="s2">&quot;instrument_os_version&quot;</span>
-</span><span id="JEOL-37"><a href="#JEOL-37"><span class="linenos">37</span></a>    <span class="n">INSTRUMENT_APP_VERSION</span> <span class="o">=</span> <span class="s2">&quot;instrument_app_version&quot;</span>
-</span><span id="JEOL-38"><a href="#JEOL-38"><span class="linenos">38</span></a>    <span class="n">INSTRUMENT_COMMENTS</span> <span class="o">=</span> <span class="s2">&quot;instrument_comments&quot;</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="JEOL-42"><a href="#JEOL-42"><span class="linenos">42</span></a><span class="k">class</span> <span class="nc">JEOL</span><span class="p">(</span><span class="n">Instrument</span><span class="p">):</span>
+</span><span id="JEOL-43"><a href="#JEOL-43"><span class="linenos">43</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="JEOL-44"><a href="#JEOL-44"><span class="linenos">44</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">X_UNIT</span> <span class="o">=</span> <span class="s2">&quot;total ion counts&quot;</span>
+</span><span id="JEOL-45"><a href="#JEOL-45"><span class="linenos">45</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Y_UNIT</span> <span class="o">=</span> <span class="s2">&quot;min.&quot;</span>
+</span><span id="JEOL-46"><a href="#JEOL-46"><span class="linenos">46</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">TIME_CONVERSION</span> <span class="o">=</span> <span class="mi">60</span>
+</span><span id="JEOL-47"><a href="#JEOL-47"><span class="linenos">47</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">ERROR_LOG</span> <span class="o">=</span> <span class="s2">&quot;error_log&quot;</span>
+</span><span id="JEOL-48"><a href="#JEOL-48"><span class="linenos">48</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">AD_SAMPLING_RATE</span> <span class="o">=</span> <span class="s2">&quot;a_d_sampling_rate&quot;</span>
+</span><span id="JEOL-49"><a href="#JEOL-49"><span class="linenos">49</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">AD_COADDITION_FACTOR</span> <span class="o">=</span> <span class="s2">&quot;a_d_coaddition_factor&quot;</span>
+</span><span id="JEOL-50"><a href="#JEOL-50"><span class="linenos">50</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">TIME_KEY</span> <span class="o">=</span> <span class="s2">&quot;scan_acquisition_time&quot;</span>
+</span><span id="JEOL-51"><a href="#JEOL-51"><span class="linenos">51</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">SCAN_DURATION</span> <span class="o">=</span> <span class="s2">&quot;scan_duration&quot;</span>
+</span><span id="JEOL-52"><a href="#JEOL-52"><span class="linenos">52</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INTER_SCAN_TIME</span> <span class="o">=</span> <span class="s2">&quot;inter_scan_time&quot;</span>
+</span><span id="JEOL-53"><a href="#JEOL-53"><span class="linenos">53</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">RESOLUTION</span> <span class="o">=</span> <span class="s2">&quot;resolution&quot;</span>
+</span><span id="JEOL-54"><a href="#JEOL-54"><span class="linenos">54</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">ACTUAL_SCAN_NUMBER</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;actual_scan_number&quot;</span><span class="p">,)</span>
+</span><span id="JEOL-55"><a href="#JEOL-55"><span class="linenos">55</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">TIC_KEY</span> <span class="o">=</span> <span class="s2">&quot;total_intensity&quot;</span>
+</span><span id="JEOL-56"><a href="#JEOL-56"><span class="linenos">56</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">MASS_RANGE_MIN</span> <span class="o">=</span> <span class="s2">&quot;mass_range_min&quot;</span>
+</span><span id="JEOL-57"><a href="#JEOL-57"><span class="linenos">57</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">MASS_RANGE_MAX</span> <span class="o">=</span> <span class="s2">&quot;mass_range_max&quot;</span>
+</span><span id="JEOL-58"><a href="#JEOL-58"><span class="linenos">58</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">TIME_RANGE_MIN</span> <span class="o">=</span> <span class="s2">&quot;time_range_min&quot;</span>
+</span><span id="JEOL-59"><a href="#JEOL-59"><span class="linenos">59</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">TIME_RANGE_MAX</span> <span class="o">=</span> <span class="s2">&quot;time_range_max&quot;</span>
+</span><span id="JEOL-60"><a href="#JEOL-60"><span class="linenos">60</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">SCAN_INDEX_KEY</span> <span class="o">=</span> <span class="s2">&quot;scan_index&quot;</span>
+</span><span id="JEOL-61"><a href="#JEOL-61"><span class="linenos">61</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">POINT_COUNT_KEY</span> <span class="o">=</span> <span class="s2">&quot;point_count&quot;</span>
+</span><span id="JEOL-62"><a href="#JEOL-62"><span class="linenos">62</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">FLAG_COUNT</span> <span class="o">=</span> <span class="s2">&quot;flag_count&quot;</span>
+</span><span id="JEOL-63"><a href="#JEOL-63"><span class="linenos">63</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">MZ_KEY</span> <span class="o">=</span> <span class="s2">&quot;mass_values&quot;</span>
+</span><span id="JEOL-64"><a href="#JEOL-64"><span class="linenos">64</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">MS_INTENSITY_KEY</span> <span class="o">=</span> <span class="s2">&quot;intensity_values&quot;</span>
+</span><span id="JEOL-65"><a href="#JEOL-65"><span class="linenos">65</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_NAME</span> <span class="o">=</span> <span class="s2">&quot;instrument_name&quot;</span>
+</span><span id="JEOL-66"><a href="#JEOL-66"><span class="linenos">66</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_ID</span> <span class="o">=</span> <span class="s2">&quot;instrument_id&quot;</span>
+</span><span id="JEOL-67"><a href="#JEOL-67"><span class="linenos">67</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_MFR</span> <span class="o">=</span> <span class="s2">&quot;instrument_mfr&quot;</span>
+</span><span id="JEOL-68"><a href="#JEOL-68"><span class="linenos">68</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_MODEL</span> <span class="o">=</span> <span class="s2">&quot;instrument_model&quot;</span>
+</span><span id="JEOL-69"><a href="#JEOL-69"><span class="linenos">69</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_SERIAL_NO</span> <span class="o">=</span> <span class="s2">&quot;instrument_serial_no&quot;</span>
+</span><span id="JEOL-70"><a href="#JEOL-70"><span class="linenos">70</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_SW_VERSI</span> <span class="o">=</span> <span class="s2">&quot;instrument_sw_versi on&quot;</span>
+</span><span id="JEOL-71"><a href="#JEOL-71"><span class="linenos">71</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_FW_VERSION</span> <span class="o">=</span> <span class="s2">&quot;instrument_fw_version&quot;</span>
+</span><span id="JEOL-72"><a href="#JEOL-72"><span class="linenos">72</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_OS_VERSION</span> <span class="o">=</span> <span class="s2">&quot;instrument_os_version&quot;</span>
+</span><span id="JEOL-73"><a href="#JEOL-73"><span class="linenos">73</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_APP_VERSION</span> <span class="o">=</span> <span class="s2">&quot;instrument_app_version&quot;</span>
+</span><span id="JEOL-74"><a href="#JEOL-74"><span class="linenos">74</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">INSTRUMENT_COMMENTS</span> <span class="o">=</span> <span class="s2">&quot;instrument_comments&quot;</span>
 </span></pre></div>
 
 
