@@ -13,5 +13,4 @@ from .chromatogram import Chromatogram
 from .mass_spectrum import MassSpectrum
 
 from .instrument_calibration import InstrumentCalibration
-from .analysis_information import AnalysisInformation
 from .experiment_conditions import ExperimentConditions
