@@ -1,12 +1,12 @@
 from pathlib import Path
 from ChromProcess.Classes import Chromatogram
 
-from ChromProcess.Loading.chromatogram.cdf.instruments import JEOL
+from ChromProcess.Loading.chromatogram.cdf.instruments import JEOL, Instrument
 from ChromProcess.Loading.chromatogram.cdf.cdf_loading import load_from_cdf
 
 
 def chrom_from_cdf(
-    filename: str, instrument: JEOL = JEOL, load_ms: bool = False
+    filename: str, instrument: type[Instrument] = JEOL, load_ms: bool = False
 ) -> Chromatogram:
     """
     Load a chromatogram from .cdf file.
