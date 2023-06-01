@@ -33,7 +33,6 @@ def ic_background_subtraction(
 
         new_chromatogram = np.zeros(len(chromatogram.time))
         for s in range(0, len(chromatogram.point_counts)):
-
             start = chromatogram.scan_indices[s]
             end = start + chromatogram.point_counts[s]
 

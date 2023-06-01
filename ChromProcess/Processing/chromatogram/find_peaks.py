@@ -53,7 +53,6 @@ def find_peaks_in_region(
 
     peaks = []
     for x in range(0, len(picked_peaks["Peak_indices"])):
-
         pk_idx = picked_peaks["Peak_indices"][x]
         start_idx = picked_peaks["Peak_start_indices"][x]
         end_idx = picked_peaks["Peak_end_indices"][x]

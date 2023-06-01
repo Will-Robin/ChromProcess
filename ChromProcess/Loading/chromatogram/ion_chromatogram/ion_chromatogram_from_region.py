@@ -49,7 +49,6 @@ def ion_chromatogram_from_region(
             filt_inds = np.where(inten > threshold * np.amax(inten))[0]
 
             if len(filt_inds) > 0:
-
                 inten = inten[filt_inds]
                 masses = mz_values[filt_inds]
 

@@ -29,7 +29,6 @@ def mass_spectra_from_csv(file: str) -> list[MassSpectrum]:
     rt = 0.0
 
     with open(file, "r") as f:
-
         make_ms = False
         for line in f:
             if "Peak retention time" in line:

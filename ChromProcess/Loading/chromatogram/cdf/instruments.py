@@ -1,6 +1,8 @@
 """
 Keys for cdf files organised by instrument type.
 """
+
+
 class Instrument:
     def __init__(self):
         self.X_UNIT = ""
