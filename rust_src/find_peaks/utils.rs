@@ -67,3 +67,36 @@ pub fn find_peaks(data: &[f64], height: Option<f64>) -> (Vec<usize>, Vec<usize>,
 
     (peaks, left_edges, right_edges)
 }
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn test_find_peak_indices() {
+        let data: Vec<f64> = vec![
+            0.0, 0.0, 0.1, 0.2, 0.3, 0.2, 0.3, 0.2, 0.1, 0.0, 0.0, 0.01, 0.02, 0.03, 0.01, 0.02,
+            0.0, 0.1, 0.15, 0.175, 0.2, 0.3, 0.2, 0.175, 0.15, 0.1, 0.0,
+        ];
+
+        let (indices, left_bounds, right_bounds) = find_peak_indices(&data);
+
+        assert_eq!(indices, vec![4, 6, 13, 15, 21]);
+        assert_eq!(left_bounds, vec![1, 5, 10, 14, 16]);
+        assert_eq!(right_bounds, vec![5, 9, 14, 16]);
+    }
+
+    #[test]
+    fn test_find_peaks() {
+        let data: Vec<f64> = vec![
+            0.0, 0.0, 0.1, 0.2, 0.3, 0.2, 0.3, 0.2, 0.1, 0.0, 0.0, 0.01, 0.02, 0.03, 0.01, 0.02,
+            0.0, 0.1, 0.15, 0.175, 0.2, 0.3, 0.2, 0.175, 0.15, 0.1, 0.0,
+        ];
+
+        let (indices, left_bounds, right_bounds) = find_peaks(&data, Some(0.2));
+
+        assert_eq!(indices, vec![4, 6, 21]);
+        assert_eq!(left_bounds, vec![1, 5, 16]);
+        assert_eq!(right_bounds, vec![5, 9, 16]);
+    }
+}
