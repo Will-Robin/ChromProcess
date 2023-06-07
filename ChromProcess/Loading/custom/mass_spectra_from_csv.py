@@ -22,7 +22,8 @@ def mass_spectra_from_csv(file: str) -> list[MassSpectrum]:
 
     mass_spectra = []
 
-    fltln = lambda x: [float(e) for e in x.strip("\n").split(",")[1:] if e != ""]
+    def fltln(x):
+        return [float(e) for e in x.strip("\n").split(",")[1:] if e != ""]
 
     mz = np.array([0.0, 0.0])
     r_a = np.array([0.0, 0.0])

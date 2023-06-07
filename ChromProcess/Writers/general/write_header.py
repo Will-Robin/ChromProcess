@@ -52,6 +52,6 @@ def write_conditions_header(
     header_text += f"Derivatisation_method,{write_deriv}\n"
     header_text += f"Calibrations_file,{calibration_file}\n"
     header_text += f"Calibration_model,{calibration_model}\n"
-    header_text += f"end_analysis_details\n"
+    header_text += "end_analysis_details\n"
 
     return header_text

@@ -24,7 +24,9 @@ def instrument_cal_from_csv(filename: str) -> InstrumentCalibration:
     calibration = InstrumentCalibration()
     calibration.filename = file.name
 
-    rdlin = lambda x: [e for e in x.strip("\n").split(",") if e != ""]
+    def rdlin(x):
+        return [e for e in x.strip("\n").split(",") if e != ""]
+
     info = []
     header = []
     upper_ind = 0
@@ -84,7 +86,7 @@ def instrument_cal_from_csv(filename: str) -> InstrumentCalibration:
     trans_info = [list(x) for x in zip(*info)]
 
     bound_tuples = [
-        (l, u) for l, u in zip(trans_info[lower_ind], trans_info[upper_ind])
+        (low, high) for low, high in zip(trans_info[lower_ind], trans_info[upper_ind])
     ]
     calibration.boundaries = {
         k: [float(v[0]), float(v[1])]
