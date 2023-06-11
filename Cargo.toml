@@ -6,7 +6,7 @@ edition = "2021"
 [lib]
 name = "chromate"
 path = "rust_src/lib.rs"
-crate-type = ["cdylib"]
+crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-pyo3 = "0.18.3"
+pyo3 = { version = "0.19", features = ["extension-module"] , default = ["extension-module"]}
