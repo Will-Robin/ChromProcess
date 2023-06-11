@@ -15,7 +15,6 @@ from .chromatogram.cdf import chrom_from_cdf
 
 from .chromatogram.text import chrom_from_csv
 from .chromatogram.text import chrom_from_json
-from .chromatogram.text import chrom_from_text
 from .chromatogram.text import chrom_from_labsolutions_ascii
 
 from .chromatogram.ion_chromatogram import ion_chromatogram_from_peak

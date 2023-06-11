@@ -1,11 +1,8 @@
+import numpy as np
 from pathlib import Path
 from ChromProcess.Classes import Chromatogram
 
-from ChromProcess.Loading.parsers import parsers
-from ChromProcess.Loading.chromatogram.text import chrom_from_text
-
-
-def chrom_from_csv(filename: str) -> Chromatogram:
+def chrom_from_csv(filename: str | Path) -> Chromatogram:
     """
     Load a chromatogram from a .csv file.
 
@@ -30,26 +27,27 @@ def chrom_from_csv(filename: str) -> Chromatogram:
 
     """
 
-    if isinstance(filename, str):
-        fname = Path(filename)
-    else:
-        fname = filename
+    chromatogram = Chromatogram()
 
-    assert isinstance(fname, Path), "filename should be string or pathlib Path"
+    if isinstance(filename, Path):
+        filename = filename.name
 
-    with open(fname, "r") as file:
-        text = file.read()
+    chromatogram.filename = filename
 
-    data = parsers.parse_text_columns(text, "\n", ",")
+    x_vals = []
+    y_vals = []
+    with open(filename, "r") as file:
+        for c,line in enumerate(file):
+            if c == 0:
+                header = line.strip("\n").split(",")
+                chromatogram.x_unit = header[0]
+                chromatogram.y_unit = header[1]
+            else:
+                time, signal = map(float, line.split(","))
+                x_vals.append(time)
+                y_vals.append(signal)
 
-    x_values = [float(x) for x in data[0][1:]]
-    y_values = [float(y) for y in data[1][1:]]
+    chromatogram.time = np.array(x_vals)
+    chromatogram.signal = np.array(y_vals)
 
-    x_name = data[0][0]
-    y_name = data[1][0]
-
-    chrom = chrom_from_text.chrom_from_text(
-        x_values, y_values, x_name, y_name, fname.name
-    )
-
-    return chrom
+    return chromatogram
