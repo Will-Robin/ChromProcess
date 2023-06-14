@@ -2,7 +2,7 @@ import numpy as np
 from pathlib import Path
 from ChromProcess.Classes import Chromatogram
 
-def chrom_from_csv(filename: str | Path) -> Chromatogram:
+def chrom_from_csv(file_path: str | Path) -> Chromatogram:
     """
     Load a chromatogram from a .csv file.
 
@@ -17,7 +17,7 @@ def chrom_from_csv(filename: str | Path) -> Chromatogram:
 
     Parameters
     ----------
-    filename: str or pathlib Path
+    file_path: str or pathlib Path
         Name of chromatogram file (including the path to the file).
 
     Returns
@@ -29,14 +29,14 @@ def chrom_from_csv(filename: str | Path) -> Chromatogram:
 
     chromatogram = Chromatogram()
 
-    if isinstance(filename, Path):
-        filename = filename.name
-
-    chromatogram.filename = filename
+    if isinstance(file_path, Path):
+        chromatogram.filename = file_path.name
+    else:
+        chromatogram.filename = file_path
 
     x_vals = []
     y_vals = []
-    with open(filename, "r") as file:
+    with open(file_path, "r") as file:
         for c,line in enumerate(file):
             if c == 0:
                 header = line.strip("\n").split(",")
