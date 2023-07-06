@@ -27,18 +27,11 @@ def ic_background_subtraction(
     if len(chromatogram.mz_intensity) == 0:
         return chromatogram.signal
     else:
-        inds = chromatogram.mz_intensity < threshold
-        mz_intens = np.copy(chromatogram.mz_intensity)
-        mz_intens[inds] = 0.0
-
         new_chromatogram = np.zeros(len(chromatogram.time))
         for s in range(0, len(chromatogram.point_counts)):
-
             start = chromatogram.scan_indices[s]
             end = start + chromatogram.point_counts[s]
-
-            inten = mz_intens[start:end]
-
-            new_chromatogram[s] = np.sum(inten)
+            inten = chromatogram.mz_intensity[start:end]
+            new_chromatogram[s] = np.sum(inten[inten > threshold])
 
         return new_chromatogram

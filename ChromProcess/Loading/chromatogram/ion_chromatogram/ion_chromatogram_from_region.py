@@ -1,5 +1,5 @@
 import numpy as np
-from ChromProcess.Utils.utils import utils
+from ChromProcess import Utils
 from ChromProcess.Classes import Chromatogram
 
 
@@ -29,54 +29,31 @@ def ion_chromatogram_from_region(
         {m/z: intensities over time}
     """
 
-    mz_regions: dict[float, np.ndarray] = dict()
     if len(chromatogram.mz_values) > 0:
-        inds = utils.indices_from_boundary(chromatogram.time, lower, upper)
-
-        time = chromatogram.time[inds]
+        # Select scan indices and point counts in region
+        inds = Utils.indices_from_boundary(chromatogram.time, lower, upper)
         scan_inds = chromatogram.scan_indices[inds]
         p_counts = chromatogram.point_counts[inds]
 
+        ion_chromatograms = dict()
+
         # iterate over mass spectra recorded at each time point
-        for s in range(0, len(time)):
-            # get mass spectrum at time point
-            inten = chromatogram.mz_intensity[scan_inds[s] : scan_inds[s] + p_counts[s]]
-            mz_values = chromatogram.mz_values[
-                scan_inds[s] : scan_inds[s] + p_counts[s]
+        for s in range(0, len(scan_inds)):
+            lower_idx = scan_inds[s]
+            upper_idx = scan_inds[s] + p_counts[s]
+            slice_indices = np.arange(lower_idx, upper_idx, 1)
+            slice_indices = slice_indices[
+                chromatogram.mz_values[slice_indices] > threshold
             ]
 
-            # filter out low intensity m/z signals
-            filt_inds = np.where(inten > threshold * np.amax(inten))[0]
+            mz_values = chromatogram.mz_values[slice_indices]
+            inten = chromatogram.mz_intensity[slice_indices]
 
-            if len(filt_inds) > 0:
-
-                inten = inten[filt_inds]
-                masses = mz_values[filt_inds]
-
-                round = np.round(masses, 2)
-
-                # add the intensity values into the appropriate m/z channel
-                for m in range(0, len(round)):
-                    if round[m] in mz_regions:
-                        mz_regions[round[m]][s] = inten[m]
-                    else:
-                        mz_regions[round[m]] = np.zeros(len(time))
-                        mz_regions[round[m]][s] = inten[m]
-            else:
-                pass
-
-    # combine channels with close enough m/z value (given stdev)
-    ion_chromatograms = utils.bin_dictionary(mz_regions, stdev=0.1)
-
-    # remove ion chromatograms whose maximum values do not exceed the
-    # fraction of the total ion chromatogram defind by threshold
-    threshold = threshold * chromatogram.signal.max()
-    remove_ic = []
-    for ic in ion_chromatograms:
-        if ion_chromatograms[ic].max() < threshold:
-            remove_ic.append(ic)
-
-    for i in remove_ic:
-        del ion_chromatograms[i]
+            # Add the intensity values into the appropriate m/z channel
+            for m in range(0, len(mz_values)):
+                mz = np.round(mz_values[m])
+                if mz not in ion_chromatograms:
+                    ion_chromatograms[mz] = np.zeros(len(scan_inds))
+                ion_chromatograms[mz][s] += inten[m]
 
     return ion_chromatograms
