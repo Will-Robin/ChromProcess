@@ -70,11 +70,11 @@ class Peak:
         else:
             self.height = height
 
-        self.ion_chromatograms = dict()
+        self.ion_chromatograms: dict[float, np.ndarray] = dict()
 
-        self.ion_integrals = dict()
+        self.ion_integrals: dict[float, float] = dict()
 
-        self.deconvolution = []
+        self.deconvolution: list = []
 
         self.assignment: str = ""
 
