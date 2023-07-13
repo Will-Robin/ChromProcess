@@ -25,5 +25,3 @@ from .mass_spectrum import mass_spectrum_from_peak
 
 from .parsers import parse_text_columns
 from .parsers import import_file_section
-
-from .custom import *
