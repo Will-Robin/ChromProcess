@@ -31,6 +31,10 @@ def parse_text_columns(
     return data
 
 
+def spl_lin(x):
+    return [e for e in x.strip("\n").split(",") if e != ""]
+
+
 def import_file_section(file: str, start_token: str, end_token: str) -> list[list[str]]:
     """
     Load a section of lines between two tokens.
@@ -49,7 +53,6 @@ def import_file_section(file: str, start_token: str, end_token: str) -> list[lis
     c_set: list
     """
 
-    spl_lin = lambda x: [e for e in x.strip("\n").split(",") if e != ""]
     readstate = False
     c_set = []
     with open(file, "r", encoding="latin-1") as f:

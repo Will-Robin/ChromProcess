@@ -2,6 +2,7 @@ import re
 from pathlib import Path
 
 from ChromProcess import Classes
+from ChromProcess.Classes import Chromatogram
 
 from ChromProcess.Loading.parsers import parsers
 

@@ -91,7 +91,7 @@ class AnalysisInformation:
         with open(fname, "w") as f:
             f.write(f"Dataset,{exp_code}\n")
             f.write(f"Method,{self.analysis_type}\n")
-            f.write(f"regions,")
+            f.write("regions,")
             for r in self.regions:
                 for pos in r:
                     f.write(f"{pos},")

@@ -17,8 +17,6 @@ def analysis_from_toml(fname: str) -> AnalysisInformation:
 
     analysis = AnalysisInformation()
 
-    rdlin = lambda x: [e for e in x.strip("\n").split(",") if e != ""]
-
     with open(fname, "r") as file:
         text = file.read()
 

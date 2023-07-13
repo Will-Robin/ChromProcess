@@ -1,6 +1,9 @@
 from ChromProcess.Classes import AnalysisInformation
 
 
+def rdlin(x):
+    return [e for e in x.strip("\n").split(",") if e != ""]
+
 def analysis_from_csv_legacy(fname: str) -> AnalysisInformation:
     """
     Create and AnalysisInformation object from a formatted csv file.
@@ -17,8 +20,6 @@ def analysis_from_csv_legacy(fname: str) -> AnalysisInformation:
 
     analysis = AnalysisInformation()
 
-    rdlin = lambda x: [e for e in x.strip("\n").split(",") if e != ""]
-
     with open(fname, "r") as file:
         lines = file.readlines()
 
@@ -27,7 +28,7 @@ def analysis_from_csv_legacy(fname: str) -> AnalysisInformation:
         if "Dataset" in line:
             analysis.experiment_code = ins[1]
 
-        if "Method" in line and not "Instrument" in line:
+        if "Method" in line and "Instrument" not in line:
             analysis.analysis_type = ins[1]
 
         if "regions" in line:
@@ -63,7 +64,7 @@ def analysis_from_csv_legacy(fname: str) -> AnalysisInformation:
         if "internal_ref_concentration_error" in line:
             analysis.internal_standard_concentration_error = float(ins[1])
 
-        if "instrument" in line and not "method" in line:
+        if "instrument" in line and "method" not in line:
             analysis.instrument = ins[1]
 
         if "instrument_method" in line:

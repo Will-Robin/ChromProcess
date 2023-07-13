@@ -60,12 +60,12 @@ class Peak:
 
         self.indices = indices
 
-        if integral == None:
+        if integral is None:
             self.integral = 0.0
         else:
             self.integral = integral
 
-        if height == None:
+        if height is None:
             self.height = 0.0
         else:
             self.height = height
