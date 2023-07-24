@@ -1,4 +1,5 @@
 import re
+import numpy as np
 from pathlib import Path
 
 from ChromProcess import Classes
@@ -62,12 +63,16 @@ def chrom_from_labsolutions_ascii(filename, data_key="Detector A-Ch1"):
                 "y_unit": y_units_segment[0],
             }
 
-    if "data_key" in data_container:
+    if data_key in data_container:
         chrom = Chromatogram()
-        chrom.x_unit = data_container[data_key]["data"][0]
-        chrom.y_unit = data_container[data_key]["data"][1]
-        chrom.time = map(float, data_container[data_key]["data"][0])
-        chrom.signal = map(float, data_container[data_key]["data"][1])
+        chrom.x_unit = data_container[data_key]["x_unit"]
+        chrom.y_unit = data_container[data_key]["y_unit"]
+        chrom.time = np.fromiter(
+            map(float, data_container[data_key]["data"][0]), dtype=np.float64
+        )
+        chrom.signal = np.fromiter(
+            map(float, data_container[data_key]["data"][1]), dtype=np.float64
+        )
         chrom.filename = fname.name
 
         return chrom
