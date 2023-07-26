@@ -47,6 +47,7 @@ def chrom_from_labsolutions_ascii(filename, data_key="Detector A-Ch1"):
     data_regex = r"(?:Intensity\n)([\s\S]*)"
     x_units_regex = r"Intensity\sUnits[\s,](.+)"
     y_units_regex = r"R.Time[\s,]\((.+)\)"
+    delimiter = None
 
     data_container = dict()
     for b in blocks:
@@ -59,9 +60,12 @@ def chrom_from_labsolutions_ascii(filename, data_key="Detector A-Ch1"):
         # data trace.
         if len(data_segment) > 0 and len(name_segment) > 0:
             name = name_segment[0]
-            # Detect data delimiter
-            dialect = sniffer.sniff(data_segment[0])
-            delimiter = dialect.delimiter
+
+            if not delimiter:
+                # Detect data delimiter
+                dialect = sniffer.sniff(data_segment[0])
+                delimiter = dialect.delimiter
+
             data = parsers.parse_text_columns(data_segment[0], "\n", delimiter)
             data_container[name] = {
                 "data": data,
