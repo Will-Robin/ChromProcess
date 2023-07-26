@@ -5,6 +5,7 @@ from ChromProcess.Classes import InstrumentCalibration
 def rdlin(x):
     return [e for e in x.strip("\n").split(",") if e != ""]
 
+
 def instrument_cal_from_csv(filename: str) -> InstrumentCalibration:
     """
     Create an InstrumentCalibration object from a formatted .csv file.

@@ -89,7 +89,6 @@ def bin_dictionary(value_dict, stdev=0.001):
 
     out_log = dict()
     for c in clusters:
-
         position = np.round(np.average(c), 2)
 
         out_log[position] = []
@@ -140,7 +139,6 @@ def peak_dict_to_spreadsheet(
 
     peak_names = [*peak_dict]
     for s in peak_names:
-
         peak_header.append(s)
 
         if sort_series_order:
@@ -174,7 +172,6 @@ def peak_indices_to_times(time, picked_peaks):
 
     peak_features = []
     for x in range(0, len(picked_peaks["Peak_indices"])):
-
         rt_ind = picked_peaks["Peak_indices"][x]
         start_ind = picked_peaks["Peak_start_indices"][x]
         end_ind = picked_peaks["Peak_end_indices"][x]

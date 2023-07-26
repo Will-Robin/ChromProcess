@@ -57,7 +57,6 @@ def chrom_from_json(filename: str) -> Chromatogram:
     chrom.signal = np.array(chrom_dict["signal"])
 
     for peak in chrom_dict["peaks"]:
-
         retention_time = peak["retention_time"]
         start = peak["start"]
         end = peak["end"]

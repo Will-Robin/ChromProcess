@@ -198,7 +198,6 @@ def calculate_concentration_error(
 
     error = 0.0
     if assign in calibrations.calibration_factors:
-
         a = calibrations.calibration_factors[assign]["A"]
         b = calibrations.calibration_factors[assign]["B"]
         c = calibrations.calibration_factors[assign]["C"]

@@ -1,4 +1,5 @@
 import re
+import csv
 import numpy as np
 from pathlib import Path
 
@@ -38,12 +39,14 @@ def chrom_from_labsolutions_ascii(filename, data_key="Detector A-Ch1"):
     with open(fname, "r") as file:
         text = file.read()
 
+    sniffer = csv.Sniffer()
+
     blocks = text.split("\n\n")
 
     item_regex = r"(?:[A-Z][a-z]*\()(.*)(?:\)\])"
     data_regex = r"(?:Intensity\n)([\s\S]*)"
-    x_units_regex = r"Intensity\sUnits\s(.+)"
-    y_units_regex = r"R.Time\s\((.+)\)"
+    x_units_regex = r"Intensity\sUnits[\s,](.+)"
+    y_units_regex = r"R.Time[\s,]\((.+)\)"
 
     data_container = dict()
     for b in blocks:
@@ -56,7 +59,10 @@ def chrom_from_labsolutions_ascii(filename, data_key="Detector A-Ch1"):
         # data trace.
         if len(data_segment) > 0 and len(name_segment) > 0:
             name = name_segment[0]
-            data = parsers.parse_text_columns(data_segment[0], "\n", "\t")
+            # Detect data delimiter
+            dialect = sniffer.sniff(data_segment[0])
+            delimiter = dialect.delimiter
+            data = parsers.parse_text_columns(data_segment[0], "\n", delimiter)
             data_container[name] = {
                 "data": data,
                 "x_unit": x_units_segment[0],

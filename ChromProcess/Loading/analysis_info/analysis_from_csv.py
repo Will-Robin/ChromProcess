@@ -1,7 +1,9 @@
 from ChromProcess.Classes import AnalysisInformation
 
+
 def rdlin(x):
     return [e for e in x.strip("\n").split(",") if e != ""]
+
 
 def analysis_from_csv(fname: str) -> AnalysisInformation:
     """
