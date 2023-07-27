@@ -13,6 +13,7 @@ def find_peaks_in_region(
     wlen: int = 50,
     distance: int = 1,
     prominence: float = 0.1,
+    peak_local_baseline: bool = False,
 ) -> list[Peak]:
     """
     Find peaks within the chromatogram between start and end retention times.
@@ -64,8 +65,16 @@ def find_peaks_in_region(
         p_inds = utils.indices_from_boundary(chromatogram.time, start, end)
 
         new_peak = Peak(retention_time, start, end, indices=p_inds)
-        new_peak.set_height(operations.get_peak_height(new_peak, chromatogram))
-        new_peak.set_integral(operations.get_peak_integral(new_peak, chromatogram))
+        new_peak.set_height(
+            operations.get_peak_height(
+                new_peak, chromatogram, baseline_subtract=peak_local_baseline
+            )
+        )
+        new_peak.set_integral(
+            operations.get_peak_integral(
+                new_peak, chromatogram, baseline_subtract=peak_local_baseline
+            )
+        )
 
         peaks.append(new_peak)
 

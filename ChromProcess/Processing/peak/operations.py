@@ -80,7 +80,9 @@ def get_peak_integral(
     return integral
 
 
-def get_peak_height(peak: Peak, chromatogram: Chromatogram) -> float:
+def get_peak_height(
+    peak: Peak, chromatogram: Chromatogram, baseline_subtract: bool = False
+) -> float:
     """
     Get the height of the peak.
 
@@ -88,6 +90,7 @@ def get_peak_height(peak: Peak, chromatogram: Chromatogram) -> float:
     ----------
     peak: Peak
     chromatogram: Chromatogram
+    baseline_subtract: bool
 
     Returns
     -------
@@ -97,7 +100,16 @@ def get_peak_height(peak: Peak, chromatogram: Chromatogram) -> float:
 
     idx = np.where(chromatogram.time == peak.retention_time)[0]
     if len(idx) > 0:
-        height = chromatogram.signal[idx[0]]
+        if baseline_subtract:
+            time = chromatogram.time[peak.indices]
+            signal = chromatogram.signal[peak.indices]
+            time_bound = [time[0], time[-1]]
+            signal_bound = [signal[0], signal[-1]]
+            linterp = np.interp(time, time_bound, signal_bound)
+            baseline_at_peak = linterp[idx[0]]
+            height = chromatogram.signal[idx[0]] - baseline_at_peak
+        else:
+            height = chromatogram.signal[idx[0]]
     else:
         print(
             f"""Could not find Peak retention time ({peak.retention_time})
