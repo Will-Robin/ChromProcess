@@ -26,6 +26,8 @@ class Chromatogram:
             Signal of the chromatogram.
         self.peaks: dict
             Container for the peaks derived from the chromatogram.
+        self.deconvoluted_peaks: dict
+            Container for the peaks deconvoluted from the chromatogram.
         self.mz_values: numpy.ndarray[np.int]
             Container for the m/z values from mass spectra.
         self.mz_intensity: numpy.ndarray[np.int]
@@ -46,6 +48,7 @@ class Chromatogram:
         self.signal: np.ndarray = []
 
         self.peaks: dict[float, Peak] = dict()
+        self.deconvoluted_peaks: dict[float, Peak] = dict()
 
         self.mz_values: np.ndarray = []
         self.mz_intensity: np.ndarray = []
@@ -71,7 +74,11 @@ class Chromatogram:
             rt = peak.retention_time
             indices = np.where((self.time >= peak.start) & (self.time <= peak.end))[0]
             peak.indices = indices
-            self.peaks[rt] = peak
+
+            if peak.deconvolution_params:
+                self.deconvoluted_peaks[rt] = peak
+            else:
+                self.peaks[rt] = peak
 
     def set_internal_standard(self, peak: Peak) -> None:
         """

@@ -1,5 +1,6 @@
 import numpy as np
 from .mass_spectrum import MassSpectrum
+from .deconvolution_parameters import Deconvolution
 
 
 class Peak:
@@ -15,8 +16,8 @@ class Peak:
         indices: list[int] = [],
         integral: float = 0.0,
         height: float = 0.0,
-        parent: str = "",
         mass_spectrum: MassSpectrum = None,
+        deconvolution_params: Deconvolution = None,
     ):
         """
         Creates a Peak object using a retention time
@@ -31,7 +32,6 @@ class Peak:
         end: float
         indices: list
         integral: float
-        parent: str
         mass_spectrum: bool or MassSpectrum object
 
         Attributes
@@ -49,25 +49,22 @@ class Peak:
         self.assignment: str
         self.concentration: bool or float
         self.conc_error: bool or float
-        self.parent_peak_collection: str
         """
 
         self.retention_time = retention_time
 
-        self.start = start
+        self.start: float = start
 
-        self.end = end
+        self.end: float = end
 
-        self.indices = indices
+        self.indices: list[int] = indices
 
-        if integral is None:
-            self.integral = 0.0
-        else:
+        self.integral: float = 0.0
+        if integral is not None:
             self.integral = integral
 
-        if height is None:
-            self.height = 0.0
-        else:
+        self.height: float = 0.0
+        if height is not None:
             self.height = height
 
         self.ion_chromatograms: dict[float, np.ndarray] = dict()
@@ -84,7 +81,7 @@ class Peak:
 
         self.mass_spectrum: MassSpectrum = mass_spectrum
 
-        self.parent_peak_collection: str = parent
+        self.deconvolution_params = deconvolution_params
 
     def set_retention_time(self, retention_time: float) -> None:
         """

@@ -11,6 +11,7 @@ can be considered as shorthand for common operations.
 from .peak import Peak
 from .chromatogram import Chromatogram
 from .mass_spectrum import MassSpectrum
+from .deconvolution_parameters import Deconvolution
 
 from .instrument_calibration import InstrumentCalibration
 from .analysis_information import AnalysisInformation
