@@ -1,5 +1,47 @@
+from copy import copy
 import numpy as np
+from scipy.interpolate import interp1d
 from ChromProcess.Classes import Chromatogram
+
+
+def background_subtraction(
+    chromatogram: Chromatogram, control_chromatogram: Chromatogram
+) -> Chromatogram:
+    """
+    Subtract the signal of the control_chromatogram from a chromatogram.
+
+    Parameters
+    ----------
+    chromatogram: Chromatogram
+    control_chromatogram: Chromatogram
+
+    Returns
+    -------
+    baseline_subtracted: Chromatogram
+    """
+    # Determine a common range between the two chromatograms
+    lower = max(control_chromatogram.time.min(), chromatogram.time.min())
+    upper = min(control_chromatogram.time.max(), chromatogram.time.max())
+
+    region_mask = (chromatogram.time >= lower) & (chromatogram.time <= upper)
+    new_time_axis = chromatogram.time[region_mask]
+    sample_signal_axis = chromatogram.signal[region_mask]
+
+    # Interpolate control_chromatogram so that it has the same timepoints as
+    # chromatogram
+    interp_f = interp1d(control_chromatogram.time, control_chromatogram.signal)
+    interpolated_control_signal = interp_f(new_time_axis)
+
+    # Subtract the interpolated control_chromatogram from the chromatogram
+    baseline_subtracted = sample_signal_axis - interpolated_control_signal
+
+    # return the result
+    baseline_substracted_chromatogram = copy(chromatogram)
+
+    baseline_substracted_chromatogram.time = new_time_axis
+    baseline_substracted_chromatogram.signal = baseline_subtracted
+
+    return baseline_substracted_chromatogram
 
 
 def ic_background_subtraction(
