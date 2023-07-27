@@ -1,4 +1,5 @@
 import numpy as np
+from typing import Optional
 from .mass_spectrum import MassSpectrum
 from .deconvolution_parameters import Deconvolution
 
@@ -79,7 +80,7 @@ class Peak:
 
         self.conc_error: float = 0.0
 
-        self.mass_spectrum: MassSpectrum = mass_spectrum
+        self.mass_spectrum: Optional[MassSpectrum] = mass_spectrum
 
         self.deconvolution_params = deconvolution_params
 
