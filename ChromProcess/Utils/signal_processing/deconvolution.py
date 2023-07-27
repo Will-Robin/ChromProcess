@@ -2,9 +2,6 @@ import numpy as np
 from scipy.stats import norm
 from scipy.optimize import curve_fit
 
-from ChromProcess.Classes import Chromatogram
-
-
 def fit_pdf(time, signal, peaks, expected_heights, expected_widths, baseline):
     """
     Fitting sums of gaussian peaks to data using supplied peak indices.

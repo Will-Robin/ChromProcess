@@ -14,3 +14,12 @@ from .chromatogram.background_subtraction import background_subtraction
 from .chromatogram.stack_chromatograms import stack_chromatograms
 
 from .peak.assign_peak import assign_retention_time
+
+__all__ = [
+    "find_peaks_in_region",
+    "deconvolute_region",
+    "ic_background_subtraction",
+    "background_subtraction",
+    "stack_chromatograms",
+    "assign_retention_time",
+]
