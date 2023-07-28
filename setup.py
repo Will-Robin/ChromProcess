@@ -6,10 +6,10 @@ setup(
     author=["William E. Robinson"],
     packages=["ChromProcess"],
     install_requires=[
-        "numpy >= 1.23.5",
-        "scipy >= 1.9.3",
-        "netcdf4 >= 1.6.0",
+        "numpy >= 1.24.3",
+        "scipy >= 1.10.1",
+        "netcdf4 >= 1.6.2",
         "tomli >= 2.0.1",
     ],
-    extras_require={"dev": ["pdoc", "black"]},
+    extras_require={"dev": ["pdoc", "black", "ruff"]},
 )
