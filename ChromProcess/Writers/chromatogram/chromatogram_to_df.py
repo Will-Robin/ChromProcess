@@ -1,5 +1,6 @@
 import pandas as pd
 from ChromProcess.Classes import Chromatogram
+from .chromatogram_to_peak_dict import chromatogram_to_peak_dict
 
 
 def chromatogram_to_df(chromatogram: Chromatogram) -> pd.DataFrame:
@@ -15,30 +16,7 @@ def chromatogram_to_df(chromatogram: Chromatogram) -> pd.DataFrame:
     df: pd.DataFrame
     """
 
-    peaks: dict[str, list[float]] = {
-        "retention_time": [],
-        "integral": [],
-        "start": [],
-        "end": [],
-        "is_retention_time": [],
-        "is_integral": [],
-    }
-    for peak in chromatogram.peaks.values():
-        integral = peak.integral
-        rt = peak.retention_time
-        start = chromatogram.time[peak.indices[0]]
-        end = chromatogram.time[peak.indices[-1]]
-        peaks["retention_time"].append(rt)
-        peaks["integral"].append(integral)
-        peaks["start"].append(start)
-        peaks["end"].append(end)
-
-    peaks["is_retention_time"] = [
-        chromatogram.internal_standard.retention_time for p in chromatogram.peaks
-    ]
-    peaks["is_integral"] = [
-        chromatogram.internal_standard.integral for p in chromatogram.peaks
-    ]
+    peaks: dict[str, list[float]] = chromatogram_to_peak_dict(chromatogram)
 
     df = pd.DataFrame(peaks)
 

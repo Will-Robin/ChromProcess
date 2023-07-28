@@ -2,7 +2,7 @@ import json
 from ChromProcess.Classes import Chromatogram
 
 
-def write_chromatogram_json_text(chromatogram: Chromatogram) -> str:
+def chromatogram_to_json_text(chromatogram: Chromatogram) -> str:
     """
     Write the text for a chromatogram in json format.
 
@@ -60,7 +60,7 @@ def chromatogram_to_json(chromatogram: Chromatogram, filename: str = "") -> None
     if filename == "":
         filename = chromatogram.filename.split(".")[0] + ".csv"
 
-    json_text = write_chromatogram_json_text(chromatogram)
+    json_text = chromatogram_to_json_text(chromatogram)
 
     with open(filename, "w") as f:
         f.write(json_text)

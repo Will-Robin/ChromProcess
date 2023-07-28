@@ -1,7 +1,7 @@
 from ChromProcess.Classes import Chromatogram
 
 
-def write_chromatogram_csv_text(chromatogram: Chromatogram) -> str:
+def chromatogram_to_csv_text(chromatogram: Chromatogram) -> str:
     """
     Write the text for a chromatogram in a column-wise csv format.
 
@@ -49,7 +49,7 @@ def chromatogram_to_csv(chromatogram: Chromatogram, filename: str = "") -> None:
     if filename == "":
         filename = chromatogram.filename.split(".")[0] + ".csv"
 
-    csv_text = write_chromatogram_csv_text(chromatogram)
+    csv_text = chromatogram_to_csv_text(chromatogram)
 
     with open(filename, "w") as f:
         f.write(csv_text)
