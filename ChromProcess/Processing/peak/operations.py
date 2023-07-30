@@ -280,4 +280,4 @@ def get_peak_assignment(peak: Peak, boundaries: dict[str, list[float]]) -> str:
     str
     """
 
-    return assign_retention_time(peak.retention_time, boundaries)
+    return assign_retention_time(peak, boundaries)

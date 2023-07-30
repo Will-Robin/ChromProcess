@@ -1620,57 +1620,57 @@ Dictionary of modifications to make to self.boundaries</li>
 
     </div>
     <a class="headerlink" href="#AnalysisInformation"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="AnalysisInformation-5"><a href="#AnalysisInformation-5"><span class="linenos"> 5</span></a><span class="k">class</span> <span class="nc">AnalysisInformation</span><span class="p">:</span>
-</span><span id="AnalysisInformation-6"><a href="#AnalysisInformation-6"><span class="linenos"> 6</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="AnalysisInformation-7"><a href="#AnalysisInformation-7"><span class="linenos"> 7</span></a><span class="sd">    Stores information about analysis procedure for chromatography data.</span>
-</span><span id="AnalysisInformation-8"><a href="#AnalysisInformation-8"><span class="linenos"> 8</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="AnalysisInformation-9"><a href="#AnalysisInformation-9"><span class="linenos"> 9</span></a>
-</span><span id="AnalysisInformation-10"><a href="#AnalysisInformation-10"><span class="linenos">10</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="AnalysisInformation-11"><a href="#AnalysisInformation-11"><span class="linenos">11</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="AnalysisInformation-12"><a href="#AnalysisInformation-12"><span class="linenos">12</span></a><span class="sd">        Initialisation of the AnalysisInformation object.</span>
-</span><span id="AnalysisInformation-13"><a href="#AnalysisInformation-13"><span class="linenos">13</span></a>
-</span><span id="AnalysisInformation-14"><a href="#AnalysisInformation-14"><span class="linenos">14</span></a><span class="sd">        Attributes</span>
-</span><span id="AnalysisInformation-15"><a href="#AnalysisInformation-15"><span class="linenos">15</span></a><span class="sd">        ----------</span>
-</span><span id="AnalysisInformation-16"><a href="#AnalysisInformation-16"><span class="linenos">16</span></a><span class="sd">        self.experiment_code: str</span>
-</span><span id="AnalysisInformation-17"><a href="#AnalysisInformation-17"><span class="linenos">17</span></a><span class="sd">            Experiment code.</span>
-</span><span id="AnalysisInformation-18"><a href="#AnalysisInformation-18"><span class="linenos">18</span></a><span class="sd">        self.analysis_type: str</span>
-</span><span id="AnalysisInformation-19"><a href="#AnalysisInformation-19"><span class="linenos">19</span></a><span class="sd">            The type of chromatographic methods used.</span>
-</span><span id="AnalysisInformation-20"><a href="#AnalysisInformation-20"><span class="linenos">20</span></a><span class="sd">        self.regions: list[lists]</span>
-</span><span id="AnalysisInformation-21"><a href="#AnalysisInformation-21"><span class="linenos">21</span></a><span class="sd">            List of upper and lower bounds describing the regions of a chromatogram.</span>
-</span><span id="AnalysisInformation-22"><a href="#AnalysisInformation-22"><span class="linenos">22</span></a><span class="sd">        self.internal_standard_region: list</span>
-</span><span id="AnalysisInformation-23"><a href="#AnalysisInformation-23"><span class="linenos">23</span></a><span class="sd">            Upper and lower bounds for the internal standard.</span>
-</span><span id="AnalysisInformation-24"><a href="#AnalysisInformation-24"><span class="linenos">24</span></a><span class="sd">        self.use_MS: bool</span>
-</span><span id="AnalysisInformation-25"><a href="#AnalysisInformation-25"><span class="linenos">25</span></a><span class="sd">            Whether to extract mass spectra information for GC-MS data.</span>
-</span><span id="AnalysisInformation-26"><a href="#AnalysisInformation-26"><span class="linenos">26</span></a><span class="sd">        self.MS_cutoff: float</span>
-</span><span id="AnalysisInformation-27"><a href="#AnalysisInformation-27"><span class="linenos">27</span></a><span class="sd">            The lower threshold for inclusion of mass spectral signals.</span>
-</span><span id="AnalysisInformation-28"><a href="#AnalysisInformation-28"><span class="linenos">28</span></a><span class="sd">        self.peak_pick_threshold: float</span>
-</span><span id="AnalysisInformation-29"><a href="#AnalysisInformation-29"><span class="linenos">29</span></a><span class="sd">            The relative cut off for peak picking.</span>
-</span><span id="AnalysisInformation-30"><a href="#AnalysisInformation-30"><span class="linenos">30</span></a><span class="sd">        self.dilution_factor: float</span>
-</span><span id="AnalysisInformation-31"><a href="#AnalysisInformation-31"><span class="linenos">31</span></a><span class="sd">            Sample dilution factor.</span>
-</span><span id="AnalysisInformation-32"><a href="#AnalysisInformation-32"><span class="linenos">32</span></a><span class="sd">        self.dilution_factor_error: float</span>
-</span><span id="AnalysisInformation-33"><a href="#AnalysisInformation-33"><span class="linenos">33</span></a><span class="sd">            Error on dilution factor.</span>
-</span><span id="AnalysisInformation-34"><a href="#AnalysisInformation-34"><span class="linenos">34</span></a><span class="sd">        self.internal_standard_concentration: float</span>
-</span><span id="AnalysisInformation-35"><a href="#AnalysisInformation-35"><span class="linenos">35</span></a><span class="sd">            Concentration of the internal standard.</span>
-</span><span id="AnalysisInformation-36"><a href="#AnalysisInformation-36"><span class="linenos">36</span></a><span class="sd">        self.internal_standard_concentration_error: float</span>
-</span><span id="AnalysisInformation-37"><a href="#AnalysisInformation-37"><span class="linenos">37</span></a><span class="sd">            Error on the concentration of the internal standard.</span>
-</span><span id="AnalysisInformation-38"><a href="#AnalysisInformation-38"><span class="linenos">38</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="AnalysisInformation-39"><a href="#AnalysisInformation-39"><span class="linenos">39</span></a>
-</span><span id="AnalysisInformation-40"><a href="#AnalysisInformation-40"><span class="linenos">40</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">experiment_code</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-</span><span id="AnalysisInformation-41"><a href="#AnalysisInformation-41"><span class="linenos">41</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">analysis_type</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-</span><span id="AnalysisInformation-42"><a href="#AnalysisInformation-42"><span class="linenos">42</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">derivatisation_method</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-</span><span id="AnalysisInformation-43"><a href="#AnalysisInformation-43"><span class="linenos">43</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-</span><span id="AnalysisInformation-44"><a href="#AnalysisInformation-44"><span class="linenos">44</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">instrument_method</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-</span><span id="AnalysisInformation-45"><a href="#AnalysisInformation-45"><span class="linenos">45</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">calibration_model</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-</span><span id="AnalysisInformation-46"><a href="#AnalysisInformation-46"><span class="linenos">46</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">calibration_file</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-</span><span id="AnalysisInformation-47"><a href="#AnalysisInformation-47"><span class="linenos">47</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">regions</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="AnalysisInformation-48"><a href="#AnalysisInformation-48"><span class="linenos">48</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">internal_standard_region</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="AnalysisInformation-49"><a href="#AnalysisInformation-49"><span class="linenos">49</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">use_MS</span> <span class="o">=</span> <span class="kc">False</span>
-</span><span id="AnalysisInformation-50"><a href="#AnalysisInformation-50"><span class="linenos">50</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">MS_cutoff</span> <span class="o">=</span> <span class="mf">0.0</span>
-</span><span id="AnalysisInformation-51"><a href="#AnalysisInformation-51"><span class="linenos">51</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">peak_pick_threshold</span> <span class="o">=</span> <span class="mf">0.0</span>
-</span><span id="AnalysisInformation-52"><a href="#AnalysisInformation-52"><span class="linenos">52</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">dilution_factor</span> <span class="o">=</span> <span class="mf">1.0</span>
-</span><span id="AnalysisInformation-53"><a href="#AnalysisInformation-53"><span class="linenos">53</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">dilution_factor_error</span> <span class="o">=</span> <span class="mf">0.0</span>
-</span><span id="AnalysisInformation-54"><a href="#AnalysisInformation-54"><span class="linenos">54</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">internal_standard_concentration</span> <span class="o">=</span> <span class="mf">0.0</span>
-</span><span id="AnalysisInformation-55"><a href="#AnalysisInformation-55"><span class="linenos">55</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">internal_standard_concentration_error</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="AnalysisInformation-2"><a href="#AnalysisInformation-2"><span class="linenos"> 2</span></a><span class="k">class</span> <span class="nc">AnalysisInformation</span><span class="p">:</span>
+</span><span id="AnalysisInformation-3"><a href="#AnalysisInformation-3"><span class="linenos"> 3</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="AnalysisInformation-4"><a href="#AnalysisInformation-4"><span class="linenos"> 4</span></a><span class="sd">    Stores information about analysis procedure for chromatography data.</span>
+</span><span id="AnalysisInformation-5"><a href="#AnalysisInformation-5"><span class="linenos"> 5</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="AnalysisInformation-6"><a href="#AnalysisInformation-6"><span class="linenos"> 6</span></a>
+</span><span id="AnalysisInformation-7"><a href="#AnalysisInformation-7"><span class="linenos"> 7</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="AnalysisInformation-8"><a href="#AnalysisInformation-8"><span class="linenos"> 8</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="AnalysisInformation-9"><a href="#AnalysisInformation-9"><span class="linenos"> 9</span></a><span class="sd">        Initialisation of the AnalysisInformation object.</span>
+</span><span id="AnalysisInformation-10"><a href="#AnalysisInformation-10"><span class="linenos">10</span></a>
+</span><span id="AnalysisInformation-11"><a href="#AnalysisInformation-11"><span class="linenos">11</span></a><span class="sd">        Attributes</span>
+</span><span id="AnalysisInformation-12"><a href="#AnalysisInformation-12"><span class="linenos">12</span></a><span class="sd">        ----------</span>
+</span><span id="AnalysisInformation-13"><a href="#AnalysisInformation-13"><span class="linenos">13</span></a><span class="sd">        self.experiment_code: str</span>
+</span><span id="AnalysisInformation-14"><a href="#AnalysisInformation-14"><span class="linenos">14</span></a><span class="sd">            Experiment code.</span>
+</span><span id="AnalysisInformation-15"><a href="#AnalysisInformation-15"><span class="linenos">15</span></a><span class="sd">        self.analysis_type: str</span>
+</span><span id="AnalysisInformation-16"><a href="#AnalysisInformation-16"><span class="linenos">16</span></a><span class="sd">            The type of chromatographic methods used.</span>
+</span><span id="AnalysisInformation-17"><a href="#AnalysisInformation-17"><span class="linenos">17</span></a><span class="sd">        self.regions: list[lists]</span>
+</span><span id="AnalysisInformation-18"><a href="#AnalysisInformation-18"><span class="linenos">18</span></a><span class="sd">            List of upper and lower bounds describing the regions of a chromatogram.</span>
+</span><span id="AnalysisInformation-19"><a href="#AnalysisInformation-19"><span class="linenos">19</span></a><span class="sd">        self.internal_standard_region: list</span>
+</span><span id="AnalysisInformation-20"><a href="#AnalysisInformation-20"><span class="linenos">20</span></a><span class="sd">            Upper and lower bounds for the internal standard.</span>
+</span><span id="AnalysisInformation-21"><a href="#AnalysisInformation-21"><span class="linenos">21</span></a><span class="sd">        self.use_MS: bool</span>
+</span><span id="AnalysisInformation-22"><a href="#AnalysisInformation-22"><span class="linenos">22</span></a><span class="sd">            Whether to extract mass spectra information for GC-MS data.</span>
+</span><span id="AnalysisInformation-23"><a href="#AnalysisInformation-23"><span class="linenos">23</span></a><span class="sd">        self.MS_cutoff: float</span>
+</span><span id="AnalysisInformation-24"><a href="#AnalysisInformation-24"><span class="linenos">24</span></a><span class="sd">            The lower threshold for inclusion of mass spectral signals.</span>
+</span><span id="AnalysisInformation-25"><a href="#AnalysisInformation-25"><span class="linenos">25</span></a><span class="sd">        self.peak_pick_threshold: float</span>
+</span><span id="AnalysisInformation-26"><a href="#AnalysisInformation-26"><span class="linenos">26</span></a><span class="sd">            The relative cut off for peak picking.</span>
+</span><span id="AnalysisInformation-27"><a href="#AnalysisInformation-27"><span class="linenos">27</span></a><span class="sd">        self.dilution_factor: float</span>
+</span><span id="AnalysisInformation-28"><a href="#AnalysisInformation-28"><span class="linenos">28</span></a><span class="sd">            Sample dilution factor.</span>
+</span><span id="AnalysisInformation-29"><a href="#AnalysisInformation-29"><span class="linenos">29</span></a><span class="sd">        self.dilution_factor_error: float</span>
+</span><span id="AnalysisInformation-30"><a href="#AnalysisInformation-30"><span class="linenos">30</span></a><span class="sd">            Error on dilution factor.</span>
+</span><span id="AnalysisInformation-31"><a href="#AnalysisInformation-31"><span class="linenos">31</span></a><span class="sd">        self.internal_standard_concentration: float</span>
+</span><span id="AnalysisInformation-32"><a href="#AnalysisInformation-32"><span class="linenos">32</span></a><span class="sd">            Concentration of the internal standard.</span>
+</span><span id="AnalysisInformation-33"><a href="#AnalysisInformation-33"><span class="linenos">33</span></a><span class="sd">        self.internal_standard_concentration_error: float</span>
+</span><span id="AnalysisInformation-34"><a href="#AnalysisInformation-34"><span class="linenos">34</span></a><span class="sd">            Error on the concentration of the internal standard.</span>
+</span><span id="AnalysisInformation-35"><a href="#AnalysisInformation-35"><span class="linenos">35</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="AnalysisInformation-36"><a href="#AnalysisInformation-36"><span class="linenos">36</span></a>
+</span><span id="AnalysisInformation-37"><a href="#AnalysisInformation-37"><span class="linenos">37</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">experiment_code</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="AnalysisInformation-38"><a href="#AnalysisInformation-38"><span class="linenos">38</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">analysis_type</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="AnalysisInformation-39"><a href="#AnalysisInformation-39"><span class="linenos">39</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">derivatisation_method</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="AnalysisInformation-40"><a href="#AnalysisInformation-40"><span class="linenos">40</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="AnalysisInformation-41"><a href="#AnalysisInformation-41"><span class="linenos">41</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">instrument_method</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="AnalysisInformation-42"><a href="#AnalysisInformation-42"><span class="linenos">42</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">calibration_model</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="AnalysisInformation-43"><a href="#AnalysisInformation-43"><span class="linenos">43</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">calibration_file</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="AnalysisInformation-44"><a href="#AnalysisInformation-44"><span class="linenos">44</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">regions</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="AnalysisInformation-45"><a href="#AnalysisInformation-45"><span class="linenos">45</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">internal_standard_region</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="AnalysisInformation-46"><a href="#AnalysisInformation-46"><span class="linenos">46</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">use_MS</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span id="AnalysisInformation-47"><a href="#AnalysisInformation-47"><span class="linenos">47</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">MS_cutoff</span> <span class="o">=</span> <span class="mf">0.0</span>
+</span><span id="AnalysisInformation-48"><a href="#AnalysisInformation-48"><span class="linenos">48</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">peak_pick_threshold</span> <span class="o">=</span> <span class="mf">0.0</span>
+</span><span id="AnalysisInformation-49"><a href="#AnalysisInformation-49"><span class="linenos">49</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">dilution_factor</span> <span class="o">=</span> <span class="mf">1.0</span>
+</span><span id="AnalysisInformation-50"><a href="#AnalysisInformation-50"><span class="linenos">50</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">dilution_factor_error</span> <span class="o">=</span> <span class="mf">0.0</span>
+</span><span id="AnalysisInformation-51"><a href="#AnalysisInformation-51"><span class="linenos">51</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">internal_standard_concentration</span> <span class="o">=</span> <span class="mf">0.0</span>
+</span><span id="AnalysisInformation-52"><a href="#AnalysisInformation-52"><span class="linenos">52</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">internal_standard_concentration_error</span> <span class="o">=</span> <span class="mf">0.0</span>
 </span></pre></div>
 
 
@@ -1688,52 +1688,52 @@ Dictionary of modifications to make to self.boundaries</li>
 
     </div>
     <a class="headerlink" href="#AnalysisInformation.__init__"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="AnalysisInformation.__init__-10"><a href="#AnalysisInformation.__init__-10"><span class="linenos">10</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="AnalysisInformation.__init__-11"><a href="#AnalysisInformation.__init__-11"><span class="linenos">11</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="AnalysisInformation.__init__-12"><a href="#AnalysisInformation.__init__-12"><span class="linenos">12</span></a><span class="sd">        Initialisation of the AnalysisInformation object.</span>
-</span><span id="AnalysisInformation.__init__-13"><a href="#AnalysisInformation.__init__-13"><span class="linenos">13</span></a>
-</span><span id="AnalysisInformation.__init__-14"><a href="#AnalysisInformation.__init__-14"><span class="linenos">14</span></a><span class="sd">        Attributes</span>
-</span><span id="AnalysisInformation.__init__-15"><a href="#AnalysisInformation.__init__-15"><span class="linenos">15</span></a><span class="sd">        ----------</span>
-</span><span id="AnalysisInformation.__init__-16"><a href="#AnalysisInformation.__init__-16"><span class="linenos">16</span></a><span class="sd">        self.experiment_code: str</span>
-</span><span id="AnalysisInformation.__init__-17"><a href="#AnalysisInformation.__init__-17"><span class="linenos">17</span></a><span class="sd">            Experiment code.</span>
-</span><span id="AnalysisInformation.__init__-18"><a href="#AnalysisInformation.__init__-18"><span class="linenos">18</span></a><span class="sd">        self.analysis_type: str</span>
-</span><span id="AnalysisInformation.__init__-19"><a href="#AnalysisInformation.__init__-19"><span class="linenos">19</span></a><span class="sd">            The type of chromatographic methods used.</span>
-</span><span id="AnalysisInformation.__init__-20"><a href="#AnalysisInformation.__init__-20"><span class="linenos">20</span></a><span class="sd">        self.regions: list[lists]</span>
-</span><span id="AnalysisInformation.__init__-21"><a href="#AnalysisInformation.__init__-21"><span class="linenos">21</span></a><span class="sd">            List of upper and lower bounds describing the regions of a chromatogram.</span>
-</span><span id="AnalysisInformation.__init__-22"><a href="#AnalysisInformation.__init__-22"><span class="linenos">22</span></a><span class="sd">        self.internal_standard_region: list</span>
-</span><span id="AnalysisInformation.__init__-23"><a href="#AnalysisInformation.__init__-23"><span class="linenos">23</span></a><span class="sd">            Upper and lower bounds for the internal standard.</span>
-</span><span id="AnalysisInformation.__init__-24"><a href="#AnalysisInformation.__init__-24"><span class="linenos">24</span></a><span class="sd">        self.use_MS: bool</span>
-</span><span id="AnalysisInformation.__init__-25"><a href="#AnalysisInformation.__init__-25"><span class="linenos">25</span></a><span class="sd">            Whether to extract mass spectra information for GC-MS data.</span>
-</span><span id="AnalysisInformation.__init__-26"><a href="#AnalysisInformation.__init__-26"><span class="linenos">26</span></a><span class="sd">        self.MS_cutoff: float</span>
-</span><span id="AnalysisInformation.__init__-27"><a href="#AnalysisInformation.__init__-27"><span class="linenos">27</span></a><span class="sd">            The lower threshold for inclusion of mass spectral signals.</span>
-</span><span id="AnalysisInformation.__init__-28"><a href="#AnalysisInformation.__init__-28"><span class="linenos">28</span></a><span class="sd">        self.peak_pick_threshold: float</span>
-</span><span id="AnalysisInformation.__init__-29"><a href="#AnalysisInformation.__init__-29"><span class="linenos">29</span></a><span class="sd">            The relative cut off for peak picking.</span>
-</span><span id="AnalysisInformation.__init__-30"><a href="#AnalysisInformation.__init__-30"><span class="linenos">30</span></a><span class="sd">        self.dilution_factor: float</span>
-</span><span id="AnalysisInformation.__init__-31"><a href="#AnalysisInformation.__init__-31"><span class="linenos">31</span></a><span class="sd">            Sample dilution factor.</span>
-</span><span id="AnalysisInformation.__init__-32"><a href="#AnalysisInformation.__init__-32"><span class="linenos">32</span></a><span class="sd">        self.dilution_factor_error: float</span>
-</span><span id="AnalysisInformation.__init__-33"><a href="#AnalysisInformation.__init__-33"><span class="linenos">33</span></a><span class="sd">            Error on dilution factor.</span>
-</span><span id="AnalysisInformation.__init__-34"><a href="#AnalysisInformation.__init__-34"><span class="linenos">34</span></a><span class="sd">        self.internal_standard_concentration: float</span>
-</span><span id="AnalysisInformation.__init__-35"><a href="#AnalysisInformation.__init__-35"><span class="linenos">35</span></a><span class="sd">            Concentration of the internal standard.</span>
-</span><span id="AnalysisInformation.__init__-36"><a href="#AnalysisInformation.__init__-36"><span class="linenos">36</span></a><span class="sd">        self.internal_standard_concentration_error: float</span>
-</span><span id="AnalysisInformation.__init__-37"><a href="#AnalysisInformation.__init__-37"><span class="linenos">37</span></a><span class="sd">            Error on the concentration of the internal standard.</span>
-</span><span id="AnalysisInformation.__init__-38"><a href="#AnalysisInformation.__init__-38"><span class="linenos">38</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="AnalysisInformation.__init__-39"><a href="#AnalysisInformation.__init__-39"><span class="linenos">39</span></a>
-</span><span id="AnalysisInformation.__init__-40"><a href="#AnalysisInformation.__init__-40"><span class="linenos">40</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">experiment_code</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-</span><span id="AnalysisInformation.__init__-41"><a href="#AnalysisInformation.__init__-41"><span class="linenos">41</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">analysis_type</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-</span><span id="AnalysisInformation.__init__-42"><a href="#AnalysisInformation.__init__-42"><span class="linenos">42</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">derivatisation_method</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-</span><span id="AnalysisInformation.__init__-43"><a href="#AnalysisInformation.__init__-43"><span class="linenos">43</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-</span><span id="AnalysisInformation.__init__-44"><a href="#AnalysisInformation.__init__-44"><span class="linenos">44</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">instrument_method</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-</span><span id="AnalysisInformation.__init__-45"><a href="#AnalysisInformation.__init__-45"><span class="linenos">45</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">calibration_model</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-</span><span id="AnalysisInformation.__init__-46"><a href="#AnalysisInformation.__init__-46"><span class="linenos">46</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">calibration_file</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-</span><span id="AnalysisInformation.__init__-47"><a href="#AnalysisInformation.__init__-47"><span class="linenos">47</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">regions</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="AnalysisInformation.__init__-48"><a href="#AnalysisInformation.__init__-48"><span class="linenos">48</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">internal_standard_region</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="AnalysisInformation.__init__-49"><a href="#AnalysisInformation.__init__-49"><span class="linenos">49</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">use_MS</span> <span class="o">=</span> <span class="kc">False</span>
-</span><span id="AnalysisInformation.__init__-50"><a href="#AnalysisInformation.__init__-50"><span class="linenos">50</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">MS_cutoff</span> <span class="o">=</span> <span class="mf">0.0</span>
-</span><span id="AnalysisInformation.__init__-51"><a href="#AnalysisInformation.__init__-51"><span class="linenos">51</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">peak_pick_threshold</span> <span class="o">=</span> <span class="mf">0.0</span>
-</span><span id="AnalysisInformation.__init__-52"><a href="#AnalysisInformation.__init__-52"><span class="linenos">52</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">dilution_factor</span> <span class="o">=</span> <span class="mf">1.0</span>
-</span><span id="AnalysisInformation.__init__-53"><a href="#AnalysisInformation.__init__-53"><span class="linenos">53</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">dilution_factor_error</span> <span class="o">=</span> <span class="mf">0.0</span>
-</span><span id="AnalysisInformation.__init__-54"><a href="#AnalysisInformation.__init__-54"><span class="linenos">54</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">internal_standard_concentration</span> <span class="o">=</span> <span class="mf">0.0</span>
-</span><span id="AnalysisInformation.__init__-55"><a href="#AnalysisInformation.__init__-55"><span class="linenos">55</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">internal_standard_concentration_error</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="AnalysisInformation.__init__-7"><a href="#AnalysisInformation.__init__-7"><span class="linenos"> 7</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="AnalysisInformation.__init__-8"><a href="#AnalysisInformation.__init__-8"><span class="linenos"> 8</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="AnalysisInformation.__init__-9"><a href="#AnalysisInformation.__init__-9"><span class="linenos"> 9</span></a><span class="sd">        Initialisation of the AnalysisInformation object.</span>
+</span><span id="AnalysisInformation.__init__-10"><a href="#AnalysisInformation.__init__-10"><span class="linenos">10</span></a>
+</span><span id="AnalysisInformation.__init__-11"><a href="#AnalysisInformation.__init__-11"><span class="linenos">11</span></a><span class="sd">        Attributes</span>
+</span><span id="AnalysisInformation.__init__-12"><a href="#AnalysisInformation.__init__-12"><span class="linenos">12</span></a><span class="sd">        ----------</span>
+</span><span id="AnalysisInformation.__init__-13"><a href="#AnalysisInformation.__init__-13"><span class="linenos">13</span></a><span class="sd">        self.experiment_code: str</span>
+</span><span id="AnalysisInformation.__init__-14"><a href="#AnalysisInformation.__init__-14"><span class="linenos">14</span></a><span class="sd">            Experiment code.</span>
+</span><span id="AnalysisInformation.__init__-15"><a href="#AnalysisInformation.__init__-15"><span class="linenos">15</span></a><span class="sd">        self.analysis_type: str</span>
+</span><span id="AnalysisInformation.__init__-16"><a href="#AnalysisInformation.__init__-16"><span class="linenos">16</span></a><span class="sd">            The type of chromatographic methods used.</span>
+</span><span id="AnalysisInformation.__init__-17"><a href="#AnalysisInformation.__init__-17"><span class="linenos">17</span></a><span class="sd">        self.regions: list[lists]</span>
+</span><span id="AnalysisInformation.__init__-18"><a href="#AnalysisInformation.__init__-18"><span class="linenos">18</span></a><span class="sd">            List of upper and lower bounds describing the regions of a chromatogram.</span>
+</span><span id="AnalysisInformation.__init__-19"><a href="#AnalysisInformation.__init__-19"><span class="linenos">19</span></a><span class="sd">        self.internal_standard_region: list</span>
+</span><span id="AnalysisInformation.__init__-20"><a href="#AnalysisInformation.__init__-20"><span class="linenos">20</span></a><span class="sd">            Upper and lower bounds for the internal standard.</span>
+</span><span id="AnalysisInformation.__init__-21"><a href="#AnalysisInformation.__init__-21"><span class="linenos">21</span></a><span class="sd">        self.use_MS: bool</span>
+</span><span id="AnalysisInformation.__init__-22"><a href="#AnalysisInformation.__init__-22"><span class="linenos">22</span></a><span class="sd">            Whether to extract mass spectra information for GC-MS data.</span>
+</span><span id="AnalysisInformation.__init__-23"><a href="#AnalysisInformation.__init__-23"><span class="linenos">23</span></a><span class="sd">        self.MS_cutoff: float</span>
+</span><span id="AnalysisInformation.__init__-24"><a href="#AnalysisInformation.__init__-24"><span class="linenos">24</span></a><span class="sd">            The lower threshold for inclusion of mass spectral signals.</span>
+</span><span id="AnalysisInformation.__init__-25"><a href="#AnalysisInformation.__init__-25"><span class="linenos">25</span></a><span class="sd">        self.peak_pick_threshold: float</span>
+</span><span id="AnalysisInformation.__init__-26"><a href="#AnalysisInformation.__init__-26"><span class="linenos">26</span></a><span class="sd">            The relative cut off for peak picking.</span>
+</span><span id="AnalysisInformation.__init__-27"><a href="#AnalysisInformation.__init__-27"><span class="linenos">27</span></a><span class="sd">        self.dilution_factor: float</span>
+</span><span id="AnalysisInformation.__init__-28"><a href="#AnalysisInformation.__init__-28"><span class="linenos">28</span></a><span class="sd">            Sample dilution factor.</span>
+</span><span id="AnalysisInformation.__init__-29"><a href="#AnalysisInformation.__init__-29"><span class="linenos">29</span></a><span class="sd">        self.dilution_factor_error: float</span>
+</span><span id="AnalysisInformation.__init__-30"><a href="#AnalysisInformation.__init__-30"><span class="linenos">30</span></a><span class="sd">            Error on dilution factor.</span>
+</span><span id="AnalysisInformation.__init__-31"><a href="#AnalysisInformation.__init__-31"><span class="linenos">31</span></a><span class="sd">        self.internal_standard_concentration: float</span>
+</span><span id="AnalysisInformation.__init__-32"><a href="#AnalysisInformation.__init__-32"><span class="linenos">32</span></a><span class="sd">            Concentration of the internal standard.</span>
+</span><span id="AnalysisInformation.__init__-33"><a href="#AnalysisInformation.__init__-33"><span class="linenos">33</span></a><span class="sd">        self.internal_standard_concentration_error: float</span>
+</span><span id="AnalysisInformation.__init__-34"><a href="#AnalysisInformation.__init__-34"><span class="linenos">34</span></a><span class="sd">            Error on the concentration of the internal standard.</span>
+</span><span id="AnalysisInformation.__init__-35"><a href="#AnalysisInformation.__init__-35"><span class="linenos">35</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="AnalysisInformation.__init__-36"><a href="#AnalysisInformation.__init__-36"><span class="linenos">36</span></a>
+</span><span id="AnalysisInformation.__init__-37"><a href="#AnalysisInformation.__init__-37"><span class="linenos">37</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">experiment_code</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="AnalysisInformation.__init__-38"><a href="#AnalysisInformation.__init__-38"><span class="linenos">38</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">analysis_type</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="AnalysisInformation.__init__-39"><a href="#AnalysisInformation.__init__-39"><span class="linenos">39</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">derivatisation_method</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="AnalysisInformation.__init__-40"><a href="#AnalysisInformation.__init__-40"><span class="linenos">40</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="AnalysisInformation.__init__-41"><a href="#AnalysisInformation.__init__-41"><span class="linenos">41</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">instrument_method</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="AnalysisInformation.__init__-42"><a href="#AnalysisInformation.__init__-42"><span class="linenos">42</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">calibration_model</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="AnalysisInformation.__init__-43"><a href="#AnalysisInformation.__init__-43"><span class="linenos">43</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">calibration_file</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="AnalysisInformation.__init__-44"><a href="#AnalysisInformation.__init__-44"><span class="linenos">44</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">regions</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="AnalysisInformation.__init__-45"><a href="#AnalysisInformation.__init__-45"><span class="linenos">45</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">internal_standard_region</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="AnalysisInformation.__init__-46"><a href="#AnalysisInformation.__init__-46"><span class="linenos">46</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">use_MS</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span id="AnalysisInformation.__init__-47"><a href="#AnalysisInformation.__init__-47"><span class="linenos">47</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">MS_cutoff</span> <span class="o">=</span> <span class="mf">0.0</span>
+</span><span id="AnalysisInformation.__init__-48"><a href="#AnalysisInformation.__init__-48"><span class="linenos">48</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">peak_pick_threshold</span> <span class="o">=</span> <span class="mf">0.0</span>
+</span><span id="AnalysisInformation.__init__-49"><a href="#AnalysisInformation.__init__-49"><span class="linenos">49</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">dilution_factor</span> <span class="o">=</span> <span class="mf">1.0</span>
+</span><span id="AnalysisInformation.__init__-50"><a href="#AnalysisInformation.__init__-50"><span class="linenos">50</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">dilution_factor_error</span> <span class="o">=</span> <span class="mf">0.0</span>
+</span><span id="AnalysisInformation.__init__-51"><a href="#AnalysisInformation.__init__-51"><span class="linenos">51</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">internal_standard_concentration</span> <span class="o">=</span> <span class="mf">0.0</span>
+</span><span id="AnalysisInformation.__init__-52"><a href="#AnalysisInformation.__init__-52"><span class="linenos">52</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">internal_standard_concentration_error</span> <span class="o">=</span> <span class="mf">0.0</span>
 </span></pre></div>
 
 
@@ -1794,18 +1794,18 @@ Error on the concentration of the internal standard.</li>
 </span><span id="ExperimentConditions-15"><a href="#ExperimentConditions-15"><span class="linenos">15</span></a><span class="sd">        ----------</span>
 </span><span id="ExperimentConditions-16"><a href="#ExperimentConditions-16"><span class="linenos">16</span></a><span class="sd">        self.experiment_code: str</span>
 </span><span id="ExperimentConditions-17"><a href="#ExperimentConditions-17"><span class="linenos">17</span></a><span class="sd">            Code name for the experiment.</span>
-</span><span id="ExperimentConditions-18"><a href="#ExperimentConditions-18"><span class="linenos">18</span></a><span class="sd">        self.series_values: list[Any]</span>
+</span><span id="ExperimentConditions-18"><a href="#ExperimentConditions-18"><span class="linenos">18</span></a><span class="sd">        self.series_values: list[str, float]</span>
 </span><span id="ExperimentConditions-19"><a href="#ExperimentConditions-19"><span class="linenos">19</span></a><span class="sd">            List of series values for the experiment.</span>
 </span><span id="ExperimentConditions-20"><a href="#ExperimentConditions-20"><span class="linenos">20</span></a><span class="sd">        self.series_unit: str</span>
 </span><span id="ExperimentConditions-21"><a href="#ExperimentConditions-21"><span class="linenos">21</span></a><span class="sd">            Unit of the series values.</span>
-</span><span id="ExperimentConditions-22"><a href="#ExperimentConditions-22"><span class="linenos">22</span></a><span class="sd">        self.conditions: dict</span>
+</span><span id="ExperimentConditions-22"><a href="#ExperimentConditions-22"><span class="linenos">22</span></a><span class="sd">        self.conditions: dict[str, Any]</span>
 </span><span id="ExperimentConditions-23"><a href="#ExperimentConditions-23"><span class="linenos">23</span></a><span class="sd">            Experimental conditions.</span>
 </span><span id="ExperimentConditions-24"><a href="#ExperimentConditions-24"><span class="linenos">24</span></a><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="ExperimentConditions-25"><a href="#ExperimentConditions-25"><span class="linenos">25</span></a>
 </span><span id="ExperimentConditions-26"><a href="#ExperimentConditions-26"><span class="linenos">26</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">experiment_code</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;not specified&quot;</span>
 </span><span id="ExperimentConditions-27"><a href="#ExperimentConditions-27"><span class="linenos">27</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">series_values</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 </span><span id="ExperimentConditions-28"><a href="#ExperimentConditions-28"><span class="linenos">28</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">series_unit</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;not specified&quot;</span>
-</span><span id="ExperimentConditions-29"><a href="#ExperimentConditions-29"><span class="linenos">29</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">conditions</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+</span><span id="ExperimentConditions-29"><a href="#ExperimentConditions-29"><span class="linenos">29</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">conditions</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
 </span></pre></div>
 
 
@@ -1831,18 +1831,18 @@ Error on the concentration of the internal standard.</li>
 </span><span id="ExperimentConditions.__init__-15"><a href="#ExperimentConditions.__init__-15"><span class="linenos">15</span></a><span class="sd">        ----------</span>
 </span><span id="ExperimentConditions.__init__-16"><a href="#ExperimentConditions.__init__-16"><span class="linenos">16</span></a><span class="sd">        self.experiment_code: str</span>
 </span><span id="ExperimentConditions.__init__-17"><a href="#ExperimentConditions.__init__-17"><span class="linenos">17</span></a><span class="sd">            Code name for the experiment.</span>
-</span><span id="ExperimentConditions.__init__-18"><a href="#ExperimentConditions.__init__-18"><span class="linenos">18</span></a><span class="sd">        self.series_values: list[Any]</span>
+</span><span id="ExperimentConditions.__init__-18"><a href="#ExperimentConditions.__init__-18"><span class="linenos">18</span></a><span class="sd">        self.series_values: list[str, float]</span>
 </span><span id="ExperimentConditions.__init__-19"><a href="#ExperimentConditions.__init__-19"><span class="linenos">19</span></a><span class="sd">            List of series values for the experiment.</span>
 </span><span id="ExperimentConditions.__init__-20"><a href="#ExperimentConditions.__init__-20"><span class="linenos">20</span></a><span class="sd">        self.series_unit: str</span>
 </span><span id="ExperimentConditions.__init__-21"><a href="#ExperimentConditions.__init__-21"><span class="linenos">21</span></a><span class="sd">            Unit of the series values.</span>
-</span><span id="ExperimentConditions.__init__-22"><a href="#ExperimentConditions.__init__-22"><span class="linenos">22</span></a><span class="sd">        self.conditions: dict</span>
+</span><span id="ExperimentConditions.__init__-22"><a href="#ExperimentConditions.__init__-22"><span class="linenos">22</span></a><span class="sd">        self.conditions: dict[str, Any]</span>
 </span><span id="ExperimentConditions.__init__-23"><a href="#ExperimentConditions.__init__-23"><span class="linenos">23</span></a><span class="sd">            Experimental conditions.</span>
 </span><span id="ExperimentConditions.__init__-24"><a href="#ExperimentConditions.__init__-24"><span class="linenos">24</span></a><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="ExperimentConditions.__init__-25"><a href="#ExperimentConditions.__init__-25"><span class="linenos">25</span></a>
 </span><span id="ExperimentConditions.__init__-26"><a href="#ExperimentConditions.__init__-26"><span class="linenos">26</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">experiment_code</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;not specified&quot;</span>
 </span><span id="ExperimentConditions.__init__-27"><a href="#ExperimentConditions.__init__-27"><span class="linenos">27</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">series_values</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 </span><span id="ExperimentConditions.__init__-28"><a href="#ExperimentConditions.__init__-28"><span class="linenos">28</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">series_unit</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;not specified&quot;</span>
-</span><span id="ExperimentConditions.__init__-29"><a href="#ExperimentConditions.__init__-29"><span class="linenos">29</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">conditions</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+</span><span id="ExperimentConditions.__init__-29"><a href="#ExperimentConditions.__init__-29"><span class="linenos">29</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">conditions</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
 </span></pre></div>
 
 
@@ -1853,11 +1853,11 @@ Error on the concentration of the internal standard.</li>
 <ul>
 <li><strong>self.experiment_code</strong> (str):
 Code name for the experiment.</li>
-<li><strong>self.series_values</strong> (list[Any]):
+<li><strong>self.series_values</strong> (list[str, float]):
 List of series values for the experiment.</li>
 <li><strong>self.series_unit</strong> (str):
 Unit of the series values.</li>
-<li><strong>self.conditions</strong> (dict):
+<li><strong>self.conditions</strong> (dict[str, Any]):
 Experimental conditions.</li>
 </ul>
 </div>

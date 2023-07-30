@@ -1,11 +1,17 @@
 import numpy as np
 from scipy.stats import norm
 from ChromProcess.Classes import Peak
+from ChromProcess.Classes import Chromatogram
 from ChromProcess.Classes import Deconvolution
 from ChromProcess.Utils import deconvolution
 
 
-def deconvolute_region(chromatogram, region, num_peaks=1, baseline_subtract=False):
+def deconvolute_region(
+    chromatogram: Chromatogram,
+    region: list[float],
+    num_peaks: int = 1,
+    baseline_subtract: bool = False,
+) -> list[Peak]:
     """
     Deconvolute a region of a chromatogram.
 
@@ -20,12 +26,13 @@ def deconvolute_region(chromatogram, region, num_peaks=1, baseline_subtract=Fals
         region of chromatogram under operation [lower bound, upper bound]
     num_peaks: int
         Number of peaks expected in the region.
+    baseline_subtract: bool
+        Whether to subtract the fitted baseline from the deconvoluted peaks
 
     Returns
     -------
-    result: ndarray
-        Array of fitted values for each peak:
-        [[magnitude, positions, widths, baseline],]
+    new_peaks: list[Peak]
+        List of deconvoluted peaks.
     """
 
     ## STAGE 1 preprocessing
@@ -89,7 +96,7 @@ def deconvolute_region(chromatogram, region, num_peaks=1, baseline_subtract=Fals
         baseline,
     )
 
-    # Format output
+    # Format output into Peaks
     # -> [[magnitude, position, width, baseline],]
     result = np.vstack((np.reshape(popt[:-1], (3, -1)), np.full(len(peaks), popt[-1])))
 

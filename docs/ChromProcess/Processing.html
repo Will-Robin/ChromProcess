@@ -226,151 +226,157 @@ list of Peak objects</li>
 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">deconvolute_region</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">chromatogram</span>, </span><span class="param"><span class="n">region</span>, </span><span class="param"><span class="n">num_peaks</span><span class="o">=</span><span class="mi">1</span>, </span><span class="param"><span class="n">baseline_subtract</span><span class="o">=</span><span class="kc">False</span></span><span class="return-annotation">):</span></span>
+        <span class="name">deconvolute_region</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">chromatogram</span><span class="p">:</span> <span class="n">ChromProcess</span><span class="o">.</span><span class="n">Classes</span><span class="o">.</span><span class="n">chromatogram</span><span class="o">.</span><span class="n">Chromatogram</span>,</span><span class="param">	<span class="n">region</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>,</span><span class="param">	<span class="n">num_peaks</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>,</span><span class="param">	<span class="n">baseline_subtract</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span></span><span class="return-annotation">) -> <span class="nb">list</span><span class="p">[</span><span class="n">ChromProcess</span><span class="o">.</span><span class="n">Classes</span><span class="o">.</span><span class="n">peak</span><span class="o">.</span><span class="n">Peak</span><span class="p">]</span>:</span></span>
 
                 <label class="view-source-button" for="deconvolute_region-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#deconvolute_region"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="deconvolute_region-9"><a href="#deconvolute_region-9"><span class="linenos">  9</span></a><span class="k">def</span> <span class="nf">deconvolute_region</span><span class="p">(</span><span class="n">chromatogram</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">num_peaks</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">baseline_subtract</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-</span><span id="deconvolute_region-10"><a href="#deconvolute_region-10"><span class="linenos"> 10</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="deconvolute_region-11"><a href="#deconvolute_region-11"><span class="linenos"> 11</span></a><span class="sd">    Deconvolute a region of a chromatogram.</span>
-</span><span id="deconvolute_region-12"><a href="#deconvolute_region-12"><span class="linenos"> 12</span></a>
-</span><span id="deconvolute_region-13"><a href="#deconvolute_region-13"><span class="linenos"> 13</span></a><span class="sd">    The fitting procedure assumes that the baselinne in the selected region of</span>
-</span><span id="deconvolute_region-14"><a href="#deconvolute_region-14"><span class="linenos"> 14</span></a><span class="sd">    the chromatogram is constant.</span>
-</span><span id="deconvolute_region-15"><a href="#deconvolute_region-15"><span class="linenos"> 15</span></a>
-</span><span id="deconvolute_region-16"><a href="#deconvolute_region-16"><span class="linenos"> 16</span></a><span class="sd">    Parameters</span>
-</span><span id="deconvolute_region-17"><a href="#deconvolute_region-17"><span class="linenos"> 17</span></a><span class="sd">    ----------</span>
-</span><span id="deconvolute_region-18"><a href="#deconvolute_region-18"><span class="linenos"> 18</span></a><span class="sd">    chromatogram: Chromatogram</span>
-</span><span id="deconvolute_region-19"><a href="#deconvolute_region-19"><span class="linenos"> 19</span></a><span class="sd">        Chromatogram</span>
-</span><span id="deconvolute_region-20"><a href="#deconvolute_region-20"><span class="linenos"> 20</span></a><span class="sd">    region: list</span>
-</span><span id="deconvolute_region-21"><a href="#deconvolute_region-21"><span class="linenos"> 21</span></a><span class="sd">        region of chromatogram under operation [lower bound, upper bound]</span>
-</span><span id="deconvolute_region-22"><a href="#deconvolute_region-22"><span class="linenos"> 22</span></a><span class="sd">    num_peaks: int</span>
-</span><span id="deconvolute_region-23"><a href="#deconvolute_region-23"><span class="linenos"> 23</span></a><span class="sd">        Number of peaks expected in the region.</span>
-</span><span id="deconvolute_region-24"><a href="#deconvolute_region-24"><span class="linenos"> 24</span></a>
-</span><span id="deconvolute_region-25"><a href="#deconvolute_region-25"><span class="linenos"> 25</span></a><span class="sd">    Returns</span>
-</span><span id="deconvolute_region-26"><a href="#deconvolute_region-26"><span class="linenos"> 26</span></a><span class="sd">    -------</span>
-</span><span id="deconvolute_region-27"><a href="#deconvolute_region-27"><span class="linenos"> 27</span></a><span class="sd">    result: ndarray</span>
-</span><span id="deconvolute_region-28"><a href="#deconvolute_region-28"><span class="linenos"> 28</span></a><span class="sd">        Array of fitted values for each peak:</span>
-</span><span id="deconvolute_region-29"><a href="#deconvolute_region-29"><span class="linenos"> 29</span></a><span class="sd">        [[magnitude, positions, widths, baseline],]</span>
-</span><span id="deconvolute_region-30"><a href="#deconvolute_region-30"><span class="linenos"> 30</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="deconvolute_region-31"><a href="#deconvolute_region-31"><span class="linenos"> 31</span></a>
-</span><span id="deconvolute_region-32"><a href="#deconvolute_region-32"><span class="linenos"> 32</span></a>    <span class="c1">## STAGE 1 preprocessing</span>
-</span><span id="deconvolute_region-33"><a href="#deconvolute_region-33"><span class="linenos"> 33</span></a>    <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span> <span class="o">=</span> <span class="p">(</span><span class="n">region</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">region</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-</span><span id="deconvolute_region-34"><a href="#deconvolute_region-34"><span class="linenos"> 34</span></a>
-</span><span id="deconvolute_region-35"><a href="#deconvolute_region-35"><span class="linenos"> 35</span></a>    <span class="c1"># Cut out portion of signal</span>
-</span><span id="deconvolute_region-36"><a href="#deconvolute_region-36"><span class="linenos"> 36</span></a>    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">chromatogram</span><span class="o">.</span><span class="n">time</span> <span class="o">&gt;</span> <span class="n">lower</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">chromatogram</span><span class="o">.</span><span class="n">time</span> <span class="o">&lt;</span> <span class="n">upper</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="deconvolute_region-37"><a href="#deconvolute_region-37"><span class="linenos"> 37</span></a>
-</span><span id="deconvolute_region-38"><a href="#deconvolute_region-38"><span class="linenos"> 38</span></a>    <span class="n">time</span> <span class="o">=</span> <span class="n">chromatogram</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
-</span><span id="deconvolute_region-39"><a href="#deconvolute_region-39"><span class="linenos"> 39</span></a>    <span class="n">signal</span> <span class="o">=</span> <span class="n">chromatogram</span><span class="o">.</span><span class="n">signal</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
-</span><span id="deconvolute_region-40"><a href="#deconvolute_region-40"><span class="linenos"> 40</span></a>
-</span><span id="deconvolute_region-41"><a href="#deconvolute_region-41"><span class="linenos"> 41</span></a>    <span class="c1"># Find any peaks that have already been picked in the region.</span>
-</span><span id="deconvolute_region-42"><a href="#deconvolute_region-42"><span class="linenos"> 42</span></a>    <span class="n">relevant_peaks</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="deconvolute_region-43"><a href="#deconvolute_region-43"><span class="linenos"> 43</span></a>        <span class="n">chromatogram</span><span class="o">.</span><span class="n">peaks</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">chromatogram</span><span class="o">.</span><span class="n">peaks</span> <span class="k">if</span> <span class="n">lower</span> <span class="o">&lt;=</span> <span class="n">p</span> <span class="o">&lt;=</span> <span class="n">upper</span>
-</span><span id="deconvolute_region-44"><a href="#deconvolute_region-44"><span class="linenos"> 44</span></a>    <span class="p">]</span>
-</span><span id="deconvolute_region-45"><a href="#deconvolute_region-45"><span class="linenos"> 45</span></a>
-</span><span id="deconvolute_region-46"><a href="#deconvolute_region-46"><span class="linenos"> 46</span></a>    <span class="n">peaks</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">retention_time</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">relevant_peaks</span><span class="p">]</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="deconvolute_region-10"><a href="#deconvolute_region-10"><span class="linenos"> 10</span></a><span class="k">def</span> <span class="nf">deconvolute_region</span><span class="p">(</span>
+</span><span id="deconvolute_region-11"><a href="#deconvolute_region-11"><span class="linenos"> 11</span></a>    <span class="n">chromatogram</span><span class="p">:</span> <span class="n">Chromatogram</span><span class="p">,</span>
+</span><span id="deconvolute_region-12"><a href="#deconvolute_region-12"><span class="linenos"> 12</span></a>    <span class="n">region</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+</span><span id="deconvolute_region-13"><a href="#deconvolute_region-13"><span class="linenos"> 13</span></a>    <span class="n">num_peaks</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+</span><span id="deconvolute_region-14"><a href="#deconvolute_region-14"><span class="linenos"> 14</span></a>    <span class="n">baseline_subtract</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+</span><span id="deconvolute_region-15"><a href="#deconvolute_region-15"><span class="linenos"> 15</span></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Peak</span><span class="p">]:</span>
+</span><span id="deconvolute_region-16"><a href="#deconvolute_region-16"><span class="linenos"> 16</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="deconvolute_region-17"><a href="#deconvolute_region-17"><span class="linenos"> 17</span></a><span class="sd">    Deconvolute a region of a chromatogram.</span>
+</span><span id="deconvolute_region-18"><a href="#deconvolute_region-18"><span class="linenos"> 18</span></a>
+</span><span id="deconvolute_region-19"><a href="#deconvolute_region-19"><span class="linenos"> 19</span></a><span class="sd">    The fitting procedure assumes that the baselinne in the selected region of</span>
+</span><span id="deconvolute_region-20"><a href="#deconvolute_region-20"><span class="linenos"> 20</span></a><span class="sd">    the chromatogram is constant.</span>
+</span><span id="deconvolute_region-21"><a href="#deconvolute_region-21"><span class="linenos"> 21</span></a>
+</span><span id="deconvolute_region-22"><a href="#deconvolute_region-22"><span class="linenos"> 22</span></a><span class="sd">    Parameters</span>
+</span><span id="deconvolute_region-23"><a href="#deconvolute_region-23"><span class="linenos"> 23</span></a><span class="sd">    ----------</span>
+</span><span id="deconvolute_region-24"><a href="#deconvolute_region-24"><span class="linenos"> 24</span></a><span class="sd">    chromatogram: Chromatogram</span>
+</span><span id="deconvolute_region-25"><a href="#deconvolute_region-25"><span class="linenos"> 25</span></a><span class="sd">        Chromatogram</span>
+</span><span id="deconvolute_region-26"><a href="#deconvolute_region-26"><span class="linenos"> 26</span></a><span class="sd">    region: list</span>
+</span><span id="deconvolute_region-27"><a href="#deconvolute_region-27"><span class="linenos"> 27</span></a><span class="sd">        region of chromatogram under operation [lower bound, upper bound]</span>
+</span><span id="deconvolute_region-28"><a href="#deconvolute_region-28"><span class="linenos"> 28</span></a><span class="sd">    num_peaks: int</span>
+</span><span id="deconvolute_region-29"><a href="#deconvolute_region-29"><span class="linenos"> 29</span></a><span class="sd">        Number of peaks expected in the region.</span>
+</span><span id="deconvolute_region-30"><a href="#deconvolute_region-30"><span class="linenos"> 30</span></a><span class="sd">    baseline_subtract: bool</span>
+</span><span id="deconvolute_region-31"><a href="#deconvolute_region-31"><span class="linenos"> 31</span></a><span class="sd">        Whether to subtract the fitted baseline from the deconvoluted peaks</span>
+</span><span id="deconvolute_region-32"><a href="#deconvolute_region-32"><span class="linenos"> 32</span></a>
+</span><span id="deconvolute_region-33"><a href="#deconvolute_region-33"><span class="linenos"> 33</span></a><span class="sd">    Returns</span>
+</span><span id="deconvolute_region-34"><a href="#deconvolute_region-34"><span class="linenos"> 34</span></a><span class="sd">    -------</span>
+</span><span id="deconvolute_region-35"><a href="#deconvolute_region-35"><span class="linenos"> 35</span></a><span class="sd">    new_peaks: list[Peak]</span>
+</span><span id="deconvolute_region-36"><a href="#deconvolute_region-36"><span class="linenos"> 36</span></a><span class="sd">        List of deconvoluted peaks.</span>
+</span><span id="deconvolute_region-37"><a href="#deconvolute_region-37"><span class="linenos"> 37</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="deconvolute_region-38"><a href="#deconvolute_region-38"><span class="linenos"> 38</span></a>
+</span><span id="deconvolute_region-39"><a href="#deconvolute_region-39"><span class="linenos"> 39</span></a>    <span class="c1">## STAGE 1 preprocessing</span>
+</span><span id="deconvolute_region-40"><a href="#deconvolute_region-40"><span class="linenos"> 40</span></a>    <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span> <span class="o">=</span> <span class="p">(</span><span class="n">region</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">region</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</span><span id="deconvolute_region-41"><a href="#deconvolute_region-41"><span class="linenos"> 41</span></a>
+</span><span id="deconvolute_region-42"><a href="#deconvolute_region-42"><span class="linenos"> 42</span></a>    <span class="c1"># Cut out portion of signal</span>
+</span><span id="deconvolute_region-43"><a href="#deconvolute_region-43"><span class="linenos"> 43</span></a>    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">chromatogram</span><span class="o">.</span><span class="n">time</span> <span class="o">&gt;</span> <span class="n">lower</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">chromatogram</span><span class="o">.</span><span class="n">time</span> <span class="o">&lt;</span> <span class="n">upper</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="deconvolute_region-44"><a href="#deconvolute_region-44"><span class="linenos"> 44</span></a>
+</span><span id="deconvolute_region-45"><a href="#deconvolute_region-45"><span class="linenos"> 45</span></a>    <span class="n">time</span> <span class="o">=</span> <span class="n">chromatogram</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+</span><span id="deconvolute_region-46"><a href="#deconvolute_region-46"><span class="linenos"> 46</span></a>    <span class="n">signal</span> <span class="o">=</span> <span class="n">chromatogram</span><span class="o">.</span><span class="n">signal</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
 </span><span id="deconvolute_region-47"><a href="#deconvolute_region-47"><span class="linenos"> 47</span></a>
-</span><span id="deconvolute_region-48"><a href="#deconvolute_region-48"><span class="linenos"> 48</span></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">peaks</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">num_peaks</span><span class="p">:</span>
-</span><span id="deconvolute_region-49"><a href="#deconvolute_region-49"><span class="linenos"> 49</span></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Deconvolution warning: deconvoluting more peaks than specified.&quot;</span><span class="p">)</span>
-</span><span id="deconvolute_region-50"><a href="#deconvolute_region-50"><span class="linenos"> 50</span></a>
-</span><span id="deconvolute_region-51"><a href="#deconvolute_region-51"><span class="linenos"> 51</span></a>    <span class="n">height_init</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">height</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">relevant_peaks</span><span class="p">])</span>
+</span><span id="deconvolute_region-48"><a href="#deconvolute_region-48"><span class="linenos"> 48</span></a>    <span class="c1"># Find any peaks that have already been picked in the region.</span>
+</span><span id="deconvolute_region-49"><a href="#deconvolute_region-49"><span class="linenos"> 49</span></a>    <span class="n">relevant_peaks</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="deconvolute_region-50"><a href="#deconvolute_region-50"><span class="linenos"> 50</span></a>        <span class="n">chromatogram</span><span class="o">.</span><span class="n">peaks</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">chromatogram</span><span class="o">.</span><span class="n">peaks</span> <span class="k">if</span> <span class="n">lower</span> <span class="o">&lt;=</span> <span class="n">p</span> <span class="o">&lt;=</span> <span class="n">upper</span>
+</span><span id="deconvolute_region-51"><a href="#deconvolute_region-51"><span class="linenos"> 51</span></a>    <span class="p">]</span>
 </span><span id="deconvolute_region-52"><a href="#deconvolute_region-52"><span class="linenos"> 52</span></a>
-</span><span id="deconvolute_region-53"><a href="#deconvolute_region-53"><span class="linenos"> 53</span></a>    <span class="n">width_init</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-</span><span id="deconvolute_region-54"><a href="#deconvolute_region-54"><span class="linenos"> 54</span></a>        <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">chromatogram</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">indices</span><span class="p">],</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">relevant_peaks</span><span class="p">]</span>
-</span><span id="deconvolute_region-55"><a href="#deconvolute_region-55"><span class="linenos"> 55</span></a>    <span class="p">)</span>
-</span><span id="deconvolute_region-56"><a href="#deconvolute_region-56"><span class="linenos"> 56</span></a>
-</span><span id="deconvolute_region-57"><a href="#deconvolute_region-57"><span class="linenos"> 57</span></a>    <span class="c1"># Pad out any extra peaks if more peaks are specified as arguments than are</span>
-</span><span id="deconvolute_region-58"><a href="#deconvolute_region-58"><span class="linenos"> 58</span></a>    <span class="c1"># found in the peak picking operation</span>
-</span><span id="deconvolute_region-59"><a href="#deconvolute_region-59"><span class="linenos"> 59</span></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">peaks</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">num_peaks</span><span class="p">:</span>
-</span><span id="deconvolute_region-60"><a href="#deconvolute_region-60"><span class="linenos"> 60</span></a>        <span class="n">pad_len</span> <span class="o">=</span> <span class="n">num_peaks</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">peaks</span><span class="p">)</span>
-</span><span id="deconvolute_region-61"><a href="#deconvolute_region-61"><span class="linenos"> 61</span></a>
-</span><span id="deconvolute_region-62"><a href="#deconvolute_region-62"><span class="linenos"> 62</span></a>        <span class="n">peaks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">peaks</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">time</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">pad_len</span><span class="p">)))</span>
+</span><span id="deconvolute_region-53"><a href="#deconvolute_region-53"><span class="linenos"> 53</span></a>    <span class="n">peaks</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">retention_time</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">relevant_peaks</span><span class="p">]</span>
+</span><span id="deconvolute_region-54"><a href="#deconvolute_region-54"><span class="linenos"> 54</span></a>
+</span><span id="deconvolute_region-55"><a href="#deconvolute_region-55"><span class="linenos"> 55</span></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">peaks</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">num_peaks</span><span class="p">:</span>
+</span><span id="deconvolute_region-56"><a href="#deconvolute_region-56"><span class="linenos"> 56</span></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Deconvolution warning: deconvoluting more peaks than specified.&quot;</span><span class="p">)</span>
+</span><span id="deconvolute_region-57"><a href="#deconvolute_region-57"><span class="linenos"> 57</span></a>
+</span><span id="deconvolute_region-58"><a href="#deconvolute_region-58"><span class="linenos"> 58</span></a>    <span class="n">height_init</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">height</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">relevant_peaks</span><span class="p">])</span>
+</span><span id="deconvolute_region-59"><a href="#deconvolute_region-59"><span class="linenos"> 59</span></a>
+</span><span id="deconvolute_region-60"><a href="#deconvolute_region-60"><span class="linenos"> 60</span></a>    <span class="n">width_init</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+</span><span id="deconvolute_region-61"><a href="#deconvolute_region-61"><span class="linenos"> 61</span></a>        <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">chromatogram</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">indices</span><span class="p">],</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">relevant_peaks</span><span class="p">]</span>
+</span><span id="deconvolute_region-62"><a href="#deconvolute_region-62"><span class="linenos"> 62</span></a>    <span class="p">)</span>
 </span><span id="deconvolute_region-63"><a href="#deconvolute_region-63"><span class="linenos"> 63</span></a>
-</span><span id="deconvolute_region-64"><a href="#deconvolute_region-64"><span class="linenos"> 64</span></a>        <span class="n">width_init</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span>
-</span><span id="deconvolute_region-65"><a href="#deconvolute_region-65"><span class="linenos"> 65</span></a>            <span class="n">width_init</span><span class="p">,</span>
-</span><span id="deconvolute_region-66"><a href="#deconvolute_region-66"><span class="linenos"> 66</span></a>            <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">pad_len</span><span class="p">),</span>
-</span><span id="deconvolute_region-67"><a href="#deconvolute_region-67"><span class="linenos"> 67</span></a>            <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;constant&quot;</span><span class="p">,</span>
-</span><span id="deconvolute_region-68"><a href="#deconvolute_region-68"><span class="linenos"> 68</span></a>            <span class="n">constant_values</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)),</span>
-</span><span id="deconvolute_region-69"><a href="#deconvolute_region-69"><span class="linenos"> 69</span></a>        <span class="p">)</span>
+</span><span id="deconvolute_region-64"><a href="#deconvolute_region-64"><span class="linenos"> 64</span></a>    <span class="c1"># Pad out any extra peaks if more peaks are specified as arguments than are</span>
+</span><span id="deconvolute_region-65"><a href="#deconvolute_region-65"><span class="linenos"> 65</span></a>    <span class="c1"># found in the peak picking operation</span>
+</span><span id="deconvolute_region-66"><a href="#deconvolute_region-66"><span class="linenos"> 66</span></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">peaks</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">num_peaks</span><span class="p">:</span>
+</span><span id="deconvolute_region-67"><a href="#deconvolute_region-67"><span class="linenos"> 67</span></a>        <span class="n">pad_len</span> <span class="o">=</span> <span class="n">num_peaks</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">peaks</span><span class="p">)</span>
+</span><span id="deconvolute_region-68"><a href="#deconvolute_region-68"><span class="linenos"> 68</span></a>
+</span><span id="deconvolute_region-69"><a href="#deconvolute_region-69"><span class="linenos"> 69</span></a>        <span class="n">peaks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">peaks</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">time</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">pad_len</span><span class="p">)))</span>
 </span><span id="deconvolute_region-70"><a href="#deconvolute_region-70"><span class="linenos"> 70</span></a>
-</span><span id="deconvolute_region-71"><a href="#deconvolute_region-71"><span class="linenos"> 71</span></a>        <span class="n">height_init</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span>
-</span><span id="deconvolute_region-72"><a href="#deconvolute_region-72"><span class="linenos"> 72</span></a>            <span class="n">height_init</span><span class="p">,</span>
+</span><span id="deconvolute_region-71"><a href="#deconvolute_region-71"><span class="linenos"> 71</span></a>        <span class="n">width_init</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span>
+</span><span id="deconvolute_region-72"><a href="#deconvolute_region-72"><span class="linenos"> 72</span></a>            <span class="n">width_init</span><span class="p">,</span>
 </span><span id="deconvolute_region-73"><a href="#deconvolute_region-73"><span class="linenos"> 73</span></a>            <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">pad_len</span><span class="p">),</span>
 </span><span id="deconvolute_region-74"><a href="#deconvolute_region-74"><span class="linenos"> 74</span></a>            <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;constant&quot;</span><span class="p">,</span>
-</span><span id="deconvolute_region-75"><a href="#deconvolute_region-75"><span class="linenos"> 75</span></a>            <span class="n">constant_values</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">mean</span><span class="p">()),</span>
+</span><span id="deconvolute_region-75"><a href="#deconvolute_region-75"><span class="linenos"> 75</span></a>            <span class="n">constant_values</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)),</span>
 </span><span id="deconvolute_region-76"><a href="#deconvolute_region-76"><span class="linenos"> 76</span></a>        <span class="p">)</span>
 </span><span id="deconvolute_region-77"><a href="#deconvolute_region-77"><span class="linenos"> 77</span></a>
-</span><span id="deconvolute_region-78"><a href="#deconvolute_region-78"><span class="linenos"> 78</span></a>    <span class="c1"># Scale heights</span>
-</span><span id="deconvolute_region-79"><a href="#deconvolute_region-79"><span class="linenos"> 79</span></a>    <span class="n">height_init</span> <span class="o">/=</span> <span class="nb">len</span><span class="p">(</span><span class="n">height_init</span><span class="p">)</span>
-</span><span id="deconvolute_region-80"><a href="#deconvolute_region-80"><span class="linenos"> 80</span></a>
-</span><span id="deconvolute_region-81"><a href="#deconvolute_region-81"><span class="linenos"> 81</span></a>    <span class="n">baseline</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
-</span><span id="deconvolute_region-82"><a href="#deconvolute_region-82"><span class="linenos"> 82</span></a>
-</span><span id="deconvolute_region-83"><a href="#deconvolute_region-83"><span class="linenos"> 83</span></a>    <span class="c1">## STAGE 2: perform deconvolution.</span>
-</span><span id="deconvolute_region-84"><a href="#deconvolute_region-84"><span class="linenos"> 84</span></a>    <span class="n">popt</span><span class="p">,</span> <span class="n">pcov</span> <span class="o">=</span> <span class="n">deconvolution</span><span class="o">.</span><span class="n">fit_pdf</span><span class="p">(</span>
-</span><span id="deconvolute_region-85"><a href="#deconvolute_region-85"><span class="linenos"> 85</span></a>        <span class="n">time</span><span class="p">,</span>
-</span><span id="deconvolute_region-86"><a href="#deconvolute_region-86"><span class="linenos"> 86</span></a>        <span class="n">signal</span><span class="p">,</span>
-</span><span id="deconvolute_region-87"><a href="#deconvolute_region-87"><span class="linenos"> 87</span></a>        <span class="n">peaks</span><span class="p">,</span>
-</span><span id="deconvolute_region-88"><a href="#deconvolute_region-88"><span class="linenos"> 88</span></a>        <span class="n">height_init</span><span class="p">,</span>
-</span><span id="deconvolute_region-89"><a href="#deconvolute_region-89"><span class="linenos"> 89</span></a>        <span class="n">width_init</span><span class="p">,</span>
-</span><span id="deconvolute_region-90"><a href="#deconvolute_region-90"><span class="linenos"> 90</span></a>        <span class="n">baseline</span><span class="p">,</span>
-</span><span id="deconvolute_region-91"><a href="#deconvolute_region-91"><span class="linenos"> 91</span></a>    <span class="p">)</span>
-</span><span id="deconvolute_region-92"><a href="#deconvolute_region-92"><span class="linenos"> 92</span></a>
-</span><span id="deconvolute_region-93"><a href="#deconvolute_region-93"><span class="linenos"> 93</span></a>    <span class="c1"># Format output</span>
-</span><span id="deconvolute_region-94"><a href="#deconvolute_region-94"><span class="linenos"> 94</span></a>    <span class="c1"># -&gt; [[magnitude, position, width, baseline],]</span>
-</span><span id="deconvolute_region-95"><a href="#deconvolute_region-95"><span class="linenos"> 95</span></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">popt</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">peaks</span><span class="p">),</span> <span class="n">popt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])))</span>
-</span><span id="deconvolute_region-96"><a href="#deconvolute_region-96"><span class="linenos"> 96</span></a>
-</span><span id="deconvolute_region-97"><a href="#deconvolute_region-97"><span class="linenos"> 97</span></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">T</span>
-</span><span id="deconvolute_region-98"><a href="#deconvolute_region-98"><span class="linenos"> 98</span></a>
-</span><span id="deconvolute_region-99"><a href="#deconvolute_region-99"><span class="linenos"> 99</span></a>    <span class="c1"># Create peak objects from deconvolution results</span>
-</span><span id="deconvolute_region-100"><a href="#deconvolute_region-100"><span class="linenos">100</span></a>    <span class="n">new_peaks</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="deconvolute_region-101"><a href="#deconvolute_region-101"><span class="linenos">101</span></a>    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)):</span>
-</span><span id="deconvolute_region-102"><a href="#deconvolute_region-102"><span class="linenos">102</span></a>        <span class="n">peak_features</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
-</span><span id="deconvolute_region-103"><a href="#deconvolute_region-103"><span class="linenos">103</span></a>        <span class="n">magnitude</span> <span class="o">=</span> <span class="n">peak_features</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="deconvolute_region-104"><a href="#deconvolute_region-104"><span class="linenos">104</span></a>        <span class="n">retention_time</span> <span class="o">=</span> <span class="n">peak_features</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-</span><span id="deconvolute_region-105"><a href="#deconvolute_region-105"><span class="linenos">105</span></a>        <span class="n">width</span> <span class="o">=</span> <span class="n">peak_features</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-</span><span id="deconvolute_region-106"><a href="#deconvolute_region-106"><span class="linenos">106</span></a>        <span class="n">baseline</span> <span class="o">=</span> <span class="n">peak_features</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
-</span><span id="deconvolute_region-107"><a href="#deconvolute_region-107"><span class="linenos">107</span></a>
-</span><span id="deconvolute_region-108"><a href="#deconvolute_region-108"><span class="linenos">108</span></a>        <span class="n">start</span> <span class="o">=</span> <span class="n">retention_time</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">width</span>  <span class="c1"># 4σ</span>
-</span><span id="deconvolute_region-109"><a href="#deconvolute_region-109"><span class="linenos">109</span></a>        <span class="n">end</span> <span class="o">=</span> <span class="n">retention_time</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">width</span>  <span class="c1"># 4σ</span>
-</span><span id="deconvolute_region-110"><a href="#deconvolute_region-110"><span class="linenos">110</span></a>        <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">chromatogram</span><span class="o">.</span><span class="n">time</span> <span class="o">&gt;=</span> <span class="n">start</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">chromatogram</span><span class="o">.</span><span class="n">time</span> <span class="o">&lt;=</span> <span class="n">end</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="deconvolute_region-111"><a href="#deconvolute_region-111"><span class="linenos">111</span></a>
-</span><span id="deconvolute_region-112"><a href="#deconvolute_region-112"><span class="linenos">112</span></a>        <span class="c1"># Calculate integral numerically (same as &#39;real&#39; peaks).</span>
-</span><span id="deconvolute_region-113"><a href="#deconvolute_region-113"><span class="linenos">113</span></a>        <span class="n">time_axis</span> <span class="o">=</span> <span class="n">chromatogram</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
+</span><span id="deconvolute_region-78"><a href="#deconvolute_region-78"><span class="linenos"> 78</span></a>        <span class="n">height_init</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span>
+</span><span id="deconvolute_region-79"><a href="#deconvolute_region-79"><span class="linenos"> 79</span></a>            <span class="n">height_init</span><span class="p">,</span>
+</span><span id="deconvolute_region-80"><a href="#deconvolute_region-80"><span class="linenos"> 80</span></a>            <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">pad_len</span><span class="p">),</span>
+</span><span id="deconvolute_region-81"><a href="#deconvolute_region-81"><span class="linenos"> 81</span></a>            <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;constant&quot;</span><span class="p">,</span>
+</span><span id="deconvolute_region-82"><a href="#deconvolute_region-82"><span class="linenos"> 82</span></a>            <span class="n">constant_values</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">mean</span><span class="p">()),</span>
+</span><span id="deconvolute_region-83"><a href="#deconvolute_region-83"><span class="linenos"> 83</span></a>        <span class="p">)</span>
+</span><span id="deconvolute_region-84"><a href="#deconvolute_region-84"><span class="linenos"> 84</span></a>
+</span><span id="deconvolute_region-85"><a href="#deconvolute_region-85"><span class="linenos"> 85</span></a>    <span class="c1"># Scale heights</span>
+</span><span id="deconvolute_region-86"><a href="#deconvolute_region-86"><span class="linenos"> 86</span></a>    <span class="n">height_init</span> <span class="o">/=</span> <span class="nb">len</span><span class="p">(</span><span class="n">height_init</span><span class="p">)</span>
+</span><span id="deconvolute_region-87"><a href="#deconvolute_region-87"><span class="linenos"> 87</span></a>
+</span><span id="deconvolute_region-88"><a href="#deconvolute_region-88"><span class="linenos"> 88</span></a>    <span class="n">baseline</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+</span><span id="deconvolute_region-89"><a href="#deconvolute_region-89"><span class="linenos"> 89</span></a>
+</span><span id="deconvolute_region-90"><a href="#deconvolute_region-90"><span class="linenos"> 90</span></a>    <span class="c1">## STAGE 2: perform deconvolution.</span>
+</span><span id="deconvolute_region-91"><a href="#deconvolute_region-91"><span class="linenos"> 91</span></a>    <span class="n">popt</span><span class="p">,</span> <span class="n">pcov</span> <span class="o">=</span> <span class="n">deconvolution</span><span class="o">.</span><span class="n">fit_pdf</span><span class="p">(</span>
+</span><span id="deconvolute_region-92"><a href="#deconvolute_region-92"><span class="linenos"> 92</span></a>        <span class="n">time</span><span class="p">,</span>
+</span><span id="deconvolute_region-93"><a href="#deconvolute_region-93"><span class="linenos"> 93</span></a>        <span class="n">signal</span><span class="p">,</span>
+</span><span id="deconvolute_region-94"><a href="#deconvolute_region-94"><span class="linenos"> 94</span></a>        <span class="n">peaks</span><span class="p">,</span>
+</span><span id="deconvolute_region-95"><a href="#deconvolute_region-95"><span class="linenos"> 95</span></a>        <span class="n">height_init</span><span class="p">,</span>
+</span><span id="deconvolute_region-96"><a href="#deconvolute_region-96"><span class="linenos"> 96</span></a>        <span class="n">width_init</span><span class="p">,</span>
+</span><span id="deconvolute_region-97"><a href="#deconvolute_region-97"><span class="linenos"> 97</span></a>        <span class="n">baseline</span><span class="p">,</span>
+</span><span id="deconvolute_region-98"><a href="#deconvolute_region-98"><span class="linenos"> 98</span></a>    <span class="p">)</span>
+</span><span id="deconvolute_region-99"><a href="#deconvolute_region-99"><span class="linenos"> 99</span></a>
+</span><span id="deconvolute_region-100"><a href="#deconvolute_region-100"><span class="linenos">100</span></a>    <span class="c1"># Format output into Peaks</span>
+</span><span id="deconvolute_region-101"><a href="#deconvolute_region-101"><span class="linenos">101</span></a>    <span class="c1"># -&gt; [[magnitude, position, width, baseline],]</span>
+</span><span id="deconvolute_region-102"><a href="#deconvolute_region-102"><span class="linenos">102</span></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">popt</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">peaks</span><span class="p">),</span> <span class="n">popt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])))</span>
+</span><span id="deconvolute_region-103"><a href="#deconvolute_region-103"><span class="linenos">103</span></a>
+</span><span id="deconvolute_region-104"><a href="#deconvolute_region-104"><span class="linenos">104</span></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">T</span>
+</span><span id="deconvolute_region-105"><a href="#deconvolute_region-105"><span class="linenos">105</span></a>
+</span><span id="deconvolute_region-106"><a href="#deconvolute_region-106"><span class="linenos">106</span></a>    <span class="c1"># Create peak objects from deconvolution results</span>
+</span><span id="deconvolute_region-107"><a href="#deconvolute_region-107"><span class="linenos">107</span></a>    <span class="n">new_peaks</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="deconvolute_region-108"><a href="#deconvolute_region-108"><span class="linenos">108</span></a>    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)):</span>
+</span><span id="deconvolute_region-109"><a href="#deconvolute_region-109"><span class="linenos">109</span></a>        <span class="n">peak_features</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+</span><span id="deconvolute_region-110"><a href="#deconvolute_region-110"><span class="linenos">110</span></a>        <span class="n">magnitude</span> <span class="o">=</span> <span class="n">peak_features</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="deconvolute_region-111"><a href="#deconvolute_region-111"><span class="linenos">111</span></a>        <span class="n">retention_time</span> <span class="o">=</span> <span class="n">peak_features</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span><span id="deconvolute_region-112"><a href="#deconvolute_region-112"><span class="linenos">112</span></a>        <span class="n">width</span> <span class="o">=</span> <span class="n">peak_features</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</span><span id="deconvolute_region-113"><a href="#deconvolute_region-113"><span class="linenos">113</span></a>        <span class="n">baseline</span> <span class="o">=</span> <span class="n">peak_features</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
 </span><span id="deconvolute_region-114"><a href="#deconvolute_region-114"><span class="linenos">114</span></a>
-</span><span id="deconvolute_region-115"><a href="#deconvolute_region-115"><span class="linenos">115</span></a>        <span class="n">deconvoluted_signal</span> <span class="o">=</span> <span class="p">(</span>
-</span><span id="deconvolute_region-116"><a href="#deconvolute_region-116"><span class="linenos">116</span></a>            <span class="n">magnitude</span> <span class="o">*</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">time_axis</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">retention_time</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">width</span><span class="p">)</span> <span class="o">+</span> <span class="n">baseline</span><span class="p">,</span>
-</span><span id="deconvolute_region-117"><a href="#deconvolute_region-117"><span class="linenos">117</span></a>        <span class="p">)</span>
+</span><span id="deconvolute_region-115"><a href="#deconvolute_region-115"><span class="linenos">115</span></a>        <span class="n">start</span> <span class="o">=</span> <span class="n">retention_time</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">width</span>  <span class="c1"># 4σ</span>
+</span><span id="deconvolute_region-116"><a href="#deconvolute_region-116"><span class="linenos">116</span></a>        <span class="n">end</span> <span class="o">=</span> <span class="n">retention_time</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">width</span>  <span class="c1"># 4σ</span>
+</span><span id="deconvolute_region-117"><a href="#deconvolute_region-117"><span class="linenos">117</span></a>        <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">chromatogram</span><span class="o">.</span><span class="n">time</span> <span class="o">&gt;=</span> <span class="n">start</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">chromatogram</span><span class="o">.</span><span class="n">time</span> <span class="o">&lt;=</span> <span class="n">end</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
 </span><span id="deconvolute_region-118"><a href="#deconvolute_region-118"><span class="linenos">118</span></a>
-</span><span id="deconvolute_region-119"><a href="#deconvolute_region-119"><span class="linenos">119</span></a>        <span class="k">if</span> <span class="n">baseline_subtract</span><span class="p">:</span>
-</span><span id="deconvolute_region-120"><a href="#deconvolute_region-120"><span class="linenos">120</span></a>            <span class="n">deconvoluted_signal</span> <span class="o">-=</span> <span class="n">baseline</span>
+</span><span id="deconvolute_region-119"><a href="#deconvolute_region-119"><span class="linenos">119</span></a>        <span class="c1"># Calculate integral numerically (same as &#39;real&#39; peaks).</span>
+</span><span id="deconvolute_region-120"><a href="#deconvolute_region-120"><span class="linenos">120</span></a>        <span class="n">time_axis</span> <span class="o">=</span> <span class="n">chromatogram</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
 </span><span id="deconvolute_region-121"><a href="#deconvolute_region-121"><span class="linenos">121</span></a>
-</span><span id="deconvolute_region-122"><a href="#deconvolute_region-122"><span class="linenos">122</span></a>        <span class="n">integral</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">deconvoluted_signal</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">time_axis</span><span class="p">)</span>
-</span><span id="deconvolute_region-123"><a href="#deconvolute_region-123"><span class="linenos">123</span></a>
-</span><span id="deconvolute_region-124"><a href="#deconvolute_region-124"><span class="linenos">124</span></a>        <span class="n">deconv_params</span> <span class="o">=</span> <span class="n">Deconvolution</span><span class="p">(</span>
-</span><span id="deconvolute_region-125"><a href="#deconvolute_region-125"><span class="linenos">125</span></a>            <span class="p">{</span>
-</span><span id="deconvolute_region-126"><a href="#deconvolute_region-126"><span class="linenos">126</span></a>                <span class="s2">&quot;magnitude&quot;</span><span class="p">:</span> <span class="n">magnitude</span><span class="p">,</span>
-</span><span id="deconvolute_region-127"><a href="#deconvolute_region-127"><span class="linenos">127</span></a>                <span class="s2">&quot;loc&quot;</span><span class="p">:</span> <span class="n">retention_time</span><span class="p">,</span>
-</span><span id="deconvolute_region-128"><a href="#deconvolute_region-128"><span class="linenos">128</span></a>                <span class="s2">&quot;scale&quot;</span><span class="p">:</span> <span class="n">width</span><span class="p">,</span>
-</span><span id="deconvolute_region-129"><a href="#deconvolute_region-129"><span class="linenos">129</span></a>                <span class="s2">&quot;baseline&quot;</span><span class="p">:</span> <span class="n">baseline</span><span class="p">,</span>
-</span><span id="deconvolute_region-130"><a href="#deconvolute_region-130"><span class="linenos">130</span></a>            <span class="p">},</span>
-</span><span id="deconvolute_region-131"><a href="#deconvolute_region-131"><span class="linenos">131</span></a>            <span class="n">region</span><span class="p">,</span>
-</span><span id="deconvolute_region-132"><a href="#deconvolute_region-132"><span class="linenos">132</span></a>            <span class="s2">&quot;scipy.norm.pdf() + baseline&quot;</span><span class="p">,</span>
-</span><span id="deconvolute_region-133"><a href="#deconvolute_region-133"><span class="linenos">133</span></a>        <span class="p">)</span>
-</span><span id="deconvolute_region-134"><a href="#deconvolute_region-134"><span class="linenos">134</span></a>
-</span><span id="deconvolute_region-135"><a href="#deconvolute_region-135"><span class="linenos">135</span></a>        <span class="n">new_peaks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-</span><span id="deconvolute_region-136"><a href="#deconvolute_region-136"><span class="linenos">136</span></a>            <span class="n">Peak</span><span class="p">(</span>
-</span><span id="deconvolute_region-137"><a href="#deconvolute_region-137"><span class="linenos">137</span></a>                <span class="n">retention_time</span><span class="p">,</span>
-</span><span id="deconvolute_region-138"><a href="#deconvolute_region-138"><span class="linenos">138</span></a>                <span class="n">start</span><span class="p">,</span>
-</span><span id="deconvolute_region-139"><a href="#deconvolute_region-139"><span class="linenos">139</span></a>                <span class="n">end</span><span class="p">,</span>
-</span><span id="deconvolute_region-140"><a href="#deconvolute_region-140"><span class="linenos">140</span></a>                <span class="n">indices</span><span class="o">=</span><span class="n">indices</span><span class="p">,</span>
-</span><span id="deconvolute_region-141"><a href="#deconvolute_region-141"><span class="linenos">141</span></a>                <span class="n">height</span><span class="o">=</span><span class="n">magnitude</span><span class="p">,</span>
-</span><span id="deconvolute_region-142"><a href="#deconvolute_region-142"><span class="linenos">142</span></a>                <span class="n">integral</span><span class="o">=</span><span class="n">integral</span><span class="p">,</span>
-</span><span id="deconvolute_region-143"><a href="#deconvolute_region-143"><span class="linenos">143</span></a>                <span class="n">deconvolution_params</span><span class="o">=</span><span class="n">deconv_params</span><span class="p">,</span>
-</span><span id="deconvolute_region-144"><a href="#deconvolute_region-144"><span class="linenos">144</span></a>            <span class="p">)</span>
-</span><span id="deconvolute_region-145"><a href="#deconvolute_region-145"><span class="linenos">145</span></a>        <span class="p">)</span>
-</span><span id="deconvolute_region-146"><a href="#deconvolute_region-146"><span class="linenos">146</span></a>
-</span><span id="deconvolute_region-147"><a href="#deconvolute_region-147"><span class="linenos">147</span></a>    <span class="k">return</span> <span class="n">new_peaks</span>
+</span><span id="deconvolute_region-122"><a href="#deconvolute_region-122"><span class="linenos">122</span></a>        <span class="n">deconvoluted_signal</span> <span class="o">=</span> <span class="p">(</span>
+</span><span id="deconvolute_region-123"><a href="#deconvolute_region-123"><span class="linenos">123</span></a>            <span class="n">magnitude</span> <span class="o">*</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">time_axis</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">retention_time</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">width</span><span class="p">)</span> <span class="o">+</span> <span class="n">baseline</span><span class="p">,</span>
+</span><span id="deconvolute_region-124"><a href="#deconvolute_region-124"><span class="linenos">124</span></a>        <span class="p">)</span>
+</span><span id="deconvolute_region-125"><a href="#deconvolute_region-125"><span class="linenos">125</span></a>
+</span><span id="deconvolute_region-126"><a href="#deconvolute_region-126"><span class="linenos">126</span></a>        <span class="k">if</span> <span class="n">baseline_subtract</span><span class="p">:</span>
+</span><span id="deconvolute_region-127"><a href="#deconvolute_region-127"><span class="linenos">127</span></a>            <span class="n">deconvoluted_signal</span> <span class="o">-=</span> <span class="n">baseline</span>
+</span><span id="deconvolute_region-128"><a href="#deconvolute_region-128"><span class="linenos">128</span></a>
+</span><span id="deconvolute_region-129"><a href="#deconvolute_region-129"><span class="linenos">129</span></a>        <span class="n">integral</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">deconvoluted_signal</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">time_axis</span><span class="p">)</span>
+</span><span id="deconvolute_region-130"><a href="#deconvolute_region-130"><span class="linenos">130</span></a>
+</span><span id="deconvolute_region-131"><a href="#deconvolute_region-131"><span class="linenos">131</span></a>        <span class="n">deconv_params</span> <span class="o">=</span> <span class="n">Deconvolution</span><span class="p">(</span>
+</span><span id="deconvolute_region-132"><a href="#deconvolute_region-132"><span class="linenos">132</span></a>            <span class="p">{</span>
+</span><span id="deconvolute_region-133"><a href="#deconvolute_region-133"><span class="linenos">133</span></a>                <span class="s2">&quot;magnitude&quot;</span><span class="p">:</span> <span class="n">magnitude</span><span class="p">,</span>
+</span><span id="deconvolute_region-134"><a href="#deconvolute_region-134"><span class="linenos">134</span></a>                <span class="s2">&quot;loc&quot;</span><span class="p">:</span> <span class="n">retention_time</span><span class="p">,</span>
+</span><span id="deconvolute_region-135"><a href="#deconvolute_region-135"><span class="linenos">135</span></a>                <span class="s2">&quot;scale&quot;</span><span class="p">:</span> <span class="n">width</span><span class="p">,</span>
+</span><span id="deconvolute_region-136"><a href="#deconvolute_region-136"><span class="linenos">136</span></a>                <span class="s2">&quot;baseline&quot;</span><span class="p">:</span> <span class="n">baseline</span><span class="p">,</span>
+</span><span id="deconvolute_region-137"><a href="#deconvolute_region-137"><span class="linenos">137</span></a>            <span class="p">},</span>
+</span><span id="deconvolute_region-138"><a href="#deconvolute_region-138"><span class="linenos">138</span></a>            <span class="n">region</span><span class="p">,</span>
+</span><span id="deconvolute_region-139"><a href="#deconvolute_region-139"><span class="linenos">139</span></a>            <span class="s2">&quot;scipy.norm.pdf() + baseline&quot;</span><span class="p">,</span>
+</span><span id="deconvolute_region-140"><a href="#deconvolute_region-140"><span class="linenos">140</span></a>        <span class="p">)</span>
+</span><span id="deconvolute_region-141"><a href="#deconvolute_region-141"><span class="linenos">141</span></a>
+</span><span id="deconvolute_region-142"><a href="#deconvolute_region-142"><span class="linenos">142</span></a>        <span class="n">new_peaks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+</span><span id="deconvolute_region-143"><a href="#deconvolute_region-143"><span class="linenos">143</span></a>            <span class="n">Peak</span><span class="p">(</span>
+</span><span id="deconvolute_region-144"><a href="#deconvolute_region-144"><span class="linenos">144</span></a>                <span class="n">retention_time</span><span class="p">,</span>
+</span><span id="deconvolute_region-145"><a href="#deconvolute_region-145"><span class="linenos">145</span></a>                <span class="n">start</span><span class="p">,</span>
+</span><span id="deconvolute_region-146"><a href="#deconvolute_region-146"><span class="linenos">146</span></a>                <span class="n">end</span><span class="p">,</span>
+</span><span id="deconvolute_region-147"><a href="#deconvolute_region-147"><span class="linenos">147</span></a>                <span class="n">indices</span><span class="o">=</span><span class="n">indices</span><span class="p">,</span>
+</span><span id="deconvolute_region-148"><a href="#deconvolute_region-148"><span class="linenos">148</span></a>                <span class="n">height</span><span class="o">=</span><span class="n">magnitude</span><span class="p">,</span>
+</span><span id="deconvolute_region-149"><a href="#deconvolute_region-149"><span class="linenos">149</span></a>                <span class="n">integral</span><span class="o">=</span><span class="n">integral</span><span class="p">,</span>
+</span><span id="deconvolute_region-150"><a href="#deconvolute_region-150"><span class="linenos">150</span></a>                <span class="n">deconvolution_params</span><span class="o">=</span><span class="n">deconv_params</span><span class="p">,</span>
+</span><span id="deconvolute_region-151"><a href="#deconvolute_region-151"><span class="linenos">151</span></a>            <span class="p">)</span>
+</span><span id="deconvolute_region-152"><a href="#deconvolute_region-152"><span class="linenos">152</span></a>        <span class="p">)</span>
+</span><span id="deconvolute_region-153"><a href="#deconvolute_region-153"><span class="linenos">153</span></a>
+</span><span id="deconvolute_region-154"><a href="#deconvolute_region-154"><span class="linenos">154</span></a>    <span class="k">return</span> <span class="n">new_peaks</span>
 </span></pre></div>
 
 
@@ -388,14 +394,15 @@ Chromatogram</li>
 region of chromatogram under operation [lower bound, upper bound]</li>
 <li><strong>num_peaks</strong> (int):
 Number of peaks expected in the region.</li>
+<li><strong>baseline_subtract</strong> (bool):
+Whether to subtract the fitted baseline from the deconvoluted peaks</li>
 </ul>
 
 <h6 id="returns">Returns</h6>
 
 <ul>
-<li><strong>result</strong> (ndarray):
-Array of fitted values for each peak:
-[[magnitude, positions, widths, baseline],]</li>
+<li><strong>new_peaks</strong> (list[Peak]):
+List of deconvoluted peaks.</li>
 </ul>
 </div>
 
@@ -607,60 +614,52 @@ processed signal if ms info present.</li>
 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">assign_retention_time</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">retention_time</span>, </span><span class="param"><span class="n">boundaries</span></span><span class="return-annotation">):</span></span>
+        <span class="name">assign_retention_time</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">peak</span><span class="p">:</span> <span class="n">ChromProcess</span><span class="o">.</span><span class="n">Classes</span><span class="o">.</span><span class="n">peak</span><span class="o">.</span><span class="n">Peak</span>,</span><span class="param">	<span class="n">boundaries</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span></span><span class="return-annotation">) -> <span class="nb">str</span>:</span></span>
 
                 <label class="view-source-button" for="assign_retention_time-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#assign_retention_time"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="assign_retention_time-2"><a href="#assign_retention_time-2"><span class="linenos"> 2</span></a><span class="k">def</span> <span class="nf">assign_retention_time</span><span class="p">(</span><span class="n">retention_time</span><span class="p">,</span> <span class="n">boundaries</span><span class="p">):</span>
-</span><span id="assign_retention_time-3"><a href="#assign_retention_time-3"><span class="linenos"> 3</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="assign_retention_time-4"><a href="#assign_retention_time-4"><span class="linenos"> 4</span></a><span class="sd">    Takes a peak (retention times of peak) and assigns peak name based on a</span>
-</span><span id="assign_retention_time-5"><a href="#assign_retention_time-5"><span class="linenos"> 5</span></a><span class="sd">    dictionary of boundaries. The assignment priority is based on the</span>
-</span><span id="assign_retention_time-6"><a href="#assign_retention_time-6"><span class="linenos"> 6</span></a><span class="sd">    interation order of the dict (Python 3 dict)</span>
-</span><span id="assign_retention_time-7"><a href="#assign_retention_time-7"><span class="linenos"> 7</span></a>
-</span><span id="assign_retention_time-8"><a href="#assign_retention_time-8"><span class="linenos"> 8</span></a><span class="sd">    Possible TODO: Re-implement as decision tree. The current method works, but</span>
-</span><span id="assign_retention_time-9"><a href="#assign_retention_time-9"><span class="linenos"> 9</span></a><span class="sd">    relies upon Python 3 dictionary ordering and potentially some wasted</span>
-</span><span id="assign_retention_time-10"><a href="#assign_retention_time-10"><span class="linenos">10</span></a><span class="sd">    iteration. However, performance is not currently an issue.</span>
-</span><span id="assign_retention_time-11"><a href="#assign_retention_time-11"><span class="linenos">11</span></a>
-</span><span id="assign_retention_time-12"><a href="#assign_retention_time-12"><span class="linenos">12</span></a><span class="sd">    Parameters</span>
-</span><span id="assign_retention_time-13"><a href="#assign_retention_time-13"><span class="linenos">13</span></a><span class="sd">    ----------</span>
-</span><span id="assign_retention_time-14"><a href="#assign_retention_time-14"><span class="linenos">14</span></a><span class="sd">    retention_time: float</span>
-</span><span id="assign_retention_time-15"><a href="#assign_retention_time-15"><span class="linenos">15</span></a><span class="sd">        retention time of a peak</span>
-</span><span id="assign_retention_time-16"><a href="#assign_retention_time-16"><span class="linenos">16</span></a><span class="sd">    boundaries: dict</span>
-</span><span id="assign_retention_time-17"><a href="#assign_retention_time-17"><span class="linenos">17</span></a><span class="sd">        dictionary of boundaries for peak assignments</span>
-</span><span id="assign_retention_time-18"><a href="#assign_retention_time-18"><span class="linenos">18</span></a>
-</span><span id="assign_retention_time-19"><a href="#assign_retention_time-19"><span class="linenos">19</span></a><span class="sd">    Returns</span>
-</span><span id="assign_retention_time-20"><a href="#assign_retention_time-20"><span class="linenos">20</span></a><span class="sd">    -------</span>
-</span><span id="assign_retention_time-21"><a href="#assign_retention_time-21"><span class="linenos">21</span></a><span class="sd">    peak_name: str</span>
-</span><span id="assign_retention_time-22"><a href="#assign_retention_time-22"><span class="linenos">22</span></a><span class="sd">        name of the peak. If the peak has no assignment, the peak retention time</span>
-</span><span id="assign_retention_time-23"><a href="#assign_retention_time-23"><span class="linenos">23</span></a><span class="sd">        is returned</span>
-</span><span id="assign_retention_time-24"><a href="#assign_retention_time-24"><span class="linenos">24</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="assign_retention_time-25"><a href="#assign_retention_time-25"><span class="linenos">25</span></a>
-</span><span id="assign_retention_time-26"><a href="#assign_retention_time-26"><span class="linenos">26</span></a>    <span class="c1"># Default assignment to rounded retention time.</span>
-</span><span id="assign_retention_time-27"><a href="#assign_retention_time-27"><span class="linenos">27</span></a>    <span class="n">peak_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">retention_time</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-</span><span id="assign_retention_time-28"><a href="#assign_retention_time-28"><span class="linenos">28</span></a>    <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">boundaries</span><span class="p">:</span>
-</span><span id="assign_retention_time-29"><a href="#assign_retention_time-29"><span class="linenos">29</span></a>        <span class="k">if</span> <span class="n">boundaries</span><span class="p">[</span><span class="n">b</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">retention_time</span> <span class="o">&lt;</span> <span class="n">boundaries</span><span class="p">[</span><span class="n">b</span><span class="p">][</span><span class="mi">1</span><span class="p">]:</span>
-</span><span id="assign_retention_time-30"><a href="#assign_retention_time-30"><span class="linenos">30</span></a>            <span class="n">peak_name</span> <span class="o">=</span> <span class="n">b</span>
-</span><span id="assign_retention_time-31"><a href="#assign_retention_time-31"><span class="linenos">31</span></a>            <span class="k">break</span>
-</span><span id="assign_retention_time-32"><a href="#assign_retention_time-32"><span class="linenos">32</span></a>
-</span><span id="assign_retention_time-33"><a href="#assign_retention_time-33"><span class="linenos">33</span></a>    <span class="k">return</span> <span class="n">peak_name</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="assign_retention_time-5"><a href="#assign_retention_time-5"><span class="linenos"> 5</span></a><span class="k">def</span> <span class="nf">assign_retention_time</span><span class="p">(</span><span class="n">peak</span><span class="p">:</span> <span class="n">Peak</span><span class="p">,</span> <span class="n">boundaries</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="assign_retention_time-6"><a href="#assign_retention_time-6"><span class="linenos"> 6</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="assign_retention_time-7"><a href="#assign_retention_time-7"><span class="linenos"> 7</span></a><span class="sd">    Takes a peak (retention times of peak) and assigns peak name based on a</span>
+</span><span id="assign_retention_time-8"><a href="#assign_retention_time-8"><span class="linenos"> 8</span></a><span class="sd">    dictionary of boundaries. The assignment priority is based on the</span>
+</span><span id="assign_retention_time-9"><a href="#assign_retention_time-9"><span class="linenos"> 9</span></a><span class="sd">    iteration order of the dict (Python 3 dict).</span>
+</span><span id="assign_retention_time-10"><a href="#assign_retention_time-10"><span class="linenos">10</span></a>
+</span><span id="assign_retention_time-11"><a href="#assign_retention_time-11"><span class="linenos">11</span></a><span class="sd">    Parameters</span>
+</span><span id="assign_retention_time-12"><a href="#assign_retention_time-12"><span class="linenos">12</span></a><span class="sd">    ----------</span>
+</span><span id="assign_retention_time-13"><a href="#assign_retention_time-13"><span class="linenos">13</span></a><span class="sd">    retention_time: Peak</span>
+</span><span id="assign_retention_time-14"><a href="#assign_retention_time-14"><span class="linenos">14</span></a><span class="sd">        Peak to be assigned.</span>
+</span><span id="assign_retention_time-15"><a href="#assign_retention_time-15"><span class="linenos">15</span></a><span class="sd">    boundaries: dict</span>
+</span><span id="assign_retention_time-16"><a href="#assign_retention_time-16"><span class="linenos">16</span></a><span class="sd">        dictionary of boundaries for peak assignments</span>
+</span><span id="assign_retention_time-17"><a href="#assign_retention_time-17"><span class="linenos">17</span></a>
+</span><span id="assign_retention_time-18"><a href="#assign_retention_time-18"><span class="linenos">18</span></a><span class="sd">    Returns</span>
+</span><span id="assign_retention_time-19"><a href="#assign_retention_time-19"><span class="linenos">19</span></a><span class="sd">    -------</span>
+</span><span id="assign_retention_time-20"><a href="#assign_retention_time-20"><span class="linenos">20</span></a><span class="sd">    peak_name: str</span>
+</span><span id="assign_retention_time-21"><a href="#assign_retention_time-21"><span class="linenos">21</span></a><span class="sd">        Name for the peak. If the peak has no assignment, the peak retention</span>
+</span><span id="assign_retention_time-22"><a href="#assign_retention_time-22"><span class="linenos">22</span></a><span class="sd">        time is returned, rounded to 3 decimal places.</span>
+</span><span id="assign_retention_time-23"><a href="#assign_retention_time-23"><span class="linenos">23</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="assign_retention_time-24"><a href="#assign_retention_time-24"><span class="linenos">24</span></a>
+</span><span id="assign_retention_time-25"><a href="#assign_retention_time-25"><span class="linenos">25</span></a>    <span class="c1"># Default assignment to rounded retention time.</span>
+</span><span id="assign_retention_time-26"><a href="#assign_retention_time-26"><span class="linenos">26</span></a>    <span class="n">peak_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">peak</span><span class="o">.</span><span class="n">retention_time</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</span><span id="assign_retention_time-27"><a href="#assign_retention_time-27"><span class="linenos">27</span></a>    <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">boundaries</span><span class="p">:</span>
+</span><span id="assign_retention_time-28"><a href="#assign_retention_time-28"><span class="linenos">28</span></a>        <span class="k">if</span> <span class="n">boundaries</span><span class="p">[</span><span class="n">b</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">peak</span><span class="o">.</span><span class="n">retention_time</span> <span class="o">&lt;</span> <span class="n">boundaries</span><span class="p">[</span><span class="n">b</span><span class="p">][</span><span class="mi">1</span><span class="p">]:</span>
+</span><span id="assign_retention_time-29"><a href="#assign_retention_time-29"><span class="linenos">29</span></a>            <span class="n">peak_name</span> <span class="o">=</span> <span class="n">b</span>
+</span><span id="assign_retention_time-30"><a href="#assign_retention_time-30"><span class="linenos">30</span></a>            <span class="k">break</span>
+</span><span id="assign_retention_time-31"><a href="#assign_retention_time-31"><span class="linenos">31</span></a>
+</span><span id="assign_retention_time-32"><a href="#assign_retention_time-32"><span class="linenos">32</span></a>    <span class="k">return</span> <span class="n">peak_name</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Takes a peak (retention times of peak) and assigns peak name based on a
 dictionary of boundaries. The assignment priority is based on the
-interation order of the dict (Python 3 dict)</p>
-
-<p>Possible TODO: Re-implement as decision tree. The current method works, but
-relies upon Python 3 dictionary ordering and potentially some wasted
-iteration. However, performance is not currently an issue.</p>
+iteration order of the dict (Python 3 dict).</p>
 
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><strong>retention_time</strong> (float):
-retention time of a peak</li>
+<li><strong>retention_time</strong> (Peak):
+Peak to be assigned.</li>
 <li><strong>boundaries</strong> (dict):
 dictionary of boundaries for peak assignments</li>
 </ul>
@@ -669,8 +668,8 @@ dictionary of boundaries for peak assignments</li>
 
 <ul>
 <li><strong>peak_name</strong> (str):
-name of the peak. If the peak has no assignment, the peak retention time
-is returned</li>
+Name for the peak. If the peak has no assignment, the peak retention
+time is returned, rounded to 3 decimal places.</li>
 </ul>
 </div>
 
