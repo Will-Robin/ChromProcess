@@ -49,3 +49,24 @@ class AnalysisInformation:
         self.dilution_factor_error = 0.0
         self.internal_standard_concentration = 0.0
         self.internal_standard_concentration_error = 0.0
+
+    def __str__(self):
+        str_repr = f"""
+        experiment code: {self.experiment_code}
+        analysis type: {self.analysis_type}
+        derivatisation method: {self.derivatisation_method}
+        instrument: {self.instrument}
+        instrument method: {self.instrument_method}
+        calibration model: {self.calibration_model}
+        calibration file: {self.calibration_file}
+        regions: {self.regions}
+        internal standard region: {self.internal_standard_region}
+        use MS: {self.use_MS}
+        MS cutoff: {self.MS_cutoff}
+        peak pick threshold: {self.peak_pick_threshold}
+        dilution factor: {self.dilution_factor}
+        dilution factor error: {self.dilution_factor_error}
+        IS concentration: {self.internal_standard_concentration}
+        IS concentration_error: {self.internal_standard_concentration_error}
+        """
+        return str_repr

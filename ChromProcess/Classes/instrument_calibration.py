@@ -35,6 +35,23 @@ class InstrumentCalibration:
         self.internal_standard_position = 0.0
         self.modified_bounds = dict()
 
+    def __str__(self):
+        str_repr = f"""
+        filename: {self.filename}
+        calibration_factors: {self.calibration_factors}
+        boundaries: {self.boundaries}
+        type: {self.type}
+        date: {self.date}
+        method: {self.method}
+        derivatisation: {self.derivatisation}
+        calibration_model: {self.calibration_model}
+        instrument: {self.instrument}
+        calibration_factors: {self.calibration_factors}
+        internal_standard_position: {self.internal_standard_position}
+        modified_bounds: {self.modified_bounds}
+        """
+        return str_repr
+
     def get_info(self):
         return {
             "date": self.date,

@@ -26,3 +26,12 @@ class ExperimentConditions:
         self.series_values: list[str | float] = []
         self.series_unit: str = "not specified"
         self.conditions: dict[str, Any] = dict()
+
+    def __str__(self):
+        str_repr = f"""
+        experiment_code: {self.experiment_code}
+        series_values: {self.series_values}
+        series_unit: {self.series_unit}
+        conditions: {self.conditions}
+        """
+        return str_repr

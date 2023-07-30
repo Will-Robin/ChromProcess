@@ -57,6 +57,20 @@ class Chromatogram:
 
         self.internal_standard: Peak = Peak(0.0, 0.0, 0.0)
 
+    def __str__(self):
+        str_repr = f"""
+        file name: {self.filename}
+        x unit: {self.x_unit}
+        y unit: {self.y_unit}
+        time: {len(self.time)} data points
+        signal: {len(self.signal)} data points
+        peaks: {len(self.peaks)}
+        deconvoluted peaks: {len(self.deconvoluted_peaks)}
+        internal_standard: {self.internal_standard.retention_time}
+        mass spectral infomation: {"yes" if len(self.mz_values) > 0 else "no"}
+        """
+        return str_repr
+
     def add_peaks(self, peaks: list[Peak]) -> None:
         """
         Add peaks to a chromatogram.

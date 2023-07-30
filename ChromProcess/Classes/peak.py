@@ -84,6 +84,18 @@ class Peak:
 
         self.deconvolution_params = deconvolution_params
 
+    def __str__(self):
+        str_repr = f"""
+        retention time: {self.retention_time}
+        start: {self.start}
+        end: {self.end}
+        height: {self.height}
+        integral: {self.integral}
+        ion chromatograms: {len(self.ion_chromatograms)}
+        assignment: {self.assignment}
+        """
+        return str_repr
+
     def set_retention_time(self, retention_time: float) -> None:
         """
         Set the peak retention time.
