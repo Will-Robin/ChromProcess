@@ -1,3 +1,6 @@
+"""
+General purpose functionality.
+"""
 from .error_propagation import sum_error_prop
 from .error_propagation import mult_div_error_prop
 

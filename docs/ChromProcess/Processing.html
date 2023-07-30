@@ -428,7 +428,7 @@ List of deconvoluted peaks.</li>
 </span><span id="ic_background_subtraction-54"><a href="#ic_background_subtraction-54"><span class="linenos">54</span></a>
 </span><span id="ic_background_subtraction-55"><a href="#ic_background_subtraction-55"><span class="linenos">55</span></a><span class="sd">    Parameters</span>
 </span><span id="ic_background_subtraction-56"><a href="#ic_background_subtraction-56"><span class="linenos">56</span></a><span class="sd">    ----------</span>
-</span><span id="ic_background_subtraction-57"><a href="#ic_background_subtraction-57"><span class="linenos">57</span></a><span class="sd">    chromatogram: ChromProcess.Classes.Chromatogram</span>
+</span><span id="ic_background_subtraction-57"><a href="#ic_background_subtraction-57"><span class="linenos">57</span></a><span class="sd">    chromatogram: Chromatogram</span>
 </span><span id="ic_background_subtraction-58"><a href="#ic_background_subtraction-58"><span class="linenos">58</span></a><span class="sd">        Chromatogram to be processed.</span>
 </span><span id="ic_background_subtraction-59"><a href="#ic_background_subtraction-59"><span class="linenos">59</span></a><span class="sd">    threshold: float</span>
 </span><span id="ic_background_subtraction-60"><a href="#ic_background_subtraction-60"><span class="linenos">60</span></a><span class="sd">        Ion chromatograms which do not exceed this threshold will be removed</span>
@@ -437,8 +437,8 @@ List of deconvoluted peaks.</li>
 </span><span id="ic_background_subtraction-63"><a href="#ic_background_subtraction-63"><span class="linenos">63</span></a><span class="sd">    Returns</span>
 </span><span id="ic_background_subtraction-64"><a href="#ic_background_subtraction-64"><span class="linenos">64</span></a><span class="sd">    -------</span>
 </span><span id="ic_background_subtraction-65"><a href="#ic_background_subtraction-65"><span class="linenos">65</span></a><span class="sd">    1D numpy array.</span>
-</span><span id="ic_background_subtraction-66"><a href="#ic_background_subtraction-66"><span class="linenos">66</span></a><span class="sd">        Original signal if not mass spectra information present.</span>
-</span><span id="ic_background_subtraction-67"><a href="#ic_background_subtraction-67"><span class="linenos">67</span></a><span class="sd">        processed signal if ms info present.</span>
+</span><span id="ic_background_subtraction-66"><a href="#ic_background_subtraction-66"><span class="linenos">66</span></a><span class="sd">        Original signal if no mass spectral information is present in the</span>
+</span><span id="ic_background_subtraction-67"><a href="#ic_background_subtraction-67"><span class="linenos">67</span></a><span class="sd">        chromatogram, processed signal if ms info is present.</span>
 </span><span id="ic_background_subtraction-68"><a href="#ic_background_subtraction-68"><span class="linenos">68</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="ic_background_subtraction-69"><a href="#ic_background_subtraction-69"><span class="linenos">69</span></a>
 </span><span id="ic_background_subtraction-70"><a href="#ic_background_subtraction-70"><span class="linenos">70</span></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">chromatogram</span><span class="o">.</span><span class="n">mz_intensity</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -461,7 +461,7 @@ chromatogram ommitting m/z signals which do not exceed a threshold.</p>
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><strong>chromatogram</strong> (<a href="Classes.html#Chromatogram">ChromProcess.Classes.Chromatogram</a>):
+<li><strong>chromatogram</strong> (Chromatogram):
 Chromatogram to be processed.</li>
 <li><strong>threshold</strong> (float):
 Ion chromatograms which do not exceed this threshold will be removed
@@ -471,8 +471,8 @@ before the total ion chromatogram is reconsituted.</li>
 <h6 id="returns">Returns</h6>
 
 <ul>
-<li><strong>1D numpy array.</strong>: Original signal if not mass spectra information present.
-processed signal if ms info present.</li>
+<li><strong>1D numpy array.</strong>: Original signal if no mass spectral information is present in the
+chromatogram, processed signal if ms info is present.</li>
 </ul>
 </div>
 

@@ -53,7 +53,7 @@ def ic_background_subtraction(
 
     Parameters
     ----------
-    chromatogram: ChromProcess.Classes.Chromatogram
+    chromatogram: Chromatogram
         Chromatogram to be processed.
     threshold: float
         Ion chromatograms which do not exceed this threshold will be removed
@@ -62,8 +62,8 @@ def ic_background_subtraction(
     Returns
     -------
     1D numpy array.
-        Original signal if not mass spectra information present.
-        processed signal if ms info present.
+        Original signal if no mass spectral information is present in the
+        chromatogram, processed signal if ms info is present.
     """
 
     if len(chromatogram.mz_intensity) == 0:

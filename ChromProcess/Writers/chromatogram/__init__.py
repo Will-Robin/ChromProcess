@@ -1,3 +1,7 @@
+"""
+This module contains functions for converting Chromatogram objects into various
+formats for storage or further processing.
+"""
 from .chromatogram_to_csv import chromatogram_to_csv
 from .chromatogram_to_csv import chromatogram_to_csv_text
 from .chromatogram_to_json import chromatogram_to_json
