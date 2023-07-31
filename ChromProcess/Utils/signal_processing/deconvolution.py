@@ -36,16 +36,16 @@ def fit_pdf(time, signal, peaks, expected_heights, expected_widths, baseline):
     guess = np.hstack([expected_heights, peaks, expected_widths, [baseline]])
 
     # magnitude bounds
-    mag_lower_bound = signal.min()
-    mag_upper_bound = signal.max()
+    mag_lower_range = np.full(len(peaks), min(signal.min(), min(peaks)))
+    mag_upper_range = np.full(len(peaks), max(signal.max(), max(peaks)))
 
     # position bounds
-    position_lower_bound = time.min()
-    position_upper_bound = time.max()
+    position_lower_range = np.full(len(peaks), time.min())
+    position_upper_range = np.full(len(peaks), time.max())
 
     # width bounds
-    width_lower_bound = expected_widths.min()
-    width_upper_bound = expected_widths.max()
+    width_lower_range = expected_widths * 0.5
+    width_upper_range = expected_widths * 2.0
 
     # baseline bounds
     baseline_lower_bound = 0.0
@@ -54,21 +54,32 @@ def fit_pdf(time, signal, peaks, expected_heights, expected_widths, baseline):
     bounds = (
         np.hstack(
             [
-                np.full(len(peaks), mag_lower_bound),
-                np.full(len(peaks), position_lower_bound),
-                np.full(len(peaks), width_lower_bound),
+                mag_lower_range,
+                position_lower_range,
+                width_lower_range,
                 baseline_lower_bound,
             ]
         ),
         np.hstack(
             [
-                np.full(len(peaks), mag_upper_bound),
-                np.full(len(peaks), position_upper_bound),
-                np.full(len(peaks), width_upper_bound),
+                mag_upper_range,
+                position_upper_range,
+                width_upper_range,
                 baseline_upper_bound,
             ]
         ),
     )
+
+    # Check bounds
+    lower_bound_check = guess - bounds[0]
+    if lower_bound_check.min() < 0.0:
+        print("An initial guess is lower than the lower bounds.")
+        print(lower_bound_check)
+
+    upper_bound_check = bounds[1] - guess
+    if upper_bound_check.min() < 0.0:
+        print("An initial guess is higher than the upper bounds.")
+        print(upper_bound_check)
 
     popt, pcov = curve_fit(
         pdf_wrapper, rep_time, signal, p0=guess, bounds=bounds, method="trf"

@@ -65,17 +65,13 @@ def deconvolute_region(
     if len(peaks) < num_peaks:
         pad_len = num_peaks - len(peaks)
 
-        # TODO
-        # Assume that any undetected peaks fall within the bounds of
-        # the detected peaks
-        # Prioritise adding peaks into the broadest peak
         peaks = np.hstack((peaks, np.linspace(time.min(), time.max(), pad_len)))
 
         width_init = np.pad(
             width_init,
             (0, pad_len),
             mode="constant",
-            constant_values=(0.0, time.std(ddof=1)),
+            constant_values=(0.0, width_init.mean()),
         )
 
         height_init = np.pad(
