@@ -35,21 +35,37 @@ def fit_pdf(time, signal, peaks, expected_heights, expected_widths, baseline):
 
     guess = np.hstack([expected_heights, peaks, expected_widths, [baseline]])
 
+    # magnitude bounds
+    mag_lower_bound = signal.min()
+    mag_upper_bound = signal.max()
+
+    # position bounds
+    position_lower_bound = time.min()
+    position_upper_bound = time.max()
+
+    # width bounds
+    width_lower_bound = expected_widths.min()
+    width_upper_bound = expected_widths.max()
+
+    # baseline bounds
+    baseline_lower_bound = 0.0
+    baseline_upper_bound = np.std(signal, ddof=1)
+
     bounds = (
         np.hstack(
             [
-                np.full(len(peaks), signal.min()),
-                np.full(len(peaks), time.min()),
-                np.full(len(peaks), expected_widths.min()),
-                0.0,
+                np.full(len(peaks), mag_lower_bound),
+                np.full(len(peaks), position_lower_bound),
+                np.full(len(peaks), width_lower_bound),
+                baseline_lower_bound,
             ]
         ),
         np.hstack(
             [
-                np.full(len(peaks), signal.max()),
-                np.full(len(peaks), time.max()),
-                np.full(len(peaks), expected_widths.max()),
-                np.std(time, ddof=1),
+                np.full(len(peaks), mag_upper_bound),
+                np.full(len(peaks), position_upper_bound),
+                np.full(len(peaks), width_upper_bound),
+                baseline_upper_bound,
             ]
         ),
     )
