@@ -11,6 +11,7 @@ def deconvolute_region(
     region: list[float],
     num_peaks: int = 1,
     baseline_subtract: bool = False,
+    peak_bound_estimates: list[list[float]] = [],
 ) -> list[Peak]:
     """
     Deconvolute a region of a chromatogram.
@@ -65,21 +66,19 @@ def deconvolute_region(
     if len(peaks) < num_peaks:
         pad_len = num_peaks - len(peaks)
 
-        peaks = np.hstack((peaks, np.linspace(time.min(), time.max(), pad_len)))
+        # First, try to fill missing peak bounds with any supplied peak bound estimates
+        for p in peak_bound_estimates:
+            peaks = np.hstack((peaks, [(p[1] + p[0]) / 2.0]))
+            region_mask = (time >= p[0]) & (time <= p[1])
+            width_init = np.hstack((width_init, [time[region_mask].std()]))
+            height_init = np.hstack((height_init, [signal[region_mask].max()]))
+            pad_len -= 1
 
-        width_init = np.pad(
-            width_init,
-            (0, pad_len),
-            mode="constant",
-            constant_values=(0.0, width_init.mean()),
-        )
-
-        height_init = np.pad(
-            height_init,
-            (0, pad_len),
-            mode="constant",
-            constant_values=(0.0, signal.mean()),
-        )
+        # For any remaining deconvolutions, use estimates from the signal
+        if pad_len > 0:
+            peaks = np.hstack((peaks, np.linspace(time.min(), time.max(), pad_len)))
+            width_init = np.hstack((width_init, np.full(pad_len, width_init.mean())))
+            height_init = np.hstack((height_init, np.full(pad_len, signal.mean())))
 
     # Scale heights
     height_init /= len(height_init)
