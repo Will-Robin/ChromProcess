@@ -119,7 +119,7 @@ def deconvolute_region(
         time_axis = chromatogram.time[indices]
 
         deconvoluted_signal = (
-            magnitude * norm.pdf(time_axis, loc=retention_time, scale=width) + baseline,
+            magnitude * norm.pdf(time_axis, loc=retention_time, scale=width) + baseline
         )
 
         if baseline_subtract:
