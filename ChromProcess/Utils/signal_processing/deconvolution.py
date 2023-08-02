@@ -49,7 +49,7 @@ def fit_pdf(time, signal, peaks, expected_heights, expected_widths, baseline):
 
     # baseline bounds
     baseline_lower_bound = 0.0
-    baseline_upper_bound = np.std(signal, ddof=1)
+    baseline_upper_bound = signal.max()
 
     bounds = (
         np.hstack(
