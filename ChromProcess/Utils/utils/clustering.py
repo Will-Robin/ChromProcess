@@ -86,7 +86,7 @@ def create_bins(time_array: np.ndarray, width: float) -> list[tuple[float, float
     bin_borders = []
     for c in clusters:
         if len(c) == 1:
-            bin_borders.append((c[0] - width / 10, c[0] + width / 10))
+            bin_borders.append((c[0], c[0]))
         else:
             lower = np.min(c)
             upper = np.max(c)
