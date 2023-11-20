@@ -98,18 +98,19 @@ def get_peak_height(
         Height of the peak.
     """
 
-    idx = np.where(chromatogram.time == peak.retention_time)[0]
     if len(idx) > 0:
         if baseline_subtract:
             time = chromatogram.time[peak.indices]
             signal = chromatogram.signal[peak.indices]
+            idx = (time - peak.retention_time).argmax()
             time_bound = [time[0], time[-1]]
             signal_bound = [signal[0], signal[-1]]
             linterp = np.interp(time, time_bound, signal_bound)
-            baseline_at_peak = linterp[idx[0]]
-            height = chromatogram.signal[idx[0]] - baseline_at_peak
+            baseline_at_peak = linterp[idx]
+            height = chromatogram.signal[idx] - baseline_at_peak
         else:
-            height = chromatogram.signal[idx[0]]
+            idx = (chromatogram.time - peak.retention_time).argmax()
+            height = chromatogram.signal[idx]
     else:
         print(
             f"""Could not find Peak retention time ({peak.retention_time})
