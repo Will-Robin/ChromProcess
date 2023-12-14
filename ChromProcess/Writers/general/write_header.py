@@ -27,7 +27,7 @@ def write_conditions_header(
     for c in conditions.conditions:
         header_text += f"{c},"
 
-        if type(conditions.conditions[c]) == list:
+        if isinstance(conditions.conditions[c], list):
             for x in conditions.conditions[c]:
                 header_text += f"{x},"
         else:
