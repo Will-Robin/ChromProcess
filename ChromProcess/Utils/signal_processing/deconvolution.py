@@ -51,6 +51,7 @@ def fit_pdf(time, signal, peaks, expected_heights, expected_widths, baseline):
     baseline_lower_bound = 0.0
     baseline_upper_bound = signal.max()
 
+    bound_labels = ["magnitude", "position", "width", "baseline"]
     bounds = (
         np.hstack(
             [
@@ -73,13 +74,29 @@ def fit_pdf(time, signal, peaks, expected_heights, expected_widths, baseline):
     # Check bounds
     lower_bound_check = guess - bounds[0]
     if lower_bound_check.min() < 0.0:
-        print("An initial guess is lower than the lower bounds.")
-        print(lower_bound_check)
+        for x in range(0, len(lower_bound_check)):
+            if lower_bound_check[x] < 0:
+                print(
+                    f"""
+                An initial guess is lower than the lower bounds:
+                      name: {bound_labels[x]}
+                      value: {bounds[0][x]}
+                      guess: {guess[x]}
+                """
+                )
 
     upper_bound_check = bounds[1] - guess
     if upper_bound_check.min() < 0.0:
-        print("An initial guess is higher than the upper bounds.")
-        print(upper_bound_check)
+        for x in range(0, len(upper_bound_check)):
+            if upper_bound_check[x] < 0:
+                print(
+                    f"""
+                An initial guess is higher than the upper bounds:
+                      name: {bound_labels[x]}
+                      value: {bounds[1][x]}
+                      guess: {guess[x]}
+                """
+                )
 
     popt, pcov = curve_fit(
         pdf_wrapper, rep_time, signal, p0=guess, bounds=bounds, method="trf"
