@@ -10,7 +10,8 @@ def find_peaks_in_region(
     start: float,
     end: float,
     threshold: float = 0.1,
-    wlen: int = 50,
+    smooth_width: float = 10,
+    wlen: int = 10,
     distance: int = 1,
     prominence: float = 0.1,
     peak_local_baseline: bool = False,
@@ -28,10 +29,13 @@ def find_peaks_in_region(
     threshold: float
         Peaks below this fraction of the highest intensity of the chromatogram
         will not be picked.
+    smooth_width: int
+        Width for smoothing window.
     wlen: int
         Size of peak picking window in indices.
     distance: int
     prominence: float
+    peak_local_baseline: bool
 
     Returns
     -------
@@ -49,7 +53,12 @@ def find_peaks_in_region(
     signal = chromatogram.signal[inds]
 
     picked_peaks = pick_peaks(
-        signal, distance=distance, threshold=threshold, prominence=prominence, wlen=wlen
+        signal,
+        smooth_width=smooth_width,
+        distance=distance,
+        threshold=threshold,
+        prominence=prominence,
+        wlen=wlen,
     )
 
     peaks = []

@@ -3,25 +3,36 @@ from scipy.signal import find_peaks
 from ChromProcess.Utils.signal_processing import signal_processing as sig
 
 
-def pick_peaks(signal, distance=1, threshold=0.1, prominence=0.1, wlen=1001):
+def pick_peaks(
+    signal, smooth_width=10, distance=1, threshold=0.1, prominence=0.1, wlen=10
+):
     """
     Peak detection routine.
 
     Parameters
     ----------
-    y: np.ndarray
-        1D amplitude data to search for peaks.
+    signal: np.array
+        Signal containing peaks
+    smooth_width: int
+        Width for smoothing window.
+    distance: int
+    threshold: float
+        Peaks below this fraction of the highest intensity of the chromatogram
+        will not be picked.
+    prominence: float
+    wlen: int
+        Size of peak picking window in indices.
 
     Returns
     -------
-    peak_indices: dict[str, np.ndarray]
+    peak_indices: diCt[str, np.ndarray]
         dict containing the indexes of the peaks that were detected and their
         start and end indices.
     """
 
     height = [signal.max() * threshold, signal.max()]
 
-    smoothed = sig.adjacent_average(signal, wlen)
+    smoothed = sig.adjacent_average(signal, smooth_width)
 
     peak_indices, _ = find_peaks(
         smoothed,
