@@ -33,7 +33,7 @@ def chrom_from_csv(file_path: str | Path) -> Chromatogram:
     if isinstance(file_path, Path):
         chromatogram.filename = file_path.name
     else:
-        chromatogram.filename = file_path
+        chromatogram.filename = Path(file_path).name
 
     x_vals = []
     y_vals = []
