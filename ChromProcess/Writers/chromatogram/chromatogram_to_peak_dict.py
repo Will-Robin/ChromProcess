@@ -1,7 +1,10 @@
+from ChromProcess.Classes import Peak
 from ChromProcess.Classes import Chromatogram
 
 
-def chromatogram_to_peak_dict(chromatogram: Chromatogram) -> dict[str, list[float]]:
+def chromatogram_to_peak_dict(
+    chromatogram: Chromatogram,
+) -> dict[str, list[float | str]]:
     """
     Create a spreadsheet-like dictionary of the peaks in a chromatogram.
 
@@ -11,10 +14,15 @@ def chromatogram_to_peak_dict(chromatogram: Chromatogram) -> dict[str, list[floa
 
     Returns
     -------
-    peaks: dict[str, list[float]]
+    peaks: dict[str, list[float | str]]
     """
 
-    peaks: dict[str, list[float]] = {
+    complete_peaks: list[Peak] = list(chromatogram.peaks.values()) + list(
+        chromatogram.deconvoluted_peaks.values()
+    )
+
+    peaks: dict[str, list[float | str]] = {
+        "filename": [],
         "retention_time": [],
         "integral": [],
         "height": [],
@@ -24,10 +32,6 @@ def chromatogram_to_peak_dict(chromatogram: Chromatogram) -> dict[str, list[floa
         "is_integral": [],
         "deconvoluted": [],
     }
-
-    complete_peaks = list(chromatogram.peaks.values()) + list(
-        chromatogram.deconvoluted_peaks.values()
-    )
 
     for peak in complete_peaks:
         integral = peak.integral
@@ -52,5 +56,7 @@ def chromatogram_to_peak_dict(chromatogram: Chromatogram) -> dict[str, list[floa
 
     is_integral = chromatogram.internal_standard.integral
     peaks["is_integral"] = [is_integral for p in complete_peaks]
+
+    peaks["filename"] = [chromatogram.filename for _ in complete_peaks]
 
     return peaks

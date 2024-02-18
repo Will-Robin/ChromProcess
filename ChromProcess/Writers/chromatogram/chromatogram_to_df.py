@@ -16,7 +16,7 @@ def chromatogram_to_df(chromatogram: Chromatogram) -> pd.DataFrame:
     df: pd.DataFrame
     """
 
-    peaks: dict[str, list[float]] = chromatogram_to_peak_dict(chromatogram)
+    peaks: dict[str, list[float | str]] = chromatogram_to_peak_dict(chromatogram)
 
     df = pd.DataFrame(peaks)
 
