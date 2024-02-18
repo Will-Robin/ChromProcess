@@ -17,8 +17,8 @@ class Peak:
         indices: list[int] = [],
         integral: float = 0.0,
         height: float = 0.0,
-        mass_spectrum: MassSpectrum = None,
-        deconvolution_params: Deconvolution = None,
+        mass_spectrum: MassSpectrum | None = None,
+        deconvolution_params: Deconvolution | None = None,
     ):
         """
         Creates a Peak object using a retention time

@@ -1,15 +1,13 @@
-# A code for the data set
-Dataset = "example_dataset_name"
+# A code for the data set
+dataset = "example_dataset_name"
 # Values of the series covered by the chromatograms
-Series_values = [10.0, 20.0, 30.0]
+series_values = [10.0, 20.0, 30.0]
+# Chromatogram filenames in the same order as series_values
+chromatograms = ["chrom_001.csv", "chrom_002.csv", "chrom_003.csv"]
 # Unit for the chromatogram series.
-Series_unit = "time/ s"
-# Not yet used: can be used to ensure correct mapping between files and series values.
-Chromatogram_order = ["chrom_001.csv", "chrom_002.csv", "chrom_003.csv"]
+series_unit = "time/ s"
 
 [conditions]
-# Condition_name = [magnitude, unit]
-# Condition_name = [[magnitude, magnitude, magnitude, ...], unit]
 dihydroxyacetone = [2.0, "M"]
 formaldehyde = [2.0, "M"]
 NaOH = [0.12, "M"]

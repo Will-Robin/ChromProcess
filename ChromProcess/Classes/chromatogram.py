@@ -8,7 +8,7 @@ class Chromatogram:
     A class for storing chromatographic data.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Initialise an empty chromatogram.
 
@@ -44,20 +44,20 @@ class Chromatogram:
         self.x_unit: str = ""
         self.y_unit: str = ""
 
-        self.time: np.ndarray = []
-        self.signal: np.ndarray = []
+        self.time: np.ndarray = np.array([])
+        self.signal: np.ndarray = np.array([])
 
         self.peaks: dict[float, Peak] = dict()
         self.deconvoluted_peaks: dict[float, Peak] = dict()
 
-        self.mz_values: np.ndarray = []
-        self.mz_intensity: np.ndarray = []
-        self.scan_indices: np.ndarray = []
-        self.point_counts: np.ndarray = []
+        self.mz_values: np.ndarray = np.array([])
+        self.mz_intensity: np.ndarray = np.array([])
+        self.scan_indices: np.ndarray = np.array([])
+        self.point_counts: np.ndarray = np.array([])
 
         self.internal_standard: Peak = Peak(0.0, 0.0, 0.0)
 
-    def __str__(self):
+    def __str__(self) -> str:
         str_repr = f"""
         file name: {self.filename}
         x unit: {self.x_unit}
@@ -87,7 +87,7 @@ class Chromatogram:
         for peak in peaks:
             rt = peak.retention_time
             indices = np.where((self.time >= peak.start) & (self.time <= peak.end))[0]
-            peak.indices = indices
+            peak.indices = indices.tolist()
 
             if peak.deconvolution_params:
                 self.deconvoluted_peaks[rt] = peak
@@ -155,7 +155,7 @@ class Chromatogram:
             Dict of ion chromatograms
         """
 
-        ion_dict = {np.average(c): np.zeros(len(self.time)) for c in clusters}
+        ion_dict = {sum(c) / len(c): np.zeros(len(self.time)) for c in clusters}
         if len(self.scan_indices) != 0:
             scan_brackets = []
 
@@ -171,7 +171,7 @@ class Chromatogram:
                 for m in range(0, len(masses)):
                     for _, c in enumerate(clusters):
                         if masses[m] in c:
-                            ion_dict[np.average(c)][s] = inten[m]
+                            ion_dict[sum(c) / len(c)][s] = inten[m]
                             break
 
         return ion_dict

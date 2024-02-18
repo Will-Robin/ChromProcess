@@ -27,7 +27,7 @@ def peak_from_chromatogram(
         print(f"peak start ({start}) > peak end, ({end}) returning None")
         return None
 
-    inds = np.where((chrom.time > start) & (chrom.time < end))[0]
+    inds = np.where((chrom.time > start) & (chrom.time < end))[0].tolist()
 
     timeseg = chrom.time[inds]
     sigseg = chrom.signal[inds]
