@@ -58,20 +58,15 @@ conda:
 pip:
 
 - `pip install scipy`
+- `pip install tomli`
 - `pip install numpy`
 - `pip install netCDF4`
 - `pip install matplotlib`
 
 ## Install ChromProcess
 
-In command line/terminal, navigate to the folder (hint: use `cd path/to/folder`)
-containing the ChromProcess code, then type:
+Navigate to the directory containing `setup.py`, and run:
 
-conda:
-  - `conda develop ChromProcess`
-
-(you may have to run `conda install conda-build` first)
-
-pip:
-  - Install from the repository root using pip: `pip install .`,
-  - Or in editable mode (so edits are immediately reflected): `pip install -e .`
+```
+pip install -e .
+```

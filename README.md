@@ -7,7 +7,7 @@ pipelines for efficient and reproducible data analysis.
 
 ## Installation
 
-Please see `installation.md`.
+Please see [`installation.md`](installation.md).
 
 ## Documentation
 
