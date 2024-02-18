@@ -2,7 +2,6 @@ import numpy as np
 
 from ChromProcess.Classes import Peak
 from ChromProcess.Classes import Chromatogram
-from ChromProcess.Classes import InstrumentCalibration
 
 from ChromProcess.Utils.utils.functions import inverse_quadratic
 from ChromProcess.Utils.utils.functions import inverse_quadratic_standard_error
@@ -123,7 +122,7 @@ def apply_linear_calibration(
     Apply a linear calibration conversion to the peak integral to obtain a
     concentration value.
 
-    $y = A*x + B$
+    $integral/IS integral = A*concentration + B$
 
     Parameters
     ----------
@@ -151,7 +150,7 @@ def apply_quadratic_calibration(
     Apply a quadratic calibration conversion to the peak integral to obtain
     a concentration value.
 
-    $y = A*x^2 + B*x + C$
+    $integral/IS integral = A*concentration^2 + B*concentration + C$
 
     Parameters
     ----------
@@ -176,19 +175,39 @@ def apply_quadratic_calibration(
 
 
 def calculate_concentration_error(
-    peak: Peak, calibrations: InstrumentCalibration, IS_conc: float, IS_conc_err: float
+    peak: Peak,
+    A: float,
+    B: float,
+    C: float,
+    A_variance: float,
+    B_variance: float,
+    C_variance: float,
+    AB_covariance: float,
+    AC_covariance: float,
+    BC_covariance: float,
+    IS_conc: float,
+    IS_conc_err: float,
 ) -> float:
     """
     Calculation of the standard error on a concentration estimation from
     the calibration.
+
+    $integral/IS integral = A*concentration^2 + B*concentration + C$
 
     Modifies Peak object attributes.
 
     Parameters
     ----------
     peak: Peak
-    calibrations: InstrumentCalibration
-        Contains calibration information.
+    A: float,
+    B: float,
+    C: float,
+    A_variance: float,
+    B_variance: float,
+    C_variance: float,
+    AB_covariance: float,
+    AC_covariance: float,
+    BC_covariance: float,
     IS_conc: float
         Concentration of the internal standard.
     IS_conc_err: float
@@ -199,32 +218,27 @@ def calculate_concentration_error(
     error: float
     """
 
-    assign = peak.assignment
     yhat = peak.integral
-    sy2 = 1e-10
+    sy2 = 1e-10  # Assume small error on integral
 
-    error = 0.0
-    if assign in calibrations.calibration_factors:
-        a = calibrations.calibration_factors[assign]["A"]
-        b = calibrations.calibration_factors[assign]["B"]
-        c = calibrations.calibration_factors[assign]["C"]
+    err = inverse_quadratic_standard_error(
+        yhat,
+        sy2,
+        A,
+        B,
+        C,
+        A_variance,
+        B_variance,
+        C_variance,
+        AB_covariance,
+        AC_covariance,
+        BC_covariance,
+    )
+    err = np.nan_to_num(err)
+    val = inverse_quadratic(yhat, A, B, C)
+    err = IS_conc * val * mult_div_error_prop([val, IS_conc], [err, IS_conc_err])
 
-        sa2 = calibrations.calibration_factors[assign]["A_variance"]
-        sb2 = calibrations.calibration_factors[assign]["B_variance"]
-        sc2 = calibrations.calibration_factors[assign]["C_variance"]
-
-        sab = calibrations.calibration_factors[assign]["AB_covariance"]
-        sac = calibrations.calibration_factors[assign]["AC_covariance"]
-        sbc = calibrations.calibration_factors[assign]["BC_covariance"]
-
-        err = inverse_quadratic_standard_error(
-            yhat, sy2, a, b, c, sa2, sb2, sc2, sab, sac, sbc
-        )
-        err = np.nan_to_num(err)
-        val = inverse_quadratic(yhat, a, b, c)
-        err = IS_conc * val * mult_div_error_prop([val, IS_conc], [err, IS_conc_err])
-
-        error = np.nan_to_num(err)
+    error = np.nan_to_num(err)
 
     return error
 

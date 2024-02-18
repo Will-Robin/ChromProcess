@@ -50,7 +50,7 @@ def deconvolute_region(
         chromatogram.peaks[p] for p in chromatogram.peaks if lower <= p <= upper
     ]
 
-    peaks = [p.retention_time for p in relevant_peaks]
+    peaks = np.array([p.retention_time for p in relevant_peaks])
 
     if len(peaks) > num_peaks:
         print("Deconvolution warning: deconvoluting more peaks than specified.")
@@ -112,7 +112,9 @@ def deconvolute_region(
 
         start = retention_time - 4 * width  # 4σ
         end = retention_time + 4 * width  # 4σ
-        indices = np.where((chromatogram.time >= start) & (chromatogram.time <= end))[0]
+        indices = np.where((chromatogram.time >= start) & (chromatogram.time <= end))[
+            0
+        ].tolist()
 
         # Calculate integral numerically (same as 'real' peaks).
         time_axis = chromatogram.time[indices]

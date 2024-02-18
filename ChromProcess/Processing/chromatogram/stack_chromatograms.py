@@ -2,6 +2,7 @@
 Functions for plotting a heat map of
 a chromatogram series.
 """
+
 import numpy as np
 from scipy import interpolate
 from ChromProcess.Classes import Chromatogram
