@@ -1,11 +1,20 @@
 import numpy as np
+from typing import Optional
 from scipy.signal import find_peaks
 from ChromProcess.Utils.signal_processing import signal_processing as sig
 
 
 def pick_peaks(
-    signal, smooth_width=10, distance=1, threshold=0.1, prominence=0.1, wlen=10
-):
+    signal: np.ndarray,
+    smooth_width: int = 1,
+    threshold: float = 0.0,
+    distance: Optional[int] = 1,
+    prominence: Optional[float] = None,
+    wlen: Optional[int] = None,
+    width: Optional[float] = None,
+    rel_height: Optional[float] = None,
+    plateau_size: Optional[int] = None,
+) -> dict[str : list[int]]:
     """
     Peak detection routine.
 
@@ -14,25 +23,36 @@ def pick_peaks(
     signal: np.array
         Signal containing peaks
     smooth_width: int
-        Width for smoothing window.
-    distance: int
+        Width for smoothing window in number of data points.
     threshold: float
         Peaks below this fraction of the highest intensity of the chromatogram
-        will not be picked.
+        relative to the minimum of the signal will not be picked.
+    distance: int | None
+        See documentation for scipy.signal.find_peaks
     prominence: float
+        See documentation for scipy.signal.find_peaks
+    width: float
+        See documentation for scipy.signal.find_peaks
     wlen: int
-        Size of peak picking window in indices.
+        See documentation for scipy.signal.find_peaks
+    rel_height: float | None
+        See documentation for scipy.signal.find_peaks
+    plateau_size: float | None
+        See documentation for scipy.signal.find_peaks
 
     Returns
     -------
-    peak_indices: diCt[str, np.ndarray]
+    peak_indices: dict[str, list[int]]
         dict containing the indexes of the peaks that were detected and their
         start and end indices.
     """
 
-    height = [signal.max() * threshold, signal.max()]
+    height = signal.min() + (signal.max() - signal.min()) * threshold
 
-    smoothed = sig.adjacent_average(signal, smooth_width)
+    if smooth_width > 1:
+        smoothed = sig.adjacent_average(signal, smooth_width)
+    else:
+        smoothed = signal
 
     peak_indices, _ = find_peaks(
         smoothed,
@@ -41,11 +61,12 @@ def pick_peaks(
         height=height,
         prominence=prominence,
         wlen=wlen,
-        width=None,
-        rel_height=0.5,
-        plateau_size=None,
+        width=width,
+        rel_height=rel_height,
+        plateau_size=plateau_size,
     )
 
+    # Find peak starts and ends
     diff = np.hstack(([0.0], np.diff(smoothed)))
 
     transition_is = diff > 0.0
