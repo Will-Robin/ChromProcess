@@ -4,6 +4,48 @@ from scipy.signal import find_peaks
 from ChromProcess.Utils.signal_processing import signal_processing as sig
 
 
+def find_peak_bounds(
+    signal: np.ndarray, peak_indices: list[int]
+) -> tuple[list[int], list[int]]:
+    """
+    Find the start and end of a set of peaks in signal given a set of peak
+    indices.
+
+    Parameters
+    ----------
+    signal: np.ndarray
+        Signal containing peaks.
+    peak_indices: list[int]
+        Indices of peaks in signal
+
+    Returns
+    -------
+    peak_starts, peak_ends: tuple(list[int], list[int])
+        Peak start and end indices.
+    """
+
+    # Find peak starts and ends
+    diff = np.hstack(([0.0], np.diff(signal)))
+
+    transition_is = diff > 0.0
+    transition_idx = np.where(transition_is[1:] != transition_is[:-1])[0]
+
+    idx = np.searchsorted(transition_idx, peak_indices, side="left")
+
+    peak_starts = []
+    peak_ends = []
+    for x in range(0, len(peak_indices)):
+        i = idx[x]
+        if i + 1 <= len(transition_idx) - 1:
+            peak_ends.append(transition_idx[i + 1])
+        else:
+            peak_ends.append(-1)
+
+        peak_starts.append(transition_idx[i - 1])
+
+    return peak_starts, peak_ends
+
+
 def pick_peaks(
     signal: np.ndarray,
     smooth_width: int = 1,
@@ -66,29 +108,10 @@ def pick_peaks(
         plateau_size=plateau_size,
     )
 
-    # Find peak starts and ends
-    diff = np.hstack(([0.0], np.diff(smoothed)))
-
-    transition_is = diff > 0.0
-    transition_idx = np.where(transition_is[1:] != transition_is[:-1])[0]
-
-    idx = np.searchsorted(transition_idx, peak_indices, side="left")
-
-    peak_starts = []
-    peak_pos = []
-    peak_ends = []
-    for x in range(0, len(peak_indices)):
-        i = idx[x]
-        if i + 1 <= len(transition_idx) - 1:
-            peak_ends.append(transition_idx[i + 1])
-        else:
-            peak_ends.append(-1)
-
-        peak_starts.append(transition_idx[i - 1])
-        peak_pos.append(peak_indices[x])
+    peak_starts, peak_ends = find_peak_bounds(smoothed, peak_indices)
 
     return {
-        "Peak_indices": peak_pos,
+        "Peak_indices": peak_indices,
         "Peak_start_indices": peak_starts,
         "Peak_end_indices": peak_ends,
     }
