@@ -18,3 +18,7 @@ so on.
 This documentation was generated from the ChromProcess source files using
 [pdoc](https://pdoc.dev).
 """
+
+__author__ = "William E. Robinson"
+__version__ = "0.0.2"
+

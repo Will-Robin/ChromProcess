@@ -1,9 +1,10 @@
 from setuptools import setup
+import ChromProcess
 
 setup(
     name="ChromProcess",
-    vesion="0.0.2",
-    author=["William E. Robinson"],
+    version=ChromProcess.__version__,
+    author=ChromProcess.__author__,
     packages=["ChromProcess"],
     install_requires=[
         "numpy >= 1.26.4",
