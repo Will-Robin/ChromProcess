@@ -10,7 +10,7 @@ def find_peaks_in_region(
     start: float,
     end: float,
     threshold: float = 0.1,
-    smooth_width: float = 10,
+    smooth_width: int = 10,
     wlen: int = 10,
     distance: int = 1,
     prominence: float = 0.1,

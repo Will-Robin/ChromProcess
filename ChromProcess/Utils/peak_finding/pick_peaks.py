@@ -56,7 +56,7 @@ def pick_peaks(
     width: Optional[float] = None,
     rel_height: Optional[float] = None,
     plateau_size: Optional[int] = None,
-) -> dict[str : list[int]]:
+) -> dict[str, list[int]]:
     """
     Peak detection routine.
 
