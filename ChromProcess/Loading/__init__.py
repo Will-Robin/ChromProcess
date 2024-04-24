@@ -5,14 +5,15 @@ Most of these intialisations are from files. In some cases multiple file types
 may be supported, and the directory structure is arranged accordingly.
 """
 
-from .chromatogram.cdf import chrom_from_cdf
+from .chromatogram import chrom_from_cdf
+from .chromatogram import chrom_from_csv
+from .chromatogram import chrom_from_json
+from .chromatogram import chrom_from_labsolutions_ascii
 
-from .chromatogram.text import chrom_from_csv
-from .chromatogram.text import chrom_from_json
-from .chromatogram.text import chrom_from_labsolutions_ascii
+from .chromatogram import chrom_from_dx
 
-from .chromatogram.ion_chromatogram import ion_chromatogram_from_peak
-from .chromatogram.ion_chromatogram import ion_chromatogram_from_region
+from .chromatogram import ion_chromatogram_from_peak
+from .chromatogram import ion_chromatogram_from_region
 
 from .peak.peak_from_chromatogram import peak_from_chromatogram
 from .mass_spectrum import mass_spectrum_from_peak
@@ -24,6 +25,7 @@ __all__ = [
     "chrom_from_cdf",
     "chrom_from_csv",
     "chrom_from_json",
+    "chrom_from_dx",
     "chrom_from_labsolutions_ascii",
     "ion_chromatogram_from_peak",
     "ion_chromatogram_from_region",

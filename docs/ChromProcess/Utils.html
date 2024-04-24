@@ -156,80 +156,81 @@ data analysis and processing operations.</p>
 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">pick_peaks</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">signal</span>,</span><span class="param">	<span class="n">smooth_width</span><span class="o">=</span><span class="mi">10</span>,</span><span class="param">	<span class="n">distance</span><span class="o">=</span><span class="mi">1</span>,</span><span class="param">	<span class="n">threshold</span><span class="o">=</span><span class="mf">0.1</span>,</span><span class="param">	<span class="n">prominence</span><span class="o">=</span><span class="mf">0.1</span>,</span><span class="param">	<span class="n">wlen</span><span class="o">=</span><span class="mi">10</span></span><span class="return-annotation">):</span></span>
+        <span class="name">pick_peaks</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">signal</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span>,</span><span class="param">	<span class="n">smooth_width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>,</span><span class="param">	<span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>,</span><span class="param">	<span class="n">distance</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>,</span><span class="param">	<span class="n">prominence</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">wlen</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">width</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">rel_height</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">plateau_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">) -> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span>:</span></span>
 
                 <label class="view-source-button" for="pick_peaks-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#pick_peaks"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="pick_peaks-7"><a href="#pick_peaks-7"><span class="linenos"> 7</span></a><span class="k">def</span> <span class="nf">pick_peaks</span><span class="p">(</span>
-</span><span id="pick_peaks-8"><a href="#pick_peaks-8"><span class="linenos"> 8</span></a>    <span class="n">signal</span><span class="p">,</span> <span class="n">smooth_width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">distance</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">prominence</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">wlen</span><span class="o">=</span><span class="mi">10</span>
-</span><span id="pick_peaks-9"><a href="#pick_peaks-9"><span class="linenos"> 9</span></a><span class="p">):</span>
-</span><span id="pick_peaks-10"><a href="#pick_peaks-10"><span class="linenos">10</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="pick_peaks-11"><a href="#pick_peaks-11"><span class="linenos">11</span></a><span class="sd">    Peak detection routine.</span>
-</span><span id="pick_peaks-12"><a href="#pick_peaks-12"><span class="linenos">12</span></a>
-</span><span id="pick_peaks-13"><a href="#pick_peaks-13"><span class="linenos">13</span></a><span class="sd">    Parameters</span>
-</span><span id="pick_peaks-14"><a href="#pick_peaks-14"><span class="linenos">14</span></a><span class="sd">    ----------</span>
-</span><span id="pick_peaks-15"><a href="#pick_peaks-15"><span class="linenos">15</span></a><span class="sd">    signal: np.array</span>
-</span><span id="pick_peaks-16"><a href="#pick_peaks-16"><span class="linenos">16</span></a><span class="sd">        Signal containing peaks</span>
-</span><span id="pick_peaks-17"><a href="#pick_peaks-17"><span class="linenos">17</span></a><span class="sd">    smooth_width: int</span>
-</span><span id="pick_peaks-18"><a href="#pick_peaks-18"><span class="linenos">18</span></a><span class="sd">        Width for smoothing window.</span>
-</span><span id="pick_peaks-19"><a href="#pick_peaks-19"><span class="linenos">19</span></a><span class="sd">    distance: int</span>
-</span><span id="pick_peaks-20"><a href="#pick_peaks-20"><span class="linenos">20</span></a><span class="sd">    threshold: float</span>
-</span><span id="pick_peaks-21"><a href="#pick_peaks-21"><span class="linenos">21</span></a><span class="sd">        Peaks below this fraction of the highest intensity of the chromatogram</span>
-</span><span id="pick_peaks-22"><a href="#pick_peaks-22"><span class="linenos">22</span></a><span class="sd">        will not be picked.</span>
-</span><span id="pick_peaks-23"><a href="#pick_peaks-23"><span class="linenos">23</span></a><span class="sd">    prominence: float</span>
-</span><span id="pick_peaks-24"><a href="#pick_peaks-24"><span class="linenos">24</span></a><span class="sd">    wlen: int</span>
-</span><span id="pick_peaks-25"><a href="#pick_peaks-25"><span class="linenos">25</span></a><span class="sd">        Size of peak picking window in indices.</span>
-</span><span id="pick_peaks-26"><a href="#pick_peaks-26"><span class="linenos">26</span></a>
-</span><span id="pick_peaks-27"><a href="#pick_peaks-27"><span class="linenos">27</span></a><span class="sd">    Returns</span>
-</span><span id="pick_peaks-28"><a href="#pick_peaks-28"><span class="linenos">28</span></a><span class="sd">    -------</span>
-</span><span id="pick_peaks-29"><a href="#pick_peaks-29"><span class="linenos">29</span></a><span class="sd">    peak_indices: diCt[str, np.ndarray]</span>
-</span><span id="pick_peaks-30"><a href="#pick_peaks-30"><span class="linenos">30</span></a><span class="sd">        dict containing the indexes of the peaks that were detected and their</span>
-</span><span id="pick_peaks-31"><a href="#pick_peaks-31"><span class="linenos">31</span></a><span class="sd">        start and end indices.</span>
-</span><span id="pick_peaks-32"><a href="#pick_peaks-32"><span class="linenos">32</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="pick_peaks-33"><a href="#pick_peaks-33"><span class="linenos">33</span></a>
-</span><span id="pick_peaks-34"><a href="#pick_peaks-34"><span class="linenos">34</span></a>    <span class="n">height</span> <span class="o">=</span> <span class="p">[</span><span class="n">signal</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">*</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">max</span><span class="p">()]</span>
-</span><span id="pick_peaks-35"><a href="#pick_peaks-35"><span class="linenos">35</span></a>
-</span><span id="pick_peaks-36"><a href="#pick_peaks-36"><span class="linenos">36</span></a>    <span class="n">smoothed</span> <span class="o">=</span> <span class="n">sig</span><span class="o">.</span><span class="n">adjacent_average</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="n">smooth_width</span><span class="p">)</span>
-</span><span id="pick_peaks-37"><a href="#pick_peaks-37"><span class="linenos">37</span></a>
-</span><span id="pick_peaks-38"><a href="#pick_peaks-38"><span class="linenos">38</span></a>    <span class="n">peak_indices</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">find_peaks</span><span class="p">(</span>
-</span><span id="pick_peaks-39"><a href="#pick_peaks-39"><span class="linenos">39</span></a>        <span class="n">smoothed</span><span class="p">,</span>
-</span><span id="pick_peaks-40"><a href="#pick_peaks-40"><span class="linenos">40</span></a>        <span class="n">threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-</span><span id="pick_peaks-41"><a href="#pick_peaks-41"><span class="linenos">41</span></a>        <span class="n">distance</span><span class="o">=</span><span class="n">distance</span><span class="p">,</span>
-</span><span id="pick_peaks-42"><a href="#pick_peaks-42"><span class="linenos">42</span></a>        <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">,</span>
-</span><span id="pick_peaks-43"><a href="#pick_peaks-43"><span class="linenos">43</span></a>        <span class="n">prominence</span><span class="o">=</span><span class="n">prominence</span><span class="p">,</span>
-</span><span id="pick_peaks-44"><a href="#pick_peaks-44"><span class="linenos">44</span></a>        <span class="n">wlen</span><span class="o">=</span><span class="n">wlen</span><span class="p">,</span>
-</span><span id="pick_peaks-45"><a href="#pick_peaks-45"><span class="linenos">45</span></a>        <span class="n">width</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-</span><span id="pick_peaks-46"><a href="#pick_peaks-46"><span class="linenos">46</span></a>        <span class="n">rel_height</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
-</span><span id="pick_peaks-47"><a href="#pick_peaks-47"><span class="linenos">47</span></a>        <span class="n">plateau_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-</span><span id="pick_peaks-48"><a href="#pick_peaks-48"><span class="linenos">48</span></a>    <span class="p">)</span>
-</span><span id="pick_peaks-49"><a href="#pick_peaks-49"><span class="linenos">49</span></a>
-</span><span id="pick_peaks-50"><a href="#pick_peaks-50"><span class="linenos">50</span></a>    <span class="n">diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(([</span><span class="mf">0.0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">smoothed</span><span class="p">)))</span>
-</span><span id="pick_peaks-51"><a href="#pick_peaks-51"><span class="linenos">51</span></a>
-</span><span id="pick_peaks-52"><a href="#pick_peaks-52"><span class="linenos">52</span></a>    <span class="n">transition_is</span> <span class="o">=</span> <span class="n">diff</span> <span class="o">&gt;</span> <span class="mf">0.0</span>
-</span><span id="pick_peaks-53"><a href="#pick_peaks-53"><span class="linenos">53</span></a>    <span class="n">transition_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">transition_is</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">!=</span> <span class="n">transition_is</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="pick_peaks-54"><a href="#pick_peaks-54"><span class="linenos">54</span></a>
-</span><span id="pick_peaks-55"><a href="#pick_peaks-55"><span class="linenos">55</span></a>    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">transition_idx</span><span class="p">,</span> <span class="n">peak_indices</span><span class="p">,</span> <span class="n">side</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
-</span><span id="pick_peaks-56"><a href="#pick_peaks-56"><span class="linenos">56</span></a>
-</span><span id="pick_peaks-57"><a href="#pick_peaks-57"><span class="linenos">57</span></a>    <span class="n">peak_starts</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="pick_peaks-58"><a href="#pick_peaks-58"><span class="linenos">58</span></a>    <span class="n">peak_pos</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="pick_peaks-59"><a href="#pick_peaks-59"><span class="linenos">59</span></a>    <span class="n">peak_ends</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="pick_peaks-60"><a href="#pick_peaks-60"><span class="linenos">60</span></a>    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">peak_indices</span><span class="p">)):</span>
-</span><span id="pick_peaks-61"><a href="#pick_peaks-61"><span class="linenos">61</span></a>        <span class="n">i</span> <span class="o">=</span> <span class="n">idx</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
-</span><span id="pick_peaks-62"><a href="#pick_peaks-62"><span class="linenos">62</span></a>        <span class="k">if</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">transition_idx</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
-</span><span id="pick_peaks-63"><a href="#pick_peaks-63"><span class="linenos">63</span></a>            <span class="n">peak_ends</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">transition_idx</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
-</span><span id="pick_peaks-64"><a href="#pick_peaks-64"><span class="linenos">64</span></a>        <span class="k">else</span><span class="p">:</span>
-</span><span id="pick_peaks-65"><a href="#pick_peaks-65"><span class="linenos">65</span></a>            <span class="n">peak_ends</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-</span><span id="pick_peaks-66"><a href="#pick_peaks-66"><span class="linenos">66</span></a>
-</span><span id="pick_peaks-67"><a href="#pick_peaks-67"><span class="linenos">67</span></a>        <span class="n">peak_starts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">transition_idx</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
-</span><span id="pick_peaks-68"><a href="#pick_peaks-68"><span class="linenos">68</span></a>        <span class="n">peak_pos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">peak_indices</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
-</span><span id="pick_peaks-69"><a href="#pick_peaks-69"><span class="linenos">69</span></a>
-</span><span id="pick_peaks-70"><a href="#pick_peaks-70"><span class="linenos">70</span></a>    <span class="k">return</span> <span class="p">{</span>
-</span><span id="pick_peaks-71"><a href="#pick_peaks-71"><span class="linenos">71</span></a>        <span class="s2">&quot;Peak_indices&quot;</span><span class="p">:</span> <span class="n">peak_pos</span><span class="p">,</span>
-</span><span id="pick_peaks-72"><a href="#pick_peaks-72"><span class="linenos">72</span></a>        <span class="s2">&quot;Peak_start_indices&quot;</span><span class="p">:</span> <span class="n">peak_starts</span><span class="p">,</span>
-</span><span id="pick_peaks-73"><a href="#pick_peaks-73"><span class="linenos">73</span></a>        <span class="s2">&quot;Peak_end_indices&quot;</span><span class="p">:</span> <span class="n">peak_ends</span><span class="p">,</span>
-</span><span id="pick_peaks-74"><a href="#pick_peaks-74"><span class="linenos">74</span></a>    <span class="p">}</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="pick_peaks-50"><a href="#pick_peaks-50"><span class="linenos"> 50</span></a><span class="k">def</span> <span class="nf">pick_peaks</span><span class="p">(</span>
+</span><span id="pick_peaks-51"><a href="#pick_peaks-51"><span class="linenos"> 51</span></a>    <span class="n">signal</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+</span><span id="pick_peaks-52"><a href="#pick_peaks-52"><span class="linenos"> 52</span></a>    <span class="n">smooth_width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+</span><span id="pick_peaks-53"><a href="#pick_peaks-53"><span class="linenos"> 53</span></a>    <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+</span><span id="pick_peaks-54"><a href="#pick_peaks-54"><span class="linenos"> 54</span></a>    <span class="n">distance</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+</span><span id="pick_peaks-55"><a href="#pick_peaks-55"><span class="linenos"> 55</span></a>    <span class="n">prominence</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="pick_peaks-56"><a href="#pick_peaks-56"><span class="linenos"> 56</span></a>    <span class="n">wlen</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="pick_peaks-57"><a href="#pick_peaks-57"><span class="linenos"> 57</span></a>    <span class="n">width</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="pick_peaks-58"><a href="#pick_peaks-58"><span class="linenos"> 58</span></a>    <span class="n">rel_height</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="pick_peaks-59"><a href="#pick_peaks-59"><span class="linenos"> 59</span></a>    <span class="n">plateau_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="pick_peaks-60"><a href="#pick_peaks-60"><span class="linenos"> 60</span></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+</span><span id="pick_peaks-61"><a href="#pick_peaks-61"><span class="linenos"> 61</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="pick_peaks-62"><a href="#pick_peaks-62"><span class="linenos"> 62</span></a><span class="sd">    Peak detection routine.</span>
+</span><span id="pick_peaks-63"><a href="#pick_peaks-63"><span class="linenos"> 63</span></a>
+</span><span id="pick_peaks-64"><a href="#pick_peaks-64"><span class="linenos"> 64</span></a><span class="sd">    Parameters</span>
+</span><span id="pick_peaks-65"><a href="#pick_peaks-65"><span class="linenos"> 65</span></a><span class="sd">    ----------</span>
+</span><span id="pick_peaks-66"><a href="#pick_peaks-66"><span class="linenos"> 66</span></a><span class="sd">    signal: np.array</span>
+</span><span id="pick_peaks-67"><a href="#pick_peaks-67"><span class="linenos"> 67</span></a><span class="sd">        Signal containing peaks</span>
+</span><span id="pick_peaks-68"><a href="#pick_peaks-68"><span class="linenos"> 68</span></a><span class="sd">    smooth_width: int</span>
+</span><span id="pick_peaks-69"><a href="#pick_peaks-69"><span class="linenos"> 69</span></a><span class="sd">        Width for smoothing window in number of data points.</span>
+</span><span id="pick_peaks-70"><a href="#pick_peaks-70"><span class="linenos"> 70</span></a><span class="sd">    threshold: float</span>
+</span><span id="pick_peaks-71"><a href="#pick_peaks-71"><span class="linenos"> 71</span></a><span class="sd">        Peaks below this fraction of the highest intensity of the chromatogram</span>
+</span><span id="pick_peaks-72"><a href="#pick_peaks-72"><span class="linenos"> 72</span></a><span class="sd">        relative to the minimum of the signal will not be picked.</span>
+</span><span id="pick_peaks-73"><a href="#pick_peaks-73"><span class="linenos"> 73</span></a><span class="sd">    distance: int | None</span>
+</span><span id="pick_peaks-74"><a href="#pick_peaks-74"><span class="linenos"> 74</span></a><span class="sd">        See documentation for scipy.signal.find_peaks</span>
+</span><span id="pick_peaks-75"><a href="#pick_peaks-75"><span class="linenos"> 75</span></a><span class="sd">    prominence: float</span>
+</span><span id="pick_peaks-76"><a href="#pick_peaks-76"><span class="linenos"> 76</span></a><span class="sd">        See documentation for scipy.signal.find_peaks</span>
+</span><span id="pick_peaks-77"><a href="#pick_peaks-77"><span class="linenos"> 77</span></a><span class="sd">    width: float</span>
+</span><span id="pick_peaks-78"><a href="#pick_peaks-78"><span class="linenos"> 78</span></a><span class="sd">        See documentation for scipy.signal.find_peaks</span>
+</span><span id="pick_peaks-79"><a href="#pick_peaks-79"><span class="linenos"> 79</span></a><span class="sd">    wlen: int</span>
+</span><span id="pick_peaks-80"><a href="#pick_peaks-80"><span class="linenos"> 80</span></a><span class="sd">        See documentation for scipy.signal.find_peaks</span>
+</span><span id="pick_peaks-81"><a href="#pick_peaks-81"><span class="linenos"> 81</span></a><span class="sd">    rel_height: float | None</span>
+</span><span id="pick_peaks-82"><a href="#pick_peaks-82"><span class="linenos"> 82</span></a><span class="sd">        See documentation for scipy.signal.find_peaks</span>
+</span><span id="pick_peaks-83"><a href="#pick_peaks-83"><span class="linenos"> 83</span></a><span class="sd">    plateau_size: float | None</span>
+</span><span id="pick_peaks-84"><a href="#pick_peaks-84"><span class="linenos"> 84</span></a><span class="sd">        See documentation for scipy.signal.find_peaks</span>
+</span><span id="pick_peaks-85"><a href="#pick_peaks-85"><span class="linenos"> 85</span></a>
+</span><span id="pick_peaks-86"><a href="#pick_peaks-86"><span class="linenos"> 86</span></a><span class="sd">    Returns</span>
+</span><span id="pick_peaks-87"><a href="#pick_peaks-87"><span class="linenos"> 87</span></a><span class="sd">    -------</span>
+</span><span id="pick_peaks-88"><a href="#pick_peaks-88"><span class="linenos"> 88</span></a><span class="sd">    peak_indices: dict[str, list[int]]</span>
+</span><span id="pick_peaks-89"><a href="#pick_peaks-89"><span class="linenos"> 89</span></a><span class="sd">        dict containing the indexes of the peaks that were detected and their</span>
+</span><span id="pick_peaks-90"><a href="#pick_peaks-90"><span class="linenos"> 90</span></a><span class="sd">        start and end indices.</span>
+</span><span id="pick_peaks-91"><a href="#pick_peaks-91"><span class="linenos"> 91</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="pick_peaks-92"><a href="#pick_peaks-92"><span class="linenos"> 92</span></a>
+</span><span id="pick_peaks-93"><a href="#pick_peaks-93"><span class="linenos"> 93</span></a>    <span class="n">height</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">+</span> <span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">signal</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">*</span> <span class="n">threshold</span>
+</span><span id="pick_peaks-94"><a href="#pick_peaks-94"><span class="linenos"> 94</span></a>
+</span><span id="pick_peaks-95"><a href="#pick_peaks-95"><span class="linenos"> 95</span></a>    <span class="k">if</span> <span class="n">smooth_width</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+</span><span id="pick_peaks-96"><a href="#pick_peaks-96"><span class="linenos"> 96</span></a>        <span class="n">smoothed</span> <span class="o">=</span> <span class="n">sig</span><span class="o">.</span><span class="n">adjacent_average</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="n">smooth_width</span><span class="p">)</span>
+</span><span id="pick_peaks-97"><a href="#pick_peaks-97"><span class="linenos"> 97</span></a>    <span class="k">else</span><span class="p">:</span>
+</span><span id="pick_peaks-98"><a href="#pick_peaks-98"><span class="linenos"> 98</span></a>        <span class="n">smoothed</span> <span class="o">=</span> <span class="n">signal</span>
+</span><span id="pick_peaks-99"><a href="#pick_peaks-99"><span class="linenos"> 99</span></a>
+</span><span id="pick_peaks-100"><a href="#pick_peaks-100"><span class="linenos">100</span></a>    <span class="n">peak_indices</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">find_peaks</span><span class="p">(</span>
+</span><span id="pick_peaks-101"><a href="#pick_peaks-101"><span class="linenos">101</span></a>        <span class="n">smoothed</span><span class="p">,</span>
+</span><span id="pick_peaks-102"><a href="#pick_peaks-102"><span class="linenos">102</span></a>        <span class="n">threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span id="pick_peaks-103"><a href="#pick_peaks-103"><span class="linenos">103</span></a>        <span class="n">distance</span><span class="o">=</span><span class="n">distance</span><span class="p">,</span>
+</span><span id="pick_peaks-104"><a href="#pick_peaks-104"><span class="linenos">104</span></a>        <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">,</span>
+</span><span id="pick_peaks-105"><a href="#pick_peaks-105"><span class="linenos">105</span></a>        <span class="n">prominence</span><span class="o">=</span><span class="n">prominence</span><span class="p">,</span>
+</span><span id="pick_peaks-106"><a href="#pick_peaks-106"><span class="linenos">106</span></a>        <span class="n">wlen</span><span class="o">=</span><span class="n">wlen</span><span class="p">,</span>
+</span><span id="pick_peaks-107"><a href="#pick_peaks-107"><span class="linenos">107</span></a>        <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>
+</span><span id="pick_peaks-108"><a href="#pick_peaks-108"><span class="linenos">108</span></a>        <span class="n">rel_height</span><span class="o">=</span><span class="n">rel_height</span><span class="p">,</span>
+</span><span id="pick_peaks-109"><a href="#pick_peaks-109"><span class="linenos">109</span></a>        <span class="n">plateau_size</span><span class="o">=</span><span class="n">plateau_size</span><span class="p">,</span>
+</span><span id="pick_peaks-110"><a href="#pick_peaks-110"><span class="linenos">110</span></a>    <span class="p">)</span>
+</span><span id="pick_peaks-111"><a href="#pick_peaks-111"><span class="linenos">111</span></a>
+</span><span id="pick_peaks-112"><a href="#pick_peaks-112"><span class="linenos">112</span></a>    <span class="n">peak_starts</span><span class="p">,</span> <span class="n">peak_ends</span> <span class="o">=</span> <span class="n">find_peak_bounds</span><span class="p">(</span><span class="n">smoothed</span><span class="p">,</span> <span class="n">peak_indices</span><span class="p">)</span>
+</span><span id="pick_peaks-113"><a href="#pick_peaks-113"><span class="linenos">113</span></a>
+</span><span id="pick_peaks-114"><a href="#pick_peaks-114"><span class="linenos">114</span></a>    <span class="k">return</span> <span class="p">{</span>
+</span><span id="pick_peaks-115"><a href="#pick_peaks-115"><span class="linenos">115</span></a>        <span class="s2">&quot;Peak_indices&quot;</span><span class="p">:</span> <span class="n">peak_indices</span><span class="p">,</span>
+</span><span id="pick_peaks-116"><a href="#pick_peaks-116"><span class="linenos">116</span></a>        <span class="s2">&quot;Peak_start_indices&quot;</span><span class="p">:</span> <span class="n">peak_starts</span><span class="p">,</span>
+</span><span id="pick_peaks-117"><a href="#pick_peaks-117"><span class="linenos">117</span></a>        <span class="s2">&quot;Peak_end_indices&quot;</span><span class="p">:</span> <span class="n">peak_ends</span><span class="p">,</span>
+</span><span id="pick_peaks-118"><a href="#pick_peaks-118"><span class="linenos">118</span></a>    <span class="p">}</span>
 </span></pre></div>
 
 
@@ -241,20 +242,28 @@ data analysis and processing operations.</p>
 <li><strong>signal</strong> (np.array):
 Signal containing peaks</li>
 <li><strong>smooth_width</strong> (int):
-Width for smoothing window.</li>
-<li><p><strong>distance</strong> (int):</p></li>
-<li><p><strong>threshold</strong> (float):
+Width for smoothing window in number of data points.</li>
+<li><strong>threshold</strong> (float):
 Peaks below this fraction of the highest intensity of the chromatogram
-will not be picked.</p></li>
-<li><p><strong>prominence</strong> (float):</p></li>
-<li><p><strong>wlen</strong> (int):
-Size of peak picking window in indices.</p></li>
+relative to the minimum of the signal will not be picked.</li>
+<li><strong>distance</strong> (int | None):
+See documentation for scipy.signal.find_peaks</li>
+<li><strong>prominence</strong> (float):
+See documentation for scipy.signal.find_peaks</li>
+<li><strong>width</strong> (float):
+See documentation for scipy.signal.find_peaks</li>
+<li><strong>wlen</strong> (int):
+See documentation for scipy.signal.find_peaks</li>
+<li><strong>rel_height</strong> (float | None):
+See documentation for scipy.signal.find_peaks</li>
+<li><strong>plateau_size</strong> (float | None):
+See documentation for scipy.signal.find_peaks</li>
 </ul>
 
 <h6 id="returns">Returns</h6>
 
 <ul>
-<li><strong>peak_indices</strong> (diCt[str, np.ndarray]):
+<li><strong>peak_indices</strong> (dict[str, list[int]]):
 dict containing the indexes of the peaks that were detected and their
 start and end indices.</li>
 </ul>

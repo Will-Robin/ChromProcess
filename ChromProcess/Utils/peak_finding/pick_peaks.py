@@ -89,6 +89,15 @@ def pick_peaks(
         start and end indices.
     """
 
+    peak_output: dict[str, list[int]] = {
+        "Peak_indices": [],
+        "Peak_start_indices": [],
+        "Peak_end_indices": [],
+    }
+
+    if len(signal) == 0:
+        return peak_output
+
     height = signal.min() + (signal.max() - signal.min()) * threshold
 
     if smooth_width > 1:
@@ -110,8 +119,8 @@ def pick_peaks(
 
     peak_starts, peak_ends = find_peak_bounds(smoothed, peak_indices)
 
-    return {
-        "Peak_indices": peak_indices,
-        "Peak_start_indices": peak_starts,
-        "Peak_end_indices": peak_ends,
-    }
+    peak_output["Peak_indices"] = peak_indices
+    peak_output["Peak_start_indices"] = peak_starts
+    peak_output["Peak_end_indices"] = peak_ends
+
+    return peak_output

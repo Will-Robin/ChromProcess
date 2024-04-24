@@ -7,11 +7,14 @@ from .text.chrom_from_csv import chrom_from_csv
 from .text.chrom_from_json import chrom_from_json
 from .text.chrom_from_labsolutions_ascii import chrom_from_labsolutions_ascii
 
+from .agilent.chrom_from_dx import chrom_from_dx
+
 __all__ = [
     "chrom_from_cdf",
     "ion_chromatogram_from_peak",
     "ion_chromatogram_from_region",
     "chrom_from_csv",
     "chrom_from_json",
+    "chrom_from_dx",
     "chrom_from_labsolutions_ascii",
 ]

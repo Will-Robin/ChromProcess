@@ -40,6 +40,9 @@
                     <a class="function" href="#chrom_from_json">chrom_from_json</a>
             </li>
             <li>
+                    <a class="function" href="#chrom_from_dx">chrom_from_dx</a>
+            </li>
+            <li>
                     <a class="function" href="#chrom_from_labsolutions_ascii">chrom_from_labsolutions_ascii</a>
             </li>
             <li>
@@ -93,33 +96,35 @@ may be supported, and the directory structure is arranged accordingly.</p>
 </span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="sd">may be supported, and the directory structure is arranged accordingly.</span>
 </span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="kn">from</span> <span class="nn">.chromatogram.cdf</span> <span class="kn">import</span> <span class="n">chrom_from_cdf</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="kn">from</span> <span class="nn">.chromatogram.text</span> <span class="kn">import</span> <span class="n">chrom_from_csv</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="kn">from</span> <span class="nn">.chromatogram.text</span> <span class="kn">import</span> <span class="n">chrom_from_json</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="kn">from</span> <span class="nn">.chromatogram.text</span> <span class="kn">import</span> <span class="n">chrom_from_labsolutions_ascii</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="kn">from</span> <span class="nn">.chromatogram.ion_chromatogram</span> <span class="kn">import</span> <span class="n">ion_chromatogram_from_peak</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="kn">from</span> <span class="nn">.chromatogram.ion_chromatogram</span> <span class="kn">import</span> <span class="n">ion_chromatogram_from_region</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="kn">from</span> <span class="nn">.peak.peak_from_chromatogram</span> <span class="kn">import</span> <span class="n">peak_from_chromatogram</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="kn">from</span> <span class="nn">.mass_spectrum</span> <span class="kn">import</span> <span class="n">mass_spectrum_from_peak</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="kn">from</span> <span class="nn">.parsers</span> <span class="kn">import</span> <span class="n">parse_text_columns</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a><span class="kn">from</span> <span class="nn">.parsers</span> <span class="kn">import</span> <span class="n">import_file_section</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>    <span class="s2">&quot;chrom_from_cdf&quot;</span><span class="p">,</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>    <span class="s2">&quot;chrom_from_csv&quot;</span><span class="p">,</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>    <span class="s2">&quot;chrom_from_json&quot;</span><span class="p">,</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>    <span class="s2">&quot;chrom_from_labsolutions_ascii&quot;</span><span class="p">,</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>    <span class="s2">&quot;ion_chromatogram_from_peak&quot;</span><span class="p">,</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>    <span class="s2">&quot;ion_chromatogram_from_region&quot;</span><span class="p">,</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>    <span class="s2">&quot;peak_from_chromatogram&quot;</span><span class="p">,</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>    <span class="s2">&quot;mass_spectrum_from_peak&quot;</span><span class="p">,</span>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>    <span class="s2">&quot;parse_text_columns&quot;</span><span class="p">,</span>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>    <span class="s2">&quot;import_file_section&quot;</span><span class="p">,</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a><span class="p">]</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="kn">from</span> <span class="nn">.chromatogram</span> <span class="kn">import</span> <span class="n">chrom_from_cdf</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="kn">from</span> <span class="nn">.chromatogram</span> <span class="kn">import</span> <span class="n">chrom_from_csv</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="kn">from</span> <span class="nn">.chromatogram</span> <span class="kn">import</span> <span class="n">chrom_from_json</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="kn">from</span> <span class="nn">.chromatogram</span> <span class="kn">import</span> <span class="n">chrom_from_labsolutions_ascii</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>
+</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="kn">from</span> <span class="nn">.chromatogram</span> <span class="kn">import</span> <span class="n">chrom_from_dx</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="kn">from</span> <span class="nn">.chromatogram</span> <span class="kn">import</span> <span class="n">ion_chromatogram_from_peak</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="kn">from</span> <span class="nn">.chromatogram</span> <span class="kn">import</span> <span class="n">ion_chromatogram_from_region</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="kn">from</span> <span class="nn">.peak.peak_from_chromatogram</span> <span class="kn">import</span> <span class="n">peak_from_chromatogram</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="kn">from</span> <span class="nn">.mass_spectrum</span> <span class="kn">import</span> <span class="n">mass_spectrum_from_peak</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>
+</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a><span class="kn">from</span> <span class="nn">.parsers</span> <span class="kn">import</span> <span class="n">parse_text_columns</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="kn">from</span> <span class="nn">.parsers</span> <span class="kn">import</span> <span class="n">import_file_section</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>    <span class="s2">&quot;chrom_from_cdf&quot;</span><span class="p">,</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>    <span class="s2">&quot;chrom_from_csv&quot;</span><span class="p">,</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>    <span class="s2">&quot;chrom_from_json&quot;</span><span class="p">,</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>    <span class="s2">&quot;chrom_from_dx&quot;</span><span class="p">,</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>    <span class="s2">&quot;chrom_from_labsolutions_ascii&quot;</span><span class="p">,</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>    <span class="s2">&quot;ion_chromatogram_from_peak&quot;</span><span class="p">,</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>    <span class="s2">&quot;ion_chromatogram_from_region&quot;</span><span class="p">,</span>
+</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>    <span class="s2">&quot;peak_from_chromatogram&quot;</span><span class="p">,</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>    <span class="s2">&quot;mass_spectrum_from_peak&quot;</span><span class="p">,</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>    <span class="s2">&quot;parse_text_columns&quot;</span><span class="p">,</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>    <span class="s2">&quot;import_file_section&quot;</span><span class="p">,</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a><span class="p">]</span>
 </span></pre></div>
 
 
@@ -413,6 +418,70 @@ Name of chromatogram file (including the path to the file).</li>
 <ul>
 <li><strong>chrom</strong> (Chromatogram):
 Chromatogram derived from information in the file.</li>
+</ul>
+</div>
+
+
+                </section>
+                <section id="chrom_from_dx">
+                            <input id="chrom_from_dx-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">chrom_from_dx</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>,</span><span class="param">	<span class="n">trace_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;FID1A&#39;</span></span><span class="return-annotation">) -> <span class="n">ChromProcess</span><span class="o">.</span><span class="n">Classes</span><span class="o">.</span><span class="n">chromatogram</span><span class="o">.</span><span class="n">Chromatogram</span>:</span></span>
+
+                <label class="view-source-button" for="chrom_from_dx-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#chrom_from_dx"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="chrom_from_dx-160"><a href="#chrom_from_dx-160"><span class="linenos">160</span></a><span class="k">def</span> <span class="nf">chrom_from_dx</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">,</span> <span class="n">trace_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;FID1A&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Chromatogram</span><span class="p">:</span>
+</span><span id="chrom_from_dx-161"><a href="#chrom_from_dx-161"><span class="linenos">161</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="chrom_from_dx-162"><a href="#chrom_from_dx-162"><span class="linenos">162</span></a><span class="sd">    Load a chromatogram from an Agilent .dx file.</span>
+</span><span id="chrom_from_dx-163"><a href="#chrom_from_dx-163"><span class="linenos">163</span></a>
+</span><span id="chrom_from_dx-164"><a href="#chrom_from_dx-164"><span class="linenos">164</span></a><span class="sd">    Parameters</span>
+</span><span id="chrom_from_dx-165"><a href="#chrom_from_dx-165"><span class="linenos">165</span></a><span class="sd">    ----------</span>
+</span><span id="chrom_from_dx-166"><a href="#chrom_from_dx-166"><span class="linenos">166</span></a><span class="sd">    filename: str | Path</span>
+</span><span id="chrom_from_dx-167"><a href="#chrom_from_dx-167"><span class="linenos">167</span></a>
+</span><span id="chrom_from_dx-168"><a href="#chrom_from_dx-168"><span class="linenos">168</span></a><span class="sd">    Returns</span>
+</span><span id="chrom_from_dx-169"><a href="#chrom_from_dx-169"><span class="linenos">169</span></a><span class="sd">    -------</span>
+</span><span id="chrom_from_dx-170"><a href="#chrom_from_dx-170"><span class="linenos">170</span></a><span class="sd">    chrom: Chromatogram</span>
+</span><span id="chrom_from_dx-171"><a href="#chrom_from_dx-171"><span class="linenos">171</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="chrom_from_dx-172"><a href="#chrom_from_dx-172"><span class="linenos">172</span></a>    <span class="c1"># Unzip file to get hold of contents</span>
+</span><span id="chrom_from_dx-173"><a href="#chrom_from_dx-173"><span class="linenos">173</span></a>    <span class="c1"># Unfortunately, each file needs to be read to find out what its contents</span>
+</span><span id="chrom_from_dx-174"><a href="#chrom_from_dx-174"><span class="linenos">174</span></a>    <span class="c1"># are.</span>
+</span><span id="chrom_from_dx-175"><a href="#chrom_from_dx-175"><span class="linenos">175</span></a>    <span class="n">trace_name</span> <span class="o">=</span> <span class="n">trace_name</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-16&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-16&quot;</span><span class="p">)</span>
+</span><span id="chrom_from_dx-176"><a href="#chrom_from_dx-176"><span class="linenos">176</span></a>    <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+</span><span id="chrom_from_dx-177"><a href="#chrom_from_dx-177"><span class="linenos">177</span></a>        <span class="n">filenames</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">file</span><span class="o">.</span><span class="n">namelist</span><span class="p">()</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;CH&quot;</span><span class="p">)]</span>
+</span><span id="chrom_from_dx-178"><a href="#chrom_from_dx-178"><span class="linenos">178</span></a>        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">:</span>
+</span><span id="chrom_from_dx-179"><a href="#chrom_from_dx-179"><span class="linenos">179</span></a>            <span class="n">content_bytes</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</span><span id="chrom_from_dx-180"><a href="#chrom_from_dx-180"><span class="linenos">180</span></a>            <span class="n">trace</span> <span class="o">=</span> <span class="n">decode_binary</span><span class="p">(</span>
+</span><span id="chrom_from_dx-181"><a href="#chrom_from_dx-181"><span class="linenos">181</span></a>                <span class="n">content_bytes</span><span class="p">,</span> <span class="n">sections</span><span class="p">[</span><span class="s2">&quot;detector&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">sections</span><span class="p">[</span><span class="s2">&quot;detector&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+</span><span id="chrom_from_dx-182"><a href="#chrom_from_dx-182"><span class="linenos">182</span></a>            <span class="p">)</span>
+</span><span id="chrom_from_dx-183"><a href="#chrom_from_dx-183"><span class="linenos">183</span></a>            <span class="k">if</span> <span class="n">trace</span> <span class="o">==</span> <span class="n">trace_name</span><span class="p">:</span>
+</span><span id="chrom_from_dx-184"><a href="#chrom_from_dx-184"><span class="linenos">184</span></a>                <span class="n">chrom</span> <span class="o">=</span> <span class="n">chrom_from_ch</span><span class="p">(</span><span class="n">content_bytes</span><span class="p">)</span>
+</span><span id="chrom_from_dx-185"><a href="#chrom_from_dx-185"><span class="linenos">185</span></a>                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">Path</span><span class="p">):</span>
+</span><span id="chrom_from_dx-186"><a href="#chrom_from_dx-186"><span class="linenos">186</span></a>                    <span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">name</span>
+</span><span id="chrom_from_dx-187"><a href="#chrom_from_dx-187"><span class="linenos">187</span></a>                <span class="k">else</span><span class="p">:</span>
+</span><span id="chrom_from_dx-188"><a href="#chrom_from_dx-188"><span class="linenos">188</span></a>                    <span class="n">filename</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="o">.</span><span class="n">name</span>
+</span><span id="chrom_from_dx-189"><a href="#chrom_from_dx-189"><span class="linenos">189</span></a>
+</span><span id="chrom_from_dx-190"><a href="#chrom_from_dx-190"><span class="linenos">190</span></a>                <span class="n">chrom</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span>
+</span><span id="chrom_from_dx-191"><a href="#chrom_from_dx-191"><span class="linenos">191</span></a>
+</span><span id="chrom_from_dx-192"><a href="#chrom_from_dx-192"><span class="linenos">192</span></a>    <span class="k">return</span> <span class="n">chrom</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Load a chromatogram from an Agilent .dx file.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>filename</strong> (str | Path):</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<ul>
+<li><strong>chrom</strong> (Chromatogram):</li>
 </ul>
 </div>
 
