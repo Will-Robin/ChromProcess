@@ -58,7 +58,6 @@ conda:
 pip:
 
 - `pip install scipy`
-- `pip install tomli`
 - `pip install numpy`
 - `pip install netCDF4`
 - `pip install matplotlib`
