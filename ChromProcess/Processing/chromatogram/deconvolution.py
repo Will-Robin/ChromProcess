@@ -126,7 +126,7 @@ def deconvolute_region(
         if baseline_subtract:
             deconvoluted_signal -= baseline
 
-        integral = np.trapz(deconvoluted_signal, x=time_axis)
+        integral = np.trapezoid(deconvoluted_signal, x=time_axis)
 
         deconv_params = Deconvolution(
             {

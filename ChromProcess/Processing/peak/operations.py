@@ -72,9 +72,9 @@ def get_peak_integral(
         time_bound = [time[0], time[-1]]
         signal_bound = [signal[0], signal[-1]]
         linterp = np.interp(time, time_bound, signal_bound)
-        integral = np.trapz(signal - linterp, x=time)
+        integral = np.trapezoid(signal - linterp, x=time)
     else:
-        integral = np.trapz(signal, x=time)
+        integral = np.trapezoid(signal, x=time)
 
     return integral
 
