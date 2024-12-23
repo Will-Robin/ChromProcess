@@ -3,7 +3,9 @@
 Python tools to deal with sets of chromatography data.
 
 ChromProcess aims to provide a set of tools to aid in developing data processing
-pipelines for efficient and reproducible data analysis.
+pipelines for efficient and reproducible data analysis. It consists of a library
+of code which can be composed into data analysis workflows as required by the
+user.
 
 ## Installation
 
