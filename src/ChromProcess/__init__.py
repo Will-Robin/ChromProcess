@@ -20,4 +20,4 @@ This documentation was generated from the ChromProcess source files using
 """
 
 __author__ = "William E. Robinson"
-__version__ = "0.0.2"
+__version__ = "0.0.3"

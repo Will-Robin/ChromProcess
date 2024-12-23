@@ -1,5 +1,5 @@
-CHROMPROCESS=../ChromProcess
-CHROMPROCESS_MOD=../ChromProcess/*.py
+CHROMPROCESS=../src/ChromProcess
+CHROMPROCESS_MOD=../src/ChromProcess/*.py
 
 CLASSES=$(CHROMPROCESS)/Classes
 

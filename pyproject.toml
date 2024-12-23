@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ChromProcess"
+version = "0.0.3"
+description = "A library for processing chromatography data."
+readme = "README.md"
+requires-python = ">=3.13"
+license = { file = "LICENSE" }
+authors = [{ name = "William E. Robinson", email = "william.robinson@ru.nl" }]
+maintainers = [
+  { name = "William E. Robinson", email = "william.robinson@ru.nl" },
+]
+dependencies = ["netcdf4", "notebook", "numpy", "pandas", "scipy"]
+
+[project.optional-dependencies]
+dev = ["pdoc", "ruff", "mypy"]
+
+[project.urls]
+"Source" = "https://github.com/Will-Robin/ChromProcess"
+"Homepage" = "https://will-robin.github.io/ChromProcess/ChromProcess.html"
+"Bug Reports" = "https://github.com/pypa/sampleproject/issues"
