@@ -1,11 +1,12 @@
 import numpy as np
+from typing import Union
 from ChromProcess.Classes import Peak
 from ChromProcess.Classes import Chromatogram
 
 
 def peak_from_chromatogram(
     chrom: Chromatogram, start: float, end: float
-) -> Peak | None:
+) -> Union[Peak, None]:
     """
     Create a peak using the boundaries defined within a chromatogram.
 

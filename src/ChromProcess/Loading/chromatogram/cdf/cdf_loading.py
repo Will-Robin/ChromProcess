@@ -5,9 +5,10 @@ Functions for loading data from .cdf files (ANDI format).
 import numpy as np
 from netCDF4 import Dataset
 from pathlib import Path
+from typing import Union
 
 
-def load_from_cdf(filename: str | Path, keys: list[str]) -> dict[str, np.ndarray]:
+def load_from_cdf(filename: Union[str, Path], keys: list[str]) -> dict[str, np.ndarray]:
     """
     Extracts data from a .cdf file using the Dataset function from the netCDF4
     library.

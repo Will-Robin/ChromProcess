@@ -1,9 +1,10 @@
 import numpy as np
 from pathlib import Path
+from typing import Union
 from ChromProcess.Classes import Chromatogram
 
 
-def chrom_from_csv(file_path: str | Path) -> Chromatogram:
+def chrom_from_csv(file_path: Union[str, Path]) -> Chromatogram:
     """
     Load a chromatogram from a .csv file.
 

@@ -1,5 +1,5 @@
 import numpy as np
-from typing import Optional
+from typing import Optional, Union
 from .mass_spectrum import MassSpectrum
 from .deconvolution_parameters import Deconvolution
 
@@ -17,8 +17,8 @@ class Peak:
         indices: list[int] = [],
         integral: float = 0.0,
         height: float = 0.0,
-        mass_spectrum: MassSpectrum | None = None,
-        deconvolution_params: Deconvolution | None = None,
+        mass_spectrum: Union[MassSpectrum, None] = None,
+        deconvolution_params: Union[Deconvolution, None] = None,
     ):
         """
         Creates a Peak object using a retention time

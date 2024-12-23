@@ -1,4 +1,5 @@
 import pandas as pd
+from typing import Union
 from ChromProcess.Classes import Chromatogram
 from .chromatogram_to_peak_dict import chromatogram_to_peak_dict
 
@@ -16,7 +17,7 @@ def chromatogram_to_df(chromatogram: Chromatogram) -> pd.DataFrame:
     df: pd.DataFrame
     """
 
-    peaks: dict[str, list[float | str]] = chromatogram_to_peak_dict(chromatogram)
+    peaks: dict[str, list[Union[float, str]]] = chromatogram_to_peak_dict(chromatogram)
 
     df = pd.DataFrame(peaks)
 

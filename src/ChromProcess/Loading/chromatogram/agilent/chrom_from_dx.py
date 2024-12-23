@@ -78,7 +78,7 @@ References
 
 import zipfile
 import numpy as np
-from typing import Any
+from typing import Any, Union
 from pathlib import Path
 from ChromProcess.Classes import Chromatogram
 
@@ -132,7 +132,7 @@ def read_header(
     data: bytes,
     offset: int,
     dtype: str,
-) -> str | np.ndarray:
+) -> Union[str, np.ndarray]:
     """
     Decode a section of a string of bytes using an offset and expected data
     type.
@@ -148,7 +148,7 @@ def read_header(
 
     Returns
     -------
-    str | np.ndarray
+    Union[str , np.ndarray]
     """
 
     sliced = data[offset:]
@@ -198,13 +198,15 @@ def chrom_from_ch(file_bytes: bytes) -> Chromatogram:
     return chrom
 
 
-def chrom_from_dx(filename: str | Path, trace_name: str = "FID1A") -> Chromatogram:
+def chrom_from_dx(
+    filename: Union[str, Path], trace_name: str = "FID1A"
+) -> Chromatogram:
     """
     Load a chromatogram from an Agilent .dx file.
 
     Parameters
     ----------
-    filename: str | Path
+    filename: Union[str, Path]
 
     Returns
     -------

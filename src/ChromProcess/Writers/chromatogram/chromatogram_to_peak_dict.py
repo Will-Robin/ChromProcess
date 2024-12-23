@@ -1,10 +1,11 @@
+from typing import Union
 from ChromProcess.Classes import Peak
 from ChromProcess.Classes import Chromatogram
 
 
 def chromatogram_to_peak_dict(
     chromatogram: Chromatogram,
-) -> dict[str, list[float | str]]:
+) -> dict[str, list[Union[float, str]]]:
     """
     Create a spreadsheet-like dictionary of the peaks in a chromatogram.
 
@@ -14,14 +15,14 @@ def chromatogram_to_peak_dict(
 
     Returns
     -------
-    peaks: dict[str, list[float | str]]
+    peaks: dict[str, list[Union[float, str]]]
     """
 
     complete_peaks: list[Peak] = list(chromatogram.peaks.values()) + list(
         chromatogram.deconvoluted_peaks.values()
     )
 
-    peaks: dict[str, list[float | str]] = {
+    peaks: dict[str, list[Union[float, str]]] = {
         "filename": [],
         "retention_time": [],
         "integral": [],
