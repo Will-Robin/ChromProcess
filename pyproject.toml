@@ -7,7 +7,7 @@ name = "ChromProcess"
 version = "0.0.3"
 description = "A library for processing chromatography data."
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.11"
 license = { file = "LICENSE" }
 authors = [{ name = "William E. Robinson", email = "william.robinson@ru.nl" }]
 maintainers = [
