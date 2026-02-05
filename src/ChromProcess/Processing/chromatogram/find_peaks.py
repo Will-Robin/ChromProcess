@@ -13,7 +13,7 @@ def find_peaks_in_region(
     smooth_width: int = 10,
     wlen: int = 10,
     distance: int = 1,
-    prominence: float = 0.1,
+    prominence: float = 0.0,
     peak_local_baseline: bool = False,
 ) -> list[Peak]:
     """
