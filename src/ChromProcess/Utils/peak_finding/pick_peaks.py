@@ -41,7 +41,10 @@ def find_peak_bounds(
         else:
             peak_ends.append(-1)
 
-        peak_starts.append(transition_idx[i - 1])
+        if i == 0:
+            peak_starts.append(0)
+        else:
+            peak_starts.append(transition_idx[i - 1])
 
     return peak_starts, peak_ends
 

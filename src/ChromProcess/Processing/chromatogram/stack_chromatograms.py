@@ -20,14 +20,8 @@ def get_chrom_time_min_max(chromatograms: list[Chromatogram]) -> tuple[float, fl
     -------
     max_time, min_time: float
     """
-    max_time = 1e100
-    min_time = 0
-
-    for c in chromatograms:
-        if c.time.min() > min_time:
-            min_time = c.time.min()
-        if c.time.max() < max_time:
-            max_time = c.time.max()
+    min_time = max(c.time.min() for c in chromatograms)
+    max_time = min(c.time.max() for c in chromatograms)
 
     return min_time, max_time
 

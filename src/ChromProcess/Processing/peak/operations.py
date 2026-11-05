@@ -31,7 +31,7 @@ def get_peak_mass_spectrum(peak: Peak, chromatogram: Chromatogram):
     if len(chromatogram.scan_indices) > 0:
         time = chromatogram.time
 
-        ind = np.where(time == peak.retention_time)[0]
+        ind = np.abs(time - peak.retention_time).argmin()
 
         start = chromatogram.scan_indices[ind][0]
         end = start + chromatogram.point_counts[ind][0]
@@ -166,7 +166,7 @@ def apply_quadratic_calibration(
 
     concentration = internal_standard * c1
 
-    if np.isnan(peak.concentration):
+    if np.isnan(concentration):
         concentration = apply_linear_calibration(
             peak, B, C, internal_standard=internal_standard
         )

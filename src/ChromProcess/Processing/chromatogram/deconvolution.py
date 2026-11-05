@@ -1,5 +1,6 @@
 import numpy as np
 from scipy.stats import norm
+from typing import Optional
 from ChromProcess.Classes import Peak
 from ChromProcess.Classes import Chromatogram
 from ChromProcess.Classes import Deconvolution
@@ -11,7 +12,7 @@ def deconvolute_region(
     region: list[float],
     num_peaks: int = 1,
     baseline_subtract: bool = False,
-    peak_bound_estimates: list[list[float]] = [],
+    peak_bound_estimates: Optional[list[list[float]]] = None,
 ) -> list[Peak]:
     """
     Deconvolute a region of a chromatogram.
@@ -35,6 +36,8 @@ def deconvolute_region(
     new_peaks: list[Peak]
         List of deconvoluted peaks.
     """
+    if peak_bound_estimates is None:
+        peak_bound_estimates = []
 
     ## STAGE 1 preprocessing
     lower, upper = (region[0], region[1])
@@ -47,7 +50,7 @@ def deconvolute_region(
 
     # Find any peaks that have already been picked in the region.
     relevant_peaks = [
-        chromatogram.peaks[p] for p in chromatogram.peaks if lower <= p <= upper
+        p for p in chromatogram.peaks if lower <= p.retention_time <= upper
     ]
 
     peaks = np.array([p.retention_time for p in relevant_peaks])

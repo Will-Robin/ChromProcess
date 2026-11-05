@@ -36,7 +36,7 @@ def fit_pdf(time, signal, peaks, expected_heights, expected_widths, baseline):
     guess = np.hstack([expected_heights, peaks, expected_widths, [baseline]])
 
     # magnitude bounds
-    mag_lower_range = np.full(len(peaks), min(signal.min(), min(peaks)))
+    mag_lower_range = np.zeros(len(peaks))
     mag_upper_range = np.full(len(peaks), max(signal.max(), max(peaks)))
 
     # position bounds
@@ -144,9 +144,9 @@ def pdf(time, magnitude, positions, stdev, baseline):
     np.ndarray
     """
 
-    res = np.sum(
-        magnitude * norm.pdf(time, loc=positions, scale=stdev) + baseline,
-        axis=1,
+    res = (
+        np.sum(magnitude * norm.pdf(time, loc=positions, scale=stdev), axis=1)
+        + baseline
     )
 
     return res

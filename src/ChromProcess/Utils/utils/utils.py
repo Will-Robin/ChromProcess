@@ -1,42 +1,26 @@
 import numpy as np
-from ChromProcess.Utils.utils import clustering as clust
+from .clustering import cluster as clust
 
 
 def is_float(thing):
     """
-    Test if an thing (e.g. str) can be converted to a float.
-
-    Parameters
-    ----------
-    thing: any type
-
-    Returns
-    -------
-    bool
+    Test if an object can be converted to a float.
     """
     try:
         float(thing)
         return True
-    except ValueError:
+    except (ValueError, TypeError):
         return False
 
 
-def is_int(x):
+def is_int(thing):
     """
     Test if variable can be converted to an integer.
-
-    Parameters
-    ----------
-    x: any type
-
-    Returns
-    -------
-    bool
     """
     try:
-        int(x)
+        int(thing)
         return True
-    except ValueError:
+    except (ValueError, TypeError):
         return False
 
 

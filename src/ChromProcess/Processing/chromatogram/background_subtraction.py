@@ -1,4 +1,4 @@
-from copy import copy
+from copy import deepcopy
 import numpy as np
 from scipy.interpolate import interp1d
 from ChromProcess.Classes import Chromatogram
@@ -36,7 +36,7 @@ def background_subtraction(
     baseline_subtracted = sample_signal_axis - interpolated_control_signal
 
     # return the result
-    baseline_substracted_chromatogram = copy(chromatogram)
+    baseline_substracted_chromatogram = deepcopy(chromatogram)
 
     baseline_substracted_chromatogram.time = new_time_axis
     baseline_substracted_chromatogram.signal = baseline_subtracted
