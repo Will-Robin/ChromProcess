@@ -16,7 +16,7 @@ CHROMPROCESS_PACKAGE=$(LOADING) $(WRITERS) $(PROCESSING) $(UTILS) $(CHROMPROCESS
 all: index.html
 
 index.html: $(CHROMPROCESS_PACKAGE)
-	pdoc ../ChromProcess --docformat "numpy" -o ./
+	pdoc ../src/ChromProcess --docformat "numpy" -o ./
 
 clean:
 	rm *.html
