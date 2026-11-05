@@ -62,8 +62,8 @@ def chrom_from_json(filename: str) -> Chromatogram:
         end = peak["end"]
 
         inds = np.where((chrom.time >= start) & (chrom.time <= end))[0].tolist()
-        chrom.peaks[retention_time] = Peak(
-            retention_time, start, end, indices=inds, integral=peak["integral"]
+        chrom.peaks.append(
+            Peak(retention_time, start, end, indices=inds, integral=peak["integral"])
         )
 
     return chrom

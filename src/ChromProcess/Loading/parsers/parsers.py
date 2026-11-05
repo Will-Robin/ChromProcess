@@ -26,6 +26,10 @@ def parse_text_columns(
     lines: list[str] = text.split(point_delimiter)
     scrub_lines: list[str] = [x for x in lines if x != ""]
     points: list[list[str]] = [list(x.split(ordinal_delimiter)) for x in scrub_lines]
+
+    if not points:
+        return []
+
     data: list[list[str]] = list(map(list, zip(*points)))
 
     return data
@@ -59,7 +63,10 @@ def import_file_section(file: str, start_token: str, end_token: str) -> list[lis
         for _, line in enumerate(f):
             if start_token in line:
                 readstate = True
-                line = next(f)
+                try:
+                    line = next(f)
+                except StopIteration:
+                    break
             if end_token in line:
                 readstate = False
             if readstate:

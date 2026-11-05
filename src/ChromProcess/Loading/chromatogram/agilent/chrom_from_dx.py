@@ -217,6 +217,7 @@ def chrom_from_dx(
     # information can be gleaned from injection.acmd, but parsing a load of XML
     # might be slower than just peeking at bytes.
     trace_name = trace_name.encode("utf-16").decode("utf-16")
+    chrom = None
     with zipfile.ZipFile(filename) as file:
         filenames = [x for x in file.namelist() if x.endswith("CH")]
         for name in filenames:
@@ -232,5 +233,8 @@ def chrom_from_dx(
                     filename = Path(filename).name
 
                 chrom.filename = filename
+
+    if chrom is None:
+        raise ValueError(f"Trace {trace_name} not found")
 
     return chrom

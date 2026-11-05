@@ -28,7 +28,10 @@ def peak_from_chromatogram(
         print(f"peak start ({start}) > peak end, ({end}) returning None")
         return None
 
-    inds = np.where((chrom.time > start) & (chrom.time < end))[0].tolist()
+    inds = np.where((chrom.time >= start) & (chrom.time <= end))[0].tolist()
+
+    if len(inds) == 0:
+        return None
 
     timeseg = chrom.time[inds]
     sigseg = chrom.signal[inds]
@@ -38,7 +41,12 @@ def peak_from_chromatogram(
 
     start = timeseg[0]
     end = timeseg[-1]
-    peak = Peak(retention_time, start, end, indices=inds)
-    peak.set_height(chrom.signal[peak_idx])
+    peak = Peak(
+        retention_time,
+        start,
+        end,
+        indices=inds,
+        height=sigseg[peak_idx],
+    )
 
     return peak

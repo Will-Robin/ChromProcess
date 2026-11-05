@@ -88,6 +88,4 @@ def chrom_from_labsolutions_ascii(filename, data_key="Detector A-Ch1"):
         return chrom
 
     else:
-        print("Scraping data from file failed.")
-
-    return Classes.Chromatogram()
+        raise ValueError(f"Could not extract {data_key}")

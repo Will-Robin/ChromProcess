@@ -2,9 +2,7 @@ from ChromProcess.Classes import Chromatogram
 from .chromatogram_to_peak_dict import chromatogram_to_peak_dict
 
 
-def chromatogram_to_peak_table_text(
-    chromatogram: Chromatogram, header_text: str = ""
-) -> str:
+def chromatogram_to_peak_table_text(chromatogram: Chromatogram) -> str:
     """
     Create the text for a peak collection based on the Peak objects in the
     chromatogram.
@@ -12,7 +10,6 @@ def chromatogram_to_peak_table_text(
     Parameters
     ----------
     chromatogram: Chromatogram
-    header_text: str
 
     Returns
     -------

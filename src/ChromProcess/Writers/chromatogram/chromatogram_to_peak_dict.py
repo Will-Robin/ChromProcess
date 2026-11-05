@@ -18,8 +18,9 @@ def chromatogram_to_peak_dict(
     peaks: dict[str, list[Union[float, str]]]
     """
 
-    complete_peaks: list[Peak] = list(chromatogram.peaks.values()) + list(
-        chromatogram.deconvoluted_peaks.values()
+    complete_peaks = (
+        chromatogram.peaks
+        + chromatogram.deconvoluted_peaks
     )
 
     peaks: dict[str, list[Union[float, str]]] = {
@@ -38,8 +39,8 @@ def chromatogram_to_peak_dict(
         integral = peak.integral
         retention_time = peak.retention_time
         height = peak.height
-        start = chromatogram.time[peak.indices[0]]
-        end = chromatogram.time[peak.indices[-1]]
+        start = peak.start
+        end = peak.end
 
         peaks["retention_time"].append(retention_time)
         peaks["integral"].append(integral)
@@ -52,10 +53,14 @@ def chromatogram_to_peak_dict(
         else:
             peaks["deconvoluted"].append(False)
 
-    is_rt = chromatogram.internal_standard.retention_time
-    peaks["is_retention_time"] = [is_rt for p in complete_peaks]
+    if chromatogram.internal_standard is not None:
+        is_rt = chromatogram.internal_standard.retention_time
+        is_integral = chromatogram.internal_standard.integral
+    else:
+        is_rt = None
+        is_integral = None
 
-    is_integral = chromatogram.internal_standard.integral
+    peaks["is_retention_time"] = [is_rt for p in complete_peaks]
     peaks["is_integral"] = [is_integral for p in complete_peaks]
 
     peaks["filename"] = [chromatogram.filename for _ in complete_peaks]

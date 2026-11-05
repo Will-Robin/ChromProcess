@@ -45,7 +45,7 @@ def chrom_from_csv(file_path: Union[str, Path]) -> Chromatogram:
                 chromatogram.x_unit = header[0]
                 chromatogram.y_unit = header[1]
             else:
-                time, signal = map(float, line.split(","))
+                time, signal = map(float, line.strip().split(","))
                 x_vals.append(time)
                 y_vals.append(signal)
 

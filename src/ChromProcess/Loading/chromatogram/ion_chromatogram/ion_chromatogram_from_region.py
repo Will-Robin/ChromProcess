@@ -43,7 +43,7 @@ def ion_chromatogram_from_region(
             upper_idx = scan_inds[s] + p_counts[s]
             slice_indices = np.arange(lower_idx, upper_idx, 1)
             slice_indices = slice_indices[
-                chromatogram.mz_values[slice_indices] > threshold
+                chromatogram.mz_intensity[slice_indices] > threshold
             ]
 
             mz_values = chromatogram.mz_values[slice_indices]

@@ -31,7 +31,6 @@ def chrom_from_cdf(
 
     if load_ms is True:
         ms_extensions = [
-            instrument.MS_INTENSITY_KEY,
             instrument.MZ_KEY,
             instrument.MS_INTENSITY_KEY,
             instrument.SCAN_INDEX_KEY,

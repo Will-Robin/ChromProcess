@@ -25,8 +25,7 @@ def chromatogram_to_json_text(chromatogram: Chromatogram) -> str:
     chrom_dict["y_unit"] = chromatogram.y_unit
 
     chrom_dict["peaks"] = []
-    for p_k in chromatogram.peaks:
-        peak = chromatogram.peaks[p_k]
+    for peak in chromatogram.peaks:
         chrom_dict["peaks"].append(
             {
                 "retention_time": peak.retention_time,
@@ -58,7 +57,7 @@ def chromatogram_to_json(chromatogram: Chromatogram, filename: str = "") -> None
     """
 
     if filename == "":
-        filename = chromatogram.filename.split(".")[0] + ".csv"
+        filename = chromatogram.filename.split(".")[0] + ".json"
 
     json_text = chromatogram_to_json_text(chromatogram)
 
