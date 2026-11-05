@@ -14,7 +14,7 @@ class Peak:
         retention_time: float,
         start: float,
         end: float,
-        indices: list[int] = [],
+        indices: Optional[list[int]] = None,
         integral: float = 0.0,
         height: float = 0.0,
         mass_spectrum: Union[MassSpectrum, None] = None,
@@ -52,13 +52,19 @@ class Peak:
         self.conc_error: bool or float
         """
 
+        if start > end:
+            raise ValueError("Peak start must precede peak end")
+
+        if not start <= retention_time <= end:
+            raise ValueError("Retention time must lie within peak boundaries")
+
         self.retention_time = retention_time
 
         self.start: float = start
 
         self.end: float = end
 
-        self.indices: list[int] = indices
+        self.indices: list[int] = [] if indices is None else indices
 
         self.integral: float = 0.0
         if integral is not None:
@@ -82,7 +88,7 @@ class Peak:
 
         self.mass_spectrum: Optional[MassSpectrum] = mass_spectrum
 
-        self.deconvolution_params = deconvolution_params
+        self.deconvolution_params: Optional[Deconvolution] = deconvolution_params
 
     def __str__(self):
         str_repr = f"""

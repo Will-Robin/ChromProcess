@@ -1,9 +1,17 @@
+import numpy as np
+
+
 class MassSpectrum:
     """
     Container for mass spectral data.
     """
 
-    def __init__(self, mz, inten, pos=None):
+    def __init__(
+        self,
+        mz: np.ndarray,
+        inten: np.ndarray,
+        pos: float | None = None,
+    ):
         """
         Parameters
         ----------

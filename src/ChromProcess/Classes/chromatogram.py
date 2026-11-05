@@ -1,6 +1,7 @@
 import numpy as np
 
 from .peak import Peak
+from typing import Optional
 
 
 class Chromatogram:
@@ -24,7 +25,7 @@ class Chromatogram:
             Time axis for the chromatogram.
         self.signal: numpy.ndarray[np.float64]
             Signal of the chromatogram.
-        self.peaks: dict
+        self.peaks: list[Peak]
             Container for the peaks derived from the chromatogram.
         self.deconvoluted_peaks: dict
             Container for the peaks deconvoluted from the chromatogram.
@@ -36,7 +37,7 @@ class Chromatogram:
             Container for the scan indices from mass spectra.
         self.point_counts: numpy.ndarray[np.int]
             Container for the point counts from mass spectra.
-        self.internal_standard: Peak
+        self.internal_standard: Optional[Peak]
             The internal standard peak.
         """
 
@@ -47,17 +48,23 @@ class Chromatogram:
         self.time: np.ndarray = np.array([])
         self.signal: np.ndarray = np.array([])
 
-        self.peaks: dict[float, Peak] = dict()
-        self.deconvoluted_peaks: dict[float, Peak] = dict()
+        self.peaks: list[Peak] = []
+        self.deconvoluted_peaks: list[Peak] = []
 
         self.mz_values: np.ndarray = np.array([])
         self.mz_intensity: np.ndarray = np.array([])
         self.scan_indices: np.ndarray = np.array([])
         self.point_counts: np.ndarray = np.array([])
 
-        self.internal_standard: Peak = Peak(0.0, 0.0, 0.0)
+        self.internal_standard: Optional[Peak] = None
 
     def __str__(self) -> str:
+        internal_standard = (
+            self.internal_standard.retention_time
+            if self.internal_standard is not None
+            else None
+        )
+
         str_repr = f"""
         file name: {self.filename}
         x unit: {self.x_unit}
@@ -66,7 +73,7 @@ class Chromatogram:
         signal: {len(self.signal)} data points
         peaks: {len(self.peaks)}
         deconvoluted peaks: {len(self.deconvoluted_peaks)}
-        internal_standard: {self.internal_standard.retention_time}
+        internal_standard: {internal_standard}
         mass spectral infomation: {"yes" if len(self.mz_values) > 0 else "no"}
         """
         return str_repr
@@ -85,14 +92,13 @@ class Chromatogram:
         """
 
         for peak in peaks:
-            rt = peak.retention_time
             indices = np.where((self.time >= peak.start) & (self.time <= peak.end))[0]
             peak.indices = indices.tolist()
 
             if peak.deconvolution_params:
-                self.deconvoluted_peaks[rt] = peak
+                self.deconvoluted_peaks.append(peak)
             else:
-                self.peaks[rt] = peak
+                self.peaks.append(peak)
 
     def set_internal_standard(self, peak: Peak) -> None:
         """
@@ -124,11 +130,19 @@ class Chromatogram:
         intensity: numpy.ndarray[np.float64]
             Ion counts.
         """
+        if len(self.time) == 0:
+            raise ValueError("Chromatogram contains no time axis.")
 
-        inds = np.where(self.time == time)[0]
+        if len(self.scan_indices) == 0:
+            raise ValueError("No mass spectral information available.")
 
-        scan_inds = self.scan_indices[inds][0]
-        p_counts = self.point_counts[inds][0]
+        ind = np.argmin(np.abs(self.time - time))
+
+        if abs(self.time[ind] - time) > 0.001:
+            raise ValueError(f"No spectrum found near time {time}")
+
+        scan_inds = int(self.scan_indices[ind])
+        p_counts = int(self.point_counts[ind])
 
         intensity = self.mz_intensity[scan_inds : scan_inds + p_counts]
         m_z = np.round(self.mz_values[scan_inds : scan_inds + p_counts], 2)
@@ -159,8 +173,15 @@ class Chromatogram:
         if len(self.scan_indices) != 0:
             scan_brackets = []
 
-            for s in range(0, len(self.scan_indices) - 1):
-                scan_brackets.append([self.scan_indices[s], self.scan_indices[s + 1]])
+            for s in range(len(self.scan_indices)):
+                start = self.scan_indices[s]
+
+                if s < len(self.scan_indices) - 1:
+                    end = self.scan_indices[s + 1]
+                else:
+                    end = len(self.mz_values)
+
+                scan_brackets.append((start, end))
 
             for s, bracket in enumerate(scan_brackets):
                 st_bracket = bracket[0]
