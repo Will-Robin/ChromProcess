@@ -15,7 +15,7 @@ injection.acmd
 
 `[Content_Types].xml` gives an overview of the contents of each filetype.
 
-`injection.acmd` is an xml formatted file containing information about the data
+`injection.acmd` is an xml formatted file containing informaton about the data
 contained in the .CH files.
 
 Files with a .CH suffix contain data traces (those which are recorded as
@@ -82,8 +82,8 @@ from typing import Any, Union
 from pathlib import Path
 from ChromProcess.Classes import Chromatogram
 
-sections = {
-    "encoding": (0x0, "utf-16"),
+SECTIONS = {
+    "encoding": (0x0, "utf-8"),
     "data_offset": (0x108, ">i4"),
     "time_start": (0x11A, ">f4"),
     "time_end": (0x11E, ">f4"),
@@ -120,11 +120,11 @@ def decode_utf(binary_data: bytes, dtype: str) -> str:
     length_byte = binary_data[0:1]
     bytes_length = int.from_bytes(length_byte, byteorder="big")
     if dtype == "utf-16":
-        # UTF-16 uses 16 bytes per character, not 8
+        # UTF-16 uses 2 bytes per character, not 8
         bytes_length *= 2
     # Cut out the string bytes and return as a re-encoded string
     string_bytes = binary_data[1 : bytes_length + 1]
-    new_string = string_bytes.decode("utf-8")
+    new_string = string_bytes.decode(dtype)
     return new_string.replace("\0", "")
 
 
@@ -160,16 +160,24 @@ def read_header(
         return np.frombuffer(sliced, dtype=dtype, count=1)
 
 
-def chrom_from_ch(file_bytes: bytes) -> Chromatogram:
+def chrom_from_ch(filename: Union[str, Path], trace_name: str = "FID1A"):
+    with open(filename, "rb") as file:
+        return chrom_from_ch_bytes(file.read())
+
+
+def chrom_from_ch_bytes(file_bytes: bytes) -> Chromatogram:
     """
     Create a chromatogram object from the byte contents of an Agilent .ch file.
 
     """
-    info: dict[str, Any] = {}
-    for f in sections:
-        info[f] = read_header(file_bytes, sections[f][0], sections[f][1])
+    if len(file_bytes) < SECTIONS["data_start"][0]:
+        raise ValueError("File is too small to be a valid Agilent CH file.")
 
-    start = sections["data_start"][0]
+    info: dict[str, Any] = {}
+    for f in SECTIONS:
+        info[f] = read_header(file_bytes, SECTIONS[f][0], SECTIONS[f][1])
+
+    start = SECTIONS["data_start"][0]
     end = len(file_bytes)
     npoints = (end - start) // 8
 
@@ -223,16 +231,16 @@ def chrom_from_dx(
         for name in filenames:
             content_bytes = file.read(name)
             trace = read_header(
-                content_bytes, sections["channel_name"][0], sections["channel_name"][1]
+                content_bytes, SECTIONS["channel_name"][0], SECTIONS["channel_name"][1]
             )
-            if trace == trace_name:
-                chrom = chrom_from_ch(content_bytes)
-                if isinstance(filename, Path):
-                    filename = filename.name
-                else:
-                    filename = Path(filename).name
+            if trace.strip() == trace_name.strip():
+                chrom = chrom_from_ch_bytes(content_bytes)
 
-                chrom.filename = filename
+                output_filename = (
+                    filename.name if isinstance(filename, Path) else Path(filename).name
+                )
+
+                chrom.filename = output_filename
 
     if chrom is None:
         raise ValueError(f"Trace {trace_name} not found")
