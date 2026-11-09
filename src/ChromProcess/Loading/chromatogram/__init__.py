@@ -8,6 +8,7 @@ from .text.chrom_from_json import chrom_from_json
 from .text.chrom_from_labsolutions_ascii import chrom_from_labsolutions_ascii
 
 from .agilent.chrom_from_dx import chrom_from_dx
+from .agilent.chrom_from_dx import chrom_from_ch
 
 __all__ = [
     "chrom_from_cdf",
@@ -16,5 +17,6 @@ __all__ = [
     "chrom_from_csv",
     "chrom_from_json",
     "chrom_from_dx",
+    "chrom_from_ch",
     "chrom_from_labsolutions_ascii",
 ]
