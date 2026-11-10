@@ -22,7 +22,6 @@ dependencies = [
     "scipy",
     "pandas",
     "matplotlib",
-    "netcdf4"
 ]
 
 [project.optional-dependencies]
@@ -31,11 +30,12 @@ dev = [
     "ruff",
     "mypy"
 ]
-
 notebooks = [
     "notebook",
     "jupyterlab"
 ]
+cdf = ["netcdf4"]
+masshunter = ["rainbow-api"]
 
 [project.urls]
 "Source" = "https://github.com/Will-Robin/ChromProcess"

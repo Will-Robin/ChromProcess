@@ -1,3 +1,10 @@
+try:
+    import netCDF4
+except ImportError as err:
+    _cdf_import_error = err
+else:
+    _cdf_import_error = None
+
 from pathlib import Path
 from ChromProcess.Classes import Chromatogram
 
@@ -22,6 +29,13 @@ def chrom_from_cdf(
     chrom: Chromatogram
     """
 
+    if _cdf_import_error is not None:
+        raise ImportError(
+            "Loading CDF files requires the optional dependency "
+            "'netCDF4'. Install it with:\n\n"
+            "pip install ChromProcess[cdf]"
+        ) from _cdf_import_error
+
     if isinstance(filename, str):
         fname = Path(filename)
     else:
@@ -29,7 +43,7 @@ def chrom_from_cdf(
 
     data_keys = [instrument.TIME_KEY, instrument.TIC_KEY]
 
-    if load_ms is True:
+    if load_ms:
         ms_extensions = [
             instrument.MZ_KEY,
             instrument.MS_INTENSITY_KEY,

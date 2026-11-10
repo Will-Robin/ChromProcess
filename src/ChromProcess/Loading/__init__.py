@@ -11,6 +11,8 @@ from .chromatogram import chrom_from_json
 from .chromatogram import chrom_from_labsolutions_ascii
 
 from .chromatogram import chrom_from_dx
+from .chromatogram import chrom_from_ch
+from .chromatogram import chrom_from_masshunter
 
 from .chromatogram import ion_chromatogram_from_peak
 from .chromatogram import ion_chromatogram_from_region
@@ -26,6 +28,8 @@ __all__ = [
     "chrom_from_csv",
     "chrom_from_json",
     "chrom_from_dx",
+    "chrom_from_ch",
+    "chrom_from_masshunter",
     "chrom_from_labsolutions_ascii",
     "ion_chromatogram_from_peak",
     "ion_chromatogram_from_region",
