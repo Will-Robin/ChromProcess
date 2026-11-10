@@ -52,6 +52,7 @@ def chrom_from_cdf(
     chrom.y_unit = instrument.Y_UNIT
 
     if load_ms is True:
+        chrom.ms_time = data_container[instrument.TIME_KEY] / instrument.TIME_CONVERSION
         chrom.mz_values = data_container[instrument.MZ_KEY]
         chrom.mz_intensity = data_container[instrument.MS_INTENSITY_KEY]
         chrom.scan_indices = data_container[instrument.SCAN_INDEX_KEY]

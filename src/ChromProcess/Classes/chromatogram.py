@@ -51,6 +51,7 @@ class Chromatogram:
         self.peaks: list[Peak] = []
         self.deconvoluted_peaks: list[Peak] = []
 
+        self.ms_time: np.ndarray = np.array([])
         self.mz_values: np.ndarray = np.array([])
         self.mz_intensity: np.ndarray = np.array([])
         self.scan_indices: np.ndarray = np.array([])
@@ -130,15 +131,20 @@ class Chromatogram:
         intensity: numpy.ndarray[np.float64]
             Ion counts.
         """
-        if len(self.time) == 0:
-            raise ValueError("Chromatogram contains no time axis.")
+        if len(self.ms_time) == 0:
+            raise ValueError("No mass spectral time axis available.")
 
         if len(self.scan_indices) == 0:
             raise ValueError("No mass spectral information available.")
 
-        ind = np.argmin(np.abs(self.time - time))
+        if len(self.ms_time) > 1:
+            tolerance = np.median(np.diff(self.ms_time))
+        else:
+            tolerance = 0.001
 
-        if abs(self.time[ind] - time) > 0.001:
+        ind = np.argmin(np.abs(self.ms_time - time))
+
+        if abs(self.ms_time[ind] - time) > tolerance:
             raise ValueError(f"No spectrum found near time {time}")
 
         scan_inds = int(self.scan_indices[ind])
