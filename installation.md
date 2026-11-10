@@ -65,6 +65,38 @@ Create a virtual environment:
 uv sync
 ```
 
+# Optional Dependencies
+
+Loading some file formats requires additional dependencies.
+
+## CDF Files
+
+Using pip:
+
+```
+pip install -e ".[cdf]"
+```
+
+Using uv:
+
+```
+uv sync --extra cdf
+```
+
+## Agilent MassHunter
+
+Using pip:
+
+```
+pip install -e ".[masshunter]"
+```
+
+Using uv:
+
+```
+uv sync --extra masshunter
+```
+
 # Development Installation
 
 To install ChromProcess together with development tools:
@@ -82,5 +114,19 @@ uv sync --extra dev
 ```
 
 This installs `mypy`, `ruff` and `pdoc`.
+
+## One with Everthing
+
+Using pip:
+
+```
+pip install -e ".[cdf,masshunter,dev]"
+```
+
+Using uv:
+
+```
+uv sync --extra cdf --extra masshunter --extra dev
+```
 
 
